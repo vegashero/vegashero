@@ -1,0 +1,2 @@
+# Vegas Hero Wordpress Plugin
+
