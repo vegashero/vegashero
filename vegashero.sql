@@ -27,8 +27,3 @@ CREATE TABLE IF NOT EXISTS games (
 ) ENGINE=InnoDb DEFAULT CHARSET=utf8;
 
 
-gameId
-languageCode
-pid
-bid
-
