@@ -15,18 +15,25 @@ if ( ! defined( 'WPINC' ) ) {
 // }
 
 
+/*
+ * create custom content type
+ */
 function vegashero_create_custom_post_type() {
     $options = array(
         'labels' => array(
-            'name' => _x('Games'),
-            'singular_name' => _x('Game')
+            'name' => _x('Vegas Hero Games'),
+            'singular_name' => _x('Vegas Hero Game')
         ),
         'public' => true,
         'has_archive' => true,
-        'rewrite' => array('slug' => 'game')
+        'rewrite' => array('slug' => 'games')
     );
-    register_post_type('vegashero_game', $options);
+    register_post_type('vegashero-game', $options);
 }
 
 add_action('init', 'vegashero_create_custom_post_type');
+
+/*
+ * create categories/tags via taxonomy
+ */
 

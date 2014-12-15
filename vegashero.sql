@@ -1,6 +1,8 @@
 CREATE TABLE IF NOT EXISTS sites (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+    src VARCHAR(500) NOT NULL,
+    type ENUM('iframe', 'embed') NOT NULL INDEX type (type),
     created TIMESTAMP DEFAULT NOW()
 ) ENGINE=InnoDb DEFAULT CHARSET=utf8;
 
