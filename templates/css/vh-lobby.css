@@ -1,0 +1,111 @@
+html {
+
+}
+body {
+  font-family:"Helvetica Neue", Helvetica, sans-serif;
+
+}
+a:hover {
+  text-decoration:none;  
+}
+.app-content {
+  height: 100%;
+}
+
+.app-content:before,
+.app-content:after {
+  display: table;
+  content: " ";
+}
+
+.app-content:after {
+  clear: both;
+}
+.row-sm {
+  margin-right: -10px;
+  margin-left: -10px;
+}
+.row-sm > div {
+  padding-right: 10px;
+  padding-left: 10px;
+}
+.item {
+  margin-bottom:20px;
+  background:#f3f3f3;
+  padding:10px;
+  box-sizing:border-box;
+}
+.item:hover > .pos-rlt .item-overlay {
+  display:block;
+}
+.pos-rlt .item-overlay .vh-play-fun {
+  background:#309dd0;
+  padding:6px 10px;
+  color:white;
+  font-weight:bold;
+  font-style:normal;
+  border-radius:3px;
+  cursor:pointer;
+}
+.padder-v {
+  padding:8px 0 0 0;
+}
+.item, .pos-rlt {
+  position: relative;
+}
+.item .top {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.item .center {
+  position: absolute;
+  top: 50%;
+  left: 48px;
+}
+.item .bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.item-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+}
+.text-white {
+  color: #fff;
+}
+.img-full {
+  width: 100%;
+}
+.text-ellipsis {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.m-t-sm {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.bg-info {
+  color: #dcf2f8;
+  background-color: #23b7e5;
+}
+.app-header-fixed {
+  padding-top: 50px;
+}
+.app.container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+@media (min-width: 768px) {
+  .app.container {
+    width: 920px;
+  }
+}
