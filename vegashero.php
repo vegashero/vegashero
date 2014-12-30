@@ -22,13 +22,38 @@ class Vegashero
 
     public function __construct() {
 
-        add_action('init', array($this, 'register_custom_post_type'));
+        add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerTaxonomies'));
+        add_filter( 'single_template', array($this, 'getSingleTemplate'));
+        add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
 
         add_action('vegashero_import', array($this, 'import_games'));
         if( ! wp_next_scheduled('vegashero_import')) {
             wp_schedule_single_event(time(), 'vegashero_import');
         }
+    }
+
+    public function getArchiveTemplate($archive_template){
+
+        $plugin_dir = plugin_dir_path(__FILE__);
+
+        if ( is_post_type_archive ( $this->_custom_post_type ) ) {
+            $archive_template = sprintf("%s/templates/archive-%s.php", $plugin_dir, $this->_custom_post_type);
+        }
+        return $archive_template;
+
+    }
+
+    public function getSingleTemplate($single_template) {
+
+        $plugin_dir = plugin_dir_path(__FILE__);
+        $post_id = get_the_ID();
+
+        if ( get_post_type( $post_id ) == $this->_custom_post_type ) {
+            $singe_template = sprintf("%s/templates/single-%s.php", $plugin_dir, $this->_custom_post_type);
+        }
+        return $single_template;
+
     }
 
     private function _getVegasgod() {
@@ -191,7 +216,7 @@ class Vegashero
         $this->_registerGameCategoryTaxonomy();
     }
 
-    public function register_custom_post_type() {
+    public function registerCustomPosttype() {
 
         $options = array(
             'labels' => array(
