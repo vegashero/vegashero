@@ -14,7 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
     exit();
 }
 
-class Vegashero 
+class Vegashero
 {
 
     private $_taxonomy = 'vegashero_games';
@@ -115,7 +115,7 @@ class Vegashero
                     'category_description' => 'Vegas Hero',
                     'category_nicename' => sanitize_title($category),
                     'taxonomy' => $this->_taxonomy
-                ), 
+                ),
                 true
             );
         }  else {
@@ -135,7 +135,7 @@ class Vegashero
                     'category_nicename' => sanitize_title($site),
                     'category_parent' => $parent_id,
                     'taxonomy' => $this->_taxonomy
-                ), 
+                ),
                 true
             );
         }  else {
@@ -155,7 +155,7 @@ class Vegashero
                     'category_nicename' => sanitize_title($provider),
                     'category_parent' => $parent_id,
                     'taxonomy' => $this->_taxonomy
-                ), 
+                ),
                 true
             );
         }  else {
@@ -176,7 +176,7 @@ class Vegashero
                     'category_nicename' => sanitize_title($category),
                     'category_parent' => $parent_id,
                     'taxonomy' => $this->_taxonomy
-                ), 
+                ),
                 true
             );
         }  else {
@@ -214,7 +214,7 @@ class Vegashero
                 'post_status'    => $game->status ? 'publish' : 'draft',
                 'post_type'      => $this->_custom_post_type,
                 'post_excerpt'   => 'Post excerpt goes here'
-            ); 
+            );
             $post_id = wp_insert_post($post);
             $post_meta = array(
                 'ref' => trim($game->ref),
@@ -261,8 +261,8 @@ class Vegashero
 
         $options = array(
             'labels' => array(
-                'name' => 'Vegas Hero Games',
-                'singular_name' => 'Vegas Hero Game'
+                'name' => 'Vegas Games',
+                'singular_name' => 'Vegas Game'
             ),
             'public' => true,
             'has_archive' => true,
