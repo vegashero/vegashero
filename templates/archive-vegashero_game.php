@@ -25,7 +25,7 @@ $plugins_url = plugin_dir_url( $file );
 									<a><i class="vh-play-real">Play for real</i></a>
 								</div>
 							</div>
-							<a ><img src=""<?=$post_meta['thumb_image']?> alt="" class="img-full r r-2x"></a>
+							<a ><img src="http://placehold.it/350x250" alt="" class="img-full r r-2x"></a>
 						</div>
 						<div class="padder-v">
 							<a href="<?php the_permalink(); ?>" class="text-ellipsis"><?php the_title(); ?></a>
