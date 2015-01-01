@@ -2,8 +2,12 @@
 $plugins_url = plugin_dir_url( $file );
 ?>
 <!-- Page Section -->
-<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/bootstrap.css" type="text/css" />
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="<?php echo $plugins_url ?>vegashero/templates/js/bootstrap.min.js"></script>
 
+<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/bootstrap-theme.min.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/dropdown.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/vh-lobby.css" type="text/css" />
 
 <div class="app-content">
@@ -11,48 +15,65 @@ $plugins_url = plugin_dir_url( $file );
 	<div class="col wrapper-lg">
 		<div class="row row-sm">
 
-			<nav class="navbar navbar-default">
-				<div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-					</div>
 
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li class="dropdown">
-								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categories <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">3 reels 1 index</a></li>
-									<li><a href="#">3 reels 3 indices</a></li>
-									<li><a href="#">5 reels 1 index</a></li>
-									<li><a href="#">8 lines</a></li>
-									<li><a href="#">9 reels 1 index</a></li>
-									<li class="divider"></li>
-									<li><a href="#">Arcade</a></li>
-									<li><a href="#">Baccarat</a></li>
-									<li><a href="#">Binary options</a></li>
-									<li><a href="#">Bingo</a></li>
-									<li class="divider"></li>
-									<li><a href="#">One more separated link</a></li>
-								</ul>
-							</li>
-						</ul>
-						<form class="navbar-form navbar-right" role="search">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Search">
-							</div>
-							<button type="submit" class="btn btn-default">Submit</button>
-						</form>
-					</div><!-- /.navbar-collapse -->
-				</div><!-- /.container-fluid -->
-			</nav>
+			<div class="row vh-cats">
+				<div class="col-md-12">
+					<nav class="navbar">
+						<div class="collapse navbar-collapse js-navbar-collapse">
+							<ul class="btn-group">
+								<li class="dropdown mega-dropdown">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										Categories <span class="caret"></span>
+									</button>
+
+
+									<ul class="dropdown-menu mega-dropdown-menu row">
+
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+									</ul>
+
+								</li>
+							</ul>
+
+						</div><!-- /.nav-collapse -->
+					</nav>
+				</div>
+			</div>
 				<?php if ( have_posts() ) :
 					while(have_posts()): the_post();
 					$post_meta = get_post_meta(get_the_ID(), 'game_meta', true);

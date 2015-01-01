@@ -1,12 +1,12 @@
 html {
-
+  font-size:1em;
 }
 body {
   font-family:"Helvetica Neue", Helvetica, sans-serif;
 
 }
 a:hover {
-  text-decoration:none;  
+  text-decoration:none;
 }
 .app-content {
   height: 100%;
