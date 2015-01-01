@@ -24,6 +24,10 @@ class Vegashero
 
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerTaxonomies'));
+
+        add_action('admin_init', array($this, 'registerSettings'));
+        add_action('admin_menu', array($this, 'addOptionsPage'));
+
         add_filter( 'single_template', array($this, 'getSingleTemplate'));
         add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
 
@@ -31,6 +35,43 @@ class Vegashero
         if( ! wp_next_scheduled('vegashero_import')) {
             wp_schedule_single_event(time(), 'vegashero_import');
         }
+    }
+
+    public function registerSettings() {
+        register_setting('vegashero_options', 'vegashero_options');
+        // http://ottopress.com/2009/wordpress-settings-api-tutorial/
+        add_settings_section('vegashero_settings_provider', 'Game Providers', array($this, 'getOptionsSectionText'), 'vegashero');
+
+        $vegasgod = $this->_getVegasgod();
+        $sites = $vegasgod->getSites();
+        foreach($sites as $site) {
+            add_settings_field('vegashero_options_'.$site, $site, array($this, 'getOptionsInputBox'), 'vegashero', 'vegashero_settings_provider');
+        }
+    }
+
+    public function getOptionsInputBox() {
+        $options = get_option('vegashero_options');
+        echo "<input id='' name='vegashero_options[]' size='40' type='text' value='' />";
+    }
+
+    public function getOptionsSectionText() {
+        echo "<p>Description for this section</p>";
+    }
+
+    public function addOptionsPage() {
+        add_options_page('Vegas Hero Options', 'Vegas Hero Options', 'manage_options', 'vegashero', array($this, 'getOptionsPage'));
+    }
+
+    public function getOptionsPage() { 
+        echo '<div class="wrap">';
+        echo '<h2>Vegas Hero Settings</h2>';
+        echo '<form method="post" action="options.php">';
+        settings_fields('vegashero_options');
+        do_settings_sections('vegashero');
+        submit_button(); 
+        echo '</form>';
+        echo '</div>';
+
     }
 
     public function getArchiveTemplate($archive_template){
