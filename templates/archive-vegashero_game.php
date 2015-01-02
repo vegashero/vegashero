@@ -79,22 +79,21 @@ $plugins_url = plugin_dir_url( $file );
 					$post_meta = get_post_meta(get_the_ID(), 'game_meta', true);
 					?>
 				<div class="col-xs-6 col-sm-4 col-md-4 col-lg-1-3">
+
 					<div class="item">
-						<div class="pos-rlt">
-							<div class="item-overlay">
-								<div class="center text-center">
-									<a><i class="vh-play-fun">Play for fun</i></a><br>
-									<a><i class="vh-play-real">Play for real</i></a>
-								</div>
-							</div>
-							<a ><img src="http://placehold.it/350x250" alt="" class="img-full r r-2x"></a>
+
+						<img src="http://placehold.it/350x250" alt="" class="img-full r r-2x">
+						<div class="item-overlay">
+							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
 						</div>
-						<div class="padder-v">
-							<a href="<?php the_permalink(); ?>" class="text-ellipsis"><?php the_title(); ?></a>
-							<a class="text-ellipsis text-xs text-muted">Category name</a>
+
+						<a href="<?php the_permalink(); ?>" class="text-ellipsis"><?php the_title(); ?></a>
+						<p class="text-ellipsis text-xs text-muted">Category name</p>
+
 						</div>
-					</div>
 				</div>
+
+
 
 					<?php endwhile; ?>
 					<div class="blog_pagination">
