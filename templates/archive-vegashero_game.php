@@ -79,18 +79,18 @@ $plugins_url = plugin_dir_url( $file );
 					$post_meta = get_post_meta(get_the_ID(), 'game_meta', true);
 					?>
 				<div class="col-xs-6 col-sm-4 col-md-4 col-lg-1-3">
-
 					<div class="item">
-
-						<img src="http://placehold.it/350x250" alt="" class="img-full r r-2x">
 						<div class="item-overlay">
 							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
+							<img src="<?php echo $plugins_url ?>vegashero/templates/img/350x250.gif" alt="" class="img-hover">
+							<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
+							<p class="vh-game-cat">Category name</p>
 						</div>
+						<img src="<?php echo $plugins_url ?>vegashero/templates/img/350x250.gif" alt="" class="img-full r r-2x">
+						<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
+						<p class="vh-game-cat">Category name</p>
+					</div>
 
-						<a href="<?php the_permalink(); ?>" class="text-ellipsis"><?php the_title(); ?></a>
-						<p class="text-ellipsis text-xs text-muted">Category name</p>
-
-						</div>
 				</div>
 
 

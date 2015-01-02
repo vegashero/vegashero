@@ -36,41 +36,68 @@ a:hover {
 
 .item-overlay {
   position: absolute;
-  top:0;
-  width:100%;
+  top:-7%;
+  width:110%;
+  left:-5%;
   height:30%;
-  transition: all 0.3s ease-in-out 0s !important;
-  display: none;
-  opacity: .99;
   padding: 15% 5% 0 !important;
-
+  transition: all 0.3s ease-in-out 0s !important;
+  z-index: 2;
+  opacity: 0;
+  text-align:center;
 }
 
-.item:hover > .item-overlay {
+.item:hover .item-overlay, .item:focus .item-overlay {
   display:block;
   box-sizing: border-box;
-  background-color: rgba(255,255,255,0.95);
-  transition: all 0.3s ease-in-out 0s !important;
-  text-align: center;
-  border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 0px 15px 0px rgba(0,0,0,0.2);
-  height: 96%;
+  background-color: rgba(255,255,255,0.95);
+  height: 119%;
+  opacity: .99;
 }
-.item-overlay a {
+.item-overlay a.vh-play-fun {
+  font-size: 18px !important;
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.2s ease-in 0s !important;
+  background-color: #ABC261;
+  position:relative;
+  z-index:5;
+  top:63px;
+  color:white;
+}
+.item:hover img {
+  position:relative;
 
 }
-
+.item-overlay .img-hover {
+  width:100%;
+  z-index:3;
+  margin-top:-74px;
+  margin-bottom:10px;
+  position:relative;
+}
 .text-white {
   color: #fff;
 }
 .img-full {
   width: 100%;
 }
-.text-ellipsis {
+.vh-game-title {
+  font-size:16px;
+  margin-top:6px;
+}
+.vh-game-title, .vh-game-cat {
+  text-align:left;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.vh-game-cat {
+  font-size:13px;
 }
 .m-t-sm {
   margin-top: 10px;
