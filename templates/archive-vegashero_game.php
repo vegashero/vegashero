@@ -16,7 +16,7 @@ $plugins_url = plugin_dir_url( $file );
 		<div class="row row-sm">
 
 
-			<div class="row vh-cats">
+			<div class="row">
 				<div class="col-md-12">
 					<nav class="navbar">
 						<div class="collapse navbar-collapse js-navbar-collapse">
@@ -96,7 +96,8 @@ $plugins_url = plugin_dir_url( $file );
 
 
 					<?php endwhile; ?>
-					<div class="blog_pagination">
+					<div class="row">
+						<div class="col-md-12">
 						<?php if(get_previous_posts_link() ): ?>
 							<?php previous_posts_link(); ?>
 						<?php endif; ?>
@@ -104,6 +105,7 @@ $plugins_url = plugin_dir_url( $file );
 							<?php next_posts_link(); ?>
 						<?php endif; ?>
 					</div>
+				</div>
 					<?php if(wp_link_pages()) { wp_link_pages();  } ?>
 
 				<?php endif; ?>
