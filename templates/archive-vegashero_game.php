@@ -1,5 +1,5 @@
 <?php get_header();
-$plugins_url = plugin_dir_url( $file );
+$plugins_url = plugin_dir_url( __FILE__ );
 ?>
 <!-- Page Section -->
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>

@@ -31,11 +31,87 @@ class Vegashero
         add_filter( 'single_template', array($this, 'getSingleTemplate'));
         add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
 
+        // add custom template
+        $this->templates = array();
+
+        // Add a filter to the attributes metabox to inject template into the cache.
+        add_filter('page_attributes_dropdown_pages_args', array( $this, 'registerProjectTemplates' ));
+
+        // Add a filter to the save post to inject out template into the page cache
+        add_filter('wp_insert_post_data', array( $this, 'registerProjectTemplates'));
+
+        // Add a filter to the template include to determine if the page has our
+        // template assigned and return it's path
+        add_filter('template_include', array( $this, 'viewProjectTemplate'));
+
+        // Add your templates to this array.
+
+        $this->templates = array(
+            'templates/custom-page-template.php'     => 'Vegas Hero Custom Page Template',
+        );
+        //end 
+
         add_action('vegashero_import', array($this, 'import_games'));
         if( ! wp_next_scheduled('vegashero_import')) {
             wp_schedule_single_event(time(), 'vegashero_import');
         }
     }
+
+    public function registerProjectTemplates( $atts ) {
+
+        // Create the key used for the themes cache
+        $cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
+
+        // Retrieve the cache list. 
+        // If it doesn't exist, or it's empty prepare an array
+        $templates = wp_get_theme()->get_page_templates();
+        if ( empty( $templates ) ) {
+            $templates = array();
+        } 
+
+        // New cache, therefore remove the old one
+        wp_cache_delete( $cache_key , 'themes');
+
+        // Now add our template to the list of templates by merging our templates
+        // with the existing templates array from the cache.
+        $templates = array_merge( $templates, $this->templates );
+
+        // Add the modified cache to allow WordPress to pick it up for listing
+        // available templates
+        wp_cache_add( $cache_key, $templates, 'themes', 1800 );
+
+        return $atts;
+
+    }
+
+    /**
+     * Checks if the template is assigned to the page
+     */
+    public function viewProjectTemplate( $template ) {
+
+        global $post;
+
+        if (!isset($this->templates[get_post_meta( 
+            $post->ID, '_wp_page_template', true 
+        )] ) ) {
+
+            return $template;
+
+        } 
+
+        $file = plugin_dir_path(__FILE__). get_post_meta( 
+            $post->ID, '_wp_page_template', true 
+        );
+
+        // Just to be safe, we check if the file exist first
+        if( file_exists( $file ) ) {
+            return $file;
+        } else { echo $file; }
+
+        return $template;
+
+    } 
+
 
     public function registerSettings() {
         register_setting('vegashero_options', 'vegashero_options');
