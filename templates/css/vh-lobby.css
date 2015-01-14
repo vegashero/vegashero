@@ -1,12 +1,12 @@
 html {
-
+  font-size:1em;
 }
 body {
   font-family:"Helvetica Neue", Helvetica, sans-serif;
 
 }
 a:hover {
-  text-decoration:none;  
+  text-decoration:none;
 }
 .app-content {
   height: 100%;
@@ -31,50 +31,53 @@ a:hover {
 }
 .item {
   margin-bottom:20px;
-  background:#f3f3f3;
-  padding:10px;
-  box-sizing:border-box;
-}
-.item:hover > .pos-rlt .item-overlay {
-  display:block;
-}
-.pos-rlt .item-overlay .vh-play-fun {
-  background:#309dd0;
-  padding:6px 10px;
-  color:white;
-  font-weight:bold;
-  font-style:normal;
-  border-radius:3px;
-  cursor:pointer;
-}
-.padder-v {
-  padding:8px 0 0 0;
-}
-.item, .pos-rlt {
   position: relative;
 }
-.item .top {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-.item .center {
-  position: absolute;
-  top: 50%;
-  left: 48px;
-}
-.item .bottom {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
+
 .item-overlay {
   position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: none;
+  top:-7%;
+  width:110%;
+  left:-5%;
+  height:30%;
+  padding: 15% 5% 0 !important;
+  transition: all 0.3s ease-in-out 0s !important;
+  z-index: 2;
+  opacity: 0;
+  text-align:center;
+}
+
+.item:hover .item-overlay, .item:focus .item-overlay {
+  display:block;
+  box-sizing: border-box;
+  box-shadow: 0 0px 15px 0px rgba(0,0,0,0.2);
+  background-color: rgba(255,255,255,0.95);
+  height: 119%;
+  opacity: .99;
+}
+.item-overlay a.vh-play-fun {
+  font-size: 18px !important;
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.2s ease-in 0s !important;
+  background-color: #ABC261;
+  position:relative;
+  z-index:5;
+  top:63px;
+  color:white;
+}
+.item:hover img {
+  position:relative;
+
+}
+.item-overlay .img-hover {
+  width:100%;
+  z-index:3;
+  margin-top:-74px;
+  margin-bottom:10px;
+  position:relative;
 }
 .text-white {
   color: #fff;
@@ -82,11 +85,19 @@ a:hover {
 .img-full {
   width: 100%;
 }
-.text-ellipsis {
+.vh-game-title {
+  font-size:16px;
+  margin-top:6px;
+}
+.vh-game-title, .vh-game-cat {
+  text-align:left;
   display: block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.vh-game-cat {
+  font-size:13px;
 }
 .m-t-sm {
   margin-top: 10px;

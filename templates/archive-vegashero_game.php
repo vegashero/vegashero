@@ -1,82 +1,115 @@
-<?php get_header(); ?>
-<!-- Page Section -->
-<div class="page_mycarousel">
-	<div class="container page_title_col">
-		<div class="row">
-			<div class="hc_page_header_area">						
-				<h1><?php if ( is_day() ) : ?>
-					<?php  _e( "Daily Archives:", 'corpbiz' ); echo (get_the_date()); ?>
-					<?php elseif ( is_month() ) : ?>
-					<?php  _e( "Monthly Archives:", 'corpbiz' ); echo (get_the_date( 'F Y' )); ?>
-					<?php elseif ( is_year() ) : ?>
-					<?php  _e( "Yearly Archives:", 'corpbiz' );  echo (get_the_date( 'Y' )); ?>
-					<?php else : ?>
-					<?php _e( "Blog Archives", 'corpbiz' ); ?>
-					<?php endif; ?>
-				</h1>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- /Page Section -->
-<!-- Blog & Sidebar Section -->
-<div class="container">
-	<div class="row blog_sidebar_section">
-		<!--Blog-->
-		<div class="col-md-8">			
-		<?php if ( have_posts() ) : 
-			while(have_posts()): the_post(); ?>			
-
-
-
-<?php
-    // post meta data
-    $post_meta = get_post_meta(get_the_ID(), 'game_meta', true);
-    echo '<pre>';
-    print_r($post_meta);
-    echo '</pre>';
+<?php get_header();
+$plugins_url = plugin_dir_url( $file );
 ?>
+<!-- Page Section -->
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="<?php echo $plugins_url ?>vegashero/templates/js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/bootstrap.min.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/bootstrap-theme.min.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/dropdown.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/vh-lobby.css" type="text/css" />
+
+<div class="app-content">
+	<!-- main -->
+	<div class="col wrapper-lg">
+		<div class="row row-sm">
 
 
-			<div id="post-<?php the_ID(); ?>" <?php post_class('blog_section'); ?>>
-				<?php if(has_post_thumbnail()): ?>
-				<?php $defalt_arg =array('class' => "img-responsive"); ?>
-				<div class="blog_post_img">					
-					<?php the_post_thumbnail('webriti_blog_thumb', $defalt_arg); ?>					
+			<div class="row">
+				<div class="col-md-12">
+					<nav class="navbar">
+						<div class="collapse navbar-collapse js-navbar-collapse">
+							<ul class="btn-group">
+								<li class="dropdown mega-dropdown">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+										Categories <span class="caret"></span>
+									</button>
+
+
+									<ul class="dropdown-menu mega-dropdown-menu row">
+
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+										<li class="col-sm-3">
+											<ul>
+												<li><a href="#">Magicslots</a></li>
+												<li><a href="#">Mahjong</a></li>
+												<li><a href="#">Mega ball</a></li>
+												<li><a href="#">Multi line</a></li>
+												<li><a href="#">Multi line 4 spaces</a></li>
+											</ul>
+										</li>
+									</ul>
+
+								</li>
+							</ul>
+
+						</div><!-- /.nav-collapse -->
+					</nav>
 				</div>
-				<?php endif; ?>
-				<div class="post_title_wrapper">
-					<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-					<div class="post_detail">
-					<a href="<?php echo get_month_link(get_post_time('Y'),get_post_time('m')); ?>"><i class="fa fa-calendar"></i> <?php echo get_the_date('M j, Y'); ?> </a>
-					<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><i class="fa fa-user"></i> <?php _e('Posted by : &nbsp;', 'corpbiz'); ?> <?php the_author(); ?> </a>
-					<a href="<?php comments_link(); ?>"><i class="fa fa-comments"></i> <?php comments_number('No Comments', '1 Comment','% Comments'); ?></a>
-					<?php 	$tag_list = get_the_tag_list();
-							if(!empty($tag_list)) { ?>
-					<div class="post_tags">
-						<i class="fa fa-tags"></i><?php the_tags('', ',', '<br />'); ?>
+			</div>
+				<?php if ( have_posts() ) :
+					while(have_posts()): the_post();
+					$post_meta = get_post_meta(get_the_ID(), 'game_meta', true);
+					?>
+				<div class="col-xs-6 col-sm-4 col-md-4 col-lg-1-3">
+					<div class="item">
+						<div class="item-overlay">
+							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
+							<img src="<?php echo $plugins_url ?>vegashero/templates/img/350x250.gif" alt="" class="img-hover">
+							<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
+							<p class="vh-game-cat">Category name</p>
+						</div>
+						<img src="<?php echo $plugins_url ?>vegashero/templates/img/350x250.gif" alt="" class="img-full r r-2x">
+						<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
+						<p class="vh-game-cat">Category name</p>
 					</div>
-					<?php } ?>
+
 				</div>
+
+
+
+					<?php endwhile; ?>
+					<div class="row">
+						<div class="col-md-12">
+						<?php if(get_previous_posts_link() ): ?>
+							<?php previous_posts_link(); ?>
+						<?php endif; ?>
+						<?php if ( get_next_posts_link() ): ?>
+							<?php next_posts_link(); ?>
+						<?php endif; ?>
+					</div>
 				</div>
-				<div class="blog_post_content">
-					<?php the_content(); ?>
-				</div>	
-			</div>
-			<?php endwhile; ?>
-			<div class="blog_pagination">					
-				<?php if(get_previous_posts_link() ): ?>
-				<?php previous_posts_link(); ?>
-				<?php endif; ?>					
-				<?php if ( get_next_posts_link() ): ?>
-				<?php next_posts_link(); ?>
+					<?php if(wp_link_pages()) { wp_link_pages();  } ?>
+
 				<?php endif; ?>
 			</div>
-			<?php if(wp_link_pages()) { wp_link_pages();  } ?>
-			
-		<?php endif; ?>
 		</div>
-		<?php get_sidebar(); ?>
-	</div>
-</div>	
+
 <?php get_footer(); ?>

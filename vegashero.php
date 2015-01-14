@@ -62,13 +62,13 @@ class Vegashero
         add_options_page('Vegas Hero Options', 'Vegas Hero Options', 'manage_options', 'vegashero', array($this, 'getOptionsPage'));
     }
 
-    public function getOptionsPage() { 
+    public function getOptionsPage() {
         echo '<div class="wrap">';
         echo '<h2>Vegas Hero Settings</h2>';
         echo '<form method="post" action="options.php">';
         settings_fields('vegashero_options');
         do_settings_sections('vegashero');
-        submit_button(); 
+        submit_button();
         echo '</form>';
         echo '</div>';
 
@@ -151,7 +151,7 @@ class Vegashero
             $provider_id = wp_insert_category(
                 array(
                     'cat_name' => $provider,
-                    'category_description' => 'Vegas Hero Game Provider',
+                    'category_description' => 'Vegas Game Provider',
                     'category_nicename' => sanitize_title($provider),
                     'category_parent' => $parent_id,
                     'taxonomy' => $this->_taxonomy
@@ -172,7 +172,7 @@ class Vegashero
             $category_id = wp_insert_category(
                 array(
                     'cat_name' => $category,
-                    'category_description' => 'Vegas Hero Game Category',
+                    'category_description' => 'Vegas Game Category',
                     'category_nicename' => sanitize_title($category),
                     'category_parent' => $parent_id,
                     'taxonomy' => $this->_taxonomy
