@@ -1,11 +1,11 @@
 <?php
 /*
-Template Name: Vegas Hero Custom Page 
+Template Name: Vegas Hero Games Lobby
  */
 
 get_header(); ?>
 
-<h1>Vegas Hero Custom Page Template</h1>
+<h1>Vegas Hero Games Lobby</h1>
 
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">

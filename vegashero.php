@@ -49,7 +49,7 @@ class Vegashero
         $this->templates = array(
             'templates/custom-page-template.php'     => 'Vegas Hero Custom Page Template',
         );
-        //end 
+        //end
 
         add_action('vegashero_import', array($this, 'import_games'));
         if( ! wp_next_scheduled('vegashero_import')) {
@@ -62,12 +62,12 @@ class Vegashero
         // Create the key used for the themes cache
         $cache_key = 'page_templates-' . md5( get_theme_root() . '/' . get_stylesheet() );
 
-        // Retrieve the cache list. 
+        // Retrieve the cache list.
         // If it doesn't exist, or it's empty prepare an array
         $templates = wp_get_theme()->get_page_templates();
         if ( empty( $templates ) ) {
             $templates = array();
-        } 
+        }
 
         // New cache, therefore remove the old one
         wp_cache_delete( $cache_key , 'themes');
@@ -91,16 +91,16 @@ class Vegashero
 
         global $post;
 
-        if (!isset($this->templates[get_post_meta( 
-            $post->ID, '_wp_page_template', true 
+        if (!isset($this->templates[get_post_meta(
+            $post->ID, '_wp_page_template', true
         )] ) ) {
 
             return $template;
 
-        } 
+        }
 
-        $file = plugin_dir_path(__FILE__). get_post_meta( 
-            $post->ID, '_wp_page_template', true 
+        $file = plugin_dir_path(__FILE__). get_post_meta(
+            $post->ID, '_wp_page_template', true
         );
 
         // Just to be safe, we check if the file exist first
@@ -110,7 +110,7 @@ class Vegashero
 
         return $template;
 
-    } 
+    }
 
 
     public function registerSettings() {
@@ -349,5 +349,13 @@ class Vegashero
 
 
 }
+function lobby_stylesheets() {
+  wp_enqueue_style('vh-bootstrap-js',  plugin_dir_url( __FILE__ ) . 'templates/js/bootstrap.min.js');
+  wp_enqueue_style('vh-bootstrap',  plugin_dir_url( __FILE__ ) . 'templates/css/bootstrap.min.css');
+  wp_enqueue_style('vh-bootstrap-theme',  plugin_dir_url( __FILE__ ) . 'templates/css/bootstrap-theme.min.css');
+  wp_enqueue_style('vh-dropdown',  plugin_dir_url( __FILE__ ) . 'templates/css/dropdown.css');
+  wp_enqueue_style('lobby-styles',  plugin_dir_url( __FILE__ ) . 'templates/css/vh-lobby.css');
 
+}
+add_action( 'get_header', 'lobby_stylesheets' );
 $vegashero = new Vegashero();

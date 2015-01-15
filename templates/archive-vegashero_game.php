@@ -3,12 +3,6 @@ $plugins_url = plugin_dir_url( __FILE__ );
 ?>
 <!-- Page Section -->
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-<script src="<?php echo $plugins_url ?>vegashero/templates/js/bootstrap.min.js"></script>
-
-<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/bootstrap.min.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/bootstrap-theme.min.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/dropdown.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo $plugins_url ?>vegashero/templates/css/vh-lobby.css" type="text/css" />
 
 <div class="app-content">
 	<!-- main -->
@@ -82,11 +76,11 @@ $plugins_url = plugin_dir_url( __FILE__ );
 					<div class="item">
 						<div class="item-overlay">
 							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
-							<img src="<?php echo $plugins_url ?>vegashero/templates/img/350x250.gif" alt="" class="img-hover">
+							<img src="<?php echo $plugins_url ?>img/350x250.gif" alt="" class="img-hover">
 							<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
 							<p class="vh-game-cat">Category name</p>
 						</div>
-						<img src="<?php echo $plugins_url ?>vegashero/templates/img/350x250.gif" alt="" class="img-full r r-2x">
+						<img src="<?php echo $plugins_url ?>img/350x250.gif" alt="" class="img-full r r-2x">
 						<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
 						<p class="vh-game-cat">Category name</p>
 					</div>
