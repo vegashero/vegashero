@@ -47,7 +47,7 @@ class Vegashero
         // Add your templates to this array.
 
         $this->templates = array(
-            'templates/custom-page-template.php'     => 'Vegas Hero Custom Page Template',
+            'templates/custom-page-template.php'     => 'Vegas Hero Games Lobby',
         );
         //end
 
