@@ -12,7 +12,7 @@ $plugins_url = plugin_dir_url( __FILE__ );
 
 			<div class="row">
 				<div class="col-md-12">
-					<nav class="navbar">
+					<!--<nav class="navbar">
 						<div class="collapse navbar-collapse js-navbar-collapse">
 							<ul class="btn-group">
 								<li class="dropdown mega-dropdown">
@@ -64,15 +64,15 @@ $plugins_url = plugin_dir_url( __FILE__ );
 								</li>
 							</ul>
 
-						</div><!-- /.nav-collapse -->
-					</nav>
+						</div>
+					</nav>/.nav-collapse -->
 				</div>
 			</div>
 				<?php if ( have_posts() ) :
 					while(have_posts()): the_post();
 					$post_meta = get_post_meta(get_the_ID(), 'game_meta', true);
 					?>
-				<div class="col-xs-6 col-sm-4 col-md-4 col-lg-1-3">
+				<div class="col-xs-6 col-sm-4 col-md-4">
 					<div class="item">
 						<div class="item-overlay">
 							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
