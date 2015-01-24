@@ -1,6 +1,5 @@
 <?php get_header();
 $plugins_url = plugin_dir_url( __FILE__ );
-echo $plugins_url;
 ?>
 <!-- Page Section -->
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -77,11 +76,11 @@ echo $plugins_url;
 					<div class="item">
 						<div class="item-overlay">
 							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
-							<img src="<?php echo $plugins_url ?>img/350x250.gif" alt="" class="img-hover">
+							<img src="http://vegasgod-f43.kxcdn.com/zodiac/cover.jpg" alt="" class="img-hover">
 							<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
 							<p class="vh-game-cat">Category name</p>
 						</div>
-						<img src="<?php echo $plugins_url ?>img/350x250.gif" alt="" class="img-full r r-2x">
+						<img src="http://vegasgod-f43.kxcdn.com/zodiac/cover.jpg" alt="" class="img-full r r-2x">
 						<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
 						<p class="vh-game-cat">Category name</p>
 					</div>
