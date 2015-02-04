@@ -1,10 +1,10 @@
 single custom post type
-<?php get_header(); 
+<?php get_header();
 get_template_part('index', 'banner');
 ?>
 <!-- Blog & Sidebar Section -->
 <div class="container">
-	<div class="row blog_sidebar_section">		
+	<div class="row blog_sidebar_section">
 		<!--Blog-->
 <div class="col-md-8">
 	<?php
@@ -16,7 +16,12 @@ get_template_part('index', 'banner');
 			<?php if(has_post_thumbnail()): ?>
 			<?php $defalt_arg =array('class' => "img-responsive"); ?>
 			<div class="blog_post_img">
-				<?php the_post_thumbnail('webriti_blog_thumb', $defalt_arg); ?>	
+				<?php the_post_thumbnail('webriti_blog_thumb', $defalt_arg); ?>
+			</div>
+			<div class="row">
+				<div class="small-12 columns">
+					<div class="game-cta"><a href="#" class="gamecta-btn">Play this game</a></div>
+				</div>
 			</div>
 			<?php endif; ?>
 			<div class="post_title_wrapper">
@@ -35,37 +40,37 @@ get_template_part('index', 'banner');
 			</div>
 			<div class="blog_post_content">
 				<?php the_content(); ?>
-			</div>	
+			</div>
 	</div>
 		<?php if( the_author_meta( 'description' )) :?>
 	<div class="blog_author">
 	<div class="media">
 		<div class="pull-left">
 		<?php echo get_avatar( get_the_author_meta( 'ID') , 94); ?>
-			
+
 		</div>
-		
+
 		<div class="media-body">
 			<h6> <?php the_author(); ?> <span> <?php $user = new WP_User( get_the_author_meta( 'ID' ) ); echo $user->roles[0];?> </span></h6>
 			<p><?php the_author_meta( 'description' ); //the_author_description(); ?> </p>
-			
+
 			<ul class="blog_author_social">
-				<?php			
+				<?php
 				$google_profile = get_the_author_meta( 'google_profile' );
 				if ( $google_profile && $google_profile != '' ) {
 					echo '<li class="googleplus"><a href="' . esc_url($google_profile) . '" rel="author"><i class="fa fa-google-plus"></i></a></li>';
 				}
-								
+
 				$twitter_profile = get_the_author_meta( 'twitter_profile' );
 				if ( $twitter_profile && $twitter_profile != '' ) {
 					echo '<li class="twitter"><a href="' . esc_url($twitter_profile) . '"><i class="fa fa-twitter"></i></a></li>';
 				}
-								
+
 				$facebook_profile = get_the_author_meta( 'facebook_profile' );
 				if ( $facebook_profile && $facebook_profile != '' ) {
 					echo '<li class="facebook"><a href="' . esc_url($facebook_profile) . '"><i class="fa fa-facebook"></i></a></li>';
 				}
-								
+
 				$linkedin_profile = get_the_author_meta( 'linkedin_profile' );
 				if ( $linkedin_profile && $linkedin_profile != '' ) {
 					   echo '<li class="linkedin"><a href="' . esc_url($linkedin_profile) . '"><i class="fa fa-linkedin"></i></a></li>';
@@ -76,17 +81,17 @@ get_template_part('index', 'banner');
 				}
 				?>
 			</ul>
-			
+
 		</div>
-		
-	</div>	
+
+	</div>
 	</div>
 	<?php endif; ?>
 	<?php } ?>
-		<?php comments_template('',true); ?>	
-	<?php } ?>	
+		<?php comments_template('',true); ?>
+	<?php } ?>
 	</div>
-	<?php get_sidebar(); ?>	
+	<?php get_sidebar(); ?>
 </div>
 </div><!--Blog-->
 <?php get_footer(); ?>
