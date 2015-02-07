@@ -291,6 +291,7 @@ class Vegashero
                 'post_type'      => $this->_custom_post_type,
                 'post_excerpt'   => post_excerpt(),
                 'page_template'  => plugin_dir_url( __FILE__ ) . 'templates/single.php'
+
             );
             $post_id = wp_insert_post($post);
             $post_meta = array(
