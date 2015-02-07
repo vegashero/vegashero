@@ -284,12 +284,12 @@ class Vegashero
             }
 
             $post = array(
-                'post_content'   => 'Post content goes here',
-                'post_name'      =>  sanitize_title($game->name),
+                'post_content'   => the_content(),
+                'post_name'      => sanitize_title($game->name),
                 'post_title'     => ucfirst($game->name),
                 'post_status'    => $game->status ? 'publish' : 'draft',
                 'post_type'      => $this->_custom_post_type,
-                'post_excerpt'   => 'Post excerpt goes here'
+                'post_excerpt'   => post_excerpt()
             );
             $post_id = wp_insert_post($post);
             $post_meta = array(
