@@ -17,8 +17,10 @@ if ( ! defined( 'WPINC' ) ) {
 class Vegashero
 {
 
-    private $_taxonomy = 'vegashero_games';
-    private $_custom_post_type = 'vegashero_game';
+    public $taxonomy = 'vegashero_games';
+    public $customPostType = 'vegashero_game';
+    public $termGroupId = 19800616;
+    public $metaKey = 'game_meta';
 
     public function __construct() {
 
@@ -154,8 +156,8 @@ class Vegashero
 
         $plugin_dir = plugin_dir_path(__FILE__);
 
-        if ( is_post_type_archive ( $this->_custom_post_type ) ) {
-            $archive_template = sprintf("%s/templates/archive-%s.php", $plugin_dir, $this->_custom_post_type);
+        if ( is_post_type_archive ( $this->customPostType ) ) {
+            $archive_template = sprintf("%s/templates/archive-%s.php", $plugin_dir, $this->customPostType);
         }
         return $archive_template;
 
@@ -166,8 +168,8 @@ class Vegashero
         $plugin_dir = plugin_dir_path(__FILE__);
         $post_id = get_the_ID();
 
-        if ( get_post_type( $post_id ) == $this->_custom_post_type ) {
-            $singe_template = sprintf("%s/templates/single-%s.php", $plugin_dir, $this->_custom_post_type);
+        if ( get_post_type( $post_id ) == $this->customPostType ) {
+            $singe_template = sprintf("%s/templates/single-%s.php", $plugin_dir, $this->customPostType);
         }
         return $single_template;
 
@@ -184,18 +186,18 @@ class Vegashero
 
     private function _getVegasheroCategoryId() {
         $category = 'vegashero';
-        if( ! $category_id = term_exists($category, $this->_taxonomy)) {
+        if( ! $category_id = term_exists($category, $this->taxonomy)) {
             $category_id = wp_insert_category(
                 array(
                     'cat_name' => $category,
                     'category_description' => 'Vegas Hero',
                     'category_nicename' => sanitize_title($category),
-                    'taxonomy' => $this->_taxonomy
+                    'taxonomy' => $this->taxonomy
                 ),
                 true
             );
         }  else {
-            $term_details = get_term_by('name', $category, $this->_taxonomy);
+            $term_details = get_term_by('name', $category, $this->taxonomy);
             $category_id = (int)$term_details->term_id;
         }
         return $category_id;
@@ -203,19 +205,19 @@ class Vegashero
 
     private function _getSiteId($site, $parent_id='') {
 
-        if( ! $site_id = term_exists($site, $this->_taxonomy)){
+        if( ! $site_id = term_exists($site, $this->taxonomy)){
             $site_id = wp_insert_category(
                 array(
                     'cat_name' => $site,
                     'category_description' => 'Vegas Hero Gaming Site',
                     'category_nicename' => sanitize_title($site),
                     'category_parent' => $parent_id,
-                    'taxonomy' => $this->_taxonomy
+                    'taxonomy' => $this->taxonomy
                 ),
                 true
             );
         }  else {
-            $term_details = get_term_by('name', $site, $this->_taxonomy);
+            $term_details = get_term_by('name', $site, $this->taxonomy);
             $site_id = (int)$term_details->term_id;
         }
         return $site_id;
@@ -223,19 +225,19 @@ class Vegashero
 
     private function _getProviderId($provider, $parent_id='') {
 
-        if( ! $provider_id = term_exists($provider, $this->_taxonomy)){
+        if( ! $provider_id = term_exists($provider, $this->taxonomy)){
             $provider_id = wp_insert_category(
                 array(
                     'cat_name' => $provider,
                     'category_description' => 'Vegas Game Provider',
                     'category_nicename' => sanitize_title($provider),
                     'category_parent' => $parent_id,
-                    'taxonomy' => $this->_taxonomy
+                    'taxonomy' => $this->taxonomy
                 ),
                 true
             );
         }  else {
-            $term_details = get_term_by('name', $provider, $this->_taxonomy);
+            $term_details = get_term_by('name', $provider, $this->taxonomy);
             $provider_id = (int)$term_details->term_id;
         }
         return $provider_id;
@@ -244,19 +246,19 @@ class Vegashero
 
     private function _getGameCategoryId($category, $parent_id = '') {
 
-        if( ! $category_id = term_exists($category, $this->_taxonomy)){
+        if( ! $category_id = term_exists($category, $this->taxonomy)){
             $category_id = wp_insert_category(
                 array(
                     'cat_name' => $category,
                     'category_description' => 'Vegas Game Category',
                     'category_nicename' => sanitize_title($category),
                     'category_parent' => $parent_id,
-                    'taxonomy' => $this->_taxonomy
+                    'taxonomy' => $this->taxonomy
                 ),
                 true
             );
         }  else {
-            $term_details = get_term_by('name', $category, $this->_taxonomy);
+            $term_details = get_term_by('name', $category, $this->taxonomy);
             $category_id = (int)$term_details->term_id;
         }
         return $category_id;
@@ -272,6 +274,12 @@ class Vegashero
         $games = $vegasgod->getGames();
 
         foreach($games as $game) {
+
+            $post_meta = array(
+                'ref' => trim($game->ref),
+                'type' => $game->type,
+            );
+
             $category_ids = array($vegashero_id);
 
             $site_id = $this->_getSiteId(trim($game->site), $vegashero_id);
@@ -281,6 +289,7 @@ class Vegashero
             if($game->provider) {
                 $provider_id = $this->_getProviderId(trim($game->provider), $site_id);
                 array_push($category_ids, $provider_id);
+                $post_meta['provider'] = $game->provider;
             }
 
             $post = array(
@@ -288,18 +297,23 @@ class Vegashero
                 'post_name'      => sanitize_title($game->name),
                 'post_title'     => ucfirst($game->name),
                 'post_status'    => $game->status ? 'publish' : 'draft',
-                'post_type'      => $this->_custom_post_type,
+                'post_type'      => $this->customPostType,
                 'post_excerpt'   => post_excerpt()
             );
             $post_id = wp_insert_post($post);
-            $post_meta = array(
-                'ref' => trim($game->ref),
-                'type' => $game->type,
-                'large_image' => $game->large_image,
-                'thumb_image' => $game->thumb_image
-            );
-            $post_meta_id = add_post_meta($post_id, 'game_meta', $post_meta, true); // add post meta data
-            $term_taxonomy_ids = wp_set_object_terms($post_id, $category_ids, $this->_taxonomy); // link category and post
+            $post_meta_id = add_post_meta($post_id, $this->metaKey, $post_meta, true); // add post meta data
+            $term_taxonomy_ids = wp_set_object_terms($post_id, $category_ids, $this->taxonomy); // link category and post
+            $this->_groupTerms($category_ids, $this->termGroupId, $this->taxonomy);
+        }
+    }
+
+    private function _groupTerms(array $term_ids, int $term_group, string $taxonomy) {
+        if(count($term_ids)> 0) {
+            foreach($term_ids as $term_id) {
+                wp_update_term($term_id, $taxonomy, array(
+                    'term_group' => $term_group
+                ));
+            }
         }
     }
 
@@ -325,7 +339,7 @@ class Vegashero
             'rewrite'           => array( 'slug' => 'games' ),
         );
 
-        register_taxonomy( $this->_taxonomy, array( $this->_custom_post_type ), $args );
+        register_taxonomy( $this->taxonomy, array( $this->customPostType ), $args );
 
     }
 
@@ -344,7 +358,7 @@ class Vegashero
             'has_archive' => true,
             'rewrite' => array('slug' => 'games')
         );
-        register_post_type($this->_custom_post_type, $options);
+        register_post_type($this->customPostType, $options);
     }
 
 
