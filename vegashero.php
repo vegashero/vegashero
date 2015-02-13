@@ -298,7 +298,8 @@ class Vegashero
                 'post_title'     => ucfirst($game->name),
                 'post_status'    => $game->status ? 'publish' : 'draft',
                 'post_type'      => $this->customPostType,
-                'post_excerpt'   => post_excerpt()
+                'post_excerpt'   => post_excerpt(),
+                'page_template'  => plugin_dir_url( __FILE__ ) . 'templates/single.php'
             );
             $post_id = wp_insert_post($post);
             $post_meta_id = add_post_meta($post_id, $this->metaKey, $post_meta, true); // add post meta data
