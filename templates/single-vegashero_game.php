@@ -17,15 +17,6 @@ get_template_part('index', 'banner');
 			<div class="blog_post_img">
 				<?php the_post_thumbnail('webriti_blog_thumb', $defalt_arg); ?>
 			</div>
-<<<<<<< HEAD
-			<div class="row">
-		<div class="small-12 columns">
-			<div class="game-cta"><a href="#" class="gamecta-btn">Play this game</a></div>
-		</div>
-	</div>
-=======
-
->>>>>>> 5317ad8d9dc7e2803c43b174e71ffee6878b1429
 			<?php endif; ?>
 			<div class="post_title_wrapper">
 				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
@@ -43,15 +34,12 @@ get_template_part('index', 'banner');
 			</div>
 			<div class="blog_post_content">
 				<?php the_content(); ?>
-<<<<<<< HEAD
-=======
 				<div class="row">
 				<div class="small-12 columns">
 					<div class="game-cta"><a href="#" class="gamecta-btn">Play this game</a></div>
 				</div>
 			</div>
->>>>>>> 5317ad8d9dc7e2803c43b174e71ffee6878b1429
-			</div>
+		</div>
 	</div>
 		<?php if( the_author_meta( 'description' )) :?>
 	<div class="blog_author">
@@ -102,7 +90,7 @@ get_template_part('index', 'banner');
 		<?php comments_template('',true); ?>
 	<?php } ?>
 	</div>
-	<?php get_sidebar(); ?>
+	<?php //get_sidebar(); ?>
 </div>
 </div><!--Blog-->
 <?php get_footer(); ?>
