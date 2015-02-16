@@ -18,7 +18,6 @@ get_template_part('index', 'banner');
 			</div>
 		</div>
 	</div>
-
 	<div class="row">
 		<div class="small-12 columns">
 			<div class="game-cta"><a href="#" class="gamecta-btn">Play this game</a></div>
