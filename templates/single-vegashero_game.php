@@ -14,6 +14,7 @@ get_template_part('index', 'banner');
 		{
 		while(have_posts()) { the_post();
 	?>
+<?php endif; ?>
 	<div class="blog_detail_section">
 			<div class="post_title_wrapper">
 				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
