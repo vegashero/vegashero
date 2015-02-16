@@ -169,7 +169,7 @@ class Vegashero
         $post_id = get_the_ID();
 
         if ( get_post_type( $post_id ) == $this->customPostType ) {
-            $singe_template = sprintf("%s/templates/single-%s.php", $plugin_dir, $this->customPostType);
+            $single_template = sprintf("%s/templates/single-%s.php", $plugin_dir, $this->customPostType);
         }
         return $single_template;
 
@@ -184,26 +184,26 @@ class Vegashero
         return new \Vegasgod\Api;
     }
 
-    private function _getVegasheroCategoryId() {
-        $category = 'vegashero';
-        if( ! $category_id = term_exists($category, $this->taxonomy)) {
-            $category_id = wp_insert_category(
-                array(
-                    'cat_name' => $category,
-                    'category_description' => 'Vegas Hero',
-                    'category_nicename' => sanitize_title($category),
-                    'taxonomy' => $this->taxonomy
-                ),
-                true
-            );
-        }  else {
-            $term_details = get_term_by('name', $category, $this->taxonomy);
-            $category_id = (int)$term_details->term_id;
-        }
-        return $category_id;
-    }
+    // private function _getVegasheroCategoryId() {
+    //     $category = 'vegashero';
+    //     if( ! $category_id = term_exists($category, $this->taxonomy)) {
+    //         $category_id = wp_insert_category(
+    //             array(
+    //                 'cat_name' => $category,
+    //                 'category_description' => 'Vegas Hero',
+    //                 'category_nicename' => sanitize_title($category),
+    //                 'taxonomy' => $this->taxonomy
+    //             ),
+    //             true
+    //         );
+    //     }  else {
+    //         $term_details = get_term_by('name', $category, $this->taxonomy);
+    //         $category_id = (int)$term_details->term_id;
+    //     }
+    //     return $category_id;
+    // }
 
-    private function _getSiteId($site, $parent_id='') {
+    private function _getSiteId($site) {
 
         if( ! $site_id = term_exists($site, $this->taxonomy)){
             $site_id = wp_insert_category(
@@ -211,7 +211,6 @@ class Vegashero
                     'cat_name' => $site,
                     'category_description' => 'Vegas Hero Gaming Site',
                     'category_nicename' => sanitize_title($site),
-                    'category_parent' => $parent_id,
                     'taxonomy' => $this->taxonomy
                 ),
                 true
@@ -223,7 +222,7 @@ class Vegashero
         return $site_id;
     }
 
-    private function _getProviderId($provider, $parent_id='') {
+    private function _getProviderId($provider) {
 
         if( ! $provider_id = term_exists($provider, $this->taxonomy)){
             $provider_id = wp_insert_category(
@@ -231,7 +230,6 @@ class Vegashero
                     'cat_name' => $provider,
                     'category_description' => 'Vegas Game Provider',
                     'category_nicename' => sanitize_title($provider),
-                    'category_parent' => $parent_id,
                     'taxonomy' => $this->taxonomy
                 ),
                 true
@@ -244,7 +242,7 @@ class Vegashero
     }
 
 
-    private function _getGameCategoryId($category, $parent_id = '') {
+    private function _getGameCategoryId($category) {
 
         if( ! $category_id = term_exists($category, $this->taxonomy)){
             $category_id = wp_insert_category(
@@ -252,7 +250,7 @@ class Vegashero
                     'cat_name' => $category,
                     'category_description' => 'Vegas Game Category',
                     'category_nicename' => sanitize_title($category),
-                    'category_parent' => $parent_id,
+                    // 'category_parent' => $parent_id,
                     'taxonomy' => $this->taxonomy
                 ),
                 true
@@ -265,50 +263,51 @@ class Vegashero
     }
 
     public function import_games() {
+
         require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->registerTaxonomies();
-
-        $vegashero_id = $this->_getVegasheroCategoryId();
 
         $vegasgod = $this->_getVegasgod();
         $games = $vegasgod->getGames();
 
         foreach($games as $game) {
 
-            $post_meta = array(
-                'ref' => trim($game->ref),
-                'type' => $game->type,
-            );
-
-            $category_ids = array($vegashero_id);
-
-            $site_id = $this->_getSiteId(trim($game->site), $vegashero_id);
-            $category_id = $this->_getGameCategoryId(trim($game->category), $site_id);
-            array_push($category_ids, $site_id, $category_id);
-
             if($game->provider) {
-                $provider_id = $this->_getProviderId(trim($game->provider), $site_id);
-                array_push($category_ids, $provider_id);
-                $post_meta['provider'] = $game->provider;
+                $provider_id = $this->_getProviderId(trim($game->provider));
+                $category_ids = array($provider_id);
+
+                $post_meta = array(
+                    'ref' => trim($game->ref),
+                    'type' => $game->type,
+                    'provider' => $game->provider
+                );
+
+                $site_id = $this->_getSiteId(trim($game->site));
+                $category_id = $this->_getGameCategoryId(trim($game->category));
+                array_push($category_ids, $site_id, $category_id);
+
+
+                $post = array(
+                    'post_content'   => the_content(),
+                    'post_name'      => sanitize_title($game->name),
+                    'post_title'     => ucfirst($game->name),
+                    'post_status'    => $game->status ? 'publish' : 'draft',
+                    'post_type'      => $this->customPostType,
+                    'post_excerpt'   => the_excerpt()
+                );
+                $post_id = wp_insert_post($post);
+                $post_meta_id = add_post_meta($post_id, $this->metaKey, $post_meta, true); // add post meta data
+                $term_taxonomy_ids = wp_set_object_terms($post_id, $category_ids, $this->taxonomy); // link category and post
+                $this->_groupTerms($category_ids, $this->termGroupId, $this->taxonomy);
+
+            } else {
+                throw new Exception('All games require a provider');
             }
 
-            $post = array(
-                'post_content'   => the_content(),
-                'post_name'      => sanitize_title($game->name),
-                'post_title'     => ucfirst($game->name),
-                'post_status'    => $game->status ? 'publish' : 'draft',
-                'post_type'      => $this->customPostType,
-                'post_excerpt'   => post_excerpt(),
-                'page_template'  => plugin_dir_url( __FILE__ ) . 'templates/single.php'
-            );
-            $post_id = wp_insert_post($post);
-            $post_meta_id = add_post_meta($post_id, $this->metaKey, $post_meta, true); // add post meta data
-            $term_taxonomy_ids = wp_set_object_terms($post_id, $category_ids, $this->taxonomy); // link category and post
-            $this->_groupTerms($category_ids, $this->termGroupId, $this->taxonomy);
         }
     }
 
-    private function _groupTerms(array $term_ids, int $term_group, string $taxonomy) {
+    private function _groupTerms(array $term_ids, $term_group, $taxonomy) {
         if(count($term_ids)> 0) {
             foreach($term_ids as $term_id) {
                 wp_update_term($term_id, $taxonomy, array(
@@ -364,6 +363,9 @@ class Vegashero
 
 
 }
+
+$vegashero = new Vegashero();
+
 function lobby_stylesheets() {
   wp_enqueue_style('vh-bootstrap-js',  plugin_dir_url( __FILE__ ) . 'templates/js/bootstrap.min.js');
   /*wp_enqueue_style('vh-bootstrap',  plugin_dir_url( __FILE__ ) . 'templates/css/bootstrap.min.css');*/
@@ -373,4 +375,3 @@ function lobby_stylesheets() {
 
 }
 add_action( 'get_header', 'lobby_stylesheets' );
-$vegashero = new Vegashero();
