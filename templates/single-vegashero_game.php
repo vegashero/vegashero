@@ -8,7 +8,7 @@ get_template_part('index', 'banner');
 <div class="container">
 	<div class="row blog_sidebar_section">
 		<!--Blog-->
-<div class="col-md-8">
+<div class="col-md-12">
 	<?php
 		if(have_posts())
 		{
@@ -24,10 +24,7 @@ get_template_part('index', 'banner');
 			<div class="post_title_wrapper">
 				<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
 				<div class="post_detail">
-					<a href="<?php echo get_month_link(get_post_time('Y'),get_post_time('m')); ?>"><i class="fa fa-calendar"></i> <?php echo get_the_date('M j, Y'); ?> </a>
-					<a href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><i class="fa fa-user"></i> <?php _e('Posted by : &nbsp;', 'corpbiz'); ?> <?php the_author(); ?> </a>
-					<a href="<?php comments_link(); ?>"><i class="fa fa-comments"></i> <?php comments_number('No Comments', '1 Comment','% Comments'); ?></a>
-					<?php 	$tag_list = get_the_tag_list();
+						<?php 	$tag_list = get_the_tag_list();
 							if(!empty($tag_list)) { ?>
 					<div class="post_tags">
 						<i class="fa fa-tags"></i><?php the_tags('', ',', '<br />'); ?>
@@ -36,7 +33,9 @@ get_template_part('index', 'banner');
 				</div>
 			</div>
 			<div class="blog_post_content">
-				<?php the_content(); ?>
+                        <iframe width="100%" height="600" frameborder="no" scrolling="no" align="center" src="http://bannercasino.winner.com/flash/55/casino_winner/launchcasino.html?advertisercode=petimi&banner=nasdwc&profile=nasdwc&creferer=admap:600AA043BC3217C42B64D302FEEADC05%3bchannel:SlotsMarvel%3bvar1:%3bvar10:%3bvar2:%3bvar3:%3bvar4:%3bvar5:%3bvar6:%3bvar7:%3bvar8:%3btab:%3bgclid:%3blp_id:52283939&game=avng&nolobby=1&mode=offline&language=en&"></iframe>
+
+                <?php the_content(); ?>
 				<div class="row">
 				<div class="small-12 columns">
 					<div class="game-cta"><a href="#" class="gamecta-btn">Play this game</a></div>
