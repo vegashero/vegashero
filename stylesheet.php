@@ -6,7 +6,7 @@ class Vegashero_Stylesheet
         add_action( 'get_header', array($this, 'lobbyStylesheets'));
     }
 
-    private function _lobbyStylesheets() {
+    public function lobbyStylesheets() {
         wp_enqueue_style('vh-bootstrap-js',  plugin_dir_url( __FILE__ ) . 'templates/js/bootstrap.min.js');
         /*wp_enqueue_style('vh-bootstrap',  plugin_dir_url( __FILE__ ) . 'templates/css/bootstrap.min.css');*/
         wp_enqueue_style('vh-bootstrap-theme',  plugin_dir_url( __FILE__ ) . 'templates/css/bootstrap-theme.min.css');

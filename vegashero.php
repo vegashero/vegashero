@@ -17,7 +17,7 @@ if ( ! defined( 'WPINC' ) ) {
 spl_autoload_register(function($classname) {
     $segments = explode('_', $classname);
     if($segments[0] == 'Vegashero') {
-        $filename = "./". strtolower($segments[1]) .".php";
+        $filename = plugin_dir_path(__FILE__) . strtolower($segments[1]) .".php";
         if(file_exists($filename)) {
             include_once($filename);
         }
