@@ -364,6 +364,7 @@ class Vegashero
 
 }
 
+
 $vegashero = new Vegashero();
 
 function lobby_stylesheets() {
