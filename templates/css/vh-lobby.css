@@ -1,18 +1,4 @@
-*, *:before, *:after {
-  -webkit-box-sizing:border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-html {
-  font-size:1em;
-}
-body {
-  font-family:"Helvetica Neue", Helvetica, sans-serif;
 
-}
-a:hover {
-  text-decoration:none;
-}
 .app-content {
   height: 100%;
 }
@@ -26,20 +12,20 @@ a:hover {
 .app-content:after {
   clear: both;
 }
-.row-sm {
+.vh-row-sm {
   margin-right: -10px;
   margin-left: -10px;
 }
-.row-sm > div {
+.vh-row-sm > div {
   padding-right: 10px;
   padding-left: 10px;
 }
-.item {
+.vh-item {
   margin-bottom:20px;
   position: relative;
 }
 
-.item-overlay {
+.vh-item-overlay {
   position: absolute;
   top:-7%;
   width:110%;
@@ -52,7 +38,7 @@ a:hover {
   text-align:center;
 }
 
-.item:hover .item-overlay, .item:focus .item-overlay {
+.vh-item:hover .vh-item-overlay, .vh-item:focus .vh-item-overlay {
   display:block;
   box-sizing: border-box;
   box-shadow: 0 0px 15px 0px rgba(0,0,0,0.2);
@@ -60,7 +46,7 @@ a:hover {
   height: 119%;
   opacity: .99;
 }
-.item-overlay a.vh-play-fun {
+.vh-item-overlay a.vh-play-fun {
   font-size: 18px !important;
   padding: 10px 20px;
   border-radius: 3px;
@@ -73,18 +59,18 @@ a:hover {
   top:63px;
   color:white;
 }
-.item:hover img {
+.vh-item:hover img {
   position:relative;
 
 }
-.item-overlay .img-hover {
+.vh-item-overlay .img-hover {
   width:100%;
   z-index:3;
   margin-top:-74px;
   margin-bottom:10px;
   position:relative;
 }
-.text-white {
+.vh-text-white {
   color: #fff;
 }
 .img-full {
@@ -120,29 +106,33 @@ a:hover {
   padding-left: 0;
 }
 /* Grid */
-.row-sm {
+.vh-row-sm {
   margin-right: -10px;
   margin-left: -10px;
 }
-.col-xs-6, .col-sm-4, .col-md-4 {
+.vh-col-xs-6, .vh-col-sm-4, .vh-col-md-4 {
   width: 50%;
   float:left;
   min-height:1px;
   position:relative;
 }
-.row-sm > div {
+.vh-row-sm > div {
   padding-right: 10px;
   padding-left: 10px;
 }
+
+/* Game Page Styling */
+
+
 @media (min-width: 768px) {
   .app.container {
     width: 920px;
   }
-  .col-sm-4 {
+  .vh-col-sm-4 {
     width: 33.33333333%;
   }
 }
 @media (min-width: 992px) {
-.col-md-4 {
+.vh-col-md-4 {
   width: 33.33333333%;
 }

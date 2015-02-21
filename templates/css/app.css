@@ -620,12 +620,12 @@ pre {
   padding: 0;
 }
 
-.row-sm {
+.vh-row-sm {
   margin-right: -10px;
   margin-left: -10px;
 }
 
-.row-sm > div {
+.vh-row-sm > div {
   padding-right: 10px;
   padding-left: 10px;
 }

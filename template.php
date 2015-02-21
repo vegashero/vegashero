@@ -4,7 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
     exit();
 }
 
-class Vegashero_Template 
+class Vegashero_Template
 {
 
     private $_config = array();
@@ -64,7 +64,6 @@ class Vegashero_Template
         return $atts;
 
     }
-
     /**
      * Checks if the template is assigned to the page
      */
@@ -110,10 +109,10 @@ class Vegashero_Template
         $post_id = get_the_ID();
 
         if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
-            $single_template = sprintf("%s/templates/single-%s.php", $plugin_dir, $this->_config->customPostType);
+
+          $single_template = sprintf("%s/templates/single-%s.php", $plugin_dir, $this->_config->customPostType);
+
         }
         return $single_template;
-
     }
-
-}
+  }

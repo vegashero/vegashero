@@ -1,0 +1,35 @@
+.vh-casino-providers {
+	width:70%;
+	margin-top:50px;
+	margin-bottom:50px;
+	border:1px solid #b7cbd7;
+}
+.vh-casino-providers thead {
+	background:#f4f4f4;
+	font-weight:bold;
+	font-size:14px;
+	border-bottom:1px solid #b7cbd7;
+}
+.vh-casino-providers thead tr th, .vh-casino-providers tbody tr td {
+	padding:10px;
+	vertical-align:middle;
+}
+.vh-casino-providers thead tr th {
+	font-size:14px;
+	font-weight:bold;
+	text-transform:uppercase;
+}
+.vh-casino-providers tbody tr {
+	border-bottom:1px solid #b7cbd7;
+}
+.vh-bonus {
+	font-size:30px;
+}
+.vh-playnow {
+	background:#6ac144;
+	padding:10px 30px;
+	color:white;
+	text-transform:uppercase;
+	text-align:center;
+	text-decoration:none;
+}
