@@ -28,4 +28,3 @@ $import = new Vegashero_Import();
 $template = new Vegashero_Template();
 $settings = new Vegashero_Settings();
 $stylesheet = new Vegashero_Stylesheet();
-
