@@ -27,60 +27,60 @@ class Vegashero_Import
         return new \Vegasgod\Api;
     }
 
-    private function _getSiteId($site) {
+    private function _getOperatorId($operator) {
 
-        if( ! $site_id = term_exists($site, $this->_config->taxonomy)){
-            $site_id = wp_insert_category(
+        if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
+            $operator_id = wp_insert_category(
                 array(
-                    'cat_name' => $site,
-                    'category_description' => 'Vegas Hero Gaming Site',
-                    'category_nicename' => sanitize_title($site),
-                    'taxonomy' => $this->_config->taxonomy
+                    'cat_name' => $operator,
+                    'category_description' => 'Vegas Hero Game Operators',
+                    'category_nicename' => sanitize_title($operator),
+                    'taxonomy' => $this->_config->gameOperatorTaxonomy
                 ),
                 true
             );
         }  else {
-            $term_details = get_term_by('name', $site, $this->_config->taxonomy);
-            $site_id = (int)$term_details->term_id;
+            $term_details = get_term_by('name', $operator, $this->_config->gameOperatorTaxonomy);
+            $operator_id = (int)$term_details->term_id;
         }
-        return $site_id;
+        return $operator_id;
     }
 
     private function _getProviderId($provider) {
 
-        if( ! $provider_id = term_exists($provider, $this->_config->taxonomy)){
+        if( ! $provider_id = term_exists($provider, $this->_config->gameProviderTaxonomy)){
             $provider_id = wp_insert_category(
                 array(
                     'cat_name' => $provider,
-                    'category_description' => 'Vegas Game Provider',
+                    'category_description' => 'Vegas Hero Game Providers',
                     'category_nicename' => sanitize_title($provider),
-                    'taxonomy' => $this->_config->taxonomy
+                    'taxonomy' => $this->_config->gameProviderTaxonomy
                 ),
                 true
             );
         }  else {
-            $term_details = get_term_by('name', $provider, $this->_config->taxonomy);
+            $term_details = get_term_by('name', $provider, $this->_config->gameProviderTaxonomy);
             $provider_id = (int)$term_details->term_id;
         }
         return $provider_id;
     }
 
 
-    private function _getGameCategoryId($category) {
+    private function _getCategoryId($category) {
 
-        if( ! $category_id = term_exists($category, $this->_config->taxonomy)){
+        if( ! $category_id = term_exists($category, $this->_config->gameCategoryTaxonomy)){
             $category_id = wp_insert_category(
                 array(
                     'cat_name' => $category,
-                    'category_description' => 'Vegas Game Category',
+                    'category_description' => 'Vegas Hero Game Categories',
                     'category_nicename' => sanitize_title($category),
                     // 'category_parent' => $parent_id,
-                    'taxonomy' => $this->_config->taxonomy
+                    'taxonomy' => $this->_config->gameCategoryTaxonomy
                 ),
                 true
             );
         }  else {
-            $term_details = get_term_by('name', $category, $this->_config->taxonomy);
+            $term_details = get_term_by('name', $category, $this->_config->gameCategoryTaxonomy);
             $category_id = (int)$term_details->term_id;
         }
         return $category_id;
@@ -96,20 +96,18 @@ class Vegashero_Import
 
         foreach($games as $game) {
 
-            if($game->provider) {
-                $provider_id = $this->_getProviderId(trim($game->provider));
-                $category_ids = array($provider_id);
+            if($game->provider && $game->site && $game->category) {
+                // $category_ids = array($provider_id);
 
                 $post_meta = array(
                     'ref' => trim($game->ref),
-                    'type' => $game->type,
-                    'provider' => $game->provider
+                    'type' => $game->type
                 );
 
-                $site_id = $this->_getSiteId(trim($game->site));
-                $category_id = $this->_getGameCategoryId(trim($game->category));
-                array_push($category_ids, $site_id, $category_id);
-
+                $category_id = $this->_getCategoryId(trim($game->category));
+                $provider_id = $this->_getProviderId(trim($game->provider));
+                $operator_id = $this->_getOperatorId(trim($game->site));
+                // array_push($category_ids, $operator_id, $category_id);
 
                 $post = array(
                     'post_content'   => the_content(),
@@ -121,11 +119,15 @@ class Vegashero_Import
                 );
                 $post_id = wp_insert_post($post);
                 $post_meta_id = add_post_meta($post_id, $this->_config->metaKey, $post_meta, true); // add post meta data
-                $term_taxonomy_ids = wp_set_object_terms($post_id, $category_ids, $this->_config->taxonomy); // link category and post
-                $this->_groupTerms($category_ids, $this->_config->termGroupId, $this->_config->taxonomy);
+                $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
+                $game_provider_term_id = wp_set_object_terms($post_id, $provider_id, $this->_config->gameProviderTaxonomy); // link provider and post
+                $game_operator_term_id = wp_set_object_terms($post_id, $operator_id, $this->_config->gameOperatorTaxonomy); // link operator and post
+                $this->_groupTerms(array($category_id), $this->_config->gameCategoryTermGroupId, $this->_config->gameCategoryTaxonomy);
+                $this->_groupTerms(array($provider_id), $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
+                $this->_groupTerms(array($operator_id), $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
 
             } else {
-                throw new Exception('All games require a provider');
+                throw new Exception('All games require a provider, operator and category. Missing for ' . $game->name . ' with id ' . $game->id);
             }
 
         }
@@ -155,20 +157,74 @@ class Vegashero_Import
         );
 
         $args = array(
-            'hierarchical'      => true,
+            'hierarchical'      => false,
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => array( 'slug' => 'games' ),
+            'rewrite'           => array( 'slug' => 'game-categories' ),
         );
 
-        register_taxonomy( $this->_config->taxonomy, array( $this->_config->customPostType ), $args );
+        register_taxonomy( $this->_config->gameCategoryTaxonomy, array( $this->_config->customPostType ), $args );
+
+    }
+
+    private function _registerGameOperatorTaxonomy() {
+        $labels = array(
+            'name'              => 'Game Operators',
+            'singular_name'     => 'Game Operator',
+            'search_items'      => 'Search Game Operators',
+            'all_items'         => 'All Games Operators',
+            'edit_item'         => 'Edit Game Operator',
+            'update_item'       => 'Update Game Operator',
+            'add_new_item'      => 'Add New Game Operator',
+            'new_item_name'     => 'New Game Operator',
+            'menu_name'         => 'Game Operators',
+        );
+
+        $args = array(
+            'hierarchical'      => false,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => array( 'slug' => 'game-operators' ),
+        );
+
+        register_taxonomy( $this->_config->gameOperatorTaxonomy, array( $this->_config->customPostType ), $args );
+
+    }
+
+    private function _registerGameProviderTaxonomy() {
+        $labels = array(
+            'name'              => 'Game Providers',
+            'singular_name'     => 'Game Provider',
+            'search_items'      => 'Search Game Providers',
+            'all_items'         => 'All Games Providers',
+            'edit_item'         => 'Edit Game Provider',
+            'update_item'       => 'Update Game Provider',
+            'add_new_item'      => 'Add New Game Provider',
+            'new_item_name'     => 'New Game Provider',
+            'menu_name'         => 'Game Providers',
+        );
+
+        $args = array(
+            'hierarchical'      => false,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => true,
+            'rewrite'           => array( 'slug' => 'game-providers' ),
+        );
+
+        register_taxonomy( $this->_config->gameProviderTaxonomy, array( $this->_config->customPostType ), $args );
 
     }
 
     public function registerTaxonomies() {
         $this->_registerGameCategoryTaxonomy();
+        $this->_registerGameOperatorTaxonomy();
+        $this->_registerGameProviderTaxonomy();
     }
 
     public function registerCustomPosttype() {

@@ -4,17 +4,11 @@
 //     exit();
 // }
 
-require_once "vegashero.php";
-$vegashero = new Vegashero();
-
-echo sprintf("custom post type: %s", $vegashero->customPostType);
-echo sprintf("meta key: %s", $vegashero->metaKey);
-echo sprintf("term group: %s", $vegashero->termGroupId);
-echo sprintf("taxonomy: %s", $vegashero->taxonomy);
+$config = new Vegashero_Config();
 
 global $wpdb;
-$wpdb->query("DELETE FROM wp_postmeta WHERE meta_key = '$vegashero->metaKey'");
-$wpdb->query("DELETE FROM wp_posts WHERE post_type = '$vegashero->customPostType'");
-$wpdb->query("DELETE FROM wp_terms WHERE term_group = '$vegashero->termGroupId'");
-$wpdb->query("DELETE FROM wp_term_taxonomy WHERE taxonomy = '$vegashero->taxonomy'");
+$wpdb->query("DELETE FROM wp_postmeta WHERE meta_key = '$config->metaKey'");
+$wpdb->query("DELETE FROM wp_posts WHERE post_type = '$config->customPostType'");
+$wpdb->query("DELETE FROM wp_terms WHERE term_group = '$config->gameCategoryTermGroupId' OR term_group = '$config->gameOperatorTermGroupId' OR term_group = '$config->gameProviderTermGroupId'");
+$wpdb->query("DELETE FROM wp_term_taxonomy WHERE taxonomy = '$config->gameCategoryTaxonomy' OR taxonomy = '$config->gameProviderTaxonomy' OR taxonomy = '$config->gameOperatorTaxonomy'");
 // $wpdb->query("DELETE FROM wp_term_relationships ...");
