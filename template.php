@@ -65,6 +65,7 @@ class Vegashero_Template
         return $atts;
 
     }
+
     /**
      * Checks if the template is assigned to the page
      */
