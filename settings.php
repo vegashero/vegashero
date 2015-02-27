@@ -17,12 +17,12 @@ class Vegashero_Settings
     }
 
     private function _getVegasgod() {
-        $vegasgod_plugin = WP_PLUGIN_DIR . '/vegasgod/api.php';
-        if( ! file_exists($vegasgod_plugin)) {
-            throw new Exception('Requires Vegas God Plugin');
-        }
-        require_once WP_PLUGIN_DIR . '/vegasgod/api.php';
-        return new \Vegasgod\Api;
+        // $vegasgod_plugin = WP_PLUGIN_DIR . '/vegasgod/api.php';
+        // if( ! file_exists($vegasgod_plugin)) {
+        //     throw new Exception('Requires Vegas God Plugin');
+        // }
+        // require_once WP_PLUGIN_DIR . '/vegasgod/api.php';
+        return new Vegasgod_Api;
     }
 
     public function registerSettings() {
