@@ -6,11 +6,23 @@
 $current_dir = dirname(__FILE__);
 $root_dir = realpath("$current_dir/../../../");
 require_once "$root_dir/wp-load.php";
-$location = $_SERVER['HTTP_REFERER'];
-$parsed = parse_url($location);
-parse_str($parsed['query'], $dirty);
-$clean = http_build_query($dirty);
-$location = sprintf('%s://%s%s?%s', $parsed['scheme'], $parsed['host'], $parsed['path'], $clean);
+$location = @$_SERVER['HTTP_REFERER'];
+
+if( ! empty($location) && isset($_GET['operator'])  ) {
+
+    $parsed = parse_url($location);
+    parse_str($parsed['query'], $dirty);
+    $clean = http_build_query($dirty);
+    $location = sprintf('%s://%s%s?%s&vegashero-import=queued', $parsed['scheme'], $parsed['host'], $parsed['path'], $clean);
+
+    // schedule import of games for the specific operator
+    if( ! wp_next_scheduled('vegashero_import')) {
+        wp_schedule_single_event(time(), 'vegashero_import', array(trim($_GET['operator'])));
+    }
+
+} else {
+    $location = site_url();
+}
 
 wp_redirect($location);
 exit();

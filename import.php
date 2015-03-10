@@ -12,19 +12,8 @@ class Vegashero_Import
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerTaxonomies'));
 
+        // this action is scheduled in update.php
         add_action('vegashero_import', array($this, 'import_games'));
-        if( ! wp_next_scheduled('vegashero_import')) {
-            wp_schedule_single_event(time(), 'vegashero_import');
-        }
-    }
-
-    private function _getVegasgod() {
-        $vegasgod_plugin = WP_PLUGIN_DIR . '/vegasgod/api.php';
-        if( ! file_exists($vegasgod_plugin)) {
-            throw new Exception('Requires Vegas God Plugin');
-        }
-        require_once WP_PLUGIN_DIR . '/vegasgod/api.php';
-        return new \Vegasgod\Api;
     }
 
     private function _getOperatorId($operator) {
@@ -83,18 +72,24 @@ class Vegashero_Import
         return $category_id;
     }
 
-    public function import_games() {
+    public function import_games($operator) {
 
         require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->registerTaxonomies();
 
-        $json = file_get_contents(sprintf('%s/wp-json/vegasgod/games/%s', $this->_config->apiUrl, $operator));
-        $games = json_decode(json_decode($json), true);
-        // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
+        $response = wp_remote_get(sprintf('%s/wp-json/vegasgod/operators', $this->_config->apiUrl));
+        $operators = json_decode(json_decode($response['body']), true);
+
+        if(in_array($operator, $operators)) {
+            $json = wp_remote_get(sprintf('%s/wp-json/vegasgod/games/%s', $this->_config->apiUrl, $operator));
+            $games = json_decode(json_decode($json['body']), true);
+            // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
+        }
 
         foreach($games as $game) {
+            // we need to check whether the games have already been imported!!!
 
-            if($game->provider && $game->site && $game->category) {
+            if($game->provider && $game->operator && $game->category) {
                 // $category_ids = array($provider_id);
 
                 $post_meta = array(
@@ -104,7 +99,7 @@ class Vegashero_Import
 
                 $category_id = $this->_getCategoryId(trim($game->category));
                 $provider_id = $this->_getProviderId(trim($game->provider));
-                $operator_id = $this->_getOperatorId(trim($game->site));
+                $operator_id = $this->_getOperatorId(trim($game->operator));
                 // array_push($category_ids, $operator_id, $category_id);
 
                 $post = array(
