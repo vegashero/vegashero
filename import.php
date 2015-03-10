@@ -28,7 +28,6 @@ class Vegashero_Import
     }
 
     private function _getOperatorId($operator) {
-
         if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
             $operator_id = wp_insert_category(
                 array(
@@ -47,7 +46,6 @@ class Vegashero_Import
     }
 
     private function _getProviderId($provider) {
-
         if( ! $provider_id = term_exists($provider, $this->_config->gameProviderTaxonomy)){
             $provider_id = wp_insert_category(
                 array(
@@ -67,7 +65,6 @@ class Vegashero_Import
 
 
     private function _getCategoryId($category) {
-
         if( ! $category_id = term_exists($category, $this->_config->gameCategoryTaxonomy)){
             $category_id = wp_insert_category(
                 array(
@@ -91,8 +88,9 @@ class Vegashero_Import
         require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->registerTaxonomies();
 
-        $vegasgod = $this->_getVegasgod();
-        $games = $vegasgod->getGames();
+        $json = file_get_contents(sprintf('%s/wp-json/vegasgod/games/%s', $this->_config->apiUrl, $operator));
+        $games = json_decode(json_decode($json), true);
+        // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
 
         foreach($games as $game) {
 

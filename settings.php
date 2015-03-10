@@ -3,51 +3,75 @@
 class Vegashero_Settings 
 {
 
-    private $_sites;
-    private $_site;
+    private $_operators;
+    private $_operator;
+    private $_config;
 
     public function __construct() {
 
-        $vegasgod = $this->_getVegasgod();
-        $this->_sites = $vegasgod->getSites();
+        $this->_config = new Vegashero_Config();
 
+        if(@$_GET['page'] === 'vegashero-plugin' && @$_GET['vegashero-import'] === 'queued') {
+            add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
+        }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
 
     }
 
-    private function _getVegasgod() {
-        // $vegasgod_plugin = WP_PLUGIN_DIR . '/vegasgod/api.php';
-        // if( ! file_exists($vegasgod_plugin)) {
-        //     throw new Exception('Requires Vegas God Plugin');
-        // }
-        // require_once WP_PLUGIN_DIR . '/vegasgod/api.php';
-        return new Vegasgod_Api;
+    public function vegashero_admin_import_notice() {
+        echo '<div class="updated">';
+        echo '<p>' . _e( 'Your import has been queued' ) .'</p>';
+        echo '</div>';
+    }
+
+    private function _getOptionGroup($operator=null) {
+        if( ! $operator) {
+            $operator = $this->_operator;
+        }
+        return sprintf('vegashero_settings_group_%s', $operator);
+    }
+
+    public function getOptionName($operator=null) {
+        if( ! $operator) {
+            $operator = $this->_operator;
+        }
+        return sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
+    }
+
+    private function _getAffiliateCodeInputKey($operator=null) {
+        if( ! $operator) {
+            $operator = $this->_operator;
+        }
+        return sprintf('%s-affiliate-code', $operator);
     }
 
     public function registerSettings() {
 
-        foreach($this->_sites as $site) {
-            $this->_site = $site;
-            $section = $this->_getSectionName($site);
-            $page = $this->_getPageName($site);
-            $field = sprintf('%s-affiliate-code', $site);
-            add_settings_section($section, sprintf('%s Settings', ucfirst($site)), array($this, 'getDescriptionForSiteSettings'), $page);
-            add_settings_field($field, 'Affiliate code', array($this, 'createAffiliateCodeInput'), $page, $section);
-            $option_group = sprintf('vegashero_settings_group_%s', $site);
-            $option_name = sprintf('vegashero_settings_name_%s', $site);
-            $sanitize_callback = '';
+        $this->_config = new Vegashero_Config();
+        $response = wp_remote_get(sprintf('%s/wp-json/vegasgod/operators', $this->_config->apiUrl));
+        $this->_operators = json_decode(json_decode($response['body']), true);
 
-            register_setting($option_group, $option_name, $sanitize_callback);
+        foreach($this->_operators as $operator) {
+            $this->_operator = $operator;
+            $section = $this->_getSectionName($operator);
+            $page = $this->_getPageName($operator);
+            $field = $this->_getAffiliateCodeInputKey($operator);
+            add_settings_section($section, sprintf('%s Settings', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
+            add_settings_field($field, 'Affiliate code', array($this, 'createAffiliateCodeInput'), $page, $section);
+            $option_group = $this->_getOptionGroup($operator);
+            $option_name = $this->getOptionName($operator);
+
+            register_setting($option_group, $option_name);
         }
     }
 
-    private function _getPageName($site) {
-        return sprintf('vegashero-plugin-%s-settings-page', $site);
+    private function _getPageName($operator) {
+        return sprintf('vegashero-plugin-%s-settings-page', $operator);
     }
 
-    private function _getSectionName($site) {
-        return sprintf('%s-settings-section', $site);
+    private function _getSectionName($operator) {
+        return sprintf('%s-settings-section', $operator);
     }
 
     public function getDescriptionForSiteSettings() {
@@ -55,26 +79,42 @@ class Vegashero_Settings
     }
 
     public function createAffiliateCodeInput() {
-        $key = sprintf('vegashero_plugin_%s_settings_key', $this->_site);
-        $options = get_option($key);
-        echo "<input name='".$key."[".$this->_site."]' size='40' type='text' value='' />";
+        $key = $this->_getAffiliateCodeInputKey();
+        $name = $this->getOptionName();
+        // for array of options
+        // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
+        // for single option
+        echo "<input name='".$name."' size='40' type='text' value='".get_option($name)."' />";
     }
 
     public function addSettingsMenu() {
         add_options_page('Vegas Hero Plugin', 'Vegas Hero', 'manage_options', 'vegashero-plugin', array($this, 'createSettingsPage'));
     }
 
+    private function _getUpdateBtn($operator) {
+
+        $markup = "&nbsp;&nbsp;<a href='";
+        if(get_option($this->getOptionName())) {
+            $update_url = plugins_url('update.php', __FILE__);
+            $markup .= "$update_url?operator=$operator'";
+        } else {
+            $markup .= "#' disabled='disabled'"; 
+        }
+        $markup .= " class='button button-primary'";
+        $markup .= ">Import games</a>";
+        return $markup;
+    }
+
     public function createSettingsPage() {
         echo '<div class="wrap">';
         echo '<h2>Vegas Hero Settings</h2>';
-        foreach($this->_sites as $site) {
+        foreach($this->_operators as $operator) {
             echo '<form method="post" action="options.php">';
-            settings_fields(sprintf('vegashero_settings_group_%s', $site));
-            $page = $this->_getPageName($site);
+            settings_fields($this->_getOptionGroup($operator));
+            $page = $this->_getPageName($operator);
             do_settings_sections($page);
             echo "<input type='submit' name='submit' class='button button-primary' value='Apply code'>";
-            $update_url = plugins_url('update.php', __FILE__);
-            echo "&nbsp;&nbsp;<a href='$update_url' class='button button-primary'>Update games</a>";
+            echo $this->_getUpdateBtn($operator);
             echo '</form>';
         }
         echo '</div>';

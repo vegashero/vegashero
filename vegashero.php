@@ -14,6 +14,7 @@ if ( ! defined( 'WPINC' ) ) {
     exit();
 }
 
+
 spl_autoload_register(function($classname) {
     $segments = explode('_', $classname);
     if($segments[0] == 'Vegashero') {
