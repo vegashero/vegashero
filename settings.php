@@ -1,6 +1,6 @@
 <?php
 
-class Vegashero_Settings 
+class Vegashero_Settings
 {
 
     private $_operators;
@@ -98,7 +98,7 @@ class Vegashero_Settings
             $update_url = plugins_url('update.php', __FILE__);
             $markup .= "$update_url?operator=$operator'";
         } else {
-            $markup .= "#' disabled='disabled'"; 
+            $markup .= "#' disabled='disabled'";
         }
         $markup .= " class='button button-primary'";
         $markup .= ">Import games</a>";
@@ -120,5 +120,14 @@ class Vegashero_Settings
         echo '</div>';
 
     }
-}
 
+}
+function affiliate_id_notice() {
+  $vegas_settings_page = admin_url( "admin.php?page=vegashero-plugin" );
+?>
+<div class="error">
+    <p><?php echo "Please add your affiliate code <a href='".$vegas_settings_page."'>here</a> to import your VegasHero Games" ?></p>
+</div>
+<?php
+}
+add_action( 'admin_notices', 'affiliate_id_notice' );
