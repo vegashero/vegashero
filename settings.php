@@ -105,29 +105,54 @@ class Vegashero_Settings
         return $markup;
     }
 
-    public function createSettingsPage() {
-        echo '<div class="wrap">';
-        echo '<h2>Vegas Hero Settings</h2>';
+    public function createSettingsPage() { ?>
+
+      <div class="wrap about-wrap">
+        <h1>Welcome to Vegas Hero Games</h1>
+        <div class="about-text">
+			  Install a whole ton of games in an instant, add your affiliate codes from multiple operators.
+        </div>
+        <div class="vh-badge">Version 1.0</div>
+        <hr>
+        <h3>Operators available to install</h3>
+        <div class="operator-cards">
+        <?php
+
         foreach($this->_operators as $operator) {
             echo '<form method="post" action="options.php">';
             settings_fields($this->_getOptionGroup($operator));
             $page = $this->_getPageName($operator);
             do_settings_sections($page);
-            echo "<input type='submit' name='submit' class='button button-primary' value='Apply code'>";
+            echo "<br><input type='submit' name='submit' class='button button-primary' value='Apply code'>";
             echo $this->_getUpdateBtn($operator);
             echo '</form>';
         }
-        echo '</div>';
 
+        ?>
+
+          <p><strong>Sign up with Mr Green</strong></p>
+          <p class="submit">
+            <a class="button-primary" href="http://mraffiliate.com">Get your affiliate code here</a>
+          </p>
+        </div>
+      </div>
+        <?php
     }
-
 }
+
 function affiliate_id_notice() {
   $vegas_settings_page = admin_url( "admin.php?page=vegashero-plugin" );
 ?>
 <div class="error">
-    <p><?php echo "Please add your affiliate code <a href='".$vegas_settings_page."'>here</a> to import your VegasHero Games" ?></p>
+    <p><?php echo "Please add your affiliate code <a href='".$vegas_settings_page."'>here</a> to import your VegasHero Games"; ?></p>
 </div>
 <?php
 }
 add_action( 'admin_notices', 'affiliate_id_notice' );
+
+add_action('admin_head', 'settings_page_styles');
+
+function settings_page_styles() {
+  $url = plugin_dir_url( __FILE__ ) . 'templates/css/settings-styles.css';
+  echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
+}
