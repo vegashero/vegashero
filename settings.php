@@ -49,7 +49,8 @@ class Vegashero_Settings
     public function registerSettings() {
 
         $this->_config = new Vegashero_Config();
-        $response = wp_remote_get(sprintf('%s/wp-json/vegasgod/operators', $this->_config->apiUrl));
+        $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
+        $response = wp_remote_get($endpoint);
         $this->_operators = json_decode(json_decode($response['body']), true);
 
         foreach($this->_operators as $operator) {

@@ -77,11 +77,13 @@ class Vegashero_Import
         require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->registerTaxonomies();
 
-        $response = wp_remote_get(sprintf('%s/wp-json/vegasgod/operators', $this->_config->apiUrl));
+        //http://localhost:8000/?json_route=/vegasgod/games/mrgreen
+        $response = wp_remote_get(sprintf('%s/vegasgod/operators', $this->_config->apiUrl));
         $operators = json_decode(json_decode($response['body']), true);
 
         if(in_array($operator, $operators)) {
-            $json = wp_remote_get(sprintf('%s/wp-json/vegasgod/games/%s', $this->_config->apiUrl, $operator));
+            //http://localhost:8000/?json_route=/vegasgod/games/mrgreen
+            $json = wp_remote_get(sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator));
             $games = json_decode(json_decode($json['body']), true);
             // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
         }
