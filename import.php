@@ -77,14 +77,14 @@ class Vegashero_Import
         require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->registerTaxonomies();
 
-        //http://localhost:8000/?json_route=/vegasgod/games/mrgreen
-        $response = wp_remote_get(sprintf('%s/vegasgod/operators', $this->_config->apiUrl));
-        $operators = json_decode(json_decode($response['body']), true);
+        $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
+        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
+        $operators = json_decode(json_decode($response), true);
 
         if(in_array($operator, $operators)) {
-            //http://localhost:8000/?json_route=/vegasgod/games/mrgreen
-            $json = wp_remote_get(sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator));
-            $games = json_decode(json_decode($json['body']), true);
+            $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
+            $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
+            $games = json_decode(json_decode($response), true);
             // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
         }
 
@@ -94,10 +94,11 @@ class Vegashero_Import
             if($game->provider && $game->operator && $game->category) {
                 // $category_ids = array($provider_id);
 
-                $post_meta = array(
-                    'ref' => trim($game->ref),
-                    'type' => $game->type
-                );
+                // $post_meta = array(
+                //     'game_id' => $game->id,
+                //     'ref' => trim($game->ref),
+                //     'type' => $game->type
+                // );
 
                 $category_id = $this->_getCategoryId(trim($game->category));
                 $provider_id = $this->_getProviderId(trim($game->provider));
@@ -113,7 +114,8 @@ class Vegashero_Import
                     'post_excerpt'   => the_excerpt()
                 );
                 $post_id = wp_insert_post($post);
-                $post_meta_id = add_post_meta($post_id, $this->_config->metaKey, $post_meta, true); // add post meta data
+                // $post_meta_id = add_post_meta($post_id, $this->_config->metaKey, $post_meta, true); // add post meta data
+                $post_meta_id = add_post_meta($post_id, 'vegasgod_unique_game_id', $game->id, true); // add post meta data
 
                 $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
                 $game_provider_term_id = wp_set_object_terms($post_id, $provider_id, $this->_config->gameProviderTaxonomy); // link provider and post

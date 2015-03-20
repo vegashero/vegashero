@@ -47,11 +47,11 @@ class Vegashero_Settings
     }
 
     public function registerSettings() {
-
         $this->_config = new Vegashero_Config();
         $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
-        $response = wp_remote_get($endpoint);
-        $this->_operators = json_decode(json_decode($response['body']), true);
+        // this needs to be cached locally!!!!
+        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
+        $this->_operators = json_decode(json_decode($response), true);
 
         foreach($this->_operators as $operator) {
             $this->_operator = $operator;

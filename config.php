@@ -18,7 +18,7 @@ class Vegashero_Config
         $p_ini = parse_ini_file($filename, true);
         $config = array();
         foreach($p_ini as $namespace => $properties){
-            list($name, $extends) = explode(':', $namespace);
+            @list($name, $extends) = explode(':', $namespace);
             $name = trim($name);
             $extends = trim($extends);
             // create namespace if necessary
