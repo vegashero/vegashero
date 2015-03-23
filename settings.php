@@ -26,21 +26,21 @@ class Vegashero_Settings
     }
 
     private function _getOptionGroup($operator=null) {
-        if( ! $operator) {
+        if(is_null($operator)) {
             $operator = $this->_operator;
         }
         return sprintf('vegashero_settings_group_%s', $operator);
     }
 
     public function getOptionName($operator=null) {
-        if( ! $operator) {
+        if(is_null($operator)) {
             $operator = $this->_operator;
         }
         return sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
     }
 
     private function _getAffiliateCodeInputKey($operator=null) {
-        if( ! $operator) {
+        if(is_null($operator)) {
             $operator = $this->_operator;
         }
         return sprintf('%s-affiliate-code', $operator);
@@ -52,17 +52,15 @@ class Vegashero_Settings
         // this needs to be cached locally!!!!
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $this->_operators = json_decode(json_decode($response), true);
-
         foreach($this->_operators as $operator) {
             $this->_operator = $operator;
             $section = $this->_getSectionName($operator);
             $page = $this->_getPageName($operator);
             $field = $this->_getAffiliateCodeInputKey($operator);
             add_settings_section($section, sprintf('%s Settings', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
-            add_settings_field($field, 'Affiliate code', array($this, 'createAffiliateCodeInput'), $page, $section);
+            add_settings_field($field, 'Affiliate code', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
             $option_group = $this->_getOptionGroup($operator);
             $option_name = $this->getOptionName($operator);
-
             register_setting($option_group, $option_name);
         }
     }
@@ -79,9 +77,10 @@ class Vegashero_Settings
         echo "<p>Site specific settings description goes here</p>";
     }
 
-    public function createAffiliateCodeInput() {
-        $key = $this->_getAffiliateCodeInputKey();
-        $name = $this->getOptionName();
+    public function createAffiliateCodeInput($args) {
+        $operator = $args[0];
+        $key = $this->_getAffiliateCodeInputKey($operator);
+        $name = $this->getOptionName($operator);
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
@@ -95,7 +94,9 @@ class Vegashero_Settings
     private function _getUpdateBtn($operator) {
 
         $markup = "&nbsp;&nbsp;<a href='";
-        if(get_option($this->getOptionName())) {
+        $option_name = $this->getOptionName($operator);
+        $option = get_option($option_name);
+        if( ! empty($option)) {
             $update_url = plugins_url('update.php', __FILE__);
             $markup .= "$update_url?operator=$operator'";
         } else {
