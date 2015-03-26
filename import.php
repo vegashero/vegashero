@@ -4,7 +4,8 @@ class Vegashero_Import
 {
 
     private $_config = array();
-    
+    private $_operators = array();
+
     public function __construct() {
 
         $this->_config = new Vegashero_Config();
@@ -14,6 +15,28 @@ class Vegashero_Import
 
         // this action is scheduled in update.php
         add_action('vegashero_import', array($this, 'import_games'));
+    }
+
+    private function _setOperators() {
+        $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
+        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
+        $this->_operators = json_decode(json_decode($response), true);
+        // $this->_operators = array_slice(array_keys((array)$game), 6, -2);
+    }
+
+    private function _getOperatorsForGame($game) {
+        $operators = array();
+        if( ! count($this->_operators)) {
+            $this->_setOperators($game);
+        }
+        foreach($this->_operators as $operator) {
+            $operator = trim($operator);
+            if($game->{$operator}) {
+                $operator_id = $this->_getOperatorId($operator);
+                array_push($operators, $operator_id); 
+            }
+        }
+        return $operators;
     }
 
     private function _getOperatorId($operator) {
@@ -72,63 +95,82 @@ class Vegashero_Import
         return $category_id;
     }
 
+    private function _getPostsForGame($game) {
+        $args = array(
+            'post_type' => $this->_config->customPostType,
+            'meta_query' => array(
+                array(
+                    'key' => 'game_id',
+                    'value' => $game->id
+                )
+            )
+        );
+        return get_posts($args);
+    }
+
     public function import_games($operator) {
 
         require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->registerTaxonomies();
 
-        $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
+        // [id] => 6
+        // [name] => wild witches
+        // [provider] => netent
+        // [category] => video slots
+        // [src] => http://www.affiliaterepublik.com/game/slots-million/1311/default/730/en/wildwitches.iframe
+        // [status] => 1
+        // [mrgreen] => 1
+        // [slotsmillion] => 1
+        // [created] => 2015-03-20 11:36:22
+        // [modified] => 2015-03-20 11:36:22 
+
+        $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
-        $operators = json_decode(json_decode($response), true);
+        $games = json_decode(json_decode($response));
+        // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
 
-        if(in_array($operator, $operators)) {
-            $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
-            $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
-            $games = json_decode(json_decode($response));
-            // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
+        foreach($games as $game) {
 
-            foreach($games as $game) {
-                // we need to check whether the games have already been imported!!!
+            // check if post exists for this game
+            $posts = $this->_getPostsForGame($game);
 
-                if($game->provider && $game->category) {
-                    // $category_ids = array($provider_id);
-
-                    // $post_meta = array(
-                    //     'game_id' => $game->id,
-                    //     'ref' => trim($game->ref),
-                    //     'type' => $game->type
-                    // );
-
-                    $category_id = $this->_getCategoryId(trim($game->category));
-                    $provider_id = $this->_getProviderId(trim($game->provider));
-                    $operator_id = $this->_getOperatorId(trim($operator));
-                    // array_push($category_ids, $operator_id, $category_id);
-
-                    $post = array(
-                        'post_content'   => the_content(),
-                        'post_name'      => sanitize_title($game->name),
-                        'post_title'     => ucfirst($game->name),
-                        'post_status'    => $game->status ? 'publish' : 'draft',
-                        'post_type'      => $this->_config->customPostType,
-                        'post_excerpt'   => the_excerpt()
-                    );
-                    $post_id = wp_insert_post($post);
-                    // $post_meta_id = add_post_meta($post_id, $this->_config->metaKey, $post_meta, true); // add post meta data
-                    $post_meta_id = add_post_meta($post_id, 'vegasgod_unique_game_id', $game->id, true); // add post meta data
-
-                    $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
-                    $game_provider_term_id = wp_set_object_terms($post_id, $provider_id, $this->_config->gameProviderTaxonomy); // link provider and post
-                    $game_operator_term_id = wp_set_object_terms($post_id, $operator_id, $this->_config->gameOperatorTaxonomy); // link operator and post
-
-                    $this->_groupTerms(array($category_id), $this->_config->gameCategoryTermGroupId, $this->_config->gameCategoryTaxonomy);
-                    $this->_groupTerms(array($provider_id), $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
-                    $this->_groupTerms(array($operator_id), $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
-
-                } else {
-                    throw new Exception('All games require a provider, operator and category. Missing for ' . $game->name . ' with id ' . $game->id);
-                }
-
+            $post_id = 0;
+            if(count($posts)) {
+                echo sprintf('post exists for game %s<br>', $game->name);
+                $post = $posts[0];
+                $post_id = $post->ID;
             }
+
+            // insert new post
+            if( ! $post_id) {
+                echo sprintf('inserting new post for game %s <br>', $game->name);
+                $post = array(
+                    'post_content'   => the_content(),
+                    'post_name'      => sanitize_title($game->name),
+                    'post_title'     => ucfirst($game->name),
+                    'post_status'    => $game->status ? 'publish' : 'draft',
+                    'post_type'      => $this->_config->customPostType,
+                    'post_excerpt'   => the_excerpt()
+                );
+                $post_id = wp_insert_post($post);
+            } 
+
+            $category_id = $this->_getCategoryId(trim($game->category));
+            $provider_id = $this->_getProviderId(trim($game->provider));
+            $operators = $this->_getOperatorsForGame($game);
+
+            $post_meta_id = add_post_meta($post_id, 'game_id', $game->id, true); // add post meta data
+            $post_meta_id = add_post_meta($post_id, 'game_src', $game->src, true); // add post meta data
+
+            // $post_meta_id = add_post_meta($post_id, 'vegasgod_unique_game_id', $game->id, true); // add post meta data
+            $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
+            $game_provider_term_id = wp_set_object_terms($post_id, $provider_id, $this->_config->gameProviderTaxonomy); // link provider and post
+            $game_operator_term_id = wp_set_object_terms($post_id, $operators, $this->_config->gameOperatorTaxonomy); // link operator and post
+
+            $this->_groupTerms(array($category_id), $this->_config->gameCategoryTermGroupId, $this->_config->gameCategoryTaxonomy);
+            $this->_groupTerms(array($provider_id), $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
+            $this->_groupTerms($operators, $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
+
         }
 
     }

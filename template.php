@@ -15,7 +15,7 @@ class Vegashero_Template
 
         add_filter( 'single_template', array($this, 'getSingleTemplate'));
         add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
-        add_filter( 'the_content', array($this, 'prependSinglePageToContent'));
+        // add_filter( 'the_content', array($this, 'prependSinglePageToContent'));
 
         // add custom template
         $this->templates = array();
@@ -122,16 +122,16 @@ class Vegashero_Template
         return sprintf("%s/templates/single-%s.php", $plugin_dir, $this->_config->customPostType);
     }
 
-    public function prependSinglePageToContent($content) {
-        $post_id = get_the_ID();
-        if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
-            $single_page_template_path = $this->_getSinglePageTemplatePath();
-            if(file_exists($single_page_template_path)) {
-                $single_page_content = file_get_contents($single_page_template_path);
-                $content = sprintf("%s $content", $single_page_content);
-            }
-        }
-        return $content;
-    }
+    // public function prependSinglePageToContent($content) {
+    //     $post_id = get_the_ID();
+    //     if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
+    //         $single_page_template_path = $this->_getSinglePageTemplatePath();
+    //         if(file_exists($single_page_template_path)) {
+    //             $single_page_content = file_get_contents($single_page_template_path);
+    //             $content = sprintf("%s $content", $single_page_content);
+    //         }
+    //     }
+    //     return $content;
+    // }
 
 }

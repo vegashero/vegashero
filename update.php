@@ -16,7 +16,7 @@ if( ! empty($location) && isset($_GET['operator'])  ) {
     $location = sprintf('%s://%s:%d%s?%s&vegashero-import=queued', $parsed['scheme'], $parsed['host'], $parsed['port'], $parsed['path'], $clean);
 
     // schedule import of games for the specific operator
-    if( ! wp_next_scheduled('vegashero_import')) {
+    if( ! wp_next_scheduled('vegashero_import_'+$_GET['operator'])) {
         wp_schedule_single_event(time(), 'vegashero_import', array(trim($_GET['operator'])));
     }
 
