@@ -136,14 +136,12 @@ class Vegashero_Import
 
             $post_id = 0;
             if(count($posts)) {
-                echo sprintf('post exists for game %s<br>', $game->name);
                 $post = $posts[0];
                 $post_id = $post->ID;
             }
 
             // insert new post
             if( ! $post_id) {
-                echo sprintf('inserting new post for game %s <br>', $game->name);
                 $post = array(
                     'post_content'   => the_content(),
                     'post_name'      => sanitize_title($game->name),

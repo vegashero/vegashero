@@ -14,18 +14,9 @@ class Vegashero_Template
         $this->_config = new Vegashero_Config();
         $this->_images = plugins_url('vegashero/templates/img/');
 
-        $post_id = get_the_ID();
-
-        if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
-            $this->_gameId = get_post_meta($post_id, 'game_id', true);
-            $this->_iframeSrc = get_post_meta($post_id, 'game_src', true);
-            $this->_categories = wp_get_post_terms($post_id, $config->gameCategoryTaxonomy);
-            $this->_operators = wp_get_post_terms($post_id, $config->gameOperatorTaxonomy);
-            $this->_provider = wp_get_post_terms($post_id, $config->gameProviderTaxonomy)[0];
-            add_filter( 'single_template', array($this, 'getSingleTemplate'));
-            add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
-            add_filter( 'the_content', array($this, 'wrapContent'));
-        }
+        // add_filter( 'single_template', array($this, 'getSingleTemplate'));
+        add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
+        add_filter( 'the_content', array($this, 'wrapContent'));
 
         // add custom template
         $this->templates = array();
@@ -148,9 +139,22 @@ class Vegashero_Template
     }
 
     public function wrapContent($content) {
-        $iframe_template = file_get_contents($this->_getIframeTemplate());
-        $table_template = file_get_contents($this->_getTableTemplate());
-        return sprintf("%s $content %s", $iframe_template, $table_content);
+
+        $post_id = get_the_ID();
+
+        if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
+            $this->_gameId = get_post_meta($post_id, 'game_id', true);
+            $iframe_src = get_post_meta($post_id, 'game_src', true);
+            $categories = wp_get_post_terms($post_id, $this->_config->gameCategoryTaxonomy);
+            $operators = wp_get_post_terms($post_id, $this->_config->gameOperatorTaxonomy);
+            $provider = wp_get_post_terms($post_id, $this->_config->gameProviderTaxonomy)[0];
+            $iframe_string = file_get_contents($this->_getIframeTemplate());
+            $table_string = file_get_contents($this->_getTableTemplate());
+            $iframe_template = sprintf($iframe_template, $iframe_src);
+            $table_template = sprintf($table_template, );
+            $content = sprintf("%s $content %s", $iframe_template, $table_template);
+        }
+        return $content;
     }
 
 }
