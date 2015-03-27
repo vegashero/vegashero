@@ -12,10 +12,20 @@ class Vegashero_Template
     public function __construct() {
 
         $this->_config = new Vegashero_Config();
+        $this->_images = plugins_url('vegashero/templates/img/');
 
-        add_filter( 'single_template', array($this, 'getSingleTemplate'));
-        add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
-        // add_filter( 'the_content', array($this, 'prependSinglePageToContent'));
+        $post_id = get_the_ID();
+
+        if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
+            $this->_gameId = get_post_meta($post_id, 'game_id', true);
+            $this->_iframeSrc = get_post_meta($post_id, 'game_src', true);
+            $this->_categories = wp_get_post_terms($post_id, $config->gameCategoryTaxonomy);
+            $this->_operators = wp_get_post_terms($post_id, $config->gameOperatorTaxonomy);
+            $this->_provider = wp_get_post_terms($post_id, $config->gameProviderTaxonomy)[0];
+            add_filter( 'single_template', array($this, 'getSingleTemplate'));
+            add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
+            add_filter( 'the_content', array($this, 'wrapContent'));
+        }
 
         // add custom template
         $this->templates = array();
@@ -122,16 +132,25 @@ class Vegashero_Template
         return sprintf("%s/templates/single-%s.php", $plugin_dir, $this->_config->customPostType);
     }
 
-    // public function prependSinglePageToContent($content) {
-    //     $post_id = get_the_ID();
-    //     if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
-    //         $single_page_template_path = $this->_getSinglePageTemplatePath();
-    //         if(file_exists($single_page_template_path)) {
-    //             $single_page_content = file_get_contents($single_page_template_path);
-    //             $content = sprintf("%s $content", $single_page_content);
-    //         }
-    //     }
-    //     return $content;
-    // }
+    public function appendTable($content) {
+        $plugin_dir = plugin_dir_path(__FILE__);
+        return sprintf("%s/templates/single-%s.php", $plugin_dir, $this->_config->customPostType);
+    }
+
+    private function _getIframeTemplate() {
+        $plugin_dir = plugin_dir_path(__FILE__);
+        return sprintf("%s/templates/iframe-%s.php", $plugin_dir, $this->_config->customPostType);
+    }
+
+    private function _getTableTemplate() {
+        $plugin_dir = plugin_dir_path(__FILE__);
+        return sprintf("%s/templates/table-%s.php", $plugin_dir, $this->_config->customPostType);
+    }
+
+    public function wrapContent($content) {
+        $iframe_template = file_get_contents($this->_getIframeTemplate());
+        $table_template = file_get_contents($this->_getTableTemplate());
+        return sprintf("%s $content %s", $iframe_template, $table_content);
+    }
 
 }
