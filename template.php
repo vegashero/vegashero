@@ -16,7 +16,7 @@ class Vegashero_Template
 
         // add_filter( 'single_template', array($this, 'getSingleTemplate'));
         add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
-        add_filter( 'the_content', array($this, 'wrapContent'));
+        add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent'));
 
         // add custom template
         $this->templates = array();
@@ -133,16 +133,22 @@ class Vegashero_Template
         return sprintf("%s/templates/iframe-%s.php", $plugin_dir, $this->_config->customPostType);
     }
 
+    private function _getTableBody() {
+        $plugin_dir = plugin_dir_path(__FILE__);
+        return sprintf("%s/templates/tablebody-%s.php", $plugin_dir, $this->_config->customPostType);
+    }
+
     private function _getTableTemplate() {
         $plugin_dir = plugin_dir_path(__FILE__);
         return sprintf("%s/templates/table-%s.php", $plugin_dir, $this->_config->customPostType);
     }
 
-    public function wrapContent($content) {
+    public function wrapSingleCustomPostContent($content) {
 
         $post_id = get_the_ID();
 
         if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
+            $images = plugins_url('vegashero/templates/img/');
             $this->_gameId = get_post_meta($post_id, 'game_id', true);
             $iframe_src = get_post_meta($post_id, 'game_src', true);
             $categories = wp_get_post_terms($post_id, $this->_config->gameCategoryTaxonomy);
@@ -150,8 +156,16 @@ class Vegashero_Template
             $provider = wp_get_post_terms($post_id, $this->_config->gameProviderTaxonomy)[0];
             $iframe_string = file_get_contents($this->_getIframeTemplate());
             $table_string = file_get_contents($this->_getTableTemplate());
-            $iframe_template = sprintf($iframe_template, $iframe_src);
-            $table_template = sprintf($table_template, );
+            $iframe_template = sprintf($iframe_string, $iframe_src);
+            $tablebody_string = file_get_contents($this->_getTableBody());
+
+            $tablebody_template = '';
+
+            foreach($operators as $operator) {
+                $tablebody_template .= sprintf($tablebody_string, $images, $operator->slug, $operator->name);
+            }
+
+            $table_template = sprintf($table_string, $tablebody_template);
             $content = sprintf("%s $content %s", $iframe_template, $table_template);
         }
         return $content;
