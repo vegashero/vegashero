@@ -2,9 +2,8 @@
 <thead>
     <tr>
         <!-- use double percentage signs!!! -->
-        <th width="30%%">Casino</th>
-        <th width="40%%">Bonus</th>
-        <th width="30%%">&nbsp;</th>
+        <th width="40%%">Casinos</th>
+        <th width="70%%">&nbsp;</th>
     </tr>
 </thead>
 <tbody>

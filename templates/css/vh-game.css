@@ -1,3 +1,20 @@
+.iframe_kh_wrapper {
+	position:relative;
+
+}
+.iframe_kh_wrapper iframe {
+	position:relative;
+	min-width:730px;
+	max-width:100%;
+	max-height:100%;
+	min-height:633px;
+}
+
+.iframe_kh_wrapper iframe iframe {
+	width:150px !important;
+	height:100px !important;
+}
+
 .vh-casino-providers {
 	width:70%;
 	margin-top:50px;
