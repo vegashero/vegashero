@@ -179,3 +179,4 @@ class Vegashero_Template
     }
 
 }
+
