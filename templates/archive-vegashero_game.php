@@ -1,5 +1,6 @@
 <?php get_header();
-$images = plugins_url('vegasgod/images');
+//$images = plugins_url('vegasgod/images');
+$images = "http://cdn.vegasgod.com";
 $config = new Vegashero_Config();
 ?>
 <!-- Page Section -->
@@ -154,7 +155,7 @@ $( function() {
     var sortByValue = $(this).attr('data-sort-by');
     $container.isotope({ sortBy: sortByValue });
   });
-  
+
   // change is-checked class on buttons
   $('.button-group').each( function( i, buttonGroup ) {
     var $buttonGroup = $( buttonGroup );
@@ -163,11 +164,11 @@ $( function() {
       $( this ).addClass('is-checked');
     });
   });
-  
+
   // reveal all items after init animated
   var iso = $container.data('isotope');
   $container.isotope( 'reveal', iso.items );
-  
+
 });
 
 // debounce so filtering doesn't happen every millisecond
@@ -214,10 +215,10 @@ function debounce( fn, threshold ) {
 
                 <?php if ( have_posts() ) : ?>
                 <?php while(have_posts()): ?>
-                <?php 
+                <?php
                     the_post();
                     $post_meta = get_post_meta(get_the_ID(), $config->metaKey, true);
-                    $categories = wp_get_post_terms(get_the_ID(), $config->gameCategoryTaxonomy);                    
+                    $categories = wp_get_post_terms(get_the_ID(), $config->gameCategoryTaxonomy);
                     $operators = wp_get_post_terms(get_the_ID(), $config->gameOperatorTaxonomy);
                     $provider = wp_get_post_terms(get_the_ID(), $config->gameProviderTaxonomy)[0];
                     $image_url = sprintf("%s/%s/%s/", $images, $provider->name, sanitize_title($post->post_title));
@@ -225,13 +226,13 @@ function debounce( fn, threshold ) {
                     $post_slug = sprintf(sanitize_title($post->post_title));
 					?>
 					<div class="vh-col-xs-6 vh-col-sm-4 vh-col-md-4 vh-item <?=sprintf(sanitize_title($cat_slug[0]->name))?>" data-category="<?=$categories[0]->name?>">
-						<div class="vh-item-overlay">
+						<!-- <div class="vh-item-overlay">
 							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
-                            <img src="<?=$image_url?>cover.jpg" alt="<?php the_title(); ?>" class="img-hover">
+                <img src="<?=$image_url?>cover.jpg" alt="<?php the_title(); ?>" class="img-hover">
 							<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
-                            <p class="vh-game-cat"><?=$categories[0]->name?></p>
-						</div>
-                        <img src="<?=$image_url?>cover.jpg" alt="<?php the_title(); ?>" class="img-full">
+                <p class="vh-game-cat"><?=$categories[0]->name?></p>
+						</div> -->
+                <img src="<?=$image_url?>cover.jpg" alt="<?php the_title(); ?>" class="img-full">
 						<a href="<?php the_permalink(); ?>" class="vh-game-title name"><?php the_title(); ?></a>
 						<p class="vh-game-cat gamecat"><?=$categories[0]->name?></p>
 					</div>

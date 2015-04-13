@@ -1,5 +1,6 @@
 <?php get_header();
-$images = plugins_url('vegasgod/images');
+//$images = plugins_url('vegasgod/images');
+$images = "http://cdn.vegasgod.com"
 $config = new Vegashero_Config();
 ?>
 <!-- Page Section -->
@@ -163,7 +164,7 @@ $( function() {
     var sortByValue = $(this).attr('data-sort-by');
     $container.isotope({ sortBy: sortByValue });
   });
-  
+
   // change is-checked class on buttons
   $('.button-group').each( function( i, buttonGroup ) {
     var $buttonGroup = $( buttonGroup );
@@ -172,7 +173,7 @@ $( function() {
       $( this ).addClass('is-checked');
     });
   });
-  
+
 });
 
 </script>
@@ -240,7 +241,7 @@ $( function() {
 
                 <?php if ( have_posts() ) : ?>
                 <?php while(have_posts()): ?>
-                <?php 
+                <?php
                     the_post();
                     $post_meta = get_post_meta(get_the_ID(), $config->metaKey, true);
                     $categories = wp_get_post_terms(get_the_ID(), $config->gameCategoryTaxonomy);
@@ -252,7 +253,7 @@ $( function() {
 					<div class="vh-item">
 						<div class="vh-item-overlay">
 							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
-                            <img src="<?=$image_url?>cover.jpg" alt="" class="img-hover">
+                            <img src="<?=$images?>/<?=$provider?>cover.jpg" alt="" class="img-hover">
 							<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
                             <p class="vh-game-cat"><?=$categories[0]->name?></p>
 						</div>

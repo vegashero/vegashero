@@ -153,6 +153,7 @@ class Vegashero_Template
         $post_id = get_the_ID();
 
         if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
+            $image_src = sanitize_title($title);
             $images = plugins_url('vegashero/templates/img/');
             $this->_gameId = get_post_meta($post_id, 'game_id', true);
             $iframe_src = get_post_meta($post_id, 'game_src', true);
@@ -179,4 +180,3 @@ class Vegashero_Template
     }
 
 }
-
