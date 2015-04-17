@@ -6,119 +6,10 @@ $config = new Vegashero_Config();
 <!-- Page Section -->
 
 
-
-<style type="text/css">
-
-/* ---- button ---- */
-
-.button {
-  display: inline-block;
-  padding: 0.5em 1.0em;
-  background: #EEE;
-  border: none;
-  border-radius: 7px;
-  background-image: linear-gradient( to bottom, hsla(0, 0%, 0%, 0), hsla(0, 0%, 0%, 0.2) );
-  color: #222;
-  font-family: sans-serif;
-  font-size: 16px;
-  text-shadow: 0 1px white;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #8CF;
-  text-shadow: 0 1px hsla(0, 0%, 100%, 0.5);
-  color: #222;
-}
-
-.button:active,
-.button.is-checked {
-  background-color: #28F;
-}
-
-.button.is-checked {
-  color: white;
-  text-shadow: 0 -1px hsla(0, 0%, 0%, 0.8);
-}
-
-.button:active {
-  box-shadow: inset 0 1px 10px hsla(0, 0%, 0%, 0.8);
-}
-
-/* ---- button-group ---- */
-
-.button-group:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-.button-group .button {
-  float: left;
-  border-radius: 0;
-  margin-left: 0;
-  margin-right: 1px;
-}
-
-.button-group .button:first-child { border-radius: 0.5em 0 0 0.5em; }
-.button-group .button:last-child { border-radius: 0 0.5em 0.5em 0; }
-
-input[type="text"] {
-  font-size: 20px;
-  padding: 3px 10px 4px 10px;
-  border: #CCC 1px solid;
-  margin: 0;
-  width: 180px;
-  line-height: 27px;
-}
-
-/* ---- isotope ---- */
-
-/* clear fix */
-.vh-container:after {
-  content: '';
-  display: block;
-  clear: both;
-}
-
-/* ---- .game-item ---- */
-
-.vh-item {
-  position: relative;
-  float: left;
-  /*width: 20%;*/
-}
-
-@media (min-width: 768px) {
-	.app.container {
-	width: 920px;
-	}
-	.vh-item {
-	width: 33.33333333%;
-	height: 300px;
-	}
-}
-@media (min-width: 992px) {
-	.vh-item {
-	  width: 20%;
-	  height: 350px;
-	}
-}
-
-
-</style>
-
-
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://isotope.metafizzy.co/isotope.pkgd.min.js"></script>
 
 <script type="text/javascript">
-
-
-// $('.search-btn').click(function() {
-// 	var keywd = $('.search-input').val();
-// 	console.log(keywd);
-// });
 
 $( function() {
 	// quick search regex
@@ -151,13 +42,18 @@ $( function() {
   });
 
   // bind sort button click
-  $('#sorts').on( 'click', 'button', function() {
-    var sortByValue = $(this).attr('data-sort-by');
+  //$('#sorts').on( 'click', 'button', function() {
+    //var sortByValue = $(this).attr('data-sort-by');
+    //$container.isotope({ sortBy: sortByValue });
+  //});
+
+  $('#sorts-dropdwn').on( 'change', function() {
+    var sortByValue = this.value;
     $container.isotope({ sortBy: sortByValue });
   });
 
   // change is-checked class on buttons
-  $('.button-group').each( function( i, buttonGroup ) {
+  $('.vh-filters').each( function( i, buttonGroup ) {
     var $buttonGroup = $( buttonGroup );
     $buttonGroup.on( 'click', 'button', function() {
       $buttonGroup.find('.is-checked').removeClass('is-checked');
@@ -188,25 +84,30 @@ function debounce( fn, threshold ) {
 
 </script>
 
-<br/><br/><br/><br/>
 
-<h2>Filter Game Category</h2>
-<div id="filters" class="button-group">
-  <button class="button is-checked" data-filter="*">show all</button>
-  <button class="button" data-filter=".video-slots">video slots</button>
-  <button class="button" data-filter=".super-slots">super slots</button>
-  <button class="button" data-filter=".mega-slots">mega slots</button>
-  <input type="text" id="quicksearch" placeholder="Search" />
+
+<div class="vh-lobby-header">
+
+  <h2>Vegas Hero Lobby</h2>
+  
+  <div id="filters" class="vh-filters">
+    <button class="vh-filter is-checked" data-filter="*">Show all</button>
+    <button class="vh-filter" data-filter=".video-slots">Video slots</button>
+    <button class="vh-filter" data-filter=".super-slots">Super slots</button>
+    <button class="vh-filter" data-filter=".mega-slots">Mega slots</button>
+    <button class="vh-filter" data-filter=".crazy-slots">Crazy slots</button>
+    <div id="form-ui" class="vh-sorting">
+      <label>Sort by:</label>
+      <select id="sorts-dropdwn">
+        <option value="">Original Order</option>
+        <option value="name">Game Name</option>
+        <option value="gamecat">Game Category</option>
+      </select>
+    </div>
+  </div>
+
+  <input type="text" id="quicksearch" class="vh-search" placeholder="Search" />
 </div>
-
-<h2>Sort</h2>
-<div id="sorts" class="button-group">
-  <button class="button is-checked" data-sort-by="original-order">original order</button>
-  <button class="button" data-sort-by="name">game Name</button>
-  <button class="button" data-sort-by="gamecat">category</button>
-</div>
-
-<br/><br/>
 
 <div class="vh-app-content">
 	<!-- main -->
@@ -226,15 +127,19 @@ function debounce( fn, threshold ) {
                     $post_slug = sprintf(sanitize_title($post->post_title));
 					?>
 					<div class="vh-col-xs-6 vh-col-sm-4 vh-col-md-4 vh-item <?=sprintf(sanitize_title($cat_slug[0]->name))?>" data-category="<?=$categories[0]->name?>">
-						<!-- <div class="vh-item-overlay">
+						
+            <!-- hover overlay -->
+            <div class="vh-item-overlay">
 							<a href="<?php the_permalink(); ?>" class="vh-play-fun" >Play Now</a>
-                <img src="<?=$image_url?>cover.jpg" alt="<?php the_title(); ?>" class="img-hover">
+              <a href="<?php the_permalink(); ?>"><img src="<?=$image_url?>cover.jpg" alt="<?php the_title(); ?>" class="img-hover"></a>
 							<a href="<?php the_permalink(); ?>" class="vh-game-title"><?php the_title(); ?></a>
-                <p class="vh-game-cat"><?=$categories[0]->name?></p>
-						</div> -->
+                <span class="vh-game-cat"><?=$categories[0]->name?></span>
+						</div>
+            <!-- #hover overlay -->
+
                 <img src="<?=$image_url?>cover.jpg" alt="<?php the_title(); ?>" class="img-full">
 						<a href="<?php the_permalink(); ?>" class="vh-game-title name"><?php the_title(); ?></a>
-						<p class="vh-game-cat gamecat"><?=$categories[0]->name?></p>
+						<span class="vh-game-cat gamecat"><?=$categories[0]->name?></span>
 					</div>
 
 					<?php endwhile; ?>
