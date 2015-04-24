@@ -4,7 +4,7 @@ class Vegashero_Stylesheet
 {
     public function __construct() {
         add_action( 'get_header', array($this, 'lobbyScripts'));
-        add_action( 'get_footer', array($this, 'footerScripts'));
+        // add_action( 'get_footer', array($this, 'footerScripts'));
     }
 
     public function lobbyScripts() {
