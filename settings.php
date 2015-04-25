@@ -84,7 +84,7 @@ class Vegashero_Settings
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
-        echo "<input name='".$name."' size='40' type='text' value='".get_option($name)."' />";
+        echo "<input name='".$name."' size='20' type='text' value='".get_option($name)."' />";
     }
 
     public function addSettingsMenu() {
@@ -123,7 +123,6 @@ class Vegashero_Settings
         foreach($this->_operators as $operator) {
             echo '<li>';
             echo '<div class="desc">';
-            echo '<div class="provider-img"></div>';
             echo '<form method="post" action="options.php">';
             settings_fields($this->_getOptionGroup($operator));
             $page = $this->_getPageName($operator);
@@ -131,6 +130,7 @@ class Vegashero_Settings
             echo '<div class="btn-area">';
             echo "<input type='submit' name='submit' class='button button-primary' value='Apply code'>";
             echo $this->_getUpdateBtn($operator);
+            echo '<div class="provider-img"><img src="' . plugin_dir_url( __FILE__ ) . 'templates/img/' . $operator . '_thumb.jpg" /></div>';
             echo '</div></div>';
             echo '</form>';
             echo '</li>';
