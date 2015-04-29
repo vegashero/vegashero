@@ -84,7 +84,7 @@ class Vegashero_Settings
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
-        echo "<input name='".$name."' size='40' type='text' value='".get_option($name)."' />";
+        echo "<input name='".$name."' size='20' type='text' value='".get_option($name)."' />";
     }
 
     public function addSettingsMenu() {
@@ -117,26 +117,27 @@ class Vegashero_Settings
         <div class="vh-badge">Version 1.0</div>
         <hr>
         <h3>Operators available to install</h3>
-        <div class="operator-cards">
+        <ul class="operator-cards">
         <?php
 
         foreach($this->_operators as $operator) {
+            echo '<li>';
+            echo '<div class="desc">';
             echo '<form method="post" action="options.php">';
             settings_fields($this->_getOptionGroup($operator));
             $page = $this->_getPageName($operator);
             do_settings_sections($page);
-            echo "<br><input type='submit' name='submit' class='button button-primary' value='Apply code'>";
+            echo '<div class="btn-area">';
+            echo "<input type='submit' name='submit' class='button button-primary' value='Apply code'>";
             echo $this->_getUpdateBtn($operator);
+            echo '<div class="provider-img"><img src="' . plugin_dir_url( __FILE__ ) . 'templates/img/' . $operator . '_thumb.jpg" /></div>';
+            echo '</div></div>';
             echo '</form>';
+            echo '</li>';
         }
 
         ?>
-
-          <p><strong>Sign up with Mr Green</strong></p>
-          <p class="submit">
-            <a class="button-primary" href="http://mraffiliate.com">Get your affiliate code here</a>
-          </p>
-        </div>
+        </ul>
       </div>
         <?php
     }
