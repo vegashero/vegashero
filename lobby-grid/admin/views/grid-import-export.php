@@ -1,9 +1,11 @@
 <?php
 /**
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://www.themepunch.com/essential/
- * @copyright 2014 ThemePunch
+ * VegasHero Lobby Grid.
+ *
+ * @package   Vegas_Lobby_Grid
+ * @author    VegasHero <neil@vegashero.co>
+ * @link      http://www.vegashero.co
+ * @copyright 2015 VegasHero
  */
 
 if( !defined( 'ABSPATH') ) exit();

@@ -1,27 +1,27 @@
 <?php
 /**
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://www.themepunch.com/essential/
- * @copyright 2014 ThemePunch
- */
- 
+* @package   Vegas_Lobby_Grid
+* @author    VegasHero <neil@vegashero.co>
+* @link      http://www.vegashero.co
+* @copyright 2015 VegasHero
+*/
+
 if( !defined( 'ABSPATH') ) exit();
 
 class Essential_Grid_Wpml{
-	
+
 	/**
-	 * 
+	 *
 	 * true / false if the wpml plugin exists
 	 */
 	public static function is_wpml_exists(){
-		
+
 		if(class_exists("SitePress"))
 			return(true);
 		else
 			return(false);
 	}
-	
+
 	/**
 	 * valdiate that wpml exists
 	 */
@@ -29,7 +29,7 @@ class Essential_Grid_Wpml{
 		if(!self::is_wpml_exists())
 			Essential_Grid_Base::throw_error(__("The wpml plugin don't exists", EG_TEXTDOMAIN));
 	}
-	
+
 	/**
 	 * get current language
 	 */
@@ -41,10 +41,10 @@ class Essential_Grid_Wpml{
 			$lang = $wpml->get_default_language();
 		else
 			$lang = self::get_current_lang_code();
-		
+
 		return($lang);
 	}
-	
+
 	/**
 	 * get current language code
 	 */
@@ -53,7 +53,7 @@ class Essential_Grid_Wpml{
 
 		return($langTag);
 	}
-	
+
 	/**
 	 * disable the language filtering
 	 */
@@ -62,7 +62,7 @@ class Essential_Grid_Wpml{
 		global $sitepress;
 		remove_filter('terms_clauses', array($sitepress, 'terms_clauses'));
 	}
-	
+
 	/**
 	 * enable the language filtering
 	 */
@@ -71,59 +71,59 @@ class Essential_Grid_Wpml{
 		global $sitepress;
 		add_filter('terms_clauses', array($sitepress, 'terms_clauses'));
 	}
-	
-	
-	
+
+
+
 	/**
 	 * get default language id of tag / category
 	 */
 	public static function get_id_from_lang_id($id, $type = 'category'){
 		if(self::is_wpml_exists()){
-			
+
 			$lang = self::get_current_lang_code();
 			$real_id = icl_object_id($id, $type, true, $lang);
-			
+
 			return $real_id;
-			
+
 		}else{
-		
+
 			return $id;
 		}
 	}
-	
-	
+
+
 	/**
 	 * get current language id of tag / category
 	 */
 	public static function get_lang_id_from_id($id, $type = 'category'){
 		if(self::is_wpml_exists()){
-			
+
 			$real_id = icl_object_id($id, $type, true);
-			
+
 			return $real_id;
-			
+
 		}else{
-		
+
 			return $id;
 		}
 	}
-	
-	
+
+
 	/**
 	 * change cat / tag ids in String to current language
 	 */
 	public static function change_cat_id_by_lang($catID, $type = 'category'){
 		if(self::is_wpml_exists()){
-			
+
 			$real_id = icl_object_id($catID, $type, true);
-			
+
 			return $real_id;
-			
+
 		}else{
-		
+
 			return $catID;
 		}
 	}
-	
-	
+
+
 }

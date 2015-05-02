@@ -1,86 +1,85 @@
 <?php
 /**
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://www.themepunch.com/essential/
- * @copyright 2014 ThemePunch
- * @since	  2.0
- */
- 
+* @package   Vegas_Lobby_Grid
+* @author    VegasHero <neil@vegashero.co>
+* @link      http://www.vegashero.co
+* @copyright 2015 VegasHero
+*/
+
 if( !defined( 'ABSPATH') ) exit();
 
 class Essential_Grid_Search {
-	
+
 	private $plugin_slug = '';
 	private $settings = array();
 	private $base;
-	
+
 	public function __construct($force = false) {
 		$base = new Essential_Grid_Base();
 		$this->base = $base;
-		
+
 		$plugin = Essential_Grid::get_instance();
 		$this->plugin_slug = $plugin->get_plugin_slug();
-		
+
 		$settings = get_option('esg-search-settings', array('settings' => array(), 'global' => array(), 'shortcode' => array()));
-		
+
 		if($force){ //change settings to force inclusion by setting search-enable to on
 			$settings['settings']['search-enable'] = 'on';
 		}
-		
+
 		$settings = Essential_Grid_Base::stripslashes_deep($settings);
-		
+
 		$this->settings = $settings;
-		
+
 		if(!is_admin()){ //only for frondend
 			if($base->getVar($settings['settings'], 'search-enable', 'off') == 'on'){
 				add_action( 'wp_footer', array( $this, 'enqueue_styles' ) ); //wp_enqueue_scripts
 				add_action( 'wp_footer', array( $this, 'enqueue_scripts' ) ); //wp_enqueue_scripts
 			}
 		}
-		
+
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * add search shortcode functionality
 	 * @since: 2.0
 	 */
 	public static function register_shortcode_search($args, $mid_content = null){
 		extract(shortcode_atts(array('handle' => ''), $args, 'ess_grid_search'));
-        
+
 		if(trim($handle) === '') return false;
-		
+
 		$settings = get_option('esg-search-settings', array('settings' => array(), 'global' => array(), 'shortcode' => array()));
-		
+
 		$settings = Essential_Grid_Base::stripslashes_deep($settings);
-		
+
 		if(!isset($settings['shortcode']['sc-handle'])) return false;
-		
+
 		$use_key = false;
-		
+
 		foreach($settings['shortcode']['sc-handle'] as $key => $sc_handle){
 			if($sc_handle === $handle){
 				$use_key = $key;
 			}
 		}
-		
+
 		if($key === false) return false;
-		
+
 		//we have found it, now proceed if correct handle and a text was set it
 		$class = 'eg-'.sanitize_html_class($settings['shortcode']['sc-handle'][$use_key]);
 		if($class === '') return false;
-		
+
 		$text = trim($settings['shortcode']['sc-html'][$use_key]);
 		if($text === '') return false;
-		
+
 		//modify text so that we add 1. the class to existing if there is a tag element in it (add only to first wrap). 2. the class as new if there is a tag element inside. 3. wrap text around it if there is not tag element
-		
-		
+
+
 		$search = new Essential_Grid_Search(true); //true will enqueue scripts to page
-		
+
 		preg_match_all('/<(.*?)>/', $text, $matches);
-		
+
 		if(!empty($matches[0])){ //check if first tag has class, if not add it
 			$string = $matches[0][0];
 			if(strpos($string, 'class="') !== false){
@@ -95,13 +94,13 @@ class Essential_Grid_Search {
 		}else{
 			$text = '<a href="javascript:void(0);" class="'.$class.'">'.$text.'</a>';
 		}
-		
+
 		return $text;
-		
+
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * enqueue styles on startup
 	 * @since: 2.0
 	 */
@@ -141,15 +140,15 @@ class Essential_Grid_Search {
 				position: relative;
 				width: 100%;
 				z-index: 10;
-				height:50px !important;		
+				height:50px !important;
 				border-radius:0 !important;
 				-webkit-border-radius:0 !important;
-				-moz-border-radius:0 !important;								
+				-moz-border-radius:0 !important;
 			}
-			
+
 			#esg_big_search_wrapper::-ms-clear { display: none; }
 			#esg_big_search_wrapper .bigsearchfield::-ms-clear { display: none; }
-			
+
 			#esg_big_search_fake_txt {
 				background: none repeat scroll 0 0 rgba(255, 255,255, 0) !important;
 				border: medium none !important;
@@ -202,14 +201,14 @@ class Essential_Grid_Search {
 				font-weight: 600;
 				line-height: 26px;
 			}
-			
+
 			/* DARK */
 			#esg_big_search_wrapper.dark .bigsearchfield {
 				background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
 				border-bottom:2px solid #fff !important;
 				color: #fff !important;
 			}
-			
+
 			.dark #esg_big_search_fake_txt {
 				background: none repeat scroll 0 0 rgba(0, 0, 0, 0) !important;
 				color: #fff !important;
@@ -229,26 +228,26 @@ class Essential_Grid_Search {
 		</style>
 		<?php
 		add_action('essgrid_add_search_style', (object)$this->settings);
-		
+
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * enqueue scripts on startup
 	 * @since: 2.0
 	 */
 	public function enqueue_scripts(){
 		$globals = $this->base->getVar($this->settings, 'global', array());
 		$shortcode = $this->base->getVar($this->settings, 'shortcode', array());
-		
+
 		$search_classes = $this->base->getVar($globals, 'search-class', array());
 		$search_styles = $this->base->getVar($globals, 'search-style', array());
 		$search_skins = $this->base->getVar($globals, 'search-grid-id', array());
-		
+
 		$sc_classes = $this->base->getVar($shortcode, 'sc-handle', array());
 		$sc_styles = $this->base->getVar($shortcode, 'sc-style', array());
 		$sc_skins = $this->base->getVar($shortcode, 'sc-grid-id', array());
-		
+
 		//add shortcodes also here
 		if(!empty($sc_classes)){
 			foreach($sc_classes as $key => $handle){
@@ -264,21 +263,21 @@ class Essential_Grid_Search {
 				}
 			}
 		}
-		
+
 		$search_class = implode(', ', $search_classes);
-		
+
 		if(trim($search_class) === '') return true;
-		
+
 		?>
 		<script type="text/javascript">
 			jQuery('body').on('click', '<?php echo $search_class; ?>', function(e) {
-				
+
 				if(jQuery('#esg_search_bg').length > 0) return true; //only allow one instance at a time
-				
+
 				var identifier = 0;
 				var overlay_skin = <?php echo json_encode($search_styles); ?>;
 				var skins = <?php echo json_encode($search_skins); ?>;
-				
+
 				<?php
 				foreach($search_classes as $k => $ident){
 					if($k > 0) echo 'else ';
@@ -287,9 +286,9 @@ class Essential_Grid_Search {
 					echo '			}';
 				}
 				?>
-				
+
 				var counter = {val:jQuery(document).scrollTop()};
-				
+
 				punchgs.TweenLite.to(counter,0.5,{val:0,ease:punchgs.Power4.easeOut,
 					onUpdate:function() {
 						forcescrolled = true;
@@ -344,14 +343,14 @@ class Essential_Grid_Search {
 
 					if (e.keyCode==13) {
 						cont.find('.esg_searchresult').remove();
-						
+
 						var objData = {
 							action: 'Essential_Grid_Front_request_ajax',
 							client_action: 'get_search_results',
 							token: '<?php echo wp_create_nonce('Essential_Grid_Front'); ?>',
 							data: {search: inp.val(), skin: skins[identifier] }
 						};
-						
+
 						jQuery.ajax({
 							type:'post',
 							url: "<?php echo admin_url('admin-ajax.php'); ?>",
@@ -390,19 +389,19 @@ class Essential_Grid_Search {
 		<?php
 		add_action('essgrid_add_search_script', (object)$this->settings);
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * return search result HTML
 	 * @since: 2.0
 	 */
 	public function output_search_result($search, $skin_id = 0){
 		$skin_id = intval($skin_id);
-		
+
 		if($search == '' || $skin_id === 0){
 			return __('Not found', EG_TEXTDOMAIN);
-		} 
-		
+		}
+
 		$post_types = get_post_types(array('public' => true, 'exclude_from_search' => false), 'objects');
 		$searchable_types = array();
 		if( $post_types ) {
@@ -415,19 +414,19 @@ class Essential_Grid_Search {
 			'showposts' => -1,
 			'post_type' => $searchable_types
 		);
-		
+
 		$args = apply_filters('essgrid_modify_search_query', $args);
-		
+
 		$query_type = get_option('tp_eg_query_type', 'wp_query');
-		
+
 		$tp_allsearch = new WP_Query($args);
-		
+
 		if(!$tp_allsearch->post_count) {
 			return __('Not found', EG_TEXTDOMAIN);
 		}
-		
+
 		global $post;
-		
+
 		$posts = array();
 		if($tp_allsearch->have_posts()){
 			while($tp_allsearch->have_posts()){
@@ -435,35 +434,35 @@ class Essential_Grid_Search {
 				$posts[] = $post->ID;
 			}
 		}
-		
+
 		$alias = Essential_Grid::get_alias_by_id($skin_id);
 		if($alias == ''){
 			return __('Not found', EG_TEXTDOMAIN);
 		}
-		
+
 		$content = do_shortcode('[ess_grid alias="'.$alias.'" posts="'.implode(',', $posts).'"]');
 		wp_reset_query();
-		
+
 		return $content;
 	}
-	
-	
-	/** 
+
+
+	/**
 	 * return search result ID's
 	 * @since: 2.0
 	 */
 	public static function output_search_result_ids($search, $grid_id = 0){
 		$grid_id = intval($grid_id);
-		
+
 		if($search == '' || $grid_id === 0){
 			return __('Not found', EG_TEXTDOMAIN);
-		} 
-		
+		}
+
 		$grid = new Essential_Grid;
 		if($grid->init_by_id($grid_id) === false) return __('Not found', EG_TEXTDOMAIN);
-		
+
 		$base = new Essential_Grid_Base();
-		
+
 		$post_category = $grid->get_postparam_by_handle('post_category');
 		$post_types = $grid->get_postparam_by_handle('post_types');
 		$page_ids = explode(',', $grid->get_postparam_by_handle('selected_pages', '-1'));
@@ -478,7 +477,7 @@ class Essential_Grid_Search {
 			$additional_query .= 's='.$search;
 		}
 		$additional_query = wp_parse_args($additional_query);
-		
+
 		ob_start();
 		$posts = Essential_Grid_Base::getPostsByCategory($grid_id, $cat_tax['cats'], $post_types, $cat_tax['tax'], $page_ids, $start_sortby, $start_sortby_type, $max_entries, $additional_query, false);
 		ob_clean();
@@ -487,17 +486,17 @@ class Essential_Grid_Search {
 		if(empty($posts) || count($posts) === 0){
 			return __('Not found', EG_TEXTDOMAIN);
 		}
-		
+
 		$ids = array();
-		
+
 		foreach($posts as $post){
 			$ids[] = $post['ID'];
 		}
-		
+
 		return $ids;
 	}
-	
-	
+
+
 }
 
 ?>

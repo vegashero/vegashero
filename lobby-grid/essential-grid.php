@@ -1,18 +1,18 @@
 <?php
 /**
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://codecanyon.net/item/essential-grid-wordpress-plugin/7563340
- * @copyright 2014 ThemePunch
+ * @package   Vegas_Lobby_Grid
+ * @author    VegasHero <neil@vegashero.co>
+ * @link      http://vegashero.co
+ * @copyright 2015 VegasHero
  *
  * @wordpress-plugin
- * Plugin Name:       Essential Grid
- * Plugin URI:        http://www.themepunch.com/essential/
- * Description:       Essential Grid - Premium grid plugin
+ * Plugin Name:       VegasHero
+ * Plugin URI:        http://www.vegashero.co
+ * Description:       EVegasHero - Lobby grid plugin
  * Version:           2.0.8
- * Author:            ThemePunch
- * Author URI:        http://themepunch.com
- * Text Domain:       essential-grid
+ * Author:            VegasGod
+ * Author URI:        http://vegashero.co
+ * Text Domain:       vegashero-grid
  * Domain Path:       /languages
  */
 

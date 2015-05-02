@@ -1,106 +1,110 @@
 <?php
 /**
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://www.themepunch.com/essential/
- * @copyright 2014 ThemePunch
- */
- 
+* @package   Vegas_Lobby_Grid
+* @author    VegasHero <neil@vegashero.co>
+* @link      http://www.vegashero.co
+* @copyright 2015 VegasHero
+*/
+
+
+
+
+
 if( !defined( 'ABSPATH') ) exit();
 
 class Essential_Grid_Item_Element {
 
-    
+
     /**
      * Return all Item Elements
      */
     public static function get_essential_item_elements(){
         global $wpdb;
-		
+
 		$table_name = $wpdb->prefix . Essential_Grid::TABLE_ITEM_ELEMENTS;
-        
+
         $item_elements = $wpdb->get_results("SELECT * FROM $table_name", ARRAY_A);
-        
+
 		return $item_elements;
     }
-    
-    
+
+
     /**
 	 * Get Item Element by ID from Database
 	 */
 	public static function get_essential_item_element_by_id($id = 0){
 		global $wpdb;
-		
+
 		$id = intval($id);
 		if($id == 0) return false;
-		
+
 		$table_name = $wpdb->prefix . Essential_Grid::TABLE_ITEM_ELEMENTS;
-		
+
 		$element = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name WHERE id = %d", $id), ARRAY_A);
-		
+
 		if(!empty($element)){
 			$element['settings'] = @json_decode($element['params'], true);
 		}
-		
+
 		return $element;
 	}
-    
-    
+
+
     /**
 	 * Get Item Element by handle from Database
 	 */
 	public static function check_existence_by_handle($handle){
 		global $wpdb;
-		
+
 		if(trim($handle) == '') return __('Chosen name is too short', EG_TEXTDOMAIN);
-		
+
 		$table_name = $wpdb->prefix . Essential_Grid::TABLE_ITEM_ELEMENTS;
-		
+
 		$element = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name WHERE handle = %s", $handle), ARRAY_A);
-		
+
 		if(!empty($element)){
 			return true;
 		}
-		
+
 		return false;
 	}
-    
-    
+
+
     /**
 	 * Update Item Element by ID from Database
 	 */
     public static function update_create_essential_item_element($data){
         global $wpdb;
-        
+
         $table_name = $wpdb->prefix . Essential_Grid::TABLE_ITEM_ELEMENTS;
-        
+
         if(!isset($data['name']) || empty($data['name'])) return __('Name not received', EG_TEXTDOMAIN);
-        
+
         $element = $wpdb->get_row($wpdb->prepare("SELECT * FROM $table_name WHERE name = %s", $data['name']), ARRAY_A);
-        
+
         if(!empty($element)){
             $success = self::update_essential_item_element($data);
         }else{
             $success = self::insert_essential_item_element($data);
         }
-        
+
         return $success;
     }
-    
-    
+
+
     /**
 	 * Update Item Element by ID from Database
 	 */
 	public static function update_essential_item_element($data){
 		global $wpdb;
-		
+
         $table_name = $wpdb->prefix . Essential_Grid::TABLE_ITEM_ELEMENTS;
-        
+
         if(empty($data['settings'])) return __('Element Item has no attributes', EG_TEXTDOMAIN);
-        
+
         //check if element is default element (these are not deletable)
         $default = self::getDefaultElementsArray();
-        
+
         $is_default = false;
         foreach($default as $handle => $settings){
             if($handle == sanitize_title($data['name'])){
@@ -108,36 +112,36 @@ class Essential_Grid_Item_Element {
                 break;
             }
         }
-        
+
         $data['settings'] = self::clean_settings_from_elements($data['settings']);
-        
+
         if($is_default) return __('Choosen name is reserved for default Item Elements. Please choose a different name', EG_TEXTDOMAIN);
-         
-        
+
+
 		$response = $wpdb->update($table_name,
                                     array(
                                         'settings' => json_encode($data['settings'])
                                         ), array('handle' => sanitize_title($data['name'])));
-                                    
+
         if($response === false) return __('Element Item could not be changed', EG_TEXTDOMAIN);
-        
+
         return true;
 	}
-    
-    
+
+
     /**
 	 * Insert Item Element by ID from Database
 	 */
 	public static function insert_essential_item_element($data){
 		global $wpdb;
-		
+
 		$table_name = $wpdb->prefix . Essential_Grid::TABLE_ITEM_ELEMENTS;
-		
+
         if(empty($data['settings'])) return __('Element Item has no attributes', EG_TEXTDOMAIN);
-        
+
         //check if element is default element (these are not deletable)
         $default = self::getDefaultElementsArray();
-        
+
         $is_default = false;
         foreach($default as $handle => $settings){
             if($handle == sanitize_title($data['name'])){
@@ -145,32 +149,32 @@ class Essential_Grid_Item_Element {
                 break;
             }
         }
-        
+
         if($is_default) return __('Choosen name is reserved for default Item Elements. Please choose a different name', EG_TEXTDOMAIN);
-            
+
         $data['settings'] = self::clean_settings_from_elements($data['settings']);
-        
+
 		$response = $wpdb->insert($table_name, array('name' => $data['name'], 'handle' => sanitize_title($data['name']), 'settings' => json_encode($data['settings'])));
-		
+
 		if($response === false) return false;
-		
+
         return true;
 	}
-    
-    
+
+
     /**
 	 * Delete Item Element by handle from Database
 	 */
     public static function delete_element_by_handle($data){
         global $wpdb;
-		
+
 		$table_name = $wpdb->prefix . Essential_Grid::TABLE_ITEM_ELEMENTS;
-        
+
         if(empty($data['handle'])) return __('Element Item does not exist', EG_TEXTDOMAIN);
-        
+
         //check if element is default element (these are not deletable)
         $default = self::getDefaultElementsArray();
-        
+
         $is_default = false;
         foreach($default as $handle => $settings){
             if($handle == $data['handle']){
@@ -178,59 +182,59 @@ class Essential_Grid_Item_Element {
                 break;
             }
         }
-        
+
         if($is_default) return __('Default Item Elements can\'t be deleted', EG_TEXTDOMAIN);
-            
+
         $response = $wpdb->delete($table_name, array('handle' => $data['handle']));
 		if($response === false) return __('Element Item could not be deleted', EG_TEXTDOMAIN);
-        
+
         return true;
     }
-    
-    
+
+
     /**
 	 * Clean the element- from the settings
 	 */
     public static function clean_settings_from_elements($settings){
         if(empty($settings)) return $settings;
         if(!is_array($settings)) return str_replace('element-', '', $settings);
-        
+
         $clean_setting = array();
-        
+
         foreach($settings as $key => $value){
             $clean_setting[str_replace('element-', '', $key)] = $value;
         }
-        
+
         return $clean_setting;
     }
-    
+
     /**
 	 * Get Array of Text Elements
 	 */
 	public static function getTextElementsArray(){
 		global $wpdb;
-		
+
 		$custom = array();
-		
+
         $elements = self::get_essential_item_elements();
-        
+
 		if(!empty($elements)){
 			foreach($elements as $element){
 				$custom[$element['handle']] = array('id' => $element['id'], 'name' => $element['name'], 'settings' => json_decode($element['settings'], true));
 			}
 		}
-		
+
 		Essential_Grid_Base::stripslashes_deep($custom);
-		
+
 		return $custom;
 	}
-    
-    
+
+
 	/**
 	 * Get Array of Special Elements
 	 */
 	public static function getSpecialElementsArray(){
-        
+
 		$default = array(
             'eg-line-break' => array(
                 'id' => '-1',
@@ -259,17 +263,17 @@ class Essential_Grid_Item_Element {
                 )
             )
 		);
-		
+
 		return $default;
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Additional Elements
 	 * @since: 2.0
 	 */
 	public static function getAdditionalElementsArray(){
-        
+
 		$default = array(
 			'eg-blank-element' => array(
                 'id' => '-2',
@@ -297,16 +301,16 @@ class Essential_Grid_Item_Element {
                 )
             )
 		);
-		
+
 		return $default;
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Post Elements
 	 */
 	public static function getPostElementsArray(){
-		
+
 		$post = array(
 			'post_id' => array('name' => __('ID', EG_TEXTDOMAIN)),
 			'post_url' => array('name' => __('URL', EG_TEXTDOMAIN)),
@@ -322,18 +326,18 @@ class Essential_Grid_Item_Element {
 			'cat_list' => array('name' => __('Cat. List', EG_TEXTDOMAIN)),
 			'tag_list' => array('name' => __('Tag List', EG_TEXTDOMAIN))
 		);
-		
+
 		$post = apply_filters('essgrid_post_meta_handle', $post);
-		
+
 		return $post;
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Event Elements
 	 */
 	public static function getEventElementsArray(){
-		
+
 		$event = array(
 			'event_start_date' => array('name' => __('Event Start Date', EG_TEXTDOMAIN)),
 			'event_end_date' => array('name' => __('Event End Date', EG_TEXTDOMAIN)),
@@ -349,43 +353,43 @@ class Essential_Grid_Item_Element {
 			'event_location_region' => array('name' => __('Event Location Region', EG_TEXTDOMAIN)),
 			'event_location_country' => array('name' => __('Event Location Country', EG_TEXTDOMAIN))
 		);
-		
+
 		return $event;
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Default Elements
 	 */
 	public static function getDefaultElementsArray(){
-		
+
         $default = array();
-		
+
 		include('assets/default-item-elements.php');
-		
+
 		$default = apply_filters('essgrid_add_default_item_elements', $default);
-		
+
 		return $default;
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Elements
 	 */
 	public static function prepareElementsForEditor($elements, $set_loaded = false){
 		$html = '';
 		$load_class = '';
-		
+
         if($set_loaded == true)
 			$load_class = ' eg-newli';
-		
+
 		foreach($elements as $handle => $element){
             $styles = '';
             $filter_type = 'text';
             $data_id = 1;
             if(isset($element['settings']) && !empty($element['settings'])){
                 //$styles = self::get_css_from_settings($element['settings']);
-                
+
                 if($element['settings']['source'] == 'icon'){
                     $text = '<i class="'.$element['settings']['source-icon'].'"></i>';
                 }elseif($element['settings']['source'] == 'text'){
@@ -393,26 +397,26 @@ class Essential_Grid_Item_Element {
                 }else{
                     $text = $element['name'];
                 }
-                
+
                 if($element['settings']['source'] == 'icon') $filter_type = 'icon';
-                
+
                 $data_id = $element['id'];
-                
+
             }else{
                 $text = $element['name'];
             }
-            
+
             $sort_title = strip_tags($text);
             if(trim($sort_title) == ''){
                 $sort_title = 'unsorted';
             }else{
                 $sort_title = strtolower(substr($sort_title, 0, 1));
             }
-            
-			
-			
+
+
+
             if(isset($element['default']) && $element['default'] == 'true') $filter_type.= ' filter-default';
-            
+
             $html.= '<li class="filterall filter-'.$filter_type.$load_class.'" data-title="'.$sort_title.'" data-date="'.$data_id.'">'."\n";
             $html.= '   <div class="esg-entry-content">';
             $html.= '       <div class="eg-elements-format-wrapper"><div class="skin-dz-elements" data-handle="'.$handle.'"'.$styles.'>';
@@ -420,93 +424,93 @@ class Essential_Grid_Item_Element {
 			$html.= '       </div></div>'."\n";
             $html.= '   </div>'."\n";
             $html.= '</li>'."\n";
-			
+
 		}
-		
+
 		return $html;
 	}
-	
+
 	/**
 	 * Get Array of Special Elements
 	 */
 	public static function prepareSpecialElementsForEditor(){
 		$html = '';
-        
+
         $elements = self::getSpecialElementsArray();
-        
+
 		foreach($elements as $handle => $element){
             $styles = '';
-            
+
             if(isset($element['settings']) && !empty($element['settings'])){
                 //$styles = self::get_css_from_settings($element['settings']);
-                
+
                 $text = $element['display'];
-                
+
             }else{
                 $text = $element['name'];
             }
-            
-            
+
+
             $html.= '<div class="skin-dz-elements eg-special-element" data-handle="'.$handle.'"'.$styles.'>';
             $html.= $text;
 			$html.= '</div>'."\n";
-			
+
 		}
-		
+
 		return $html;
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Additional Elements
 	 */
 	public static function prepareAdditionalElementsForEditor(){
 		$html = '';
-        
+
         $elements = self::getAdditionalElementsArray();
-        
+
 		foreach($elements as $handle => $element){
             $styles = '';
-            
+
             if(isset($element['settings']) && !empty($element['settings'])){
                 //$styles = self::get_css_from_settings($element['settings']);
-                
+
                 $text = $element['display'];
-				
+
             }else{
 				$text = $element['name'];
 			}
-            
-            
+
+
             $html.= '<div style="margin-left: 15px;" class="skin-dz-elements eg-special-blank-element eg-additional-element" data-handle="'.$handle.'"'.$styles.'>';
             $html.= $text;
 			$html.= '</div>'."\n";
-			
+
 		}
-		
+
 		return $html;
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Default Elements
 	 */
 	public static function prepareDefaultElementsForEditor(){
 		$elements = self::getDefaultElementsArray();
-		
+
 		return self::prepareElementsForEditor($elements, true);
 	}
-	
+
 	/**
 	 * Get Array of Post Elements
 	 */
 	public static function prepareTextElementsForEditor(){
 		$elements = self::getTextElementsArray();
-		
+
 		return self::prepareElementsForEditor($elements, true);
 	}
-	
-	
+
+
 	/**
 	 * Get Array of Elements
 	 */
@@ -515,59 +519,59 @@ class Essential_Grid_Item_Element {
 		$text = self::getTextElementsArray();
 		$special = self::getSpecialElementsArray();
 		$additional = self::getAdditionalElementsArray();
-		
+
 		$all = array_merge($default, $text, $special, $additional);
-		
+
 		return $all;
 	}
-	
+
 	/**
 	 * Get Array of Elements
 	 */
 	public static function getElementsForDropdown(){
 		$post = self::getPostElementsArray();
 		//$event = self::getEventElementsArray();
-		
+
 		$all['post'] = $post;
 		//$all['event'] = $event;
-		
+
 		if(Essential_Grid_Woocommerce::is_woo_exists()){
 			$woocommerce = array();
 			$tmp_wc = Essential_Grid_Woocommerce::get_meta_array();
-			
+
 			foreach($tmp_wc as $handle => $name){
 				$woocommerce[$handle]['name'] = $name;
 			}
-			
+
 			$all['woocommerce'] = $woocommerce;
 		}
-		
+
 		return $all;
 	}
-    
+
     /**
 	 * create css from settings
 	 */
     /*public static function get_css_from_settings($settings){
         $existing = self::get_existing_elements(true);
-        
+
         $styles = ' style="';
-        
+
         foreach($settings as $setting => $value){
             $style = str_replace('element-', '', $setting);
             if(isset($existing[$style])){
                 if($existing[$style]['value'] == 'int') $value = intval($value);
-                
+
                 if($value != '') $styles .= $style.': '.$value.$existing[$style]['unit'].'; ';
-                
+
             }
         }
-        
+
         $styles .= '" ';
-        
+
         return $styles;
     }*/
-    
+
     /**
 	 * create css from settings
 	 */
@@ -578,431 +582,431 @@ class Essential_Grid_Item_Element {
                                              'values' => array('min' =>'6', 'max' =>'120', 'step' =>'1', 'default' =>'12'),
                                              'style' => 'idle',
                                              'unit' => 'px'),
-                                             
+
                 'line-height'       => array('value' => 'int',
                                              'type' => 'text-slider',
                                              'values' => array('min' =>'7', 'max' =>'150', 'step' =>'1', 'default' =>'14'),
                                              'style' => 'idle',
                                              'unit' => 'px'),
-                                             
+
                 'color'             => array('value' => 'string',
                                              'type' => 'colorpicker',
                                              'values' => array('default' =>'#000'),
                                              'style' => 'idle',
                                              'unit' => ''),
-                                             
+
                 'font-family'       => array('value' => 'string',
                                              'values' => array('default' =>''),
                                              'style' => 'idle',
                                              'type' => 'text',
                                              'unit' => ''),
-                                             
+
                 'font-weight'       => array('value' => 'string',
                                              'values' => array('default' =>'400'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'text-decoration'  => array('value' => 'string',
                                              'values' => array('default' =>'none'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'font-style'        => array('value' => 'string',
                                              'values' => array('default' =>false),
                                              'style' => 'idle',
                                              'type' => 'checkbox',
                                              'unit' => ''),
-                
+
                 'text-transform'    => array('value' => 'string',
                                              'values' => array('default' =>'none'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                
+
                 'display'           => array('value' => 'string',
                                              'values' => array('default' =>'inline-block'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'float'             => array('value' => 'string',
                                              'values' => array('default' =>'none'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-            
+
                 'text-align'        => array('value' => 'string',
                                              'values' => array('default' =>'center'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'clear'             => array('value' => 'string',
                                              'values' => array('default' =>'none'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'margin'            => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'idle',
                                              'unit' => 'px'),
-                                             
+
                 'padding'           => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'idle',
                                              'unit' => 'px'),
-                                             
+
                 'border'            => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'idle',
-                                             'unit' => 'px'),      
-                                             
+                                             'unit' => 'px'),
+
                 'border-radius'     => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'idle',
                                              'unit' => array('px', 'percentage')),
-                                             
+
                 'border-color'      => array('value' => 'string',
                                              'values' => array('default' =>'transparent'),
                                              'style' => 'idle',
                                              'type' => 'colorpicker',
                                              'unit' => ''),
-                                             
+
                 'border-style'      => array('value' => 'string',
                                              'values' => array('default' =>'solid'),
                                              'style' => 'idle',
                                              'type' => 'select',
-                                             'unit' => ''),                            
-                                             
+                                             'unit' => ''),
+
                 'background-color'  => array('value' => 'string',
                                              'type' => 'colorpicker',
                                              'values' => array('default' =>'#FFF'),
                                              'style' => 'idle',
                                              'unit' => ''),
-                                             
+
                 'bg-alpha'          => array('value' => 'string',
                                              'values' => array('min' =>'0', 'max' =>'100', 'step' =>'1', 'default' =>'100'),
                                              'style' => 'false',
                                              'type' => 'text-slider',
                                              'unit' => ''),
-                                             
+
                 /*'background-size'   => array('value' => 'string',
                                              'values' => array('default' =>'cover'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'background-repeat'  => array('value' => 'string',
                                              'values' => array('default' =>'no-repeat'),
                                              'style' => 'idle',
                                              'type' => 'select',
                                              'unit' => ''),
-                 */                            
+                 */
                 'shadow-color'       => array('value' => 'string',
                                              'type' => 'colorpicker',
                                              'values' => array('default' =>'#000'),
                                              'style' => 'false',
-                                             'unit' => ''),   
-                                             
+                                             'unit' => ''),
+
                 'shadow-alpha'       => array('value' => 'string',
                                              'values' => array('min' =>'0', 'max' =>'100', 'step' =>'1', 'default' =>'100'),
                                              'style' => 'false',
                                              'type' => 'text-slider',
                                              'unit' => ''),
-                                             
+
                 'box-shadow'         => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'idle',
                                              'unit' => 'px'),
-                                             
+
                 'position'         	=> array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' => 'relative'),
                                              'style' => 'idle',
                                              'unit' => ''),
-                                             
+
                 'top-bottom'	=> array('value' => 'int',
                                              'type' => 'text',
                                              'values' => array('default' => '0'),
                                              'style' => 'false',
                                              'unit' => 'px'),
                                              //'unit' => array('px', 'percentage')),
-											 
+
                 'left-right'	=> array('value' => 'int',
                                              'type' => 'text',
                                              'values' => array('default' => '0'),
                                              'style' => 'false',
                                              'unit' => 'px')
-                                             
+
             );
-        
+
         $hover_styles = array(
                 'font-size-hover'         => array('value' => 'int',
                                              'type' => 'text-slider',
                                              'values' => array('min' =>'6', 'max' =>'120', 'step' =>'1', 'default' =>'12'),
                                              'style' => 'hover',
                                              'unit' => 'px'),
-                                             
+
                 'line-height-hover'       => array('value' => 'int',
                                              'type' => 'text-slider',
                                              'values' => array('min' =>'7', 'max' =>'150', 'step' =>'1', 'default' =>'14'),
                                              'style' => 'hover',
                                              'unit' => 'px'),
-                                             
+
                 'color-hover'             => array('value' => 'string',
                                              'type' => 'colorpicker',
                                              'values' => array('default' =>'#000'),
                                              'style' => 'hover',
                                              'unit' => ''),
-                                             
+
                 'font-family-hover'       => array('value' => 'string',
                                              'values' => array('default' =>''),
                                              'style' => 'hover',
                                              'type' => 'text',
                                              'unit' => ''),
-                                             
+
                 'font-weight-hover'       => array('value' => 'string',
                                              'values' => array('default' =>'400'),
                                              'style' => 'hover',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'text-decoration-hover'  => array('value' => 'string',
                                              'values' => array('default' =>'none'),
                                              'style' => 'hover',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'font-style-hover'        => array('value' => 'string',
                                              'values' => array('default' =>false),
                                              'style' => 'hover',
                                              'type' => 'checkbox',
                                              'unit' => ''),
-                
+
                 'text-transform-hover'    => array('value' => 'string',
                                              'values' => array('default' =>'none'),
                                              'style' => 'hover',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'border-hover'            => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'hover',
-                                             'unit' => 'px'),      
-                                             
+                                             'unit' => 'px'),
+
                 'border-radius-hover'     => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'hover',
                                              'unit' => array('px', 'percentage')),
-                                             
+
                 'border-color-hover'      => array('value' => 'string',
                                              'values' => array('default' =>'transparent'),
                                              'style' => 'hover',
                                              'type' => 'colorpicker',
                                              'unit' => ''),
-                                             
+
                 'border-style-hover'      => array('value' => 'string',
                                              'values' => array('default' =>'solid'),
                                              'style' => 'hover',
                                              'type' => 'select',
-                                             'unit' => ''),                            
-                                             
+                                             'unit' => ''),
+
                 'background-color-hover'  => array('value' => 'string',
                                              'type' => 'colorpicker',
                                              'values' => array('default' =>'#FFF'),
                                              'style' => 'hover',
                                              'unit' => ''),
-                                             
+
                 'bg-alpha-hover'          => array('value' => 'string',
                                              'values' => array('min' =>'0', 'max' =>'100', 'step' =>'1', 'default' =>'100'),
                                              'style' => 'false',
                                              'type' => 'text-slider',
                                              'unit' => ''),
-                                             
+
                 /*'background-size-hover'   => array('value' => 'string',
                                              'values' => array('default' =>'cover'),
                                              'style' => 'hover',
                                              'type' => 'select',
                                              'unit' => ''),
-                                             
+
                 'background-repeat-hover'  => array('value' => 'string',
                                              'values' => array('default' =>'no-repeat'),
                                              'style' => 'hover',
                                              'type' => 'select',
                                              'unit' => ''),
-                 */                            
+                 */
                 'shadow-color-hover'       => array('value' => 'string',
                                              'type' => 'colorpicker',
                                              'values' => array('default' =>'#000'),
                                              'style' => 'false',
-                                             'unit' => ''),   
-                                             
+                                             'unit' => ''),
+
                 'shadow-alpha-hover'       => array('value' => 'string',
                                              'values' => array('min' =>'0', 'max' =>'100', 'step' =>'1', 'default' =>'100'),
                                              'style' => 'false',
                                              'type' => 'text-slider',
                                              'unit' => ''),
-                                             
+
                 'box-shadow-hover'         => array('value' => 'int',
                                              'type' => 'multi-text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'hover',
                                              'unit' => 'px')
             );
-        
+
         $other = array();
-            
+
         if(!$only_styles){
             $other = array(
-                'source'            => array('value' => 'string', 
+                'source'            => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'post'),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'transition'        => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'fade'),
                                              'style' => 'attribute',
                                              'unit' => ''),
-                
+
                 'source-separate'	=> array('value' => 'string',
                                              'type' => 'text',
                                              'values' => array('default' =>','),
                                              'style' => 'attribute',
                                              'unit' => ''),
-                
+
                 'source-function'	=> array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'link'),
                                              'style' => 'attribute',
                                              'unit' => ''),
-                
+
                 'limit-type'        	=> array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'none'),
                                              'style' => 'attribute',
                                              'unit' => ''),
-                
+
                 'limit-num'        	=> array('value' => 'string',
                                              'type' => 'text',
                                              'values' => array('default' =>'10'),
                                              'style' => 'attribute',
                                              'unit' => ''),
-											 
+
                 /*'split'       		=> array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'full'),
                                              'style' => 'attribute',
                                              'unit' => ''), */
-                
+
                 'transition-type'   => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>''),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'delay'             => array('value' => 'string',
                                              'type' => 'text-slider',
                                              'values' => array('min' =>'0', 'max' =>'60', 'step' =>'1', 'default' =>'10'),
                                              'style' => 'attribute',
                                              'unit' => ''),
-                
+
                 'link-type'             => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'none'),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'hideunder'         => array('value' => 'string',
                                              'type' => 'text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'hideunderheight'         => array('value' => 'string',
                                              'type' => 'text',
                                              'values' => array('default' =>'0'),
                                              'style' => 'false',
                                              'unit' => ''),
-											 
+
                 'hidetype'    	     => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'visibility'),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'hide-on-video'		=> array('value' => 'string',
                                              'type' => 'checkbox',
                                              'values' => array('default' => false),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'enable-hover' => array('value' => 'string',
                                              'type' => 'checkbox',
                                              'values' => array('default' =>false),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'attribute' => array('value' => 'string',
                                              'type' => 'text',
                                              'values' => array('default' =>''),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'class' => array('value' => 'string',
                                              'type' => 'text',
                                              'values' => array('default' =>''),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'rel' => array('value' => 'string',
                                              'type' => 'text',
                                              'values' => array('default' =>''),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'tag-type' => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'div'),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'force-important' => array('value' => 'string',
                                              'type' => 'checkbox',
                                              'values' => array('default' =>true),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'align' => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'t_l'),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'link-target' => array('value' => 'string',
                                              'type' => 'select',
                                              'values' => array('default' =>'_self'),
                                              'style' => 'false',
                                              'unit' => ''),
-                
+
                 'source-text-style-disable' => array('value' => 'string',
                                              'type' => 'checkbox',
                                              'values' => array('default' =>false),
                                              'style' => 'false',
                                              'unit' => '')
             );
-			
+
 			if(Essential_Grid_Woocommerce::is_woo_exists()){
 				$other['show-on-sale']		= array('value' => 'string',
 																'type' => 'checkbox',
@@ -1016,18 +1020,18 @@ class Essential_Grid_Item_Element {
 																'unit' => '');
 			}
         }
-        
+
         $styles = array_merge($styles, $other, $hover_styles);
-        
+
         return $styles;
     }
-	
-	
+
+
 	/**
 	 * get list of allowed styles on tags
 	 */
     public static function get_allowed_styles_for_tags(){
-		
+
 		return array(
 				'font-size',
                 'line-height',
@@ -1039,15 +1043,15 @@ class Essential_Grid_Item_Element {
                 'text-transform',
                 'background-color'
 			);
-			
+
 	}
-	
-	
+
+
 	/**
 	 * get list of allowed styles on tags
 	 */
     public static function get_allowed_styles_for_cat_tag(){
-		
+
 		return array(
 				'font-size',
                 'line-height',
@@ -1058,15 +1062,15 @@ class Essential_Grid_Item_Element {
                 'font-style',
                 'text-transform'
 			);
-			
+
 	}
-	
-	
+
+
 	/**
 	 * get list of allowed styles on wrap
 	 */
     public static function get_allowed_styles_for_wrap(){
-		
+
 		return array(
 				'display',
 				'clear',
@@ -1079,15 +1083,15 @@ class Essential_Grid_Item_Element {
                 'right',
                 'bottom'
 			);
-			
+
 	}
-	
-	
+
+
 	/**
 	 * get list of allowed styles on wrap
 	 */
     public static function get_wait_until_output_styles(){
-		
+
 		return array(
 				'border-style' => array(
 						'wait' => array('border', 'border-color', 'border-style', 'border-top-width', 'border-right-width', 'border-bottom-width', 'border-left-width'),
@@ -1122,18 +1126,18 @@ class Essential_Grid_Item_Element {
 						'not-if' => ''
 					)
 			);
-			
+
 	}
-	
-	
+
+
 	/**
 	 * get list of allowed things on meta
 	 */
     public function get_allowed_meta(){
 		$base = new Essential_Grid_Base();
-		
+
 		$transitions_media = $base->get_hover_animations(true); //true will get with in/out
-		
+
 		return array(
 				array(
 					'name' => array('handle' => 'color', 'text' => __('Font Color', EG_TEXTDOMAIN)),
@@ -1233,8 +1237,8 @@ class Essential_Grid_Item_Element {
 					'default' => '#FFFFFF',
 					'container' => 'layout'
 				)
-				
+
 			);
-			
+
 	}
 }

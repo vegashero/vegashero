@@ -1,16 +1,16 @@
 <?php
 /**
- * Essential Grid.
+ * VegasHero Lobby Grid.
  *
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://www.themepunch.com/essential/
- * @copyright 2014 ThemePunch
+ * @package   Vegas_Lobby_Grid
+ * @author    VegasHero <neil@vegashero.co>
+ * @link      http://www.vegashero.co
+ * @copyright 2015 VegasHero
  */
 
 /**
- * @package Essential_Grid_Admin
- * @author  ThemePunch <info@themepunch.com>
+ * @package Vegas_Lobby_Grid_Admin
+ * @author  VegasHero <neil@vegashero.co>
  */
 
 if( !defined( 'ABSPATH') ) exit();
@@ -27,7 +27,7 @@ class Essential_Grid_Admin extends Essential_Grid_Base {
 	const VIEW_GRID = "grid-details";
 	const VIEW_META_BOX = "grid-meta-box";
 	const VIEW_ITEM_SKIN_EDITOR = "grid-item-skin-editor";
-	const VIEW_GOOGLE_FONTS = "themepunch-google-fonts";
+	//const VIEW_GOOGLE_FONTS = "themepunch-google-fonts";
 	const VIEW_IMPORT_EXPORT = "grid-import-export";
 	const VIEW_WIDGET_AREAS = "grid-widget-areas";
 
@@ -122,7 +122,7 @@ class Essential_Grid_Admin extends Essential_Grid_Base {
 		$token = wp_create_nonce('Essential_Grid_actions');
 		$base = new Essential_Grid();
 		?>
-	
+
 		<?php
 	}
 
@@ -320,14 +320,14 @@ class Essential_Grid_Admin extends Essential_Grid_Base {
 			break;
 		}
 
-		$this->plugin_screen_hook_suffix[] = add_menu_page(__('Essential Grid', EG_TEXTDOMAIN ),__('Ess. Grid', EG_TEXTDOMAIN ),$role,$this->plugin_slug,array($this, 'display_plugin_admin_page'),'dashicons-screenoptions');
+		$this->plugin_screen_hook_suffix[] = add_menu_page(__('Lobby Builder', EG_TEXTDOMAIN ),__('Lobby Builder', EG_TEXTDOMAIN ),$role,$this->plugin_slug,array($this, 'display_plugin_admin_page'),'dashicons-screenoptions');
 
 		if(!isset($GLOBALS['admin_page_hooks']['themepunch-google-fonts'])) //only add if menu is not already registered
-			$this->plugin_screen_hook_suffix[] = add_menu_page(__('Punch Fonts', EG_TEXTDOMAIN), __('Punch Fonts', EG_TEXTDOMAIN), $role, 'themepunch-google-fonts', array($this, 'display_plugin_submenu_page_google_fonts'), 'dashicons-editor-textcolor');
+			//$this->plugin_screen_hook_suffix[] = add_menu_page(__('Punch Fonts', EG_TEXTDOMAIN), __('Punch Fonts', EG_TEXTDOMAIN), $role, 'themepunch-google-fonts', array($this, 'display_plugin_submenu_page_google_fonts'), 'dashicons-editor-textcolor');
 
 		$this->plugin_screen_hook_suffix[] = add_submenu_page($this->plugin_slug, __('Item Skin Editor', EG_TEXTDOMAIN), __('Item Skin Editor', EG_TEXTDOMAIN), $role, $this->plugin_slug.'-item-skin', array($this, 'display_plugin_submenu_page_item_skin'));
-		$this->plugin_screen_hook_suffix[] = add_submenu_page($this->plugin_slug, __('Meta Data Handling', EG_TEXTDOMAIN), __('Meta Data Handling', EG_TEXTDOMAIN), $role, $this->plugin_slug.'-custom-meta', array($this, 'display_plugin_submenu_page_custom_meta'));
-		$this->plugin_screen_hook_suffix[] = add_submenu_page($this->plugin_slug, __('Search Settings', EG_TEXTDOMAIN), __('Search Settings', EG_TEXTDOMAIN), $role, $this->plugin_slug.'-search', array($this, 'display_plugin_submenu_page_search_settings'));
+		//$this->plugin_screen_hook_suffix[] = add_submenu_page($this->plugin_slug, __('Meta Data Handling', EG_TEXTDOMAIN), __('Meta Data Handling', EG_TEXTDOMAIN), $role, $this->plugin_slug.'-custom-meta', array($this, 'display_plugin_submenu_page_custom_meta'));
+		//$this->plugin_screen_hook_suffix[] = add_submenu_page($this->plugin_slug, __('Search Settings', EG_TEXTDOMAIN), __('Search Settings', EG_TEXTDOMAIN), $role, $this->plugin_slug.'-search', array($this, 'display_plugin_submenu_page_search_settings'));
 
 		/* //ToDo Widget part
 		$this->plugin_screen_hook_suffix[] = add_submenu_page($this->plugin_slug, __('Widget Areas', EG_TEXTDOMAIN), __('Widget Areas', EG_TEXTDOMAIN), $role, $this->plugin_slug.'-widget-areas', array($this, 'display_plugin_submenu_page_widget_areas'));

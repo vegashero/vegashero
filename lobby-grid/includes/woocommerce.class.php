@@ -1,11 +1,11 @@
 <?php
 /**
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://www.themepunch.com/essential/
- * @copyright 2014 ThemePunch
- */
- 
+* @package   Vegas_Lobby_Grid
+* @author    VegasHero <neil@vegashero.co>
+* @link      http://www.vegashero.co
+* @copyright 2015 VegasHero
+*/
+
 if( !defined( 'ABSPATH') ) exit();
 
 class Essential_Grid_Woocommerce {
@@ -14,36 +14,36 @@ class Essential_Grid_Woocommerce {
 	const ARG_REGULAR_PRICE_TO = 'reg_price_to';
 	const ARG_SALE_PRICE_FROM = 'sale_price_from';
 	const ARG_SALE_PRICE_TO = 'sale_price_to';
-	const ARG_IN_STOCK_ONLY = 'instock_only';		
-	const ARG_FEATURED_ONLY = 'featured_only';		
-	
+	const ARG_IN_STOCK_ONLY = 'instock_only';
+	const ARG_FEATURED_ONLY = 'featured_only';
+
 	const META_REGULAR_PRICE = '_regular_price';
 	const META_SALE_PRICE = '_sale_price';
 	const META_STOCK_STATUS = '_stock_status'; //can be 'instock' or 'outofstock'
 	const META_SKU = '_sku'; //can be 'instock' or 'outofstock'
 	const META_FEATURED = '_featured'; //can be 'instock' or 'outofstock'
 	const META_STOCK = '_stock'; //can be 'instock' or 'outofstock'
-	
-	
+
+
 	const SORTBY_NUMSALES = 'meta_num_total_sales';
 	const SORTBY_REGULAR_PRICE = 'meta_num__regular_price';
 	const SORTBY_SALE_PRICE = 'meta_num__sale_price';
 	const SORTBY_FEATURED = 'meta__featured';
 	const SORTBY_SKU = 'meta__sku';
 	const SORTBY_STOCK = 'meta_num_stock';
-	
-	
+
+
 	/**
 	 * true / false if the wpml plugin exists
 	 */
 	public static function is_woo_exists(){
-		
+
 		if(class_exists('Woocommerce'))
 			return(true);
 		else
 			return(false);
 	}
-	
+
 	/**
 	 * valdiate that wpml exists
 	 */
@@ -51,94 +51,94 @@ class Essential_Grid_Woocommerce {
 		if(!self::is_woo_exists())
 			Essential_Grid_Base::throw_error(__('The Woocommerce plugin does not exist', EG_TEXTDOMAIN));
 	}
-	
-	
+
+
 	/**
 	 * get wc post types
 	 */
 	public static function get_custom_post_types(){
-	
+
 		$arr = array();
 		$arr['product'] = __('Product', EG_TEXTDOMAIN);
 		$arr['product_variation'] = __('Product Variation', EG_TEXTDOMAIN);
-		
+
 		return($arr);
 	}
-	
-	
+
+
 	/**
 	 * get price query
 	 */
 	private static function get_price_query($priceFrom, $priceTo, $metaTag){
-		
+
 		if(empty($priceFrom))
 			$priceFrom = 0;
-			
+
 		if(empty($priceTo))
 			$priceTo = 9999999999;
-		
+
 		$query = array('key' => $metaTag,
 					   'value' => array( $priceFrom, $priceTo),
 					   'type' => 'numeric',
 					   'compare' => 'BETWEEN');
-					   
+
 		return($query);
 	}
-	
-	
+
+
 	/**
-	 * get meta query for filtering woocommerce posts. 
+	 * get meta query for filtering woocommerce posts.
 	 */
 	public static function get_meta_query($args){
 		$base = new Essential_Grid_Base();
-		
+
 		$regPriceFrom = $base->getVal($args, self::ARG_REGULAR_PRICE_FROM);
 		$regPriceTo = $base->getVal($args, self::ARG_REGULAR_PRICE_TO);
-		
+
 		$salePriceFrom = $base->getVal($args, self::ARG_SALE_PRICE_FROM);
 		$salePriceTo = $base->getVal($args, self::ARG_SALE_PRICE_TO);
-		
+
 		$inStockOnly = $base->getVal($args, self::ARG_IN_STOCK_ONLY);
 		$featuredOnly = $base->getVal($args, self::ARG_FEATURED_ONLY);
-		
+
 		$arrQueries = array();
-		
+
 		//get regular price array
 		if(!empty($regPriceFrom) || !empty($regPriceTo)){
 			$arrQueries[] = self::get_price_query($regPriceFrom, $regPriceTo, self::META_REGULAR_PRICE);
 		}
-		
+
 		//get sale price array
 		if(!empty($salePriceFrom) || !empty($salePriceTo)){
 			$arrQueries[] = self::get_price_query($salePriceFrom, $salePriceTo, self::META_SALE_PRICE);
 		}
-		
+
 		if($inStockOnly == 'true'){
 			$query = array( 'key' => self::META_STOCK_STATUS,
 							'value' => 'instock');
 			$arrQueries[] = $query;
 		}
-		
+
 		if($featuredOnly == 'true'){
 			$query = array( 'key' => self::META_FEATURED,
 							'value' => 'yes');
 			$arrQueries[] = $query;
 		}
-		
-		
+
+
 		$query = array();
 		if(!empty($arrQueries))
 			$query = array('meta_query'=>$arrQueries);
-			
-		return($query);			
+
+		return($query);
 	}
-	
-	
+
+
 	/**
 	 * get sortby function including standart wp sortby array
 	 */
 	public static function get_arr_sort_by(){
-		
+
 		$arrSortBy = array();
 		$arrSortBy[self::SORTBY_REGULAR_PRICE] = __('Price', EG_TEXTDOMAIN);
 		//$arrSortBy[self::SORTBY_SALE_PRICE] = __('Sale Price', EG_TEXTDOMAIN);
@@ -146,49 +146,49 @@ class Essential_Grid_Woocommerce {
 		$arrSortBy[self::SORTBY_FEATURED] = __('Featured Products', EG_TEXTDOMAIN);
 		$arrSortBy[self::SORTBY_SKU] = __('SKU', EG_TEXTDOMAIN);
 		$arrSortBy[self::SORTBY_STOCK] = __('Stock Quantity', EG_TEXTDOMAIN);
-		
+
 		$arrOutput = array();
 		$arrOutput['opt_disabled_1'] = __('---- WooCommerce Filters ----', EG_TEXTDOMAIN);
 		$arrOutput = array_merge($arrOutput, $arrSortBy);
 		$arrOutput['opt_disabled_2'] = __('---- Regular Filters ----', EG_TEXTDOMAIN);
-		
+
 		return($arrOutput);
 	}
-	
-	
+
+
 	/**
 	 * check if product is on sale
 	 */
 	public static function check_if_on_sale($post_id){
-	
+
 		$product = get_product($post_id);
-		
+
 		return $product->is_on_sale();
-		
+
 	}
-	
-	
+
+
 	/**
 	 * check if product is on sale
 	 */
 	public static function check_if_is_featured($post_id){
-	
+
 		$product = get_product($post_id);
-		
+
 		return $product->is_featured();
-		
+
 	}
-	
-	
+
+
 	/**
 	 * get sortby function including standart wp sortby array
 	 */
 	public static function get_value_by_meta($post_id, $meta, $separator = ','){
-		
+
 		$meta_value = '';
-		
+
 		$product = get_product($post_id);
-		
+
 		switch($meta){
 			case 'wc_price':
 				$meta_value = wc_price($product->get_price());
@@ -222,10 +222,10 @@ class Essential_Grid_Woocommerce {
 				$ajax_cart_en			= get_option( 'woocommerce_enable_ajax_add_to_cart' ) == 'yes' ? true : false;
 				$assets_path          	= str_replace( array( 'http:', 'https:' ), '', WC()->plugin_url() ) . '/assets/';
 				$frontend_script_path 	= $assets_path . 'js/frontend/';
-				
+
 				if ( $ajax_cart_en ){
 					wp_enqueue_script( 'wc-add-to-cart', $frontend_script_path . 'add-to-cart' . $suffix . '.js', array( 'jquery' ), WC_VERSION, true );
-					
+
 					global $wc_is_localized;
 					if($wc_is_localized === false){ //load it only one time
 						wp_localize_script( 'wc-add-to-cart', 'wc_add_to_cart_params', apply_filters( 'wc_add_to_cart_params', array(
@@ -254,16 +254,16 @@ class Essential_Grid_Woocommerce {
 				$meta_value = apply_filters('essgrid_woocommerce_meta_content', $meta_value, $meta, $post_id, $product);
 			break;
 		}
-		
+
 		return $meta_value;
 	}
-	
-	
+
+
 	/**
 	 * get sortby function including standart wp sortby array
 	 */
 	public static function get_meta_array(){
-		
+
 		$wc_array = array(
 					'wc_full_price' => __('Full Price', EG_TEXTDOMAIN),
 					'wc_price' => __('Single Price', EG_TEXTDOMAIN),
@@ -275,23 +275,23 @@ class Essential_Grid_Woocommerce {
 					'wc_add_to_cart' => __('Add to Cart URL', EG_TEXTDOMAIN),
 					'wc_add_to_cart_button' => __('Add to Cart Button', EG_TEXTDOMAIN),
 					);
-		
+
 		$wc_array = apply_filters('essgrid_woocommerce_meta_handle', $wc_array);
-		
+
 		return $wc_array;
 	}
-	
-	
+
+
 	/**
 	 * get all attached images
 	 * @since: 1.5.4
 	 */
 	public static function get_image_attachements($post_id, $url = false){
-	
+
 		$product = get_product($post_id);
-		
+
 		$wc_img = $product->get_gallery_attachment_ids();
-		
+
 		if($url){
 			$images = array();
 			foreach($wc_img as $img){
@@ -305,7 +305,7 @@ class Essential_Grid_Woocommerce {
 			return $wc_img;
 		}
 	}
-	
+
 }
 
 ?>

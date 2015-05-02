@@ -2,11 +2,12 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @package   Essential_Grid
- * @author    ThemePunch <info@themepunch.com>
- * @link      http://www.themepunch.com/essential/
- * @copyright 2014 ThemePunch
- */
+* @package   Vegas_Lobby_Grid
+* @author    VegasHero <neil@vegashero.co>
+* @link      http://www.vegashero.co
+* @copyright 2015 VegasHero
+*/
+
 
 // If uninstall not called from WordPress, then exit
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
