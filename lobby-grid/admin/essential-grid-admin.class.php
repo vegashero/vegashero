@@ -351,33 +351,6 @@ class Essential_Grid_Admin extends Essential_Grid_Base {
 	}
 
 
-	/**
-	 * Register the meta box in post / pages
-	 */
-	public function add_plugin_meta_box($post_type) {
-		add_meta_box('eg-meta-box', __('Essential Grid Custom Settings', EG_TEXTDOMAIN), array(self::$instance, 'display_plugin_meta_box'), $post_type, 'normal', 'high');
-	}
-
-
-	/**
-	 * Display the meta box
-	 */
-	public static function display_plugin_meta_box($post){
-		require_once('views/elements/'.self::VIEW_META_BOX.'.php');
-	}
-
-
-	/**
-	 * Register the meta box save in post / pages
-	 */
-	public function add_plugin_meta_box_save($post_id) {
-
-		// Bail if we're doing an auto save
-		if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-
-		self::custom_meta_box_save($post_id, $_POST);
-
-	}
 
 
 	/**

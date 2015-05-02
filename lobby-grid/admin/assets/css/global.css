@@ -95,7 +95,7 @@ Step 1 ShortCode Generator
 #ess-grid-tiny-dialog-step-1 .ess-top_half,
 #ess-grid-tiny-dialog-step-1 .ess-bottom_half	{	padding:20px 0px 30px;}
 
-#ess-grid-tiny-dialog-step-1 .ess-top_half		{	 border-bottom:2px dashed #d5d5d5}
+#ess-grid-tiny-dialog-step-1 .ess-top_half		{	}
 
 .ess-quicktitle,
 .ess-grid-tiny-elset-title					{	font-weight: 600;font-size: 14px;height: 30px;line-height: 26px; text-transform:uppercase;}
