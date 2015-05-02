@@ -65,15 +65,15 @@ $offset = ( $pagenum - 1 ) * $limit;
 $cur_offset = 0;
 
 ?>
-	<h2 class="topheader"><?php _e('Overview', EG_TEXTDOMAIN); ?></h2>
+	<h1><?php _e('VegasHero Lobby Grid Builder', EG_TEXTDOMAIN); ?></h1>
 	<div id="eg-global-settings-wrap">
 		<a target="_blank" class="button-secondary" href="http://themepunch.com/essential/documentation/"><?php _e('Help', EG_TEXTDOMAIN); ?></a>
 		<a class="button-secondary" id="button-general-settings" href="#"><?php _e('Global Settings', EG_TEXTDOMAIN); ?></a>
 	</div>
-	
+
 	<div id="eg-grid-overview-wrapper">
 		<?php
-		
+
 		if(!empty($grids) && is_array($grids)){
 			?>
 			<table class='wp-list-table widefat fixed eg-postbox'>
@@ -126,12 +126,12 @@ $cur_offset = 0;
 					$cur_offset++;
 					if($cur_offset <= $offset) continue; //if we are lower then the offset, continue;
 					if($cur_offset > $limit + $offset) continue; // if we are higher then the limit + offset, continue
-					
+
 					$cur_grid = Essential_Grid::get_essential_grid_by_id($grid->id);
 					$skin_id = @$cur_grid['params']['entry-skin'];
 					?>
 					<tr>
-						<td><a href="javascript:void(0);" class="eg-toggle-favorite" id="eg-star-id-<?php echo $grid->id; ?>"><i class="eg-icon-star<?php 
+						<td><a href="javascript:void(0);" class="eg-toggle-favorite" id="eg-star-id-<?php echo $grid->id; ?>"><i class="eg-icon-star<?php
 							echo (isset($cur_grid['settings']['favorite']) && $cur_grid['settings']['favorite'] == 'true') ? '' : '-empty';
 						?>"></i></a></td>
 						<td><?php echo $grid->id; ?></td>
@@ -150,10 +150,10 @@ $cur_offset = 0;
 						echo ucfirst($cur_grid['params']['layout']);
 						if($cur_grid['params']['layout'] == 'even')
 							echo ', '.$cur_grid['params']['x-ratio'].':'.$cur_grid['params']['y-ratio'];
-						
+
 						if(isset($cur_grid['postparams']['source-type']))
 							echo ', '.ucfirst($cur_grid['postparams']['source-type']);
-							
+
 						if(isset($cur_grid['params']['layout-sizing']))
 							echo ', '.ucfirst($cur_grid['params']['layout-sizing']);
 						?>
@@ -173,12 +173,12 @@ $cur_offset = 0;
 		}
 		?>
 	</div>
-	
-	<a class='button-primary revblue' href='<?php echo $this->getViewUrl(Essential_Grid_Admin::VIEW_GRID_CREATE, 'create=true'); ?>'><?php _e('Create New Ess. Grid', EG_TEXTDOMAIN); ?></a>
-	
+
+	<a class='button-primary revblue' href='<?php echo $this->getViewUrl(Essential_Grid_Admin::VIEW_GRID_CREATE, 'create=true'); ?>'><?php _e('Create New Lobby Grid', EG_TEXTDOMAIN); ?></a>
+
 	<?php
 	$num_of_pages = ceil( $total / $limit );
-	
+
 	$page_links = paginate_links( array(
 		'base' => add_query_arg( 'pagenum', '%#%' ),
 		'format' => '',
@@ -206,10 +206,10 @@ $cur_offset = 0;
 	<?php
 	require_once('elements/grid-info.php');
 	?>
-	
+
 	<?php Essential_Grid_Dialogs::globalSettingsDialog(); ?>
-	
-	
+
+
 	<script type="text/javascript">
 		AdminEssentials.initOverviewGrid();
 	</script>

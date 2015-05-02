@@ -15,8 +15,8 @@
  * Text Domain:       essential-grid
  * Domain Path:       /languages
  */
- 
- 
+
+
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
@@ -113,7 +113,7 @@ if(!is_admin()){
 	 * @since: 2.0
 	 */
 	$esg_search = new Essential_Grid_Search();
-	
+
 	/**
 	 * load VC components in FrontEnd Editor of VC
 	 * @since: 2.0
@@ -131,9 +131,9 @@ if(!is_admin()){
 /*----------------------------------------------------------------------------*
  * Dashboard and Administrative Functionality
  *----------------------------------------------------------------------------*/
-if(is_admin()){ // && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) 
-	
-	
+if(is_admin()){ // && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX )
+
+
 	/*****************
 	 * Developer Part for deactivation of the Activation Area
 	 * @since: 1.1.0
@@ -145,12 +145,12 @@ if(is_admin()){ // && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX )
 			update_option('EssentialAsTheme', 'false');
 		}
 	}
-	
+
 	$EssentialAsTheme = false;
-	
+
 	function set_ess_grid_as_theme(){
 		global $EssentialAsTheme;
-		
+
 		if(defined('ESS_GRID_AS_THEME')){
 			if(ESS_GRID_AS_THEME == true)
 				$EssentialAsTheme = true;
@@ -162,33 +162,33 @@ if(is_admin()){ // && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX )
 	/*****************
 	 * END: Developer Part for deactivation of the Activation Area
 	 *****************/
-	
-	
+
+
 	add_action('plugins_loaded', array( 'Essential_Grid', 'create_tables' ));
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/essential-grid-admin.class.php');
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/includes/update.class.php');
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/includes/dialogs.class.php');
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/includes/import.class.php');
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/includes/export.class.php');
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/includes/import-post.class.php');
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/includes/plugin-update.class.php');
-	
+
 	require_once(EG_PLUGIN_PATH . '/admin/includes/newsletter.class.php');
-	
+
 	add_action('plugins_loaded', array( 'Essential_Grid_Admin', 'do_update_checks' )); //add update checks
-	
+
 	add_action('plugins_loaded', array( 'Essential_Grid_Admin', 'get_instance' ));
-	
+
 	add_action('plugins_loaded', array( 'Essential_Grid_Admin', 'visual_composer_include' )); //VC functionality
 	//add_action('init', array('Essential_Grid_Admin', 'visual_composer_include')); //VC functionality
-	
+
 }
 
 

@@ -10,7 +10,7 @@
  * @link      http://www.themepunch.com/essential/
  * @copyright 2014 ThemePunch
  */
- 
+
 if( !defined( 'ABSPATH') ) exit();
 
 $grid = false;
@@ -22,7 +22,7 @@ $meta = new Essential_Grid_Meta();
 
 $isCreate = $base->getGetVar('create', 'true');
 
-$title = __('Create New Ess. Grid', EG_TEXTDOMAIN);
+$title = __('Create New Lobby Grid', EG_TEXTDOMAIN);
 $save = __('Save Grid', EG_TEXTDOMAIN);
 
 $layers = false;
@@ -91,7 +91,7 @@ $media_source_list = $base->get_media_source_order();
 
 $custom_elements = $base->get_custom_elements_for_javascript();
 
-$all_image_sizes = $base->get_all_image_sizes(); 
+$all_image_sizes = $base->get_all_image_sizes();
 
 $meta_keys = $meta->get_all_meta_handle();
 
@@ -100,7 +100,7 @@ $meta_keys = $meta->get_all_meta_handle();
 <!--
 LEFT SETTINGS
 -->
-<h2 class="topheader"><?php echo $title; ?></h2>
+<h1><?php echo $title; ?></h1>
 <div class="postbox eg-postbox" style="width:100%;min-width:500px"><h3><span><?php _e('Layout Composition', EG_TEXTDOMAIN); ?></span><div class="postbox-arrow"></div></h3>
 	<div class="inside" style="padding:0px !important;margin:0px !important;height:100%;position:relative;background:#e1e1e1">
 
@@ -119,7 +119,7 @@ LEFT SETTINGS
 				<li class="" data-toshow="esg-settings-filterandco-settings"><i class="eg-icon-shuffle"></i><p><?php _e('Nav-Filter-Sort', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-skins-settings"><i class="eg-icon-droplet"></i><p><?php _e('Skins', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-animations-settings"><i class="eg-icon-tools"></i><p><?php _e('Animations', EG_TEXTDOMAIN); ?></p></li>
-				<li class="" data-toshow="esg-settings-video-settings"><i class="eg-icon-video"></i><p><?php _e('Video/Audio', EG_TEXTDOMAIN); ?></p></li>					
+				<li class="" data-toshow="esg-settings-video-settings"><i class="eg-icon-video"></i><p><?php _e('Video/Audio', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-lightbox-settings"><i class="eg-icon-search"></i><p><?php _e('Lightbox', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-ajax-settings"><i class="eg-icon-ccw-1"></i><p><?php _e('Ajax', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-spinner-settings"><i class="eg-icon-back-in-time"></i><p><?php _e('Spinner', EG_TEXTDOMAIN); ?></p></li>
@@ -171,10 +171,10 @@ LEFT SETTINGS
 						</div>
 
 					</div>
-					
-					
+
+
 					<div id="custom-sorting-wrap" style="display: none;">
-						<ul id="esg-custom-li-sorter" style="margin:0px">							
+						<ul id="esg-custom-li-sorter" style="margin:0px">
 						</ul>
 					</div>
 					<div id="post-pages-wrap">
@@ -218,7 +218,7 @@ LEFT SETTINGS
 										<?php
 										if($grid !== false){ //set the values
 											if(!empty($categories)){
-												
+
 												foreach($categories as $handle => $cat){
 													?>
 													<option value="<?php echo $handle; ?>"<?php selected(in_array($handle, $postTypes), true); ?><?php echo (strpos($handle, 'option_disabled_') !== false) ? ' disabled="disabled"' : ''; ?>><?php echo $cat; ?></option>
@@ -227,7 +227,7 @@ LEFT SETTINGS
 											}
 										}else{
 											if(!empty($postTypesWithCats['post'])){
-												
+
 												foreach($postTypesWithCats['post'] as $handle => $cat){
 													?>
 													<option value="<?php echo $handle; ?>"<?php selected(in_array($handle, $postTypes), true); ?><?php echo (strpos($handle, 'option_disabled_') !== false) ? ' disabled="disabled"' : ''; ?>><?php echo $cat; ?></option>
@@ -297,7 +297,7 @@ LEFT SETTINGS
 						</div>
 						<div class="divider1"></div>
 					</div>
-					
+
 					<div id="aditional-pages-wrap">
 						<div class="eg-creative-settings">
 							<div class="eg-cs-tbc-left">
@@ -315,7 +315,7 @@ LEFT SETTINGS
 						</div>
 						<div class="divider1"></div>
 					</div>
-					
+
 					<div id="media-source-order-wrap">
 						<div class="eg-creative-settings">
 							<div class="eg-cs-tbc-left">
@@ -334,7 +334,7 @@ LEFT SETTINGS
 												?>
 												<div class="eg-media-source-order revblue button-primary">
 													<i style="float:left; margin-right:10px;" class="eg-icon-<?php echo $media_source_list[$media_handle]['type']; ?>"></i>
-													<span style="float:left"><?php echo $media_source_list[$media_handle]['name']; ?></span>														
+													<span style="float:left"><?php echo $media_source_list[$media_handle]['name']; ?></span>
 													<input style="float:right;margin: 5px 4px 0 0;" class="eg-get-val" type="checkbox" name="media-source-order[]" checked="checked" value="<?php echo $media_handle; ?>" />
 													<div style="clear:both"></div>
 												</div>
@@ -342,7 +342,7 @@ LEFT SETTINGS
 												unset($media_source_list[$media_handle]);
 											}
 										}
-										
+
 										if(!empty($media_source_list)){
 											foreach($media_source_list as $media_handle => $media_set){
 												?>
@@ -406,7 +406,7 @@ LEFT SETTINGS
 							</div>
 						</div>
 					</div>
-					
+
 					<div id="external-streamers-wrap"></div>
 					<div id="gallery-wrap"></div>
 				</form>
@@ -415,16 +415,16 @@ LEFT SETTINGS
 		<?php
 			require_once('elements/grid-settings.php');
 		?>
-		
+
 		<div class="divider1"></div>
 		<div id="custom-element-add-elements-wrapper">
 			<div class="eg-creative-settings">
 				<div class="eg-cs-tbc-left">
 					<h3><span><?php _e('Add Items', EG_TEXTDOMAIN); ?></span></h3>
 				</div>
-				<div class="eg-cs-tbc" style="vertical-align:middle;">	
-					<p style="display:table-cell;vertical-align:middle;">								
-						<label class="eg-tooltip-wrap" title="<?php _e('Add element to Custom Grid', EG_TEXTDOMAIN); ?>"><?php _e('Add', EG_TEXTDOMAIN); ?></label>																
+				<div class="eg-cs-tbc" style="vertical-align:middle;">
+					<p style="display:table-cell;vertical-align:middle;">
+						<label class="eg-tooltip-wrap" title="<?php _e('Add element to Custom Grid', EG_TEXTDOMAIN); ?>"><?php _e('Add', EG_TEXTDOMAIN); ?></label>
 					</p>
 					<ul style="display:table-cell;vertical-align:middle;" class="esg-custom-add-item">
 						<li><div class="esg-open-edit-dialog" id="esg-add-new-custom-youtube-top"><i class="eg-icon-youtube-squared"></i><?php _e('You Tube', EG_TEXTDOMAIN); ?></div></li>
@@ -432,14 +432,14 @@ LEFT SETTINGS
 						<li><div class="esg-open-edit-dialog" id="esg-add-new-custom-html5-top"><i class="eg-icon-video"></i><?php _e('Self Hosted Media', EG_TEXTDOMAIN); ?></div></li>
 						<li><div class="esg-open-edit-dialog" id="esg-add-new-custom-image-top"><i class="eg-icon-picture-1"></i><?php _e('Image(s)', EG_TEXTDOMAIN); ?></div></li>
 						<li><div class="esg-open-edit-dialog" id="esg-add-new-custom-soundcloud-top"><i class="eg-icon-soundcloud"></i><?php _e('Sound Cloud', EG_TEXTDOMAIN); ?></div></li>
-						<li><div class="esg-open-edit-dialog" id="esg-add-new-custom-text-top"><i class="eg-icon-font"></i><?php _e('Simple Content', EG_TEXTDOMAIN); ?></div></li>										
+						<li><div class="esg-open-edit-dialog" id="esg-add-new-custom-text-top"><i class="eg-icon-font"></i><?php _e('Simple Content', EG_TEXTDOMAIN); ?></div></li>
 					</ul>
 					<div style="clear:both"></div>
 				</div>
 			</div>
 			<div class="divider1"></div>
 		</div>
-		
+
 		<div class="save-wrap-settings" style="">
 		<!--	<div style="width:150px; background:#E1e1e1;position:absolute;height:100%;top:0px;left:0px;"></div>-->
 			<div class="sws-toolbar-button"><a class="button-primary revgreen" href="javascript:void(0);" id="eg-btn-save-grid"><i class="rs-icon-save-light" style="display: inline-block;vertical-align: middle;width: 18px;height: 20px;background-repeat: no-repeat;margin-right:10px !important;margin-left:2px !important;"></i><?php echo $save; ?></a></div>
@@ -447,20 +447,20 @@ LEFT SETTINGS
 			<div class="sws-toolbar-button"><a class="button-primary revyellow" href="<?php echo self::getViewUrl(Essential_Grid_Admin::VIEW_OVERVIEW); ?>"><i class="eg-icon-cancel"></i><?php _e('Close', EG_TEXTDOMAIN); ?></a></div>
 			<div class="sws-toolbar-button"><?php if($grid !== false){ ?>
 				<a class="button-primary revred" href="javascript:void(0);" id="eg-btn-delete-grid"><i class="eg-icon-trash"></i><?php _e('Delete Grid', EG_TEXTDOMAIN); ?></a>
-			<?php } ?></div>				
+			<?php } ?></div>
 		</div>
 		<script>
 			jQuery('document').ready(function() {
 				punchgs.TweenLite.fromTo(jQuery('.save-wrap-settings'),0.5,{autoAlpha:0,x:40},{autoAlpha:1,x:0,ease:punchgs.Power3.easeInOut,delay:3});
 				jQuery.each(jQuery('.sws-toolbar-button'),function(ind,elem) {
-					punchgs.TweenLite.fromTo(elem,0.5,{x:40},{x:0,ease:punchgs.Power3.easeInOut,delay:4+(ind*0.3)});			
+					punchgs.TweenLite.fromTo(elem,0.5,{x:40},{x:0,ease:punchgs.Power3.easeInOut,delay:4+(ind*0.3)});
 				})
 
 				jQuery('.sws-toolbar-button').hover(function() {
 					punchgs.TweenLite.to(jQuery(this),0.3,{x:-110,ease:punchgs.Power3.easeInOut});
 				},
 				function() {
-					punchgs.TweenLite.to(jQuery(this),0.3,{x:0,ease:punchgs.Power3.easeInOut});					
+					punchgs.TweenLite.to(jQuery(this),0.3,{x:0,ease:punchgs.Power3.easeInOut});
 				})
 			});
 		</script>
@@ -481,14 +481,14 @@ if(intval($isCreate) == 0){ //currently editing
 	<div id="eg-live-preview-wrap">
 		<?php
 		wp_enqueue_script($this->plugin_slug . '-essential-grid-script', EG_PLUGIN_URL.'public/assets/js/jquery.themepunch.essential.min.js', array('jquery'), Essential_Grid::VERSION );
-		
+
 		Essential_Grid_Global_Css::output_global_css_styles_wrapped();
 		?>
 		<div id="esg-preview-wrapping-wrapper">
 			<?php
 			if($base->getVar($grid['postparams'], 'source-type', 'post') == 'custom'){
 				$layers = @$grid['layers']; //no stripslashes used here
-				
+
 				if(!empty($layers)){
 					foreach($layers as $layer){
 						?>
@@ -528,9 +528,9 @@ Essential_Grid_Dialogs::custom_element_image_dialog(); //to change post meta inf
 
 
 	jQuery(document).ready(function(){
-		
+
 		AdminEssentials.setInitMetaKeysJson(<?php echo $base->jsonEncodeForClientSide($meta_keys); ?>);
-		
+
 		AdminEssentials.initCreateGrid(<?php echo ($grid !== false) ? '"update_grid"' : ''; ?>);
 
 		AdminEssentials.set_default_nav_skin(<?php echo $navigation_skin_css; ?>);
@@ -544,14 +544,14 @@ Essential_Grid_Dialogs::custom_element_image_dialog(); //to change post meta inf
 		AdminEssentials.initTabSizes();
 
 		AdminEssentials.set_navigation_layout();
-		
+
 		setTimeout(function() {
 			AdminEssentials.createPreviewGrid();
 		},500);
 
 
 		AdminEssentials.initSpinnerAdmin();
-		
+
 		AdminEssentials.setInitCustomJson(<?php echo $base->jsonEncodeForClientSide($custom_elements); ?>);
 	});
 </script>

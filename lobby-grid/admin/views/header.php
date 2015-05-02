@@ -10,11 +10,9 @@
  * @link      http://www.themepunch.com/essential/
  * @copyright 2014 ThemePunch
  */
- 
+
 if( !defined( 'ABSPATH') ) exit();
 
 ?>
 
-<div id="eg-wrap">
-
-
+<div class="wrap">
