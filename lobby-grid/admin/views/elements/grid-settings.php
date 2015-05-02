@@ -143,7 +143,7 @@ $all_metas = $eg_meta->get_all_meta();
 								</td>
 								<td></td>
 							</tr>
-							
+
 							<tr id="eg-col-00" style="height: 20px;" class="columns-height columns-width">
 								<td></td>
 								<td style="vertical-align:top !important"><?php _e('Start min. Height', EG_TEXTDOMAIN); ?><span style="margin-left: 16px;"><?php _e('Breakpoint at', EG_TEXTDOMAIN); ?></span></td>
@@ -1403,7 +1403,7 @@ $all_metas = $eg_meta->get_all_meta();
 			</div>
 
 			<div class="divider1"></div>
-			
+
 			<?php
 			$use_lightbox = get_option('tp_eg_use_lightbox', 'false');
 			if($use_lightbox == 'jackbox' && !Essential_Grid_Jackbox::jb_exists()){
@@ -1604,7 +1604,7 @@ $all_metas = $eg_meta->get_all_meta();
 							<?php if($use_lightbox == 'sg'){ ?>
 								<?php _e('Social Gallery is enabled in the Ess. Grid Global Settings. Social Gallery specific settings can be changed ', EG_TEXTDOMAIN); ?> <a href="<?php echo get_admin_url() . 'admin.php?page=sgp-plugin-settings'; ?>" target="_blank"><?php _e('here', EG_TEXTDOMAIN); ?></a>
 							<?php } ?>
-							
+
 						</p>
 					</div>
 				</div>
@@ -1998,11 +1998,11 @@ $all_metas = $eg_meta->get_all_meta();
 				<div class="divider1"></div>
 			</div>
 		</div>
-		
+
 		<!--
 		COOKIE SETTINGS
 		-->
-		
+
 		<div id="esg-settings-cookie-settings" class="esg-settings-container">
 			<div class="">
 				<div class="eg-creative-settings">
@@ -2017,10 +2017,10 @@ $all_metas = $eg_meta->get_all_meta();
 						<div style="width:100%;height:15px"></div>
 					</div>
 				</div>
-				
+
 				<div class="eg-creative-settings">
 					<div class="divider1"></div>
-					
+
 					<div class="eg-cs-tbc-left">
 						<h3 class="box-closed"><span><?php _e('Settings', EG_TEXTDOMAIN); ?></span></h3>
 					</div>

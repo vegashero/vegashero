@@ -37,14 +37,13 @@ div[aria-describedby="ess-grid-tiny-mce-dialog"] .ui-dialog-titlebar-close:befor
 
 div[aria-describedby="ess-grid-tiny-mce-dialog"] .ui-dialog-titlebar {	height:50px; }
 div[aria-describedby="ess-grid-tiny-mce-dialog"] .ui-dialog-title	{
-background: url(../images/logo.png) no-repeat;
 width: 207px;
 height: 50px;
 top: 0px;
 position: absolute;
 left: 20px;
 background-position: left center;
-padding-left:225px;
+padding-left:25px;
 line-height:50px;
 }
 
@@ -168,7 +167,7 @@ STEP 3
 /***
  ShortCode Generator Fixes
  ***/
- 
+
 .ui-dialog {
 	z-index: 100102 !important;
 }

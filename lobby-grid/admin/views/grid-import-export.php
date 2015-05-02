@@ -67,7 +67,7 @@ if (isset($_FILES['import_file'])) {
 							</li>
 							<?php
 						}
-						
+
 						if(!empty($skins)){
 							?>
 							<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="export-skins" checked="checked" /><span><?php _e('Skins', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -83,7 +83,7 @@ if (isset($_FILES['import_file'])) {
 							</li>
 							<?php
 						}
-						
+
 						if(!empty($elements)){
 							?>
 							<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="export-elements" checked="checked" /><span><?php _e('Elements', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -99,7 +99,7 @@ if (isset($_FILES['import_file'])) {
 							</li>
 							<?php
 						}
-						
+
 						if(!empty($navigation_skins)){
 							?>
 							<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="export-navigation-skins" checked="checked" /><span><?php _e('Navigation Skins', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -115,7 +115,7 @@ if (isset($_FILES['import_file'])) {
 							</li>
 							<?php
 						}
-						
+
 						if(!empty($custom_metas)){
 							?>
 							<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="export-custom-meta" checked="checked" /><span><?php _e('Custom Meta', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -132,34 +132,19 @@ if (isset($_FILES['import_file'])) {
 							</li>
 							<?php
 						}
-						
-						if(!empty($custom_fonts)){
-							?>
-							<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="export-punch-fonts" checked="checked" /><span><?php _e('Punch Fonts', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
-								<ul class="eg-ie-sub-ul">
-									<?php
-									foreach($custom_fonts as $font){
-										?>
-										<li><div class="eg-li-intern-wrap"><span class="eg-inputchecked"><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="export-punch-fonts-handle[]" checked="checked" value="<?php echo $font['handle']; ?>" /><?php echo $font['handle']; ?></div></li>
-										<?php
-									}
-									?>
-								</ul>
-							</li>
-							<?php
-						}
-						?>
+
+					?>
 						<li><div class="eg-li-intern-wrap"><span style="margin-left:33px" class="eg-inputchecked"><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="export-global-styles" checked="checked" style="margin-left:33px"/><span><?php _e('Global Styles', EG_TEXTDOMAIN); ?></span></div></li>
 					</ul>
-					
+
 					<div>
 						<input type="submit" id="eg-export-selected-settings" class="button-primary revgreen" value="<?php _e('Export Selected', EG_TEXTDOMAIN); ?>" />
 					</div>
 				</div>
 			</div>
 		</form>
-		
-		<?php 
+
+		<?php
 		$is_open = 'closed';
 		$is_vis = 'display:none;';
 		if($import_data !== false && !empty($import_data)){
@@ -226,7 +211,7 @@ if (isset($_FILES['import_file'])) {
 			<div class="postbox eg-postbox" style="width:100%;min-width:500px">
 				<h3 class="box-<?php echo $is_open; ?>"><span style="font-weight:400"><?php _e('Import:', EG_TEXTDOMAIN); ?></span><div class="postbox-arrow"></div></h3>
 				<div class="inside" style="<?php echo $is_vis; ?>padding:10px !important;margin:0px !important;height:100%;position:relative;">
-					<?php 
+					<?php
 					if($import_data !== false && !empty($import_data)){
 						?>
 						<?php _e('The following could be found in the selected file:', EG_TEXTDOMAIN); ?>
@@ -269,7 +254,7 @@ if (isset($_FILES['import_file'])) {
 								</li>
 								<?php
 							}
-							
+
 							if(!empty($import_data['skins'])){
 								?>
 								<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="import-skins" checked="checked" /><span><?php _e('Skins', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -307,7 +292,7 @@ if (isset($_FILES['import_file'])) {
 								</li>
 								<?php
 							}
-							
+
 							if(!empty($import_data['elements'])){
 								?>
 								<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="import-elements" checked="checked" /><span><?php _e('Elements', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -345,7 +330,7 @@ if (isset($_FILES['import_file'])) {
 								</li>
 								<?php
 							}
-							
+
 							if(!empty($import_data['navigation-skins'])){
 								?>
 								<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="import-navigation-skins" checked="checked" /><span><?php _e('Navigation Skins', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -383,7 +368,7 @@ if (isset($_FILES['import_file'])) {
 								</li>
 								<?php
 							}
-							
+
 							if(!empty($import_data['custom-meta'])){
 								?>
 								<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="import-custom-meta" checked="checked" /><span><?php _e('Custom Meta', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -421,7 +406,7 @@ if (isset($_FILES['import_file'])) {
 								</li>
 								<?php
 							}
-							
+
 							if(!empty($import_data['punch-fonts'])){
 								?>
 								<li><div class="eg-li-intern-wrap"><span class="eg-expand-collapse closed"><i class="eg-icon-folder-open"></i><i class="eg-icon-folder"></i></span><span class="eg-inputchecked"><i class="eg-icon-ok-squared"></i><i class="eg-icon-ok"></i><i class="eg-icon-cancel"></i></span><input type="checkbox" name="import-punch-fonts" checked="checked" /><span><?php _e('Punch Fonts', EG_TEXTDOMAIN); ?></span><span class="eg-amount-of-lis"></span></div>
@@ -477,7 +462,7 @@ if (isset($_FILES['import_file'])) {
 							}
 							?>
 						</ul>
-						
+
 						<div>
 							<a id="esg-import-data" href="javascript:void(0);" class="button-primary revgreen" /><?php _e('Import Selected Data', EG_TEXTDOMAIN); ?></a>
 						</div>
@@ -496,7 +481,7 @@ if (isset($_FILES['import_file'])) {
 			<a href="javascript:void(0);" class="button-primary revgreen" id="esg-import-demo-posts"><?php _e('Import Full Demo Data', EG_TEXTDOMAIN); ?></a>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript">
 		jQuery(function(){
 			AdminEssentials.initImportExport();

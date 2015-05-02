@@ -119,7 +119,6 @@ LEFT SETTINGS
 				<li class="" data-toshow="esg-settings-filterandco-settings"><i class="eg-icon-shuffle"></i><p><?php _e('Nav-Filter-Sort', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-skins-settings"><i class="eg-icon-droplet"></i><p><?php _e('Skins', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-animations-settings"><i class="eg-icon-tools"></i><p><?php _e('Animations', EG_TEXTDOMAIN); ?></p></li>
-				<li class="" data-toshow="esg-settings-video-settings"><i class="eg-icon-video"></i><p><?php _e('Video/Audio', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-lightbox-settings"><i class="eg-icon-search"></i><p><?php _e('Lightbox', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-ajax-settings"><i class="eg-icon-ccw-1"></i><p><?php _e('Ajax', EG_TEXTDOMAIN); ?></p></li>
 				<li class="" data-toshow="esg-settings-spinner-settings"><i class="eg-icon-back-in-time"></i><p><?php _e('Spinner', EG_TEXTDOMAIN); ?></p></li>
