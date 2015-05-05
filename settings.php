@@ -74,7 +74,7 @@ class Vegashero_Settings
     }
 
     public function getDescriptionForSiteSettings() {
-        echo "<p>Site specific settings description goes here</p>";
+        echo "<p>Your Affiliate ID goes here.</p>";
     }
 
     public function createAffiliateCodeInput($args) {
@@ -88,7 +88,8 @@ class Vegashero_Settings
     }
 
     public function addSettingsMenu() {
-        add_options_page('Vegas Hero Plugin', 'Vegas Hero', 'manage_options', 'vegashero-plugin', array($this, 'createSettingsPage'));
+        add_menu_page('VegasHero Settings', 'Vegas Hero', 'manage_options', 'vegashero-plugin', array($this, 'createSettingsPage'));
+
     }
 
     private function _getUpdateBtn($operator) {

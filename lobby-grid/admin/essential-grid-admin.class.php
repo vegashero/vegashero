@@ -27,7 +27,7 @@ class Essential_Grid_Admin extends Essential_Grid_Base {
 	const VIEW_GRID = "grid-details";
 	const VIEW_META_BOX = "grid-meta-box";
 	const VIEW_ITEM_SKIN_EDITOR = "grid-item-skin-editor";
-	//const VIEW_GOOGLE_FONTS = "themepunch-google-fonts";
+	const VIEW_GOOGLE_FONTS = "themepunch-google-fonts";
 	const VIEW_IMPORT_EXPORT = "grid-import-export";
 	const VIEW_WIDGET_AREAS = "grid-widget-areas";
 
