@@ -204,7 +204,7 @@ class Vegashero_Import
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => array( 'slug' => 'game-categories' ),
+            'rewrite'           => array( 'slug' => $this->_config->gameCategoryUrlSlug ),
         );
 
         register_taxonomy( $this->_config->gameCategoryTaxonomy, array( $this->_config->customPostType ), $args );
@@ -230,7 +230,7 @@ class Vegashero_Import
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => array( 'slug' => 'game-operators' ),
+            'rewrite'           => array( 'slug' => $this->_config->gameOperatorUrlSlug ),
         );
 
         register_taxonomy( $this->_config->gameOperatorTaxonomy, array( $this->_config->customPostType ), $args );
@@ -256,7 +256,7 @@ class Vegashero_Import
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => array( 'slug' => 'game-providers' ),
+            'rewrite'           => array( 'slug' => $this->_config->gameProviderUrlSlug ),
         );
 
         register_taxonomy( $this->_config->gameProviderTaxonomy, array( $this->_config->customPostType ), $args );
