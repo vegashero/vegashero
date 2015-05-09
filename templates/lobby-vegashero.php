@@ -10,20 +10,19 @@ $images = "http://cdn.vegasgod.com";
 $config = new Vegashero_Config();
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $args = array(
-  'posts_per_page'   => $config->postsPerPage,
-  'offset'           => 0,
-  'category'         => '',
-  'category_name'    => '',
+  'posts_per_page'   => get_option('posts_per_page'),
+  $config->gameOperatorTaxonomy => (get_query_var($config->gameOperatorTaxonomy)) ? get_query_var($config->gameOperatorTaxonomy) : '',
+  $config->gameCategoryTaxonomy => (get_query_var($config->gameCategoryTaxonomy)) ? get_query_var($config->gameCategoryTaxonomy) : '',
+  $config->gameProviderTaxonomy => (get_query_var($config->gameProviderTaxonomy)) ? get_query_var($config->gameProviderTaxonomy) : '',
   'orderby'          => 'post_date',
   'order'            => 'DESC',
   'post_type'        => $config->customPostType,
   'post_status'      => 'publish',
-  'suppress_filters' => true,
   'paged' => $paged
 );
 $posts = get_posts( $args ); 
 $total_posts = wp_count_posts($config->customPostType)->publish;
-$max_pages = ceil($total_posts/$config->postsPerPage);
+$max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
 
 <h2>Vegas Hero Lobby</h2>
@@ -32,37 +31,46 @@ $max_pages = ceil($total_posts/$config->postsPerPage);
 
     <?php foreach($posts as $post):
         $post_meta = get_post_meta($post->ID, $config->metaKey, true);
-        $categories = wp_get_post_terms($post->ID, $config->gameCategoryTaxonomy);
-        $operators = wp_get_post_terms($post->ID, $config->gameOperatorTaxonomy);
+        $operator = wp_get_post_terms($post->ID, $config->gameOperatorTaxonomy)[0];
         $provider = wp_get_post_terms($post->ID, $config->gameProviderTaxonomy)[0];
         $image_url = sprintf("%s/%s/%s/", $images, $provider->name, sanitize_title($post->post_title));
         $post_slug = sprintf(sanitize_title($post->post_title));
-        $category_slug = sprintf(sanitize_title($categories[0]->name));
+        $operator_slug = sprintf(sanitize_title($operator->name));
+        $provider_slug = sprintf(sanitize_title($provider->name));
         ?>
-        <h4><?=$post->post_title?></h4>
+        <h4><a href="/games/<?=$post->post_name?>"><?=$post->post_title?></a></h4>
         <img src="<?=$image_url?>/cover.jpg" alt="<?=$post->post_title?>" style="max-width:150px" title="<?=$post->post_title?>">
-        <p>Category: <a href="/game-categories/<?=$category_slug?>"><?=$categories[0]->name?></a></p>
+        <?php 
+        $category = wp_get_post_terms($post->ID, $config->gameCategoryTaxonomy)[0];
+        if ($category):
+            $category_slug = sprintf(sanitize_title($category->name));?>
+        <p>Filter by game category: <a href="?<?=$config->gameCategoryTaxonomy?>=<?=$category_slug?>"><?=$category->name?></a></p>
+        <?php endif ?>
+        <p>Filter by game operator: <a href="?<?=$config->gameOperatorTaxonomy?>=<?=$operator_slug?>"><?=$operator->name?></a></p>
+        <p>Filter by game provider: <a href="?<?=$config->gameProviderTaxonomy?>=<?=$provider_slug?>"><?=$provider->name?></a></p>
     <?php endforeach; ?>
 
 <?php
         $current_url = sprintf("http://%s%s", $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
-        $big = 9999999999;
+        $big = $paged+1;
         $pagination = paginate_links(
             array(
                 'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
                 'format' => $format,
                 'current' => max(1, $paged),
                 'total' => $max_pages,
+                'show_all' => false,
+                'mid_size' => 0,
+                'end_size' => 0,
                 'prev_text' => __('« Previous'),
                 'next_text' => __('Next »'),
                 'type' => 'array',
             ) 
         );
-        echo '<pre>';
-        print_r($pagination);
-        echo '</pre>';
-?>
+        echo preg_match('/^<a class="prev.*$/', current($pagination)) ? current($pagination) : '';
+        echo preg_match('/^<a class="next.*$/', end($pagination)) ? end($pagination) : '';
 
+?>
 
 <?php else: ?>
 
