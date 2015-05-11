@@ -1,5 +1,4 @@
 <?php get_header(); ?>
-HALLO
 
 	<div id="primary" class="content-area">
 		<div id="content" class="site-content" role="main">

@@ -9,7 +9,12 @@ if( get_option('permalink_structure') ) {
 $images = "http://cdn.vegasgod.com";
 $config = new Vegashero_Config();
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-$args = array(
+
+$categories = get_terms($config->gameCategoryTaxonomy);
+$operators = get_terms($config->gameOperatorTaxonomy);
+$providers = get_terms($config->gameProviderTaxonomy);
+
+$post_args = array(
   'posts_per_page'   => get_option('posts_per_page'),
   $config->gameOperatorTaxonomy => (get_query_var($config->gameOperatorTaxonomy)) ? get_query_var($config->gameOperatorTaxonomy) : '',
   $config->gameCategoryTaxonomy => (get_query_var($config->gameCategoryTaxonomy)) ? get_query_var($config->gameCategoryTaxonomy) : '',
@@ -20,12 +25,33 @@ $args = array(
   'post_status'      => 'publish',
   'paged' => $paged
 );
-$posts = get_posts( $args ); 
+$posts = get_posts( $post_args ); 
 $total_posts = wp_count_posts($config->customPostType)->publish;
 $max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
 
 <h2>Vegas Hero Lobby</h2>
+
+<select onchange="window.location = '?<?=$config->gameOperatorTaxonomy?>=' + this.options[this.selectedIndex].value">
+    <option selected disabled>Filter by operator</option>
+    <?php foreach($operators as $operator): ?>
+    <option value="<?=$operator->slug?>"><?=$operator->name?></option>
+    <?php endforeach; ?>
+</select>
+
+<select onchange="window.location = '?<?=$config->gameCategoryTaxonomy?>=' + this.options[this.selectedIndex].value">
+    <option selected disabled>Filter by category</option>
+    <?php foreach($categories as $category): ?>
+    <option value="<?=$category->slug?>"><?=$category->name?></option>
+    <?php endforeach; ?>
+</select>
+
+<select onchange="window.location = '?<?=$config->gameProviderTaxonomy?>=' + this.options[this.selectedIndex].value">
+    <option selected disabled>Filter by provider</option>
+    <?php foreach($providers as $provider): ?>
+    <option value="<?=$provider->slug?>"><?=$provider->name?></option>
+    <?php endforeach; ?>
+</select>
 
 <?php if (count($posts) > 0) : ?>
 
@@ -40,14 +66,6 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         ?>
         <h4><a href="/games/<?=$post->post_name?>"><?=$post->post_title?></a></h4>
         <img src="<?=$image_url?>/cover.jpg" alt="<?=$post->post_title?>" style="max-width:150px" title="<?=$post->post_title?>">
-        <?php 
-        $category = wp_get_post_terms($post->ID, $config->gameCategoryTaxonomy)[0];
-        if ($category):
-            $category_slug = sprintf(sanitize_title($category->name));?>
-        <p>Filter by game category: <a href="?<?=$config->gameCategoryTaxonomy?>=<?=$category_slug?>"><?=$category->name?></a></p>
-        <?php endif ?>
-        <p>Filter by game operator: <a href="?<?=$config->gameOperatorTaxonomy?>=<?=$operator_slug?>"><?=$operator->name?></a></p>
-        <p>Filter by game provider: <a href="?<?=$config->gameProviderTaxonomy?>=<?=$provider_slug?>"><?=$provider->name?></a></p>
     <?php endforeach; ?>
 
 <?php
