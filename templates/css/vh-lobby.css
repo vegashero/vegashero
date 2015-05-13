@@ -24,7 +24,15 @@
   margin-bottom:20px;
   position: relative;
 }
-
+.vh-item img {
+  width:100%;
+}
+.vh-item a {
+  text-decoration:none;
+  margin-top:5px;
+  color:black;
+  font-weight:normal;
+}
 .vh-item-overlay {
   position: absolute;
   top:-7%;
@@ -97,6 +105,11 @@
   font-size:13px;
   display: none;
 }
+.vh-pagination {
+  width:100%;
+  clear:both;
+  
+}
 .m-t-sm {
   margin-top: 10px;
   margin-left: 10px;
@@ -145,11 +158,6 @@
 }
 
 
-
-
-
-
-
 .vh-app-content,
 .vh-lobby-header {
   padding: 20px;
@@ -159,6 +167,7 @@
 .vh-filters {
   background: #191919;
   width: 100%;
+
 }
 .vh-filters:after {
   content: '';
@@ -179,6 +188,8 @@
   font-size: 14px;
   cursor: pointer;
   color: #d3d3d3;
+  margin-bottom:30px;
+  width:100%;
 }
 
 .vh-filter:hover {
@@ -245,21 +256,17 @@ input[type="text"].vh-search {
   /*width: 20%;*/
 }
 
+
 @media (min-width: 768px) {
   .app.container {
     width: 920px;
   }
   .vh-item {
     width: 33.33333333%;
-    height: 300px;
   }
 }
 @media (min-width: 992px) {
   .vh-item {
-    width: 20%;
-    height: 325px;
+    width: 25%;
   }
 }
-
-
-

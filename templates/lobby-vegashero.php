@@ -25,34 +25,33 @@ $post_args = array(
   'post_status'      => 'publish',
   'paged' => $paged
 );
-$posts = get_posts( $post_args ); 
+$posts = get_posts( $post_args );
 $total_posts = wp_count_posts($config->customPostType)->publish;
 $max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
-
-<h2>Vegas Hero Lobby</h2>
-
-<select onchange="window.location = '?<?=$config->gameOperatorTaxonomy?>=' + this.options[this.selectedIndex].value">
+<div class="vh-filter">
+  <select onchange="window.location = '?<?=$config->gameOperatorTaxonomy?>=' + this.options[this.selectedIndex].value">
     <option selected disabled>Filter by operator</option>
     <?php foreach($operators as $operator): ?>
     <option value="<?=$operator->slug?>"><?=$operator->name?></option>
     <?php endforeach; ?>
 </select>
 
-<select onchange="window.location = '?<?=$config->gameCategoryTaxonomy?>=' + this.options[this.selectedIndex].value">
+  <select onchange="window.location = '?<?=$config->gameCategoryTaxonomy?>=' + this.options[this.selectedIndex].value">
     <option selected disabled>Filter by category</option>
     <?php foreach($categories as $category): ?>
     <option value="<?=$category->slug?>"><?=$category->name?></option>
     <?php endforeach; ?>
 </select>
 
-<select onchange="window.location = '?<?=$config->gameProviderTaxonomy?>=' + this.options[this.selectedIndex].value">
+  <select onchange="window.location = '?<?=$config->gameProviderTaxonomy?>=' + this.options[this.selectedIndex].value">
     <option selected disabled>Filter by provider</option>
     <?php foreach($providers as $provider): ?>
     <option value="<?=$provider->slug?>"><?=$provider->name?></option>
     <?php endforeach; ?>
 </select>
-
+</div>
+<div class="vh-row-sm">
 <?php if (count($posts) > 0) : ?>
 
     <?php foreach($posts as $post):
@@ -64,10 +63,13 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         $operator_slug = sprintf(sanitize_title($operator->name));
         $provider_slug = sprintf(sanitize_title($provider->name));
         ?>
-        <h4><a href="/games/<?=$post->post_name?>"><?=$post->post_title?></a></h4>
-        <img src="<?=$image_url?>/cover.jpg" alt="<?=$post->post_title?>" style="max-width:150px" title="<?=$post->post_title?>">
-    <?php endforeach; ?>
+      <div class="vh-item">
 
+        <a href="/games/<?=$post->post_name?>"><img src="<?=$image_url?>cover.jpg" alt="<?=$post->post_title?>" title="<?=$post->post_title?>"></a>
+        <a href="/games/<?=$post->post_name?>"><?=$post->post_title?></a>
+      </div>
+    <?php endforeach; ?>
+    <div class="vh-pagination">
 <?php
         $current_url = sprintf("http://%s%s", $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
         $big = $paged+1;
@@ -83,13 +85,14 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
                 'prev_text' => __('« Previous'),
                 'next_text' => __('Next »'),
                 'type' => 'array',
-            ) 
+            )
         );
         echo preg_match('/^<a class="prev.*$/', current($pagination)) ? current($pagination) : '';
         echo preg_match('/^<a class="next.*$/', end($pagination)) ? end($pagination) : '';
 
 ?>
-
+  </div>
+</div>
 <?php else: ?>
 
     Please add your affiliate code in settings > vegashero and import the games
