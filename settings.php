@@ -115,7 +115,7 @@ class Vegashero_Settings
         <div class="about-text">
 			  Install a whole ton of games in an instant, add your affiliate codes from multiple operators.
         </div>
-        <div class="vh-badge">Version 1.0</div>
+        <!-- <div class="vh-badge">Version 1.0</div> -->
         <hr>
         <h3>Operators available to install</h3>
         <ul class="operator-cards">
@@ -138,7 +138,23 @@ class Vegashero_Settings
         }
 
         ?>
+        <li class="support-upsell">
+          <h4>Support</h4>
+          <p>Having trouble with your import? <a mailto="neil@vegashero.co">Mail us</a> with your issue and we will get right back to you.</p>
+          <hr>
+          <h4>Check out our premium services</h4>
+
+          <ul>
+            <li><strong>Gold package</strong> just $49 a month</li>
+            <li>Custom styling for your lobby</li>
+            <li>Unique content for 10 games a month</li>
+            <li>Custom game page designs for 10 of your best games</li>
+            <li>SEO evaluation from our expert</li>
+          </ul>
+
+        </li>
         </ul>
+
       </div>
         <?php
     }

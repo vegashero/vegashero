@@ -1,6 +1,6 @@
 <?php
 
-class Vegashero_Import 
+class Vegashero_Import
 {
 
     private $_config = array();
@@ -33,7 +33,7 @@ class Vegashero_Import
             $operator = trim($operator);
             if($game->{$operator}) {
                 $operator_id = $this->_getOperatorId($operator);
-                array_push($operators, $operator_id); 
+                array_push($operators, $operator_id);
             }
         }
         return $operators;
@@ -122,7 +122,7 @@ class Vegashero_Import
         // [mrgreen] => 1
         // [slotsmillion] => 1
         // [created] => 2015-03-20 11:36:22
-        // [modified] => 2015-03-20 11:36:22 
+        // [modified] => 2015-03-20 11:36:22
 
         $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
@@ -151,7 +151,7 @@ class Vegashero_Import
                         'post_excerpt'   => the_excerpt()
                     );
                     $post_id = wp_insert_post($post);
-                } 
+                }
 
                 $category_id = $this->_getCategoryId(trim($game->category));
                 $provider_id = $this->_getProviderId(trim($game->provider));
@@ -273,8 +273,8 @@ class Vegashero_Import
 
         $options = array(
             'labels' => array(
-                'name' => 'Vegas Hero Games',
-                'singular_name' => 'Vegas Hero Game'
+                'name' => 'Vegas Games',
+                'singular_name' => 'Vegas Game'
             ),
             'public' => true,
             'has_archive' => true,
@@ -285,4 +285,3 @@ class Vegashero_Import
 
 
 }
-
