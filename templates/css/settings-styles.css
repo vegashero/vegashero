@@ -108,13 +108,18 @@ ul.operator-cards li .btn-area {
   border-top: 1px solid #dedede;
   overflow: hidden;
 }
-ul.products li {
+ul.products li, ul.instructions li {
   background:white;
   border: 1px solid #dedede;
   clear:both;
 }
-ul.products li.support-upsell {
-  padding:20px 40px;
+
+ul.products li.support-upsell, ul.instructions li ul {
+  padding:35px 40px;
+}
+ul.instructions li ul li {
+  border:none;
+  margin-bottom:10px;
 }
 ul.products li.support-upsell h3 {
   margin:25px 0px;
@@ -128,6 +133,7 @@ ul.products li.support-upsell ul {
   width:45%;
   float:left;
 }
+
 ul.products li.support-upsell ul .signup {
   text-decoration:none;
   margin-top:15px;
@@ -135,9 +141,11 @@ ul.products li.support-upsell ul .signup {
   text-transform:uppercase;
   color:white;
   padding:13px 20px;
+  background:#f3f3f3;
 }
 ul.products li.support-upsell ul.silver {
   background:#bae9f5;
+  float:right;
 }
 ul.products li.support-upsell ul.silver .signup {
   background:#5fbed6;
@@ -184,4 +192,5 @@ ul.products li.support-upsell ul li hr {
 }
 ul.products li.support-upsell ul.addon {
   width:30%;
+  margin-right: 2%;
 }

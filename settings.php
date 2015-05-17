@@ -140,13 +140,28 @@ class Vegashero_Settings
         ?>
         </ul>
         <div class="clear"></div>
+        <h3>Lobby Setup</h3>
+        <ul class="instructions">
+          <li>
+            <ul>
+              <li><b>1.</b> Add your affiliate code</li>
+              <li><b>2.</b> Click "Apply code"</li>
+              <li><b>3.</b> Then click "Import games"</li>
+              <li><b>4.</b> Create a new page</li>
+              <li><b>5.</b> Add in this shortcode <span style="background:#f3f3f3; padding:3px 8px;">[vegashero-lobby]</span> </li>
+            </ul>
+            <div class="clear"></div>
+          </li>
+
+        </ul>
+        <div class="clear"></div>
         <h3>Other Products & Support</h3>
         <ul class="products">
           <li class="support-upsell">
 
             <p>Having trouble with your import? <a mailto="neil@vegashero.co">Mail us</a> with your issue and we will get right back to you.</p>
             <hr>
-            <h4>Check out our premium services</h4>
+            <h3>Check out our premium services</h3>
 
             <ul class="gold">
               <li class="package-title"><h3>Gold package deal <span>just $49 a month</span></h3></li>
@@ -176,14 +191,14 @@ class Vegashero_Settings
               <li><h3>Custom styling for your lobby <span>$79</span></h3><li>
               <li><hr></li>
               <li><p>We will design and style a lobby that will fit in perfectly with your site</p></li>
-              <li><a href="" class="signup">Buy now</a></li>
+              <li><a href="" class="button-primary">Buy now</a></li>
             </ul>
             <ul class="addon">
               <li><h3>SEO evaluation from our expert <span>$49</span></h3><li>
               <li><hr></li>
               <li><p>Our SEO Specialist (iGaming industry expert) will supply you with an SEO health report.</p>
               <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
-              <li><a href="" class="signup">Buy now</a></li>
+              <li><a href="" class="button-primary">Buy now</a></li>
             </ul>
             <div class="clear"></div>
           </li>
