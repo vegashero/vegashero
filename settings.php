@@ -139,19 +139,41 @@ class Vegashero_Settings
 
         ?>
         <li class="support-upsell">
-          <h4>Support</h4>
+          <h3>Support</h3>
           <p>Having trouble with your import? <a mailto="neil@vegashero.co">Mail us</a> with your issue and we will get right back to you.</p>
           <hr>
           <h4>Check out our premium services</h4>
 
-          <ul>
-            <li><strong>Gold package</strong> just $49 a month</li>
-            <li>Custom styling for your lobby</li>
-            <li>Unique content for 10 games a month</li>
-            <li>Custom game page designs for 10 of your best games</li>
-            <li>SEO evaluation from our expert</li>
+          <ul class="gold">
+            <li class="package-title"><h3>Gold package deal</h3> just $49 a month</li>
+            <li><hr></li>
+            <li>&#10003; Unique content for 10 games a month</li>
+            <li>&#10003; SEO evaluation from our expert (Add-on)</li>
+            <li>&#10003; Custom styling for your lobby (Add-on)</li>
+            <li>&#10003; 10 themed game pages (Add-on)</li>
           </ul>
 
+          <ul class="silver">
+            <li class="package-title"><h3>Silver package deal</h3> just $89 a month</li>
+            <li><hr></li>
+            <li>&#10003; Unique content for 20 games a month</li>
+            <li>&#10003; SEO evaluation from our expert (Add-on)</li>
+            <li>&#10003; Custom styling for your lobby (Add-on)</li>
+            <li>&#10003; 10 themed game pages (Add-on)</li>
+
+          </ul>
+          <h4>Add-ons</h4>
+          <ul class="addon">
+            <li><h3>Custom styling for your lobby</h3> $79<li>
+            <li><hr></li>
+            <li><p>We will design and style a lobby that will fit in perfectly with your site</p></li>
+          </ul>
+          <ul class="addon">
+            <li><h3>SEO evaluation from our expert</h3> $49<li>
+            <li><hr></li>
+            <li><p>Our SEO Specialist (iGaming industry expert) will supply you with an SEO health report.</p>
+            <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
+          </ul>
         </li>
         </ul>
 

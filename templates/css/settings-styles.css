@@ -111,9 +111,34 @@ ul.operator-cards li .btn-area {
 ul.operator-cards li.support-upsell {
   padding:20px 40px;
 }
-ul.operator-cards li.support-upsell h4 {
-  font-size:18px;
+ul.operator-cards li.support-upsell h3 {
+  margin:25px 0px;
 }
 ul.operator-cards li.support-upsell p {
+  margin:10px 0px 20px 0px;
+}
+ul.operator-cards li.support-upsell ul {
+  padding:30px;
+}
+ul.operator-cards li.support-upsell ul.silver {
+  background:#ededed;
+}
+ul.operator-cards li.support-upsell ul.gold {
+  background:#fef8b0;
+}
+ul.operator-cards li.support-upsell ul li {
+  border:none;
+  float:none;
+  background:none;
+  width:100%;
   margin:10px 0;
+}
+ul.operator-cards li.support-upsell ul li.package-title {
+  margin:0;
+}
+ul.operator-cards li.support-upsell ul li h3 {
+  margin:0px 0px 5px;
+}
+ul.operator-cards li.support-upsell ul li hr {
+  margin:20px 0;
 }
