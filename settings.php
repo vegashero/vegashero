@@ -138,45 +138,56 @@ class Vegashero_Settings
         }
 
         ?>
-        <li class="support-upsell">
-          <h3>Support</h3>
-          <p>Having trouble with your import? <a mailto="neil@vegashero.co">Mail us</a> with your issue and we will get right back to you.</p>
-          <hr>
-          <h4>Check out our premium services</h4>
-
-          <ul class="gold">
-            <li class="package-title"><h3>Gold package deal</h3> just $49 a month</li>
-            <li><hr></li>
-            <li>&#10003; Unique content for 10 games a month</li>
-            <li>&#10003; SEO evaluation from our expert (Add-on)</li>
-            <li>&#10003; Custom styling for your lobby (Add-on)</li>
-            <li>&#10003; 10 themed game pages (Add-on)</li>
-          </ul>
-
-          <ul class="silver">
-            <li class="package-title"><h3>Silver package deal</h3> just $89 a month</li>
-            <li><hr></li>
-            <li>&#10003; Unique content for 20 games a month</li>
-            <li>&#10003; SEO evaluation from our expert (Add-on)</li>
-            <li>&#10003; Custom styling for your lobby (Add-on)</li>
-            <li>&#10003; 10 themed game pages (Add-on)</li>
-
-          </ul>
-          <h4>Add-ons</h4>
-          <ul class="addon">
-            <li><h3>Custom styling for your lobby</h3> $79<li>
-            <li><hr></li>
-            <li><p>We will design and style a lobby that will fit in perfectly with your site</p></li>
-          </ul>
-          <ul class="addon">
-            <li><h3>SEO evaluation from our expert</h3> $49<li>
-            <li><hr></li>
-            <li><p>Our SEO Specialist (iGaming industry expert) will supply you with an SEO health report.</p>
-            <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
-          </ul>
-        </li>
         </ul>
+        <div class="clear"></div>
+        <h3>Other Products & Support</h3>
+        <ul class="products">
+          <li class="support-upsell">
 
+            <p>Having trouble with your import? <a mailto="neil@vegashero.co">Mail us</a> with your issue and we will get right back to you.</p>
+            <hr>
+            <h4>Check out our premium services</h4>
+
+            <ul class="gold">
+              <li class="package-title"><h3>Gold package deal <span>just $49 a month</span></h3></li>
+              <li><hr></li>
+              <li>&#10003; Unique content for 10 games every month</li>
+              <li>&#10003; SEO evaluation from our expert <b>Add-on</b></li>
+              <li>&#10003; Custom styling for your lobby <b>Add-on</b></li>
+              <li>&#10003; 10 themed game pages <b>Add-on</b></li>
+              <li><a href="" class="signup">Sign up</a></li>
+            </ul>
+
+            <ul class="silver">
+              <li class="package-title"><h3>Silver package deal <span>just $89 a month</span></h3></li>
+              <li><hr></li>
+              <li>&#10003; Unique content for 20 games every month</li>
+              <li>&#10003; Quality Backlinks for each game on our trusted networks every month</li>
+              <li>&#10003; Premium support, fix any bugs you have on your site *</li>
+              <li>&#10003; SEO evaluation from our expert <b>Add-on</b></li>
+              <li>&#10003; Custom styling for your lobby <b>Add-on</b></li>
+              <li>&#10003; 10 themed game pages <b>Add-on</b></li>
+              <li><a href="" class="signup">Sign up</a></li>
+            </ul>
+            <div class="clear"></div>
+            <p>* Wordpress only, features are not included.</p>
+            <h3>Add-ons</h3>
+            <ul class="addon">
+              <li><h3>Custom styling for your lobby <span>$79</span></h3><li>
+              <li><hr></li>
+              <li><p>We will design and style a lobby that will fit in perfectly with your site</p></li>
+              <li><a href="" class="signup">Buy now</a></li>
+            </ul>
+            <ul class="addon">
+              <li><h3>SEO evaluation from our expert <span>$49</span></h3><li>
+              <li><hr></li>
+              <li><p>Our SEO Specialist (iGaming industry expert) will supply you with an SEO health report.</p>
+              <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
+              <li><a href="" class="signup">Buy now</a></li>
+            </ul>
+            <div class="clear"></div>
+          </li>
+        </ul>
       </div>
         <?php
     }
