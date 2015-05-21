@@ -68,7 +68,9 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         <a href="<?=site_url();?>/games/<?=$post->post_name?>">
           <img width="" height="" src="<?=$image_url?>cover.jpg" alt="<?=$post->post_title?>" title="<?=$post->post_title?>" />
           </a>
-        <a href="/games/<?=$post->post_name?>"><?=$post->post_title?></a>
+          <div class="vh-game-title">
+            <a href="/games/<?=$post->post_name?>"><?=$post->post_title?></a>
+          </div>
       </div>
     <?php endforeach; ?>
     <div class="vh-pagination">
