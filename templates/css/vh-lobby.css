@@ -20,12 +20,14 @@
   padding-right: 10px;
   padding-left: 10px;
 }
+
 .vh-item {
   margin-bottom:20px;
   position: relative;
 }
 .vh-item img {
-  width:100%;
+  min-width:25%;
+  /*background:url("/placeholder-lobby.jpg");*/
 }
 .vh-item a {
   text-decoration:none;
@@ -108,7 +110,7 @@
 .vh-pagination {
   width:100%;
   clear:both;
-  
+
 }
 .m-t-sm {
   margin-top: 10px;

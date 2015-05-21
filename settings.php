@@ -155,7 +155,7 @@ class Vegashero_Settings
 
         </ul>
         <div class="clear"></div>
-        <h3>Other Products & Support</h3>
+        <!-- <h3>Other Products & Support</h3>
         <ul class="products">
           <li class="support-upsell">
 
@@ -185,12 +185,21 @@ class Vegashero_Settings
               <li><a href="" class="signup">Sign up</a></li>
             </ul>
             <div class="clear"></div>
-            <p>* Wordpress only, features are not included.</p>
-            <h3>Add-ons</h3>
+            <p>* Wordpress only, features are not included.</p> -->
+            <!-- <h3>Add-ons</h3>
             <ul class="addon">
               <li><h3>Custom styling for your lobby <span>$79</span></h3><li>
               <li><hr></li>
-              <li><p>We will design and style a lobby that will fit in perfectly with your site</p></li>
+              <li><p>We will design and build a lobby that will look amazing, custom hover cards for your games and all responsive.</p>
+                <p>You will get a professional mockup which you will approve and custom HTML/CSS.</p>
+              </li>
+              <li><a href="" class="button-primary">Buy now</a></li>
+            </ul>
+            <ul class="addon">
+              <li><h3>Order quality backlinks <span>$49</span></h3><li>
+              <li><hr></li>
+              <li><p>We have built a network of quality backlinks that will give you better site authority.</p>
+              <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
               <li><a href="" class="button-primary">Buy now</a></li>
             </ul>
             <ul class="addon">
@@ -199,7 +208,7 @@ class Vegashero_Settings
               <li><p>Our SEO Specialist (iGaming industry expert) will supply you with an SEO health report.</p>
               <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
               <li><a href="" class="button-primary">Buy now</a></li>
-            </ul>
+            </ul> -->
             <div class="clear"></div>
           </li>
         </ul>

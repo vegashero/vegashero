@@ -129,8 +129,8 @@ ul.products li.support-upsell p {
 }
 ul.products li.support-upsell ul {
   padding:30px;
-  background:#f3f3f3;
   width:45%;
+  background:none;
   float:left;
 }
 
@@ -191,6 +191,16 @@ ul.products li.support-upsell ul li hr {
   margin:20px 0;
 }
 ul.products li.support-upsell ul.addon {
-  width:30%;
+  width:25%;
   margin-right: 2%;
+  border:4px solid #f4f4f4;
+}
+ul.products li.support-upsell ul.addon li {
+  margin-top:0;
+}
+ul.products li.support-upsell ul.addon li .button-primary {
+  font-size: 15px;
+  padding: 4px 10px;
+  line-height: 22px;
+  height: 32px;
 }
