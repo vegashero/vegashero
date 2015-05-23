@@ -30,19 +30,19 @@ $total_posts = wp_count_posts($config->customPostType)->publish;
 $max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
 <div class="vh-filter">
-  <select onchange="window.location = '?<?=$config->gameOperatorTaxonomy?>=' + this.options[this.selectedIndex].value">
+  <!-- <select onchange="window.location = '?<?=$config->gameOperatorTaxonomy?>=' + this.options[this.selectedIndex].value">
     <option selected disabled>Filter by operator</option>
     <?php foreach($operators as $operator): ?>
     <option value="<?=$operator->slug?>"><?=$operator->name?></option>
     <?php endforeach; ?>
-</select>
+</select> -->
 
   <select onchange="window.location = '?<?=$config->gameCategoryTaxonomy?>=' + this.options[this.selectedIndex].value">
     <option selected disabled>Filter by category</option>
     <?php foreach($categories as $category): ?>
     <option value="<?=$category->slug?>"><?=$category->name?></option>
     <?php endforeach; ?>
-</select>
+  </select>
 
   <select onchange="window.location = '?<?=$config->gameProviderTaxonomy?>=' + this.options[this.selectedIndex].value">
     <option selected disabled>Filter by provider</option>
