@@ -198,7 +198,13 @@
   margin-bottom:30px;
   width:100%;
 }
-
+.vh-filter select {
+  background:#2d2d2d url("../img/vh-sort-icon.jpg") no-repeat right;
+  color:white;
+  padding:4px 6px;
+  border:0;
+  font-size:17px;
+}
 .vh-filter:hover {
   background-color: #2f2f2f;
   color: #f4e86b;
