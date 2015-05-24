@@ -48,7 +48,7 @@ class Vegashero_Template
     private function _getSinglePageTemplateFile() {
         return sprintf("single-%s.php", $this->_config->customPostType);
     }
-    
+
     private function _getPagePluginTemplatePath() {
         $plugin_dir = plugin_dir_path(__FILE__);
         return sprintf("%s/templates/%s", $plugin_dir, $this->_getPageTemplateFile());
@@ -89,7 +89,7 @@ class Vegashero_Template
 
     private function _getGalleryTemplate() {
         $plugin_dir = plugin_dir_path(__FILE__);
-        return sprintf("%s/templates/gallery-%s.php", $plugin_dir, $this->_config->customPostType);
+        //return sprintf("%s/templates/gallery-%s.php", $plugin_dir, $this->_config->customPostType);
     }
 
     private function _getIframeTemplate() {
