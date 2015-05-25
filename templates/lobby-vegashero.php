@@ -55,7 +55,9 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
 <?php if (count($posts) > 0) : ?>
 
     <?php foreach($posts as $post):
-        $post_meta = get_post_meta($post->ID, $config->metaKey, true);
+        $game_id = get_post_meta($post->ID, $config->postMetaGameId, true);
+        $game_src = get_post_meta($post->ID, $config->postMetaGameSrc, true);
+        $game_title = get_post_meta($post->ID, $config->postMetaGameTitle, true);
         $operator = wp_get_post_terms($post->ID, $config->gameOperatorTaxonomy)[0];
         $provider = wp_get_post_terms($post->ID, $config->gameProviderTaxonomy)[0];
         $image_url = sprintf("%s/%s/%s/", $images, $provider->name, sanitize_title($post->post_title));
@@ -71,6 +73,13 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
           <div class="vh-game-title">
             <a href="<?=site_url();?>/<?=$post->post_name?>"><?=$post->post_title?></a>
           </div>
+
+          <h3>post metas</h3>
+          <ul>
+            <li>game id: <?=$game_id?></li>
+            <li>game_src: <?=$game_src?></li>
+            <li>game_title: <?=$game_title?></li>
+          </ul> 
       </div>
     <?php endforeach; ?>
     <div class="vh-pagination">

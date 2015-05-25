@@ -157,8 +157,9 @@ class Vegashero_Import
                 $provider_id = $this->_getProviderId(trim($game->provider));
                 $operators = $this->_getOperatorsForGame($game);
 
-                $post_meta_id = add_post_meta($post_id, 'game_id', $game->id, true); // add post meta data
-                $post_meta_id = add_post_meta($post_id, 'game_src', $game->src, true); // add post meta data
+                $post_meta_game_id = add_post_meta($post_id, $this->_config->postMetaGameId, $game->id, true); // add post meta data
+                $post_meta_game_src_id = add_post_meta($post_id, $this->_config->postMetaGameSrc, $game->src, true); // add post meta data
+                $post_meta_game_title = add_post_meta($post_id, $this->_config->postMetaGameTitle, sanitize_title(strtolower(trim($game->name))), true); // add post meta data
 
                 // $post_meta_id = add_post_meta($post_id, 'vegasgod_unique_game_id', $game->id, true); // add post meta data
                 $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
