@@ -55,21 +55,23 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
 <?php if (count($posts) > 0) : ?>
 
     <?php foreach($posts as $post):
-        $post_meta = get_post_meta($post->ID, $config->metaKey, true);
+        $game_id = get_post_meta($post->ID, $config->postMetaGameId, true);
+        $game_src = get_post_meta($post->ID, $config->postMetaGameSrc, true);
+        $game_title = get_post_meta($post->ID, $config->postMetaGameTitle, true);
         $operator = wp_get_post_terms($post->ID, $config->gameOperatorTaxonomy)[0];
         $provider = wp_get_post_terms($post->ID, $config->gameProviderTaxonomy)[0];
-        $image_url = sprintf("%s/%s/%s/", $images, $provider->name, sanitize_title($post->post_title));
+        $image_url = sprintf("%s/%s/%s/", $images, $provider->name, $game_title);
         $post_slug = sprintf(sanitize_title($post->post_title));
         $operator_slug = sprintf(sanitize_title($operator->name));
         $provider_slug = sprintf(sanitize_title($provider->name));
         ?>
       <div class="vh-item">
 
-        <a href="<?=site_url();?>/games/<?=$post->post_name?>">
+        <a href="<?=site_url();?>/<?=$post->post_name?>">
           <img width="" height="" src="<?=$image_url?>cover.jpg" alt="<?=$post->post_title?>" title="<?=$post->post_title?>" />
           </a>
           <div class="vh-game-title">
-            <a href="/games/<?=$post->post_name?>"><?=$post->post_title?></a>
+            <a href="<?=site_url();?>/<?=$post->post_name?>"><?=$post->post_title?></a>
           </div>
       </div>
     <?php endforeach; ?>
