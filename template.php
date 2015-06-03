@@ -108,7 +108,6 @@ class Vegashero_Template
     }
 
     public function wrapSingleCustomPostContent($content) {
-
         $post_id = get_the_ID();
 
         if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
@@ -130,7 +129,8 @@ class Vegashero_Template
             $tablebody_template = '';
 
             foreach($operators as $operator) {
-                $tablebody_template .= sprintf($tablebody_string, $images, $operator->slug, $operator->name);
+                $affiliate_url = get_option(sprintf('%s%s', $this->_config->settingsNamePrefix, $operator->name));
+                $tablebody_template .= sprintf($tablebody_string, $images, $operator->slug, $operator->name, $affiliate_url); 
             }
 
             $table_template = sprintf($table_string, $tablebody_template);
