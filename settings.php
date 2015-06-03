@@ -58,7 +58,7 @@ class Vegashero_Settings
             $page = $this->_getPageName($operator);
             $field = $this->_getAffiliateCodeInputKey($operator);
             add_settings_section($section, sprintf('%s Settings', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
-            add_settings_field($field, 'Affiliate code', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
+            add_settings_field($field, 'Link', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
             $option_group = $this->_getOptionGroup($operator);
             $option_name = $this->getOptionName($operator);
             register_setting($option_group, $option_name);
@@ -84,7 +84,7 @@ class Vegashero_Settings
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
-        echo "<input name='".$name."' size='20' type='text' value='".get_option($name)."' />";
+        echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' />";
     }
 
     public function addSettingsMenu() {
