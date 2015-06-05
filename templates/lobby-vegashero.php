@@ -95,7 +95,6 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         );
         echo preg_match('/^<a class="prev.*$/', current($pagination)) ? current($pagination) : '';
         echo preg_match('/^<a class="next.*$/', end($pagination)) ? end($pagination) : '';
-
 ?>
   </div>
 </div>
