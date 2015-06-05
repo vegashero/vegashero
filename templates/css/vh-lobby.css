@@ -197,6 +197,7 @@
   color: #d3d3d3;
   margin-bottom:30px;
   width:100%;
+  box-sizing:border-box;
 }
 .vh-filter select {
     background-image:url("../img/vh-sort-icon.jpg") no-repeat right;
@@ -281,7 +282,7 @@ input[type="text"].vh-search {
 }
 @media (min-width: 992px) {
   .vh-item {
-    width: 22.333333%;
+    width: 24.333333%;
     box-sizing:border-box;
   }
 }

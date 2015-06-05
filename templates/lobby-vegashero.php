@@ -99,8 +99,13 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
   </div>
 </div>
-<?php else: ?>
+<?php else:
 
-    Please add your affiliate code in settings > vegashero and import the games
+  $current_cat = $_GET["vegashero_providers"];
 
-<?php endif; ?>
+  if ($current_cat == NULL) {
+
+  } else {
+    wp_redirect( get_permalink() . '?vegashero_providers=' . $_GET["vegashero_providers"] );
+  }
+ endif; ?>
