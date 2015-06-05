@@ -135,6 +135,24 @@ class Vegashero_Import
         $this->_groupTerms($operators, $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
     }
 
+    private function _updateExistingPostMeta($existing, $game) {
+
+        $game_id = get_post_meta($existing->ID, $this->_config->postMetaGameId, true);
+        $game_src = get_post_meta($existing->ID, $this->_config->postMetaGameSrc, true);
+        $game_title = get_post_meta($existing->ID, $this->_config->postMetaGameTitle, true);
+
+        if($game_id != $game->id) {
+            update_post_meta($existing->ID, $this->_config->postMetaGameId, $game->id, $game_id);
+        }
+        if($game_src != $game->src) {
+            update_post_meta($existing->ID, $this->_config->postMetaGameSrc, $game->src, $game_src);
+        }
+        if($game_title != sanitize_title(strtolower(trim($game->name)))) {
+            update_post_meta($existing->ID, $this->_config->postMetaGameTitle, sanitize_title(strtolower(trim($game->name))), $game_title);
+        }
+
+    }
+
     private function _updateExistingGame($existing, $new) {
         $update = false;
         if($exiting->status != $new->status) {
@@ -182,6 +200,7 @@ class Vegashero_Import
                     $this->_insertNewGame($game);
                 } else { 
                     $this->_updateExistingGame($post, $game);
+                    $this->_updateExistingPostMeta($post, $game);
                 }
             }
         }

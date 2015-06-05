@@ -20,9 +20,9 @@ class Vegashero_Settings
     }
 
     public function vegashero_admin_import_notice() {
-        echo '<div class="updated">';
-        echo '<p>' . _e( 'Your import has been queued' ) .'</p>';
-        echo '</div>';
+        echo '<div class="updated"><p>';
+        echo _e( 'Your import has been queued' );
+        echo '</p></div>';
     }
 
     private function _getOptionGroup($operator=null) {
@@ -58,7 +58,7 @@ class Vegashero_Settings
             $page = $this->_getPageName($operator);
             $field = $this->_getAffiliateCodeInputKey($operator);
             add_settings_section($section, sprintf('%s Settings', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
-            add_settings_field($field, 'Affiliate code', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
+            add_settings_field($field, 'Link', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
             $option_group = $this->_getOptionGroup($operator);
             $option_name = $this->getOptionName($operator);
             register_setting($option_group, $option_name);
@@ -74,7 +74,7 @@ class Vegashero_Settings
     }
 
     public function getDescriptionForSiteSettings() {
-        echo "<p>Your Affiliate ID goes here.</p>";
+        echo "<p>Add your full affiliate url here (inc hhtp://).</p>";
     }
 
     public function createAffiliateCodeInput($args) {
@@ -84,7 +84,7 @@ class Vegashero_Settings
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
-        echo "<input name='".$name."' size='20' type='text' value='".get_option($name)."' />";
+        echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' />";
     }
 
     public function addSettingsMenu() {
@@ -129,7 +129,7 @@ class Vegashero_Settings
             $page = $this->_getPageName($operator);
             do_settings_sections($page);
             echo '<div class="btn-area">';
-            echo "<input type='submit' name='submit' class='button button-primary' value='Apply code'>";
+            echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
             echo $this->_getUpdateBtn($operator);
             echo '<div class="provider-img"><img src="' . plugin_dir_url( __FILE__ ) . 'templates/img/' . $operator . '_thumb.jpg" /></div>';
             echo '</div></div>';
@@ -145,7 +145,7 @@ class Vegashero_Settings
           <li>
             <ul>
               <li><b>1.</b> Add your affiliate code</li>
-              <li><b>2.</b> Click "Apply code"</li>
+              <li><b>2.</b> Click "Apply Link"</li>
               <li><b>3.</b> Then click "Import games"</li>
               <li><b>4.</b> Create a new page</li>
               <li><b>5.</b> Add in this shortcode <span style="background:#f3f3f3; padding:3px 8px;">[vegashero-lobby]</span> </li>

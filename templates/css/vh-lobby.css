@@ -199,11 +199,20 @@
   width:100%;
 }
 .vh-filter select {
+<<<<<<< HEAD
+     background:#2d2d2d url("../img/vh-sort-icon.jpg") no-repeat right;
+   color:white;
+    padding:4px 6px;
+    border:0;
+    font-size:17px;
+        
+=======
   background:#2d2d2d url("../img/vh-sort-icon.jpg") no-repeat right;
   color:white;
   padding:4px 6px;
   border:0;
   font-size:17px;
+>>>>>>> fb760fafd9dfffc261cf270cdbf2a00b30e6df02
 }
 .vh-filter:hover {
   background-color: #2f2f2f;
