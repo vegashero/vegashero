@@ -199,20 +199,12 @@
   width:100%;
 }
 .vh-filter select {
-<<<<<<< HEAD
-     background:#2d2d2d url("../img/vh-sort-icon.jpg") no-repeat right;
-   color:white;
+    background-image:url("../img/vh-sort-icon.jpg") no-repeat right;
+    background-color:#2d2d2d;
+    color:white;
     padding:4px 6px;
     border:0;
-    font-size:17px;
-        
-=======
-  background:#2d2d2d url("../img/vh-sort-icon.jpg") no-repeat right;
-  color:white;
-  padding:4px 6px;
-  border:0;
-  font-size:17px;
->>>>>>> fb760fafd9dfffc261cf270cdbf2a00b30e6df02
+    font-size:15px;
 }
 .vh-filter:hover {
   background-color: #2f2f2f;
@@ -289,6 +281,7 @@ input[type="text"].vh-search {
 }
 @media (min-width: 992px) {
   .vh-item {
-    width: 25%;
+    width: 22.333333%;
+    box-sizing:border-box;
   }
 }
