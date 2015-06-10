@@ -16,7 +16,7 @@
 }
 
 .vh-casino-providers {
-	width:70%;
+	width:100%;
 	margin-top:50px;
 	margin-bottom:50px;
 	border:1px solid #b7cbd7;
@@ -44,7 +44,8 @@
 }
 .vh-playnow {
 	background:#6ac144;
-	padding:10px 30px;
+	padding:15px 35px;
+	font-size:18px;
 	color:white;
 	text-transform:uppercase;
 	text-align:center;

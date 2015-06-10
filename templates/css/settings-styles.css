@@ -108,3 +108,99 @@ ul.operator-cards li .btn-area {
   border-top: 1px solid #dedede;
   overflow: hidden;
 }
+ul.products li, ul.instructions li {
+  background:white;
+  border: 1px solid #dedede;
+  clear:both;
+}
+
+ul.products li.support-upsell, ul.instructions li ul {
+  padding:35px 40px;
+}
+ul.instructions li ul li {
+  border:none;
+  margin-bottom:10px;
+}
+ul.products li.support-upsell h3 {
+  margin:25px 0px;
+}
+ul.products li.support-upsell p {
+  margin:10px 0px 20px 0px;
+}
+ul.products li.support-upsell ul {
+  padding:30px;
+  width:45%;
+  background:none;
+  float:left;
+}
+
+ul.products li.support-upsell ul .signup {
+  text-decoration:none;
+  margin-top:15px;
+  display:inline-block;
+  text-transform:uppercase;
+  color:white;
+  padding:13px 20px;
+  background:#f3f3f3;
+}
+ul.products li.support-upsell ul.silver {
+  background:#bae9f5;
+  float:right;
+}
+ul.products li.support-upsell ul.silver .signup {
+  background:#5fbed6;
+}
+ul.products li.support-upsell ul.gold {
+  background:#fef8b0;
+  margin-right:2%;
+}
+ul.products li.support-upsell ul.gold .signup {
+  background:#e6bc12;
+}
+ul.products li.support-upsell ul li {
+  border:none;
+  float:none;
+  background:none;
+  width:100%;
+  margin:10px 0;
+}
+ul.products li.support-upsell ul li.package-title {
+  margin:0;
+}
+ul.products li.support-upsell ul li h3 {
+  margin:0px 0px 5px;
+  float:none;
+}
+ul.products li.support-upsell ul li h3 span {
+  font-style:normal;
+  float:right;
+  font-size:14px;
+  text-transform:uppercase;
+  padding:5px 16px;
+  color:#fff;
+}
+ul.products li.support-upsell ul.gold li h3 span {
+  background:#ecde3b;
+  color:#a2840a;
+}
+ul.products li.support-upsell ul.silver li h3 span {
+  background:#8fddf1;
+  color:#2b8096;
+}
+ul.products li.support-upsell ul li hr {
+  margin:20px 0;
+}
+ul.products li.support-upsell ul.addon {
+  width:25%;
+  margin-right: 2%;
+  border:4px solid #f4f4f4;
+}
+ul.products li.support-upsell ul.addon li {
+  margin-top:0;
+}
+ul.products li.support-upsell ul.addon li .button-primary {
+  font-size: 15px;
+  padding: 4px 10px;
+  line-height: 22px;
+  height: 32px;
+}

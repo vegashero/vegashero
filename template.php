@@ -48,7 +48,7 @@ class Vegashero_Template
     private function _getSinglePageTemplateFile() {
         return sprintf("single-%s.php", $this->_config->customPostType);
     }
-    
+
     private function _getPagePluginTemplatePath() {
         $plugin_dir = plugin_dir_path(__FILE__);
         return sprintf("%s/templates/%s", $plugin_dir, $this->_getPageTemplateFile());
@@ -108,12 +108,11 @@ class Vegashero_Template
     }
 
     public function wrapSingleCustomPostContent($content) {
-
         $post_id = get_the_ID();
 
         if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
             $images = plugins_url('vegashero/templates/img/');
-            $this->_gameId = get_post_meta($post_id, 'game_id', true);
+            $gameId = get_post_meta($post_id, 'game_id', true);
             $iframe_src = get_post_meta($post_id, 'game_src', true);
             $categories = wp_get_post_terms($post_id, $this->_config->gameCategoryTaxonomy);
             $operators = wp_get_post_terms($post_id, $this->_config->gameOperatorTaxonomy);
@@ -130,7 +129,8 @@ class Vegashero_Template
             $tablebody_template = '';
 
             foreach($operators as $operator) {
-                $tablebody_template .= sprintf($tablebody_string, $images, $operator->slug, $operator->name);
+                $affiliate_url = get_option(sprintf('%s%s', $this->_config->settingsNamePrefix, $operator->name));
+                $tablebody_template .= sprintf($tablebody_string, $images, $operator->slug, $operator->name, $affiliate_url); 
             }
 
             $table_template = sprintf($table_string, $tablebody_template);

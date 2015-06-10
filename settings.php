@@ -20,9 +20,9 @@ class Vegashero_Settings
     }
 
     public function vegashero_admin_import_notice() {
-        echo '<div class="updated">';
-        echo '<p>' . _e( 'Your import has been queued' ) .'</p>';
-        echo '</div>';
+        echo '<div class="updated"><p>';
+        echo _e( 'Your import has been queued' );
+        echo '</p></div>';
     }
 
     private function _getOptionGroup($operator=null) {
@@ -58,7 +58,7 @@ class Vegashero_Settings
             $page = $this->_getPageName($operator);
             $field = $this->_getAffiliateCodeInputKey($operator);
             add_settings_section($section, sprintf('%s Settings', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
-            add_settings_field($field, 'Affiliate code', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
+            add_settings_field($field, 'Link', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
             $option_group = $this->_getOptionGroup($operator);
             $option_name = $this->getOptionName($operator);
             register_setting($option_group, $option_name);
@@ -74,7 +74,7 @@ class Vegashero_Settings
     }
 
     public function getDescriptionForSiteSettings() {
-        echo "<p>Your Affiliate ID goes here.</p>";
+        echo "<p>Add your full affiliate url here (inc hhtp://).</p>";
     }
 
     public function createAffiliateCodeInput($args) {
@@ -84,7 +84,7 @@ class Vegashero_Settings
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
-        echo "<input name='".$name."' size='20' type='text' value='".get_option($name)."' />";
+        echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' />";
     }
 
     public function addSettingsMenu() {
@@ -115,7 +115,7 @@ class Vegashero_Settings
         <div class="about-text">
 			  Install a whole ton of games in an instant, add your affiliate codes from multiple operators.
         </div>
-        <div class="vh-badge">Version 1.0</div>
+        <!-- <div class="vh-badge">Version 1.0</div> -->
         <hr>
         <h3>Operators available to install</h3>
         <ul class="operator-cards">
@@ -129,7 +129,7 @@ class Vegashero_Settings
             $page = $this->_getPageName($operator);
             do_settings_sections($page);
             echo '<div class="btn-area">';
-            echo "<input type='submit' name='submit' class='button button-primary' value='Apply code'>";
+            echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
             echo $this->_getUpdateBtn($operator);
             echo '<div class="provider-img"><img src="' . plugin_dir_url( __FILE__ ) . 'templates/img/' . $operator . '_thumb.jpg" /></div>';
             echo '</div></div>';
@@ -138,6 +138,79 @@ class Vegashero_Settings
         }
 
         ?>
+        </ul>
+        <div class="clear"></div>
+        <h3>Lobby Setup</h3>
+        <ul class="instructions">
+          <li>
+            <ul>
+              <li><b>1.</b> Add your affiliate code</li>
+              <li><b>2.</b> Click "Apply Link"</li>
+              <li><b>3.</b> Then click "Import games"</li>
+              <li><b>4.</b> Create a new page</li>
+              <li><b>5.</b> Add in this shortcode <span style="background:#f3f3f3; padding:3px 8px;">[vegashero-lobby]</span> </li>
+            </ul>
+            <div class="clear"></div>
+          </li>
+
+        </ul>
+        <div class="clear"></div>
+        <!-- <h3>Other Products & Support</h3>
+        <ul class="products">
+          <li class="support-upsell">
+
+            <p>Having trouble with your import? <a mailto="neil@vegashero.co">Mail us</a> with your issue and we will get right back to you.</p>
+            <hr>
+            <h3>Check out our premium services</h3>
+
+            <ul class="gold">
+              <li class="package-title"><h3>Gold package deal <span>just $49 a month</span></h3></li>
+              <li><hr></li>
+              <li>&#10003; Unique content for 10 games every month</li>
+              <li>&#10003; SEO evaluation from our expert <b>Add-on</b></li>
+              <li>&#10003; Custom styling for your lobby <b>Add-on</b></li>
+              <li>&#10003; 10 themed game pages <b>Add-on</b></li>
+              <li><a href="" class="signup">Sign up</a></li>
+            </ul>
+
+            <ul class="silver">
+              <li class="package-title"><h3>Silver package deal <span>just $89 a month</span></h3></li>
+              <li><hr></li>
+              <li>&#10003; Unique content for 20 games every month</li>
+              <li>&#10003; Quality Backlinks for each game on our trusted networks every month</li>
+              <li>&#10003; Premium support, fix any bugs you have on your site *</li>
+              <li>&#10003; SEO evaluation from our expert <b>Add-on</b></li>
+              <li>&#10003; Custom styling for your lobby <b>Add-on</b></li>
+              <li>&#10003; 10 themed game pages <b>Add-on</b></li>
+              <li><a href="" class="signup">Sign up</a></li>
+            </ul>
+            <div class="clear"></div>
+            <p>* Wordpress only, features are not included.</p> -->
+            <!-- <h3>Add-ons</h3>
+            <ul class="addon">
+              <li><h3>Custom styling for your lobby <span>$79</span></h3><li>
+              <li><hr></li>
+              <li><p>We will design and build a lobby that will look amazing, custom hover cards for your games and all responsive.</p>
+                <p>You will get a professional mockup which you will approve and custom HTML/CSS.</p>
+              </li>
+              <li><a href="" class="button-primary">Buy now</a></li>
+            </ul>
+            <ul class="addon">
+              <li><h3>Order quality backlinks <span>$49</span></h3><li>
+              <li><hr></li>
+              <li><p>We have built a network of quality backlinks that will give you better site authority.</p>
+              <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
+              <li><a href="" class="button-primary">Buy now</a></li>
+            </ul>
+            <ul class="addon">
+              <li><h3>SEO evaluation from our expert <span>$49</span></h3><li>
+              <li><hr></li>
+              <li><p>Our SEO Specialist (iGaming industry expert) will supply you with an SEO health report.</p>
+              <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
+              <li><a href="" class="button-primary">Buy now</a></li>
+            </ul> -->
+            <div class="clear"></div>
+          </li>
         </ul>
       </div>
         <?php

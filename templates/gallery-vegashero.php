@@ -1,6 +1,6 @@
 <!-- use double percentage signs!!! -->
 
-<div id="slider" class="nivoSlider">
+<!-- <div id="slider" class="nivoSlider">
     <img src="%1$s/screen1.jpg" alt="" />
     <img src="%1$s/screen2.jpg" alt="" title="#htmlcaption" />
     <img src="%1$s/screen3.jpg" alt="" title="This is an example of a caption" />
@@ -14,4 +14,4 @@
       $(window).load(function() {
           $("#slider").nivoSlider();
       });
-</script>
+</script> -->
