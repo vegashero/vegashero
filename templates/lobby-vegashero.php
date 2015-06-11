@@ -16,9 +16,9 @@ $providers = get_terms($config->gameProviderTaxonomy);
 
 $post_args = array(
   'posts_per_page'   => get_option('posts_per_page'),
-  $config->gameOperatorTaxonomy => $_GET[$config->gameOperatorTaxonomy] ? $_GET[$config->gameOperatorTaxonomy] : '',
-  $config->gameCategoryTaxonomy => $_GET[$config->gameCategoryTaxonomy] ? $_GET[$config->gameCategoryTaxonomy] : '',
-  $config->gameProviderTaxonomy => $_GET[$config->gameProviderTaxonomy] ? $_GET[$config->gameProviderTaxonomy] : '',
+  $config->gameOperatorTaxonomy => @$_GET[$config->gameOperatorTaxonomy] ? $_GET[$config->gameOperatorTaxonomy] : '',
+  $config->gameCategoryTaxonomy => @$_GET[$config->gameCategoryTaxonomy] ? $_GET[$config->gameCategoryTaxonomy] : '',
+  $config->gameProviderTaxonomy => @$_GET[$config->gameProviderTaxonomy] ? $_GET[$config->gameProviderTaxonomy] : '',
   'orderby'          => 'post_date',
   'order'            => 'DESC',
   'post_type'        => $config->customPostType,
@@ -99,3 +99,4 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
   </div>
 </div>
+<?php endif ?>
