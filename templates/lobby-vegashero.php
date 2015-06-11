@@ -16,15 +16,16 @@ $providers = get_terms($config->gameProviderTaxonomy);
 
 $post_args = array(
   'posts_per_page'   => get_option('posts_per_page'),
-  $config->gameOperatorTaxonomy => (get_query_var($config->gameOperatorTaxonomy)) ? get_query_var($config->gameOperatorTaxonomy) : '',
-  $config->gameCategoryTaxonomy => (get_query_var($config->gameCategoryTaxonomy)) ? get_query_var($config->gameCategoryTaxonomy) : '',
-  $config->gameProviderTaxonomy => (get_query_var($config->gameProviderTaxonomy)) ? get_query_var($config->gameProviderTaxonomy) : '',
+  $config->gameOperatorTaxonomy => $_GET[$config->gameOperatorTaxonomy] ? $_GET[$config->gameOperatorTaxonomy] : '',
+  $config->gameCategoryTaxonomy => $_GET[$config->gameCategoryTaxonomy] ? $_GET[$config->gameCategoryTaxonomy] : '',
+  $config->gameProviderTaxonomy => $_GET[$config->gameProviderTaxonomy] ? $_GET[$config->gameProviderTaxonomy] : '',
   'orderby'          => 'post_date',
   'order'            => 'DESC',
   'post_type'        => $config->customPostType,
   'post_status'      => 'publish',
   'paged' => $paged
 );
+
 $posts = get_posts( $post_args );
 $total_posts = wp_count_posts($config->customPostType)->publish;
 $max_pages = ceil($total_posts/get_option('posts_per_page'));
@@ -98,13 +99,3 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
   </div>
 </div>
-<?php else:
-
-  $current_cat = $_GET["vegashero_providers"];
-
-  if ($current_cat == NULL) {
-
-  } else {
-    wp_redirect( get_permalink() . '?vegashero_providers=' . $_GET["vegashero_providers"] );
-  }
- endif; ?>
