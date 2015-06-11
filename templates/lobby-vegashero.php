@@ -9,22 +9,29 @@ if( get_option('permalink_structure') ) {
 $images = "http://cdn.vegasgod.com";
 $config = new Vegashero_Config();
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$page = (get_query_var('page')) ? get_query_var('page') : 1;
 
 $categories = get_terms($config->gameCategoryTaxonomy);
 $operators = get_terms($config->gameOperatorTaxonomy);
 $providers = get_terms($config->gameProviderTaxonomy);
+$posts_per_page = get_option('posts_per_page');
 
 $post_args = array(
-  'posts_per_page'   => get_option('posts_per_page'),
+  'posts_per_page'   => $posts_per_page,
   $config->gameOperatorTaxonomy => @$_GET[$config->gameOperatorTaxonomy] ? $_GET[$config->gameOperatorTaxonomy] : '',
   $config->gameCategoryTaxonomy => @$_GET[$config->gameCategoryTaxonomy] ? $_GET[$config->gameCategoryTaxonomy] : '',
   $config->gameProviderTaxonomy => @$_GET[$config->gameProviderTaxonomy] ? $_GET[$config->gameProviderTaxonomy] : '',
+  'offset' => ($page-1)*$posts_per_page,
   'orderby'          => 'post_date',
   'order'            => 'DESC',
   'post_type'        => $config->customPostType,
   'post_status'      => 'publish',
-  'paged' => $paged
+  'paged' => $paged,
+  'page' => $page
 );
+// echo '<pre>';
+// print_r($post_args);
+// echo '</pre>';
 
 $posts = get_posts( $post_args );
 $total_posts = wp_count_posts($config->customPostType)->publish;
@@ -80,20 +87,22 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
 <?php
         $current_url = sprintf("http://%s%s", $_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
         $big = $paged+1;
-        $pagination = paginate_links(
-            array(
-                'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
-                'format' => $format,
-                'current' => max(1, $paged),
-                'total' => $max_pages,
-                'show_all' => false,
-                'mid_size' => 0,
-                'end_size' => 0,
-                'prev_text' => __('« Previous'),
-                'next_text' => __('Next »'),
-                'type' => 'array',
-            )
+        $pagination_options = array(
+            'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+            'format' => $format,
+            'current' => is_front_page() ? $page : $paged,
+            'total' => $max_pages,
+            'show_all' => false,
+            'mid_size' => 0,
+            'end_size' => 0,
+            'prev_text' => __('« Previous'),
+            'next_text' => __('Next »'),
+            'type' => 'array',
         );
+        // echo '<pre>';
+        // print_r($pagination_options);
+        // echo '</pre>';
+        $pagination = paginate_links($pagination_options);
         echo preg_match('/^<a class="prev.*$/', current($pagination)) ? current($pagination) : '';
         echo preg_match('/^<a class="next.*$/', end($pagination)) ? end($pagination) : '';
 ?>
