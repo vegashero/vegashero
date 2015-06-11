@@ -10,6 +10,7 @@ class Vegashero_Import
 
         $this->_config = new Vegashero_Config();
 
+        add_action( 'init', array($this, 'setPermalinkStructure'));
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerTaxonomies'));
 
@@ -23,6 +24,11 @@ class Vegashero_Import
         $this->_operators = json_decode(json_decode($response), true);
         // $this->_operators = array_slice(array_keys((array)$game), 6, -2);
     }
+    
+   public function setPermalinkStructure() {
+       global $wp_rewrite;
+       $wp_rewrite->set_permalink_structure('/%postname%/');
+   } 
 
     private function _getOperatorsForGame($game) {
         $operators = array();
@@ -136,7 +142,6 @@ class Vegashero_Import
     }
 
     private function _updateExistingPostMeta($existing, $game) {
-
         $game_id = get_post_meta($existing->ID, $this->_config->postMetaGameId, true);
         $game_src = get_post_meta($existing->ID, $this->_config->postMetaGameSrc, true);
         $game_title = get_post_meta($existing->ID, $this->_config->postMetaGameTitle, true);
@@ -165,7 +170,6 @@ class Vegashero_Import
     }
 
     public function import_games($operator) {
-
         require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->registerTaxonomies();
 
@@ -309,9 +313,22 @@ class Vegashero_Import
             ),
             'public' => true,
             'has_archive' => true,
-            'rewrite' => array('slug' => $this->_config->customPostTypeUrlSlug)
+            'exclude_from_search' => false,
+            'publicly_queryable' => true,
+            'taxonomies' => array(
+                $this->_config->gameProviderTaxonomy,
+                $this->_config->gameOperatorTaxonomy,
+                $this->_config->gameCategoryTaxonomy
+            ),
+            'show_ui' => true,
+            'can_export' => false,
+            'rewrite' => array(
+                'slug' => $this->_config->customPostTypeUrlSlug,
+                'with_front' => false
+            )
         );
         register_post_type($this->_config->customPostType, $options);
+        flush_rewrite_rules();
     }
 
 
