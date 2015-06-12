@@ -159,12 +159,9 @@ class Vegashero_Import
     }
 
     private function _updateExistingGame($existing, $new) {
-        $update = false;
-        if($exiting->status != $new->status) {
-            $update = true;
+        $new->status = $new->status ? 'publish' : 'draft';
+        if($existing->status != $new->status) {
             $existing->status = $new->status;
-        }
-        if($update) {
             wp_update_post($existing);
         }
     }
