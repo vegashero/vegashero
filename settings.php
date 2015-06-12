@@ -74,7 +74,7 @@ class Vegashero_Settings
     }
 
     public function getDescriptionForSiteSettings() {
-        echo "<p>Add your full affiliate url here (inc hhtp://).</p>";
+        echo "<p>Add your full affiliate url here.</p>";
     }
 
     public function createAffiliateCodeInput($args) {
@@ -84,7 +84,7 @@ class Vegashero_Settings
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
-        echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' />";
+        echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' placeholder='http://your-affiliate-url.com' />";
     }
 
     public function addSettingsMenu() {
