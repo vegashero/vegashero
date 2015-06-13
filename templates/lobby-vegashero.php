@@ -75,7 +75,7 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         ?>
       <div class="vh-item">
 
-        <a href="<?=site_url();?>/<?=$post->post_name?>">
+        <a href="<?=site_url();?>/<?=$post->post_name?>" class="vh-thumb-link">
           <img width="" height="" src="<?=$image_url?>cover.jpg" alt="<?=$post->post_title?>" title="<?=$post->post_title?>" />
           </a>
           <div class="vh-game-title">

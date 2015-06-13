@@ -24,10 +24,20 @@
 .vh-item {
   margin-bottom:20px;
   position: relative;
+  min-height: 188px;
 }
 .vh-item img {
   width:100%;
+  position: absolute;
+  bottom: 0;
   /*background:url("/placeholder-lobby.jpg");*/
+}
+.vh-item a.vh-thumb-link {
+  min-height: 148px;
+  width: 100%;
+  position: relative;
+  display: block;
+  overflow: hidden;
 }
 .vh-item a {
   text-decoration:none;
