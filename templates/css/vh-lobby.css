@@ -24,13 +24,13 @@
 .vh-item {
   margin-bottom:20px;
   position: relative;
-  min-height: 188px;
+  /*min-height: 188px;*/
 }
 .vh-item img {
   width:100%;
-  position: absolute;
+  /*position: absolute;
   bottom: 0;
-  /*background:url("/placeholder-lobby.jpg");*/
+  background:url("/placeholder-lobby.jpg");*/
 }
 .vh-item a.vh-thumb-link {
   min-height: 148px;
@@ -294,5 +294,8 @@ input[type="text"].vh-search {
   .vh-item {
     width: 24.333333%;
     box-sizing:border-box;
+  }
+  .vh-item img {
+    height: 174px;
   }
 }
