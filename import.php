@@ -29,24 +29,6 @@ class Vegashero_Import
        $wp_rewrite->set_permalink_structure('/%postname%/');
    } 
 
-    private function _getOperatorId($operator) {
-        if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
-            $operator_id = wp_insert_category(
-                array(
-                    'cat_name' => $operator,
-                    'category_description' => 'Vegas Hero Game Operators',
-                    'category_nicename' => sanitize_title($operator),
-                    'taxonomy' => $this->_config->gameOperatorTaxonomy
-                ),
-                true
-            );
-        }  else {
-            $term_details = get_term_by('name', $operator, $this->_config->gameOperatorTaxonomy);
-            $operator_id = (int)$term_details->term_id;
-        }
-        return $operator_id;
-    }
-
     private function _getProviderId($provider) {
         if( ! $provider_id = term_exists($provider, $this->_config->gameProviderTaxonomy)){
             $provider_id = wp_insert_category(
@@ -120,7 +102,7 @@ class Vegashero_Import
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
         $provider_id = $this->_getProviderId(trim($game->provider));
-        $operator_id = $this->_getOperatorId($operator);
+        $operator_id = $this->_getOperatorId(trim($operator));
 
         $post_meta_game_id = add_post_meta($post_id, $this->_config->postMetaGameId, $game->id, true); // add post meta data
         $post_meta_game_src_id = add_post_meta($post_id, $this->_config->postMetaGameSrc, $game->src, true); // add post meta data
@@ -128,7 +110,7 @@ class Vegashero_Import
 
         $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
         $game_provider_term_id = wp_set_object_terms($post_id, $provider_id, $this->_config->gameProviderTaxonomy); // link provider and post
-        $game_operator_term_id = wp_set_object_terms($post_id, $operators, $this->_config->gameOperatorTaxonomy); // link operator and post
+        $game_operator_term_id = wp_set_object_terms($post_id, $operator_id, $this->_config->gameOperatorTaxonomy); // link operator and post
 
         $this->_groupTerms(array($category_id), $this->_config->gameCategoryTermGroupId, $this->_config->gameCategoryTaxonomy);
         $this->_groupTerms(array($provider_id), $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
@@ -151,25 +133,56 @@ class Vegashero_Import
         if($game_title != sanitize_title(strtolower(trim($game->name)))) {
             update_post_meta($existing->ID, $this->_config->postMetaGameTitle, sanitize_title(strtolower(trim($game->name))), $game_title);
         }
-
+    }
+    
+    private function _getOperatorIds($operators) {
+        $operator_ids = array();
+        foreach($operators as $operator) {
+            $operator_id = $this->_getOperatorId(trim($operator));
+            array_push($operator_ids, $operator_id);
+        }
+        return $operator_ids;
     }
 
-    private function _updateExistingGame($existing, $new, $operator) {
-        $update = false;
+    private function _getOperatorId($operator) {
+        if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
+            $operator_id = wp_insert_category(
+                array(
+                    'cat_name' => $operator,
+                    'category_description' => 'Vegas Hero Game Operators',
+                    'category_nicename' => sanitize_title($operator),
+                    'taxonomy' => $this->_config->gameOperatorTaxonomy
+                ),
+                true
+            );
+        }  else {
+            $term_details = get_term_by('name', $operator, $this->_config->gameOperatorTaxonomy);
+            $operator_id = (int)$term_details->term_id;
+        }
+        return $operator_id;
+    }
+
+    private function _updateStatus($existing, $new) {
         $new->status = $new->status ? 'publish' : 'draft';
         if($existing->status != $new->status) {
             $existing->status = $new->status;
-            $update = true;
+            wp_update_post($existing);
         }
-        $providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy, array('fields' => 'names'));
-        // if() {
-        //     $update = true;
-        // }
-        // wp_update_post($existing);
+    }
 
-        # TODO
-        # check if operator existings in operators 
-        # if not add it
+    private function _updateOperators($existing, $operator) {
+        $operators = wp_get_post_terms($existing->ID, $this->_config->gameOperatorTaxonomy, array('fields' => 'names'));
+        if( ! in_array($operator, $operators)) {
+            array_push($operators, $operator);
+            $operator_ids = $this->_getOperatorIds($operators);
+            $game_operator_term_id = wp_set_object_terms($existing->ID, $operator_ids, $this->_config->gameOperatorTaxonomy); 
+            $this->_groupTerms($operator_ids, $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
+        }
+    }
+
+    private function _updateExistingGame($existing, $new, $operator) {
+        $this->_updateStatus($existing, $new);
+        $this->_updateOperators($existing, $operator);
     }
 
     public function import_games($operator) {
