@@ -4,7 +4,6 @@ class Vegashero_Import
 {
 
     private $_config = array();
-    private $_operators = array();
 
     public function __construct() {
 
@@ -29,21 +28,6 @@ class Vegashero_Import
        global $wp_rewrite;
        $wp_rewrite->set_permalink_structure('/%postname%/');
    } 
-
-    private function _getOperatorsForGame($game) {
-        $operators = array();
-        if( ! count($this->_operators)) {
-            $this->_setOperators($game);
-        }
-        foreach($this->_operators as $operator) {
-            $operator = trim($operator);
-            if($game->{$operator}) {
-                $operator_id = $this->_getOperatorId($operator);
-                array_push($operators, $operator_id);
-            }
-        }
-        return $operators;
-    }
 
     private function _getOperatorId($operator) {
         if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
@@ -81,7 +65,6 @@ class Vegashero_Import
         return $provider_id;
     }
 
-
     private function _getCategoryId($category) {
         if( ! $category_id = term_exists($category, $this->_config->gameCategoryTaxonomy)){
             $category_id = wp_insert_category(
@@ -114,7 +97,18 @@ class Vegashero_Import
         return get_posts($args);
     }
 
-    private function _insertNewGame($game) {
+    private function _insertNewGame($game, $operator) {
+        // [id] => 6
+        // [name] => wild witches
+        // [provider] => netent
+        // [category] => video slots
+        // [src] => http://www.affiliaterepublik.com/game/slots-million/1311/default/730/en/wildwitches.iframe
+        // [status] => 1
+        // [mrgreen] => 1
+        // [slotsmillion] => 1
+        // [europa] => 0
+        // [created] => 2015-03-20 11:36:22
+        // [modified] => 2015-03-20 11:36:22
         $post = array(
             'post_content'   => the_content(),
             'post_name'      => sanitize_title($game->name),
@@ -126,7 +120,7 @@ class Vegashero_Import
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
         $provider_id = $this->_getProviderId(trim($game->provider));
-        $operators = $this->_getOperatorsForGame($game);
+        $operator_id = $this->_getOperatorId($operator);
 
         $post_meta_game_id = add_post_meta($post_id, $this->_config->postMetaGameId, $game->id, true); // add post meta data
         $post_meta_game_src_id = add_post_meta($post_id, $this->_config->postMetaGameSrc, $game->src, true); // add post meta data
@@ -138,13 +132,15 @@ class Vegashero_Import
 
         $this->_groupTerms(array($category_id), $this->_config->gameCategoryTermGroupId, $this->_config->gameCategoryTaxonomy);
         $this->_groupTerms(array($provider_id), $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
-        $this->_groupTerms($operators, $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
+        $this->_groupTerms(array($operator_id), $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
     }
 
     private function _updateExistingPostMeta($existing, $game) {
         $game_id = get_post_meta($existing->ID, $this->_config->postMetaGameId, true);
         $game_src = get_post_meta($existing->ID, $this->_config->postMetaGameSrc, true);
         $game_title = get_post_meta($existing->ID, $this->_config->postMetaGameTitle, true);
+
+        $providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy);
 
         if($game_id != $game->id) {
             update_post_meta($existing->ID, $this->_config->postMetaGameId, $game->id, $game_id);
@@ -158,12 +154,22 @@ class Vegashero_Import
 
     }
 
-    private function _updateExistingGame($existing, $new) {
+    private function _updateExistingGame($existing, $new, $operator) {
+        $update = false;
         $new->status = $new->status ? 'publish' : 'draft';
         if($existing->status != $new->status) {
             $existing->status = $new->status;
-            wp_update_post($existing);
+            $update = true;
         }
+        $providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy, array('fields' => 'names'));
+        // if() {
+        //     $update = true;
+        // }
+        // wp_update_post($existing);
+
+        # TODO
+        # check if operator existings in operators 
+        # if not add it
     }
 
     public function import_games($operator) {
@@ -178,6 +184,7 @@ class Vegashero_Import
         // [status] => 1
         // [mrgreen] => 1
         // [slotsmillion] => 1
+        // [europa] => 0
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
 
@@ -198,9 +205,9 @@ class Vegashero_Import
                 }
 
                 if( ! $post_id) { // no existing post
-                    $this->_insertNewGame($game);
+                    $this->_insertNewGame($game, $operator);
                 } else { 
-                    $this->_updateExistingGame($post, $game);
+                    $this->_updateExistingGame($post, $game, $operator);
                     $this->_updateExistingPostMeta($post, $game);
                 }
             }
