@@ -210,21 +210,25 @@
   box-sizing:border-box;
 }
 .vh-filter select {
-    background-image:url("../img/vh-sort-icon.jpg") no-repeat right;
-    background-color:#2d2d2d;
+    background:#2e2e2e url("../img/vh-sort-icon.jpg") no-repeat 95%;
+    border-color:#4a4a4a !important;
+    border-width:1px !important;
+    border-style: solid !important;
     color:white;
-    padding:4px 6px;
+    padding:4px 20px;
     border:0;
+    margin:0 15px 0 0;
     font-size:15px;
 }
-.vh-filter:hover {
-  background-color: #2f2f2f;
-  color: #f4e86b;
+.vh-filter select:hover {
+  background-color:#2e2e2e;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .vh-filter:active,
 .vh-filter.is-checked {
-  background-color: #2f2f2f;
+  background-color: #2e2e2e;
   color: #f4e86b;
 }
 .vh-filter:focus {
@@ -238,15 +242,6 @@
   padding-right: 15px;
   color: #d3d3d3;
   font-size: 14px;
-}
-.vh-sorting select {
-  color: #d3d3d3;
-  border: 0;
-  padding: 0.9em 1.5em 0.9em 1em!important;
-  font-size: 14px;
-  height: auto;
-  line-height: 21px;
-  background: url(../img/vh-sort-icon.jpg) #2f2f2f no-repeat 95% center;
 }
 .vh-sorting select option {
   background: #2f2f2f;
@@ -288,6 +283,10 @@ input[type="text"].vh-search {
   }
   .vh-item {
     width: 33.33333333%;
+  }
+  .vh-filter select {
+    width: 20%;
+    float:left;
   }
 }
 @media (min-width: 992px) {
