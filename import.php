@@ -9,7 +9,7 @@ class Vegashero_Import
 
         $this->_config = new Vegashero_Config();
 
-        add_action( 'init', array($this, 'setPermalinkStructure'));
+        // add_action( 'init', array($this, 'setPermalinkStructure'));
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerTaxonomies'));
 
@@ -24,10 +24,10 @@ class Vegashero_Import
         // $this->_operators = array_slice(array_keys((array)$game), 6, -2);
     }
     
-   public function setPermalinkStructure() {
-       global $wp_rewrite;
-       $wp_rewrite->set_permalink_structure('/%postname%/');
-   } 
+   // public function setPermalinkStructure() {
+   //     global $wp_rewrite;
+   //     $wp_rewrite->set_permalink_structure('/%postname%/');
+   // } 
 
     private function _getProviderId($provider) {
         if( ! $provider_id = term_exists($provider, $this->_config->gameProviderTaxonomy)){
@@ -256,10 +256,12 @@ class Vegashero_Import
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => array( 'slug' => $this->_config->gameCategoryUrlSlug ),
+            'rewrite'           => true 
+            // 'rewrite'           => array( 'slug' => $this->_config->gameCategoryUrlSlug ),
         );
 
         register_taxonomy( $this->_config->gameCategoryTaxonomy, array( $this->_config->customPostType ), $args );
+        register_taxonomy_for_object_type( $this->_config->gameCategoryTaxonomy, $this->_config->customPostType );
 
     }
 
@@ -282,10 +284,12 @@ class Vegashero_Import
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => array( 'slug' => $this->_config->gameOperatorUrlSlug ),
+            'rewrite'           => true
+            // 'rewrite'           => array( 'slug' => $this->_config->gameOperatorUrlSlug ),
         );
 
         register_taxonomy( $this->_config->gameOperatorTaxonomy, array( $this->_config->customPostType ), $args );
+        register_taxonomy_for_object_type( $this->_config->gameOperatorTaxonomy, $this->_config->customPostType );
 
     }
 
@@ -308,10 +312,12 @@ class Vegashero_Import
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var'         => true,
-            'rewrite'           => array( 'slug' => $this->_config->gameProviderUrlSlug ),
+            'rewrite'           => true
+            // 'rewrite'           => array( 'slug' => $this->_config->gameProviderUrlSlug ),
         );
 
         register_taxonomy( $this->_config->gameProviderTaxonomy, array( $this->_config->customPostType ), $args );
+        register_taxonomy_for_object_type( $this->_config->gameProviderTaxonomy, $this->_config->customPostType );
 
     }
 
@@ -325,8 +331,8 @@ class Vegashero_Import
 
         $options = array(
             'labels' => array(
-                'name' => 'Vegas Games',
-                'singular_name' => 'Vegas Game'
+                'name' => 'Vegas Hero Games',
+                'singular_name' => 'Vegas Hero Game'
             ),
             'public' => true,
             'has_archive' => true,
@@ -339,9 +345,10 @@ class Vegashero_Import
             ),
             'show_ui' => true,
             'can_export' => false,
+            'rewrite' => true,
             'rewrite' => array(
-                'slug' => $this->_config->customPostTypeUrlSlug,
-                'with_front' => false
+                'slug' => $this->_config->customPostTypeUrlSlug
+                // 'with_front' => true
             )
         );
         register_post_type($this->_config->customPostType, $options);
