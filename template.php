@@ -46,7 +46,7 @@ class Vegashero_Template
     }
 
     private function _getSinglePageTemplateFile() {
-        return sprintf("single-%s.php", $this->_config->customPostType);
+        return sprintf("single.php", $this->_config->customPostType);
     }
 
     private function _getPagePluginTemplatePath() {
