@@ -42,7 +42,7 @@
 .vh-bonus {
 	font-size:30px;
 }
-.vh-playnow {
+.vh-casino-providers .vh-playnow {
 	background:#6ac144;
 	padding:15px 35px;
 	font-size:18px;
@@ -50,4 +50,9 @@
 	text-transform:uppercase;
 	text-align:center;
 	text-decoration:none;
+}
+@media (max-width: 480px) {
+  .vh-casino-providers .vh-playnow {
+    padding:20px;
+    font-size:14px;
 }
