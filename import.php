@@ -6,7 +6,6 @@ class Vegashero_Import
     private $_config = array();
 
     public function __construct() {
-
         $this->_config = new Vegashero_Config();
 
         // add_action( 'init', array($this, 'setPermalinkStructure'));
@@ -69,12 +68,10 @@ class Vegashero_Import
     private function _getPostsForGame($game) {
         $args = array(
             'post_type' => $this->_config->customPostType,
-            'meta_query' => array(
-                array(
-                    'key' => 'game_id',
-                    'value' => $game->id
-                )
-            )
+            'post_status' => 'any',
+            'meta_key' => 'game_id',
+            'meta_value' => $game->id,
+            'meta_compare' => '='
         );
         return get_posts($args);
     }
@@ -164,9 +161,10 @@ class Vegashero_Import
 
     private function _updateStatus($existing, $new) {
         $new->status = $new->status ? 'publish' : 'draft';
-        if($existing->status != $new->status) {
-            $existing->status = $new->status;
-            wp_update_post($existing);
+        if($existing->post_status != $new->status) {
+            $existing->post_status = $new->status;
+            $existing->edit_date = true;
+            wp_update_post($existing, true);
         }
     }
 
@@ -328,7 +326,6 @@ class Vegashero_Import
     }
 
     public function registerCustomPosttype() {
-
         $options = array(
             'labels' => array(
                 'name' => 'Vegas Hero Games',
