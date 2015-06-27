@@ -32,6 +32,9 @@
   bottom: 0;
   background:url("/placeholder-lobby.jpg");*/
 }
+.vh-item img:hover {
+  opacity: 0.8;
+}
 .vh-item a.vh-thumb-link {
   min-height: 148px;
   width: 100%;
@@ -106,11 +109,16 @@
 .img-full {
   width: 100%;
 }
-.vh-game-title {
+.vh-item .vh-game-title a {
   font-size:14px;
-  margin-top:6px;
-  margin-bottom: 6px;
-  color: #1a1c20;
+  line-height: 25px;
+  color: #555;
+  text-transform: uppercase;
+  font-weight: bold;
+  outline: 0;
+}
+.vh-item .vh-game-title a:hover {
+  color: #000;
 }
 .vh-game-title, .vh-game-cat {
   text-align:left;
@@ -289,11 +297,21 @@ input[type="text"].vh-search {
     float:left;
   }
 }
+
 @media (min-width: 992px) {
   .vh-item {
     width: 24.333333%;
     box-sizing:border-box;
   }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .vh-item img {
+    height: 142px;
+  }
+}
+
+@media (min-width: 1200px) {
   .vh-item img {
     height: 174px;
   }
