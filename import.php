@@ -168,10 +168,19 @@ class Vegashero_Import
         }
     }
 
-    private function _updateOperators($existing, $operator) {
+    private function _updateOperators($existing, $new, $operator) {
+        $update = false;
         $operators = wp_get_post_terms($existing->ID, $this->_config->gameOperatorTaxonomy, array('fields' => 'names'));
-        if( ! in_array($operator, $operators)) {
+        if( ! in_array($operator, $operators) && $new->{$operator}) {
             array_push($operators, $operator);
+            $update = true;
+        }  elseif(! $new->{$operator}) {
+            if(($key = array_search($operator, $operators)) !== false) {
+                unset($operators[$key]);
+                $update = true;
+            }
+        }
+        if($update) {
             $operator_ids = $this->_getOperatorIds($operators);
             $game_operator_term_id = wp_set_object_terms($existing->ID, $operator_ids, $this->_config->gameOperatorTaxonomy); 
             $this->_groupTerms($operator_ids, $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
@@ -180,7 +189,7 @@ class Vegashero_Import
 
     private function _updateExistingGame($existing, $new, $operator) {
         $this->_updateStatus($existing, $new);
-        $this->_updateOperators($existing, $operator);
+        $this->_updateOperators($existing, $new, $operator);
     }
 
     public function import_games($operator) {
@@ -199,7 +208,13 @@ class Vegashero_Import
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
 
-        $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
+        # first time importing games for this operator
+        if( ! term_exists($operator, $this->_config->gameOperatorTaxonomy)){ 
+            $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
+        } else {
+            # get all games so we can remove operators
+            $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
+        }
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $games = json_decode(json_decode($response));
         // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
