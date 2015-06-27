@@ -5,6 +5,7 @@
 .iframe_kh_wrapper iframe {
 	position:relative;
 	min-width:730px;
+	width:100%;
 	max-width:100%;
 	max-height:100%;
 	min-height:633px;
@@ -30,6 +31,7 @@
 .vh-casino-providers thead tr th, .vh-casino-providers tbody tr td {
 	padding:10px;
 	vertical-align:middle;
+	width: 55%;
 }
 .vh-casino-providers thead tr th {
 	font-size:14px;
@@ -50,9 +52,14 @@
 	text-transform:uppercase;
 	text-align:center;
 	text-decoration:none;
+	display: block;
+}
+.vh-casino-providers .vh-playnow:hover {
+	opacity: 0.9;
+	color: #fff;
 }
 @media (max-width: 480px) {
   .vh-casino-providers .vh-playnow {
-    padding:20px;
+    padding:18px;
     font-size:14px;
 }
