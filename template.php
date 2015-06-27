@@ -22,7 +22,7 @@ class Vegashero_Template
     }
 
     private function _getArchivePageTemplateFile() {
-        return sprintf("archive-%s.php", $this->_config->customPostType);
+        return sprintf("archive.php", $this->_config->customPostType);
     }
 
     private function _getArchivePagePluginTemplatePath() {
