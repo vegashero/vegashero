@@ -1,6 +1,14 @@
 .iframe_kh_wrapper {
 	position:relative;
-
+}
+.iframe_kh_wrapper .kh-no-close {
+	background:transparent;
+	position:absolute;
+	z-index:1000;
+	right:0;
+	top:0px;
+	height:30px;
+	width:30px;
 }
 .iframe_kh_wrapper iframe {
 	position:relative;

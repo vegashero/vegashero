@@ -133,7 +133,19 @@
 .vh-pagination {
   width:100%;
   clear:both;
-
+  margin:20px 0px;
+  display: inline-block;
+}
+.vh-pagination .next {
+  background:#cccccc;
+  padding:10px 18px;
+  color:#333;
+}
+.vh-pagination .prev {
+  background:#cccccc;
+  padding:10px 18px;
+  color:#333;
+  margin-right:30px;
 }
 .m-t-sm {
   margin-top: 10px;
@@ -205,7 +217,7 @@
 }
 
 .vh-filter {
-  display: inline-block;
+  display:none; /* Filters have been turned off, not working 100%, turn on at your own risk */
   padding: 1em 1.5em;
   background: #191919;
   border: none;
