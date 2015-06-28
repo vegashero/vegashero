@@ -61,6 +61,7 @@
 	text-align:center;
 	text-decoration:none;
 	display: block;
+	float:left;
 }
 .vh-casino-providers .vh-playnow:hover {
 	opacity: 0.9;
