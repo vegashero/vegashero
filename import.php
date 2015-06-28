@@ -193,8 +193,7 @@ class Vegashero_Import
     }
 
     public function import_games($operator) {
-        require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
-        $this->registerTaxonomies();
+        // $this->registerTaxonomies();
 
         // [id] => 6
         // [name] => wild witches
@@ -217,7 +216,6 @@ class Vegashero_Import
         }
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $games = json_decode(json_decode($response));
-        // $option_name = sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
 
         if(count($games > 0)) {
             foreach($games as $game) {
@@ -343,6 +341,7 @@ class Vegashero_Import
     }
 
     public function registerTaxonomies() {
+        require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $this->_registerGameCategoryTaxonomy();
         $this->_registerGameOperatorTaxonomy();
         $this->_registerGameProviderTaxonomy();
