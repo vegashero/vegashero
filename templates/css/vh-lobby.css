@@ -2,7 +2,6 @@
 .app-content {
   height: 100%;
 }
-
 .app-content:before,
 .app-content:after {
   display: table;
