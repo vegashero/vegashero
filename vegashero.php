@@ -4,7 +4,7 @@
  * Plugin Name: Vegas Hero
  * Plugin URI: http://vegashero.co
  * Description: Bulk import of gambling games
- * Version: 0.0.0
+ * Version: 1.1.0
  * Author: Vegas Heroes
  * Author URI: http://vegashero.co
  * License: GPL2

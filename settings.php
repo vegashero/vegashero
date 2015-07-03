@@ -20,8 +20,9 @@ class Vegashero_Settings
     }
 
     public function vegashero_admin_import_notice() {
+      $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );
         echo '<div class="updated"><p>';
-        echo _e( 'Your import has been queued' );
+        echo _e( 'Your import has been queued. Please head over to the <a href="'.$vegas_gameslist_page.'">Vegas Hero Games</a> area to view/edit the games.' );
         echo '</p></div>';
     }
 
