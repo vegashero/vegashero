@@ -132,7 +132,7 @@ class Vegashero_Settings
             echo '<div class="btn-area">';
             echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
             echo $this->_getUpdateBtn($operator);
-            echo '<div class="provider-img"><img src="' . plugin_dir_url( __FILE__ ) . 'templates/img/' . $operator . '_thumb.jpg" /></div>';
+            echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/operators/' . $operator . '.png" /></div>';
             echo '</div></div>';
             echo '</form>';
             echo '</li>';
