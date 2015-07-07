@@ -40,6 +40,7 @@
   position: relative;
   display: block;
   overflow: hidden;
+  outline: none;
 }
 .vh-item a {
   text-decoration:none;

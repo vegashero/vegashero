@@ -3,9 +3,9 @@
 /**
  * Plugin Name: Vegas Hero
  * Plugin URI: http://vegashero.co
- * Description: Bulk import of gambling games
- * Version: 1.1.0
- * Author: Vegas Heroes
+ * Description: Bulk import of slots, table and poker games from the biggest iGaming software providers. Instant lobby and games pages including options to add your affiliate links.
+ * Version: 1.2.0
+ * Author: Vegas Hero
  * Author URI: http://vegashero.co
  * License: GPL2
  */
