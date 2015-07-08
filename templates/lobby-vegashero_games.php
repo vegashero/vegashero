@@ -6,7 +6,6 @@ if( get_option('permalink_structure') ) {
 }
 
 // $images = plugins_url('vegasgod/images');
-$images = "http://cdn.vegasgod.com";
 $config = new Vegashero_Config();
 $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
 $page = (get_query_var('page')) ? get_query_var('page') : 1;
@@ -38,28 +37,29 @@ $total_posts = wp_count_posts($config->customPostType)->publish;
 $max_pages = ceil($total_posts/get_option('posts_per_page'));
 ?>
 <div class="vh-filter">
-  <!-- <select onchange="window.location = '?<?=$config->gameOperatorTaxonomy?>=' + this.options[this.selectedIndex].value">
+  <select data-taxonomy="<?=$config->gameOperatorTaxonomy?>">
     <option selected disabled>Filter by operator</option>
     <?php foreach($operators as $operator): ?>
     <option value="<?=$operator->slug?>"><?=$operator->name?></option>
     <?php endforeach; ?>
-</select> -->
+  </select>
 
-  <select onchange="window.location = '?<?=$config->gameCategoryTaxonomy?>=' + this.options[this.selectedIndex].value">
+  <select data-taxonomy="<?=$config->gameCategoryTaxonomy?>">
     <option selected disabled>Filter by category</option>
     <?php foreach($categories as $category): ?>
     <option value="<?=$category->slug?>"><?=$category->name?></option>
     <?php endforeach; ?>
   </select>
 
-  <select onchange="window.location = '?<?=$config->gameProviderTaxonomy?>=' + this.options[this.selectedIndex].value">
+  <select data-taxonomy="<?=$config->gameProviderTaxonomy?>">
     <option selected disabled>Filter by provider</option>
     <?php foreach($providers as $provider): ?>
     <option value="<?=$provider->slug?>"><?=$provider->name?></option>
     <?php endforeach; ?>
 </select>
 </div>
-<div class="vh-row-sm">
+
+<div id="vh-lobby-posts" class="vh-row-sm">
 <?php if (count($posts) > 0) : ?>
 
     <?php foreach($posts as $post):
@@ -68,7 +68,7 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         $game_title = get_post_meta($post->ID, $config->postMetaGameTitle, true);
         $operator = wp_get_post_terms($post->ID, $config->gameOperatorTaxonomy)[0];
         $provider = wp_get_post_terms($post->ID, $config->gameProviderTaxonomy)[0];
-        $image_url = sprintf("%s/%s/%s/", $images, $provider->name, $game_title);
+        $image_url = sprintf("%s/%s/%s/", $config->gameImageUrl, $provider->name, $game_title);
         $post_slug = sprintf(sanitize_title($post->post_title));
         $operator_slug = sprintf(sanitize_title($operator->name));
         $provider_slug = sprintf(sanitize_title($provider->name));

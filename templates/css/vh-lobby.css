@@ -217,7 +217,6 @@
 }
 
 .vh-filter {
-  display:none; /* Filters have been turned off, not working 100%, turn on at your own risk */
   padding: 1em 1.5em;
   background: #191919;
   border: none;
