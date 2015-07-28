@@ -140,6 +140,25 @@ class Vegashero_Settings
 
         ?>
         </ul>
+        
+        <!-- Custom Shortcode Settings -->
+
+        <div class="clear"></div>
+        <h3>Use Custom Shortcode to Display Operators</h3>
+        <input id="custoptable" type="checkbox"><label for="custoptable">Enable Custom Operators Table</label>
+        <p>Use below shortcode to replace the above operator options with your own list of operators/casinos.</p>
+        <p class="shortcode-hint">
+          [vh_table vh_tname="Table Title Here"]<br/>
+            <span class="shortcode-hint-row">[vh_table_line vh_img="http://url" vh_link="http://myafflinkhere.to/" vh_btnlabel="Play Now"]<br/></span>
+            <span class="shortcode-hint-row">[vh_table_line vh_img="http://url" vh_link="http://myafflinkhere.to/" vh_btnlabel="Play Now"]<br/></span>
+            <span class="shortcode-hint-row">...<br/></span>
+          [/vh_table]
+        </p>
+        <textarea class="operator-shortcode-settings" name="operator_shortcode_override" placeholder="[vh_table vh_tname='Table Title Here'] Your Custom Table Rows Here... [/vh_table]"></textarea>
+        <input type='submit' name='shortcodeSubmit' class='button button-primary' value='Save Shortcode Settings'>
+
+
+
         <div class="clear"></div>
         <h3>Lobby Setup</h3>
         <ul class="instructions">

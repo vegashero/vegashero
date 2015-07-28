@@ -134,7 +134,7 @@ class Vegashero_Template
             }
 
             $table_template = sprintf($table_string, $tablebody_template);
-            $content = sprintf("%s $content %s %s", $gallery_template, $iframe_template, $table_template);
+            $content = sprintf("%s %s $content %s", $gallery_template, $iframe_template, $table_template);
         }
         return $content;
     }
