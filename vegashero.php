@@ -32,4 +32,5 @@ $template = new Vegashero_Template();
 $settings = new Vegashero_Settings();
 $stylesheet = new Vegashero_Stylesheet();
 $shortcode = new Vegashero_Shortcodes();
+$ajax = new Vegashero_Ajax();
 // $taxonomy = new Vegashero_Taxonomy();
