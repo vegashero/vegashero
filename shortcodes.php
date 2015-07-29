@@ -33,14 +33,11 @@ class Vegashero_Shortcodes
     }
 
     public function filter_lobby() {
-        $taxonomy = $_GET['taxonomy'];
-        $filter = $_GET['filter'];
         $posts_per_page = get_option('posts_per_page');
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
         $post_args = array(
             'posts_per_page'   => $posts_per_page,
-            $taxonomy => $filter,
             'offset' => ($page-1)*$posts_per_page,
             'orderby'          => 'post_date',
             'order'            => 'DESC',
@@ -49,17 +46,74 @@ class Vegashero_Shortcodes
             'paged' => $paged,
             'page' => $page
         );
+        
+        if(array_key_exists('taxonomy', $_GET) && array_key_exists('filterBy', $_GET)) {
+            if( !empty($_GET['taxonomy'] && ! empty($_GET['filterBy']))) {
+                $taxonomy = $_GET['taxonomy'];
+                $filterBy = $_GET['filterBy'];
+                $post_args[$taxonomy] = $filterBy;
+            }
+        }
 
         $posts = get_posts( $post_args );
+
+        // for image links
         foreach($posts as $post) {
             $provider = wp_get_post_terms($post->ID, $this->_config->gameProviderTaxonomy)[0];
             $post->provider = sanitize_title($provider->name);
         }
+
         echo json_encode(array(
             'page' => $page,
-            'posts' => $posts
+            'posts' => $posts,
+            'pagination' => $this->_getPaginationLinks($paged)
         ));
         wp_die();
+    }
+
+    private function _getPaginationLinks($paged) {
+        $pagination_links = paginate_links($this->_getPaginationOptions($paged));
+        $pagination = array();
+        if($next = $this->_getNext($pagination_links)) {
+            $pagination['next'] = $next;
+        }
+        if($prev = $this->_getPrevious($pagination_links)) {
+            $pagination['prev'] = $prev;
+        }
+        return $pagination;
+    }
+
+    private function _getNext($pagination) {
+        return preg_match('/^<a class="next.*$/', end($pagination)) ? end($pagination) : '';
+    }
+
+    private function _getPrevious($pagination) {
+        return preg_match('/^<a class="prev.*$/', current($pagination)) ? current($pagination) : '';
+    }
+
+    private function _getFormat() {
+        if( get_option('permalink_structure') ) {
+            return "page/%#%/";
+        }
+        return "?page=%#%";
+    }
+
+    private function _getPaginationOptions($paged) {
+        $total_posts = wp_count_posts($this->_config->customPostType)->publish;
+        $max_pages = ceil($total_posts/get_option('posts_per_page'));
+        $big = $paged+1;
+        return array(
+            'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
+            'format' => $this->_getFormat(),
+            'current' => is_front_page() ? $page : $paged,
+            'total' => $max_pages,
+            'show_all' => false,
+            'mid_size' => 0,
+            'end_size' => 0,
+            'prev_text' => __('« Previous'),
+            'next_text' => __('Next »'),
+            'type' => 'array',
+        );
     }
 
 }
