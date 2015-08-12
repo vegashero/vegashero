@@ -88,9 +88,10 @@ class Vegashero_Settings
         echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' placeholder='http://your-affiliate-url.com' />";
     }
 
+
+
     public function addSettingsMenu() {
         add_menu_page('VegasHero Settings', 'Vegas Hero', 'manage_options', 'vegashero-plugin', array($this, 'createSettingsPage'));
-
     }
 
     private function _getUpdateBtn($operator) {
@@ -121,28 +122,25 @@ class Vegashero_Settings
         <h3>Operators available to install</h3>
         <ul class="operator-cards">
         <?php
-
-        foreach($this->_operators as $operator) {
-            echo '<li>';
-            echo '<div class="desc">';
-            echo '<form method="post" action="options.php">';
-            settings_fields($this->_getOptionGroup($operator));
-            $page = $this->_getPageName($operator);
-            do_settings_sections($page);
-            echo '<div class="btn-area">';
-            echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
-            echo $this->_getUpdateBtn($operator);
-            echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/operators/' . $operator . '.png" /></div>';
-            echo '</div></div>';
-            echo '</form>';
-            echo '</li>';
-        }
-
+          foreach($this->_operators as $operator) {
+              echo '<li>';
+              echo '<div class="desc">';
+              echo '<form method="post" action="options.php">';
+              settings_fields($this->_getOptionGroup($operator));
+              $page = $this->_getPageName($operator);
+              do_settings_sections($page);
+              echo '<div class="btn-area">';
+              echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
+              echo $this->_getUpdateBtn($operator);
+              echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/operators/' . $operator . '.png" /></div>';
+              echo '</div></div>';
+              echo '</form>';
+              echo '</li>';
+          }
         ?>
         </ul>
-        
-        <!-- Custom Shortcode Settings -->
 
+      
         <div class="clear"></div>
         <h3>Use Custom Shortcode to Display Operators</h3>
         <input id="custoptable" type="checkbox"><label for="custoptable">Enable Custom Operators Table</label>
