@@ -35,6 +35,7 @@ jQuery(document).ready(function($) {
         };
         
         this.getPaginationMarkup = function(res) {
+            console.log(res);
             var markup = '<div class="vh-pagination">';
             if(res.pagination.prev) {
                 markup += res.pagination.prev;
@@ -58,7 +59,13 @@ jQuery(document).ready(function($) {
             return params;
         };
 
+        this.showLoading = function() {
+            var loadingIndicator = 'loading games...';
+            $('div#vh-lobby-posts.vh-row-sm').html(loadingIndicator);
+        };
+
         this.loadGames = function(options, callback) {
+            self.showLoading();
             if( ! options) {
                 var options = {};
             }
@@ -69,7 +76,7 @@ jQuery(document).ready(function($) {
                     markup += self.getGameMarkup(data, post);
                 });
                 var pagination = self.getPaginationMarkup(res);
-                $('div#vh-lobby-posts.vh-row-sm').html(markup + 'pagination: ' + pagination);
+                $('div#vh-lobby-posts.vh-row-sm').html(markup + pagination);
                 if(callback) {
                     callback();
                 }
@@ -80,7 +87,6 @@ jQuery(document).ready(function($) {
                         filterBy: $(this).val()
                     }, function() {
                         this.prop('selectedIndex', 0);
-                        console.log('this is the callback');
                     }.bind($(this)));
                 });
                 // pagination

@@ -63,19 +63,21 @@ class Vegashero_Ajax
         echo json_encode(array(
             'page' => $page,
             'posts' => $posts,
-            'pagination' => $this->_getPaginationLinks($paged)
+            'pagination' => $this->_getPaginationLinks($paged, count($posts))
         ));
         wp_die();
     }
 
-    private function _getPaginationLinks($paged) {
-        $pagination_links = paginate_links($this->_getPaginationOptions($paged));
+    private function _getPaginationLinks($paged, $total) {
+        $pagination_links = paginate_links($this->_getPaginationOptions($paged, $total));
         $pagination = array();
-        if($next = $this->_getNext($pagination_links)) {
-            $pagination['next'] = $next;
-        }
-        if($prev = $this->_getPrevious($pagination_links)) {
-            $pagination['prev'] = $prev;
+        if($total >= get_option('posts_per_page')) {
+            if($next = $this->_getNext($pagination_links)) {
+                $pagination['next'] = $next;
+            }
+            if($prev = $this->_getPrevious($pagination_links)) {
+                $pagination['prev'] = $prev;
+            }
         }
         return $pagination;
     }
