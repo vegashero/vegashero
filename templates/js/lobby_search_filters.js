@@ -23,7 +23,7 @@ jQuery(document).ready(function($) {
         };
          
         this.getGameMarkup = function(data, post) {
-            var markup = '<div class="vh-item">';
+            var markup = '<div class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
             markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">'
             markup += '<img width="" height="" src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
             markup += '</a>';

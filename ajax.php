@@ -41,7 +41,7 @@ class Vegashero_Ajax
         );
         
         if(array_key_exists('taxonomy', $_GET) && array_key_exists('filterBy', $_GET)) {
-            if( !empty($_GET['taxonomy'] && ! empty($_GET['filterBy']))) {
+            if( ! empty($_GET['taxonomy']) && ! empty($_GET['filterBy'])) {
                 $taxonomy = $_GET['taxonomy'];
                 $filterBy = $_GET['filterBy'];
                 $post_args[$taxonomy] = $filterBy;
@@ -52,8 +52,12 @@ class Vegashero_Ajax
 
         // for image links
         foreach($posts as $post) {
+            $operator = wp_get_post_terms($post->ID, $this->_config->gameOperatorTaxonomy)[0];
+            $post->operator = sanitize_title($operator->name);
             $provider = wp_get_post_terms($post->ID, $this->_config->gameProviderTaxonomy)[0];
             $post->provider = sanitize_title($provider->name);
+            $category = wp_get_post_terms($post->ID, $this->_config->gameCategoryTaxonomy)[0];
+            $post->category = sanitize_title($category->name);
         }
 
         echo json_encode(array(
