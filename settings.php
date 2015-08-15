@@ -15,8 +15,24 @@ class Vegashero_Settings
             add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
+        add_action('wp_head', array($this, 'customOperatorTable'));
         add_action('admin_init', array($this, 'registerSettings'));
 
+
+    }
+
+    public function customOperatorTable() {
+      add_settings_section('op_table', 'FUCK', array($this, 'customOperatorTableCallBack'), 'vegashero-plugin');
+      $something = "<h1>Hellow1</h1>";
+      echo current_filter();
+      //add_settings_field();
+      return $something;
+      // <textarea class="'operator-shortcode-settings'" name="'operator_shortcode_override'" placeholder="[vh_table vh_tname='Table Title Here'] Your Custom Table Rows Here... [/vh_table]"></textarea>
+      //  <input type='submit' name='shortcodeSubmit' class='button button-primary' value='Save Shortcode Settings'>
+    }
+    public function customOperatorTableCallBack() {
+      echo "<h1>Hellow</h1>";
+      echo "<input name='' size='30' type='text' value='".get_option('op_table')."' placeholder='Your operator' />";
     }
 
     public function vegashero_admin_import_notice() {
@@ -25,6 +41,7 @@ class Vegashero_Settings
         echo _e( 'Your import has been queued. Please head over to the <a href="'.$vegas_gameslist_page.'">Vegas Hero Games</a> area to view/edit the games.' );
         echo '</p></div>';
     }
+
 
     private function _getOptionGroup($operator=null) {
         if(is_null($operator)) {
@@ -112,7 +129,7 @@ class Vegashero_Settings
 
     public function createSettingsPage() { ?>
 
-      <div class="wrap about-wrap">
+      <div class="wrap vh-about-wrap">
         <h1>Welcome to Vegas Hero Games</h1>
         <div class="about-text">
 			  Install a whole ton of games in an instant, add your affiliate codes from multiple operators.
@@ -140,7 +157,7 @@ class Vegashero_Settings
         ?>
         </ul>
 
-      
+
         <div class="clear"></div>
         <h3>Use Custom Shortcode to Display Operators</h3>
         <input id="custoptable" type="checkbox"><label for="custoptable">Enable Custom Operators Table</label>
@@ -152,10 +169,12 @@ class Vegashero_Settings
             <span class="shortcode-hint-row">...<br/></span>
           [/vh_table]
         </p>
-        <textarea class="operator-shortcode-settings" name="operator_shortcode_override" placeholder="[vh_table vh_tname='Table Title Here'] Your Custom Table Rows Here... [/vh_table]"></textarea>
-        <input type='submit' name='shortcodeSubmit' class='button button-primary' value='Save Shortcode Settings'>
 
 
+
+
+
+        // Input version
 
         <div class="clear"></div>
         <h3>Lobby Setup</h3>
@@ -235,17 +254,9 @@ class Vegashero_Settings
     }
 }
 
-function affiliate_id_notice() {
-  $vegas_settings_page = admin_url( "admin.php?page=vegashero-plugin" );
-?>
-<div class="error">
-    <p><?php echo "Please add your affiliate code <a href='".$vegas_settings_page."'>here</a> to import your VegasHero Games"; ?></p>
-</div>
-<?php
-}
-add_action( 'admin_notices', 'affiliate_id_notice' );
 
 add_action('admin_head', 'settings_page_styles');
+
 
 function settings_page_styles() {
   $url = plugin_dir_url( __FILE__ ) . 'templates/css/settings-styles.css';
