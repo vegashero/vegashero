@@ -53,8 +53,6 @@ spl_autoload_register(function($classname) {
     }
 });
 
-
-
 $import = new Vegashero_Import();
 $template = new Vegashero_Template();
 $settings = new Vegashero_Settings();

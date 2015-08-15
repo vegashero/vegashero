@@ -41,7 +41,7 @@ class Vegashero_Ajax
         );
         
         if(array_key_exists('taxonomy', $_GET) && array_key_exists('filterBy', $_GET)) {
-            if( !empty($_GET['taxonomy'] && ! empty($_GET['filterBy']))) {
+            if( ! empty($_GET['taxonomy']) && ! empty($_GET['filterBy'])) {
                 $taxonomy = $_GET['taxonomy'];
                 $filterBy = $_GET['filterBy'];
                 $post_args[$taxonomy] = $filterBy;
@@ -52,26 +52,32 @@ class Vegashero_Ajax
 
         // for image links
         foreach($posts as $post) {
+            $operator = wp_get_post_terms($post->ID, $this->_config->gameOperatorTaxonomy)[0];
+            $post->operator = sanitize_title($operator->name);
             $provider = wp_get_post_terms($post->ID, $this->_config->gameProviderTaxonomy)[0];
             $post->provider = sanitize_title($provider->name);
+            $category = wp_get_post_terms($post->ID, $this->_config->gameCategoryTaxonomy)[0];
+            $post->category = sanitize_title($category->name);
         }
 
         echo json_encode(array(
             'page' => $page,
             'posts' => $posts,
-            'pagination' => $this->_getPaginationLinks($paged)
+            'pagination' => $this->_getPaginationLinks($paged, count($posts))
         ));
         wp_die();
     }
 
-    private function _getPaginationLinks($paged) {
-        $pagination_links = paginate_links($this->_getPaginationOptions($paged));
+    private function _getPaginationLinks($paged, $total) {
+        $pagination_links = paginate_links($this->_getPaginationOptions($paged, $total));
         $pagination = array();
-        if($next = $this->_getNext($pagination_links)) {
-            $pagination['next'] = $next;
-        }
-        if($prev = $this->_getPrevious($pagination_links)) {
-            $pagination['prev'] = $prev;
+        if($total >= get_option('posts_per_page')) {
+            if($next = $this->_getNext($pagination_links)) {
+                $pagination['next'] = $next;
+            }
+            if($prev = $this->_getPrevious($pagination_links)) {
+                $pagination['prev'] = $prev;
+            }
         }
         return $pagination;
     }
