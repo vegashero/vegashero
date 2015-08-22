@@ -15,24 +15,8 @@ class Vegashero_Settings
             add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        add_action('wp_head', array($this, 'customOperatorTable'));
         add_action('admin_init', array($this, 'registerSettings'));
 
-
-    }
-
-    public function customOperatorTable() {
-      add_settings_section('op_table', 'FUCK', array($this, 'customOperatorTableCallBack'), 'vegashero-plugin');
-      $something = "<h1>Hellow1</h1>";
-      echo current_filter();
-      //add_settings_field();
-      return $something;
-      // <textarea class="'operator-shortcode-settings'" name="'operator_shortcode_override'" placeholder="[vh_table vh_tname='Table Title Here'] Your Custom Table Rows Here... [/vh_table]"></textarea>
-      //  <input type='submit' name='shortcodeSubmit' class='button button-primary' value='Save Shortcode Settings'>
-    }
-    public function customOperatorTableCallBack() {
-      echo "<h1>Hellow</h1>";
-      echo "<input name='' size='30' type='text' value='".get_option('op_table')."' placeholder='Your operator' />";
     }
 
     public function vegashero_admin_import_notice() {
@@ -41,7 +25,6 @@ class Vegashero_Settings
         echo _e( 'Your import has been queued. Please head over to the <a href="'.$vegas_gameslist_page.'">Vegas Hero Games</a> area to view/edit the games.' );
         echo '</p></div>';
     }
-
 
     private function _getOptionGroup($operator=null) {
         if(is_null($operator)) {
@@ -129,7 +112,7 @@ class Vegashero_Settings
 
     public function createSettingsPage() { ?>
 
-      <div class="wrap vh-about-wrap">
+      <div class="wrap about-wrap">
         <h1>Welcome to Vegas Hero Games</h1>
         <div class="about-text">
 			  Install a whole ton of games in an instant, add your affiliate codes from multiple operators.
@@ -157,25 +140,6 @@ class Vegashero_Settings
         ?>
         </ul>
 
-
-        <div class="clear"></div>
-        <h3>Use Custom Shortcode to Display Operators</h3>
-        <input id="custoptable" type="checkbox"><label for="custoptable">Enable Custom Operators Table</label>
-        <p>Use below shortcode to replace the above operator options with your own list of operators/casinos.</p>
-        <p class="shortcode-hint">
-          [vh_table vh_tname="Table Title Here"]<br/>
-            <span class="shortcode-hint-row">[vh_table_line vh_img="http://url" vh_link="http://myafflinkhere.to/" vh_btnlabel="Play Now"]<br/></span>
-            <span class="shortcode-hint-row">[vh_table_line vh_img="http://url" vh_link="http://myafflinkhere.to/" vh_btnlabel="Play Now"]<br/></span>
-            <span class="shortcode-hint-row">...<br/></span>
-          [/vh_table]
-        </p>
-
-
-
-
-
-        // Input version
-
         <div class="clear"></div>
         <h3>Lobby Setup</h3>
         <ul class="instructions">
@@ -191,61 +155,6 @@ class Vegashero_Settings
           </li>
 
         </ul>
-        <div class="clear"></div>
-        <!-- <h3>Other Products & Support</h3>
-        <ul class="products">
-          <li class="support-upsell">
-
-            <p>Having trouble with your import? <a mailto="neil@vegashero.co">Mail us</a> with your issue and we will get right back to you.</p>
-            <hr>
-            <h3>Check out our premium services</h3>
-
-            <ul class="gold">
-              <li class="package-title"><h3>Gold package deal <span>just $49 a month</span></h3></li>
-              <li><hr></li>
-              <li>&#10003; Unique content for 10 games every month</li>
-              <li>&#10003; SEO evaluation from our expert <b>Add-on</b></li>
-              <li>&#10003; Custom styling for your lobby <b>Add-on</b></li>
-              <li>&#10003; 10 themed game pages <b>Add-on</b></li>
-              <li><a href="" class="signup">Sign up</a></li>
-            </ul>
-
-            <ul class="silver">
-              <li class="package-title"><h3>Silver package deal <span>just $89 a month</span></h3></li>
-              <li><hr></li>
-              <li>&#10003; Unique content for 20 games every month</li>
-              <li>&#10003; Quality Backlinks for each game on our trusted networks every month</li>
-              <li>&#10003; Premium support, fix any bugs you have on your site *</li>
-              <li>&#10003; SEO evaluation from our expert <b>Add-on</b></li>
-              <li>&#10003; Custom styling for your lobby <b>Add-on</b></li>
-              <li>&#10003; 10 themed game pages <b>Add-on</b></li>
-              <li><a href="" class="signup">Sign up</a></li>
-            </ul>
-            <div class="clear"></div>
-            <p>* Wordpress only, features are not included.</p> -->
-            <!-- <h3>Add-ons</h3>
-            <ul class="addon">
-              <li><h3>Custom styling for your lobby <span>$79</span></h3><li>
-              <li><hr></li>
-              <li><p>We will design and build a lobby that will look amazing, custom hover cards for your games and all responsive.</p>
-                <p>You will get a professional mockup which you will approve and custom HTML/CSS.</p>
-              </li>
-              <li><a href="" class="button-primary">Buy now</a></li>
-            </ul>
-            <ul class="addon">
-              <li><h3>Order quality backlinks <span>$49</span></h3><li>
-              <li><hr></li>
-              <li><p>We have built a network of quality backlinks that will give you better site authority.</p>
-              <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
-              <li><a href="" class="button-primary">Buy now</a></li>
-            </ul>
-            <ul class="addon">
-              <li><h3>SEO evaluation from our expert <span>$49</span></h3><li>
-              <li><hr></li>
-              <li><p>Our SEO Specialist (iGaming industry expert) will supply you with an SEO health report.</p>
-              <p>You will get first hand help to take your site to the next level. Ask him any question.</li>
-              <li><a href="" class="button-primary">Buy now</a></li>
-            </ul> -->
             <div class="clear"></div>
           </li>
         </ul>
@@ -254,9 +163,17 @@ class Vegashero_Settings
     }
 }
 
+function affiliate_id_notice() {
+  $vegas_settings_page = admin_url( "admin.php?page=vegashero-plugin" );
+?>
+<div class="error">
+    <p><?php echo "Please add your affiliate code <a href='".$vegas_settings_page."'>here</a> to import your VegasHero Games"; ?></p>
+</div>
+<?php
+}
+add_action( 'admin_notices', 'affiliate_id_notice' );
 
 add_action('admin_head', 'settings_page_styles');
-
 
 function settings_page_styles() {
   $url = plugin_dir_url( __FILE__ ) . 'templates/css/settings-styles.css';
