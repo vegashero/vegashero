@@ -238,30 +238,31 @@
   float: left;
   margin-left: 0;
 }
-
 .vh-filter {
   padding: 1em 1.5em;
   background: #191919;
   border: none;
-  font-family: 'Open Sans';
+  font-family: "Helvetica", Arial, sans-serif;
   font-size: 14px;
   cursor: pointer;
   color: #d3d3d3;
-  margin-bottom:30px;
   width:100%;
   box-sizing:border-box;
 }
 .vh-filter select {
-    background:#2e2e2e url("../img/vh-sort-icon.jpg") no-repeat 95%;
-    border-color:#4a4a4a !important;
-    border-width:1px !important;
-    border-style: solid !important;
-    color:white;
-    padding:4px 20px;
-    border:0;
-    margin:0 15px 0 0;
-    font-size:15px;
+  background:#4b4b4b url("../img/dd.png") no-repeat 90%;
+  color: #999999;
+  text-transform: uppercase;
+  height: auto;
+  font-size: 14px;
+  font-family: "Helvetica", Arial, sans-serif;
+  border-radius:1000px;
+  padding: 14px 26px;
+  -webkit-border-radius:1000px;
+  margin-right:15px;
+  border:none;
 }
+
 .vh-filter select:hover {
   background-color:#2e2e2e;
   color: #ffffff;
