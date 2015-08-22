@@ -27,4 +27,8 @@ $providers = get_terms($config->gameProviderTaxonomy);
   </select>
 </div>
 
+<<<<<<< HEAD
 <div id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon">loading games...</div></div>
+=======
+<div id="vh-lobby-posts" class="vh-row-sm"></div>
+>>>>>>> b7f4cc9c332709781d9fa7557caba179b52c9876

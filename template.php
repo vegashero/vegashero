@@ -116,7 +116,7 @@ class Vegashero_Template
             $iframe_src = get_post_meta($post_id, 'game_src', true);
             $categories = wp_get_post_terms($post_id, $this->_config->gameCategoryTaxonomy);
             $operators = wp_get_post_terms($post_id, $this->_config->gameOperatorTaxonomy);
-            $provider = wp_get_post_terms($post_id, $this->_config->gameProviderTaxonomy)[0];
+            $providers = wp_get_post_terms($post_id, $this->_config->gameProviderTaxonomy);
 
             $gallery_string = file_get_contents($this->_getGalleryTemplate());
             $iframe_string = file_get_contents($this->_getIframeTemplate());
