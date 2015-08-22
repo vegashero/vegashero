@@ -16,9 +16,9 @@ class Vegashero_Ajax
     public function lobby_filters() {
         $script_src = sprintf('%stemplates/js/lobby_search_filters.js', plugin_dir_url( __FILE__ ));
         wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery'), null, true);
-        wp_localize_script( 'vegashero_lobby_script', 'ajax_object', 
+        wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
             array(
-                'ajax_url' => admin_url('admin-ajax.php'), 
+                'ajax_url' => admin_url('admin-ajax.php'),
                 'site_url' => site_url(),
                 'image_url' => $this->_config->gameImageUrl
             )
@@ -39,7 +39,7 @@ class Vegashero_Ajax
             'paged' => $paged,
             'page' => $page
         );
-        
+
         if(array_key_exists('taxonomy', $_GET) && array_key_exists('filterBy', $_GET)) {
             if( !empty($_GET['taxonomy'] && ! empty($_GET['filterBy']))) {
                 $taxonomy = $_GET['taxonomy'];

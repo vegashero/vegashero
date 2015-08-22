@@ -11,6 +11,19 @@
 .app-content:after {
   clear: both;
 }
+.loading-icon {
+  margin-top:50%;
+  margin-left:50%;
+  position: absolute;
+  z-index: 10;
+  background:white;
+  width: 100px;
+  height: 100px;
+  color: white;
+}
+.vh-lobby-posts {
+  position: relative;
+}
 .vh-row-sm {
   margin-right: -10px;
   margin-left: -10px;
@@ -23,16 +36,15 @@
 .vh-item {
   margin-bottom:20px;
   position: relative;
+  transition: all .2s ease-in-out;
   /*min-height: 188px;*/
+}
+.vh-item:hover {
+   transform: scale(1.1);
+   -moz-transform: scale(1.1);
 }
 .vh-item img {
   width:100%;
-  /*position: absolute;
-  bottom: 0;
-  background:url("/placeholder-lobby.jpg");*/
-}
-.vh-item img:hover {
-  opacity: 0.8;
 }
 .vh-item a.vh-thumb-link {
   min-height: 148px;
@@ -48,11 +60,7 @@
   color:black;
   font-weight:normal;
 }
-.vh-game-title {
-  height:20px;
-  overflow:hidden;
-  width:90%;
-}
+
 .vh-item-overlay {
   position: absolute;
   top:-7%;
@@ -109,12 +117,25 @@
 .img-full {
   width: 100%;
 }
+/*.vh-item:hover {
+ -webkit-transform: scale(1.1);
+ -moz-transform:    scale(1.1);
+ -o-transform:      scale(1.1);
+ -ms-transform:     scale(1.1);
+}*/
+.vh-item .vh-game-title {
+  background: white;
+  padding: 12px 0 16px 0;
+}
 .vh-item .vh-game-title a {
-  font-size:14px;
+  font-size:13px;
+  text-align: center;
   line-height: 25px;
-  color: #555;
+  width: 100%;
+  color: #151515;
+  display: inline-block;
   text-transform: uppercase;
-  font-weight: bold;
+  font-weight: normal;
   outline: 0;
 }
 .vh-item .vh-game-title a:hover {
@@ -126,9 +147,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
 .vh-game-cat {
   font-size:13px;
-  display: none;
+  text-align: center;
+  color: #999999;
 }
 .vh-pagination {
   width:100%;

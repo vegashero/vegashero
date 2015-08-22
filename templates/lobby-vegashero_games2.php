@@ -66,6 +66,7 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         $game_id = get_post_meta($post->ID, $config->postMetaGameId, true);
         $game_src = get_post_meta($post->ID, $config->postMetaGameSrc, true);
         $game_title = get_post_meta($post->ID, $config->postMetaGameTitle, true);
+        $game_category = get_post_meta(get_the_category($post->ID));
         $operator = wp_get_post_terms($post->ID, $config->gameOperatorTaxonomy)[0];
         $provider = wp_get_post_terms($post->ID, $config->gameProviderTaxonomy)[0];
         $image_url = sprintf("%s/%s/%s/", $config->gameImageUrl, $provider->name, $game_title);
@@ -74,13 +75,13 @@ $max_pages = ceil($total_posts/get_option('posts_per_page'));
         $provider_slug = sprintf(sanitize_title($provider->name));
         ?>
       <div class="vh-item">
-
         <a href="<?=site_url();?>/<?=$post->post_name?>" class="vh-thumb-link">
           <img width="" height="" src="<?=$image_url?>cover.jpg" alt="<?=$post->post_title?>" title="<?=$post->post_title?>" />
-          </a>
-          <div class="vh-game-title">
-            <a title="<?=$post->post_title?>" href="<?=site_url();?>/<?=$post->post_name?>"><?=$post->post_title?></a>
-          </div>
+        </a>
+        <div class="vh-game-title">
+          <a title="<?=$post->post_title?>" href="<?=site_url();?>/<?=$post->post_name?>"><?=$post->post_title?></a>
+          <span class="vh-game-cat"><?=$game_category?></span>
+        </div>
       </div>
     <?php endforeach; ?>
     <div class="vh-pagination">

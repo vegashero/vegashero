@@ -21,7 +21,7 @@ jQuery(document).ready(function($) {
                 callback(jQuery.parseJSON(response));
             });
         };
-         
+
         this.getGameMarkup = function(data, post) {
             var markup = '<div class="vh-item">';
             markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">'
@@ -33,7 +33,7 @@ jQuery(document).ready(function($) {
             markup += '</div>';
             return markup;
         };
-        
+
         this.getPaginationMarkup = function(res) {
             var markup = '<div class="vh-pagination">';
             if(res.pagination.prev) {
@@ -63,7 +63,9 @@ jQuery(document).ready(function($) {
                 var options = {};
             }
             var data = this.getQueryData(options);
+            console.log(data);
             this.getGames(data, function(res) {
+                console.log(res);
                 var markup = ''
                 jQuery.each(res.posts, function(key, post) {
                     markup += self.getGameMarkup(data, post);

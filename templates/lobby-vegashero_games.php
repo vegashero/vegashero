@@ -1,4 +1,4 @@
-<?php 
+<?php
 $config = new Vegashero_Config();
 $categories = get_terms($config->gameCategoryTaxonomy);
 $operators = get_terms($config->gameOperatorTaxonomy);
@@ -27,4 +27,4 @@ $providers = get_terms($config->gameProviderTaxonomy);
   </select>
 </div>
 
-<div id="vh-lobby-posts" class="vh-row-sm">loading games...</div>
+<div id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon">loading games...</div></div>
