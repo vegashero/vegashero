@@ -23,17 +23,15 @@ jQuery(document).ready(function($) {
         };
 
         this.getGameMarkup = function(data, post) {
-            var markup = '<div class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
+            var markup = '<li class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
             markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">';
-            markup += '<div class="overlay-tint">';
+            markup += '<div>';
             markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
-            markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="play-now">Play</a>';
+            markup += '<span class="play-now">Play now</span>';
+            markup += '</div>';
             markup += '</a>';
-            markup += '</div>';
-            markup += '<div class="vh-game-title">';
-            markup += '<a title="' + post.post_title + '" href="' + data.site_url + '/' + post.post_name + '">' + post.post_title + '</a>';
-            markup += '</div>';
-            markup += '</div>';
+            markup += '<div class="vh-game-title">' + post.post_title + '</div>';
+            markup += '</li>';
             return markup;
         };
 
@@ -64,7 +62,7 @@ jQuery(document).ready(function($) {
 
         this.showLoading = function() {
             var loadingIndicator = 'loading games...';
-            $('div#vh-lobby-posts.vh-row-sm').html(loadingIndicator);
+            $('ul#vh-lobby-posts.vh-row-sm').html(loadingIndicator);
         };
 
         this.loadGames = function(options, callback) {
@@ -81,7 +79,7 @@ jQuery(document).ready(function($) {
                     markup += self.getGameMarkup(data, post);
                 });
                 var pagination = self.getPaginationMarkup(res);
-                $('div#vh-lobby-posts.vh-row-sm').html(markup + pagination);
+                $('ul#vh-lobby-posts.vh-row-sm').html(markup + pagination);
                 if(callback) {
                     callback();
                 }
