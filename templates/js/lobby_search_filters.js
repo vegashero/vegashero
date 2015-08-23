@@ -24,9 +24,12 @@ jQuery(document).ready(function($) {
 
         this.getGameMarkup = function(data, post) {
             var markup = '<div class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
-            markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">'
-            markup += '<img width="" height="" src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+            markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">';
+            markup += '<div class="overlay-tint">';
+            markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+            markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="play-now">Play</a>';
             markup += '</a>';
+            markup += '</div>';
             markup += '<div class="vh-game-title">';
             markup += '<a title="' + post.post_title + '" href="' + data.site_url + '/' + post.post_name + '">' + post.post_title + '</a>';
             markup += '</div>';
