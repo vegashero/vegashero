@@ -21,6 +21,14 @@ class Vegashero_Template
 
     }
 
+    function get_after_content() {
+            ob_start();
+            dynamic_sidebar( 'single_game_widget_area' ); 
+            $single_game_widget = ob_get_contents();
+            ob_end_clean();
+            return $single_game_widget;
+    }
+
     private function _getArchivePageTemplateFile() {
         return sprintf("archive.php", $this->_config->customPostType);
     }
@@ -128,13 +136,15 @@ class Vegashero_Template
 
             $tablebody_template = '';
 
+            $shortcodetable_widget = $this->get_after_content();
+
             foreach($operators as $operator) {
                 $affiliate_url = get_option(sprintf('%s%s', $this->_config->settingsNamePrefix, $operator->name));
                 $tablebody_template .= sprintf($tablebody_string, $images, $operator->slug, $operator->name, $affiliate_url);
             }
 
             $table_template = sprintf($table_string, $tablebody_template);
-            $content = sprintf("%s %s $content %s", $gallery_template, $iframe_template, $table_template);
+            $content = sprintf("%s %s $content %s", $iframe_template, $table_template, $shortcodetable_widget);
         }
         return $content;
     }

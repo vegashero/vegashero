@@ -32,9 +32,9 @@ function vh_table_func($atts,$vhcontent = null){
         'vh_tname' => '', //table title
     ), $atts ) );
 
-    $vhoutput = "<table class=\"vh-casino-providers\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><th width=\"40%\">";
+    $vhoutput = "<table class=\"vh-casino-providers\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><th class=\"vh-casino\">";
     $vhoutput .= $vh_tname;
-    $vhoutput .= "</th><th width=\"70%\">&nbsp;</th></tr></thead><tbody>";
+    $vhoutput .= "<th class=\"vh-bonus\">Bonus</th><th class=\"vh-devices\">Compatible Devices</th></th><th class=\"vh-cta-buttons\">&nbsp;</th></tr></thead><tbody>";
     $vhcontent = str_replace('<br />', '', $vhcontent);
     $vhoutput .= do_shortcode($vhcontent);
     $vhoutput .= "</tbody>";
@@ -45,22 +45,63 @@ function vh_table_func($atts,$vhcontent = null){
 function vh_table_line_func($atts){
     extract( shortcode_atts( array(
         'vh_img' => '',         //thumb img URL path
+        'vh_bonus' => '',       //bonus amount
+        'vh_pc' => '',          //pc compatible
+        'vh_tablet' => '',      //tablet compatible
+        'vh_mobile' => '',      //mobile compatible
         'vh_link' => '',        //Affiliate link URL
         'vh_btnlabel' => ''     //CTA button title
     ), $atts ) );
+
+    if ( $vh_pc == '1' ) { $vh_pc = '<div class="results-desktop">Desktop</div>'; }  
+    if ( $vh_tablet == '1' ) { $vh_tablet = '<div class="results-tablet">Tablet</div>'; }  
+    if ( $vh_mobile == '1' ) { $vh_mobile = '<div class="results-mobile">Mobile</div>'; }  
 
     $vhoutput = "<tr><td class=\"vh-casino\"><a href=\"";
     $vhoutput .= $vh_link;
     $vhoutput .= "\"><img src=\"";
     $vhoutput .= $vh_img;
     $vhoutput .= "\" width=\"180px\"></a></td>";
-    $vhoutput .= "<td><a href=\"";
+    $vhoutput .= "<td class=\"vh-bonus\">";
+    $vhoutput .= $vh_bonus;
+    $vhoutput .= "</td>";
+    $vhoutput .= "<td class=\"vh-devices\">";
+    $vhoutput .= $vh_pc . $vh_tablet . $vh_mobile;
+    $vhoutput .= "</td>";
+    $vhoutput .= "<td class=\"vh-cta-buttons\"><a href=\"";
     $vhoutput .= $vh_link;
     $vhoutput .= "\" class=\"vh-playnow\">";
     $vhoutput .= $vh_btnlabel;
     $vhoutput .= "</a></td></tr>";
+
+    // ob_start();  
+        
+        
+    // $output_string = ob_get_contents();  
+    // ob_end_clean();  
+
     return $vhoutput;
 }
 
 add_shortcode( 'vh_table' , 'vh_table_func' );
 add_shortcode( 'vh_table_line' , 'vh_table_line_func' );
+
+
+/** Register sidebar widget area for single games page - widgets accepts shortcode, HTML banners codes etc */
+
+function custom_sidebars() {
+
+    $args = array(
+        'id'            => 'single_game_widget_area',
+        'class'         => 'single_game_widget_area',
+        'name'          => __( 'Single Game Widget Area', 'text_domain' ),
+        'description'   => __( 'Add widgets / shortcodes under VegasHero games', 'text_domain' ),
+        'before_title'  => '<h2 class="singlegame_widget_title">',
+        'after_title'   => '</h2>',
+        'before_widget' => '<div class="singlegame_widget"><style>.preset-providers{display:none!important;}</style>',
+        'after_widget'  => '</div>',
+    );
+    register_sidebar( $args );
+
+}
+add_action( 'widgets_init', 'custom_sidebars' );

@@ -39,7 +39,7 @@
 .vh-casino-providers thead tr th, .vh-casino-providers tbody tr td {
 	padding:10px;
 	vertical-align:middle;
-	width: 55%;
+	width: 20%;
 }
 .vh-casino-providers thead tr th {
 	font-size:14px;
@@ -55,7 +55,7 @@
 .vh-casino-providers .vh-playnow {
 	background:#6ac144;
 	padding:15px 35px;
-	font-size:18px;
+	font-size:16px;
 	color:white;
 	text-transform:uppercase;
 	text-align:center;
@@ -71,4 +71,46 @@
   .vh-casino-providers .vh-playnow {
     padding:18px;
     font-size:14px;
+	}
+}
+
+
+.vh-casino-providers .vh-cta-buttons,
+.vh-casino-providers .vh-casino {
+	width: 25%;
+}
+.vh-casino-providers .vh-devices {
+	width: 25%;
+} 
+.vh-casino-providers .results-desktop {
+	display:inline-block;
+	padding-top:50px;
+	margin-right:15px;
+	width:49px;
+	text-align:center;
+	float:left;
+	font-size: 10px;
+	background:url(../img/desktop.png) 50% 7px no-repeat
+}
+
+.vh-casino-providers .results-tablet {
+	display:inline-block;
+	padding-top:50px;
+	margin-right:15px;
+	width:30px;
+	text-align:center;
+	float:left;
+	font-size: 10px;
+	background:url(../img/tablet.png) 50% 12px no-repeat
+}
+
+.vh-casino-providers .results-mobile {
+	display:inline-block;
+	padding-top:50px;
+	margin-right:0;
+	min-width:18px;
+	text-align:center;
+	float:left;
+	font-size: 10px;
+	background:url(../img/mobile.png) 50% 18px no-repeat
 }

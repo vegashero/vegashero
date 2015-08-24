@@ -1,4 +1,4 @@
-<table class="vh-casino-providers" border="0" cellspacing="0" cellpadding="0">
+<table class="vh-casino-providers preset-providers" border="0" cellspacing="0" cellpadding="0">
 <thead>
     <tr>
         <!-- use double percentage signs!!! -->
