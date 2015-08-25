@@ -24,20 +24,21 @@
 #vh-lobby-posts {
   position: relative;
   margin-bottom: 80px;
+  padding:0;
 }
 
 
 .vh-item {
-  margin-bottom:20px;
   float: left;
   position: relative;
   padding: 0 10px;
   box-sizing:border-box;
   margin-bottom: 15px;
+  list-style-type: none;
 }
 .vh-item img {
   width: 250px;
-  height: 159px;
+  height: 166px;
 }
 .vh-item:hover img {
   opacity: .5;
@@ -63,6 +64,7 @@
   text-align: center;
   margin:auto;
   overflow: hidden;
+  border-radius:1000px;
   -webkit-border-radius:1000px;
   z-index: 200;
   will-change: opacity,top,background-color;
@@ -102,7 +104,7 @@
 .vh-item .vh-game-title {
   font-size: 15px;
   line-height: 18px;
-  min-height: 55px;
+  height: 55px;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -110,9 +112,10 @@
   justify-content: center;
   flex-direction: column;
   text-align: center;
-  padding: 0 20px;
+  padding:0 20px;
   white-space: pre-wrap;
   background:#f1f1f1;
+  vertical-align: middle;
 }
 .vh-pagination {
   width:100%;
@@ -125,6 +128,7 @@
   font-size: 14px;
   border-radius:1000px;
   padding: 14px 26px;
+  border-radius:1000px;
   -webkit-border-radius:1000px;
   color:#999999;
 }
@@ -133,6 +137,7 @@
   font-size: 14px;
   border-radius:1000px;
   padding: 14px 26px;
+  border-radius:1000px;
   -webkit-border-radius:1000px;
   color:#999999;
   margin-right: 20px;
@@ -168,6 +173,7 @@
   color: #d3d3d3;
   width:100%;
   box-sizing:border-box;
+  text-align: center;
 }
 
 .vh-filter:after {
@@ -182,14 +188,16 @@
   font-size: 15px;
   font-family: "Helvetica", Arial, sans-serif;
   border-radius:1000px;
-  padding: 14px 26px;
+  padding: 14px 26px!important;
+  border-radius:1000px;
   -webkit-border-radius:1000px;
   margin-right:15px;
   border:none;
+  text-align: left;
 }
-.vh-filter select:last-child {
+/*.vh-filter select:last-child {
   margin-right: 0;
-}
+}*/
 .vh-filter select:hover {
   background-color:#2e2e2e;
   color: #ffffff;
@@ -241,7 +249,7 @@ input[type="text"].vh-search {
 /* ---- game-item ---- */
 
 
-@media (min-width: 900px) {
+@media (min-width: 992px) {
   .vh-filter select {
     width: 22%;
     float:left;
@@ -251,9 +259,40 @@ input[type="text"].vh-search {
   .vh-item {
     width: 25%;
   }
+  .play-now {
+    left:19%;
+  }
 }
 @media (min-width: 1200px) {
   .vh-item {
     width: 20%;
+  }
+  .play-now {
+    left:21%;
+  }
+}
+
+@media (max-width: 480px) {
+  .vh-filter select {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 992px) {
+  .vh-filter .play-now {
+    display: none;
+  }
+  .vh-item:hover .play-now {
+    display: none;
+  }
+  .vh-item img {
+    width: auto;
+    height: auto;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 992px) {
+.vh-item {
+    width: 50%;
   }
 }
