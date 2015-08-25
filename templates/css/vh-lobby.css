@@ -11,15 +11,20 @@
 .app-content:after {
   clear: both;
 }
+.loading-wrap {
+  width: 100%;
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+}
 .loading-icon {
-  margin-top:50%;
-  margin-left:50%;
-  position: absolute;
+  /*margin-top:20px;
+  margin-left:40%;*/
   z-index: 10;
-  background:white;
+  background: url(../img/loading-spinner.gif) transparent 0 0 no-repeat;
   width: 100px;
-  height: 100px;
-  color: white;
+  height: 110px;
+  padding:12px 0 12px 50px;
 }
 #vh-lobby-posts {
   position: relative;
@@ -38,7 +43,7 @@
 }
 .vh-item img {
   width: 250px;
-  height: 166px;
+  /*height: 166px;*/
 }
 .vh-item:hover img {
   opacity: .5;
@@ -48,7 +53,8 @@
   display: block;
   overflow: hidden;
   z-index: 120;
-  background: black;
+  background: #F1F1F1;
+  outline: none;
 }
 .play-now {
   background: white;
@@ -71,6 +77,9 @@
   -webkit-transition: opacity .15s linear,top 120ms ease-out,background-color 120ms ease-out !important;
   -o-transition: opacity .15s linear,top 120ms ease-out,background-color 120ms ease-out !important;
   transition: opacity .15s linear,top 120ms ease-out,background-color 120ms ease-out !important;
+}
+.vh-item:hover .vh-overlay {
+  background: #000;
 }
 .vh-item:hover .play-now {
   display: inline-block;

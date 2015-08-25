@@ -58,6 +58,7 @@ class Vegashero_Ajax
             $post->provider = sanitize_title($provider->name);
             $category = wp_get_post_terms($post->ID, $this->_config->gameCategoryTaxonomy)[0];
             $post->category = sanitize_title($category->name);
+            $post->imgpath = sanitize_title($post->post_title);
         }
 
         echo json_encode(array(

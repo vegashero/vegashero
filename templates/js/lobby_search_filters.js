@@ -12,7 +12,8 @@ jQuery(document).ready(function($) {
                 'taxonomy': options.taxonomy ? options.taxonomy : '',
                 'filterBy': options.filterBy ? options.filterBy : '',
                 'site_url': ajax_object.site_url,
-                'image_url': ajax_object.image_url
+                'image_url': ajax_object.image_url,
+                'image_path': ajax_object.image_path
             };
         };
 
@@ -25,8 +26,8 @@ jQuery(document).ready(function($) {
         this.getGameMarkup = function(data, post) {
             var markup = '<li class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
             markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">';
-            markup += '<div>';
-            markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+            markup += '<div class="vh-overlay">';
+            markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.imgpath + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
             markup += '<span class="play-now">Play now</span>';
             markup += '</div>';
             markup += '</a>';
@@ -61,7 +62,7 @@ jQuery(document).ready(function($) {
         };
 
         this.showLoading = function() {
-            var loadingIndicator = 'loading games...';
+            var loadingIndicator = '<span class="loading-wrap"><span class="loading-icon">Loading games...</span></span>';
             $('ul#vh-lobby-posts.vh-row-sm').html(loadingIndicator);
         };
 
