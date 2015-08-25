@@ -21,7 +21,7 @@ class Vegashero_Settings
 
     public function vegashero_admin_import_notice() {
       $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );
-        echo '<div class="updated"><p>';
+        echo '<div class="notice notice-success is-dismissible below-h2"><p>';
         echo _e( 'Your import has been queued. Please head over to the <a href="'.$vegas_gameslist_page.'">Vegas Hero Games</a> area to view/edit the games.' );
         echo '</p></div>';
     }
@@ -166,8 +166,8 @@ class Vegashero_Settings
 function affiliate_id_notice() {
   $vegas_settings_page = admin_url( "admin.php?page=vegashero-plugin" );
 ?>
-<div class="error">
-    <p><?php echo "Please add your affiliate code <a href='".$vegas_settings_page."'>here</a> to import your VegasHero Games"; ?></p>
+<div class="error notice is-dismissible importwarning">
+    <p><?php echo "You can add your affiliate code and import VegasHero Games <a href='".$vegas_settings_page."'>here</a>."; ?></p>
 </div>
 <?php
 }
@@ -179,3 +179,76 @@ function settings_page_styles() {
   $url = plugin_dir_url( __FILE__ ) . 'templates/css/settings-styles.css';
   echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
 }
+
+
+/** Admin taxonomy filters for vegashero_games custom post type */
+function add_game_category_taxonomy_filters() {
+  global $typenow;
+ 
+  $taxonomies = array('game_category');
+  if( $typenow == 'vegashero_games' ){
+ 
+    foreach ($taxonomies as $tax_slug) {
+      $tax_obj = get_taxonomy($tax_slug);
+      $tax_name = $tax_obj->labels->name;
+      $terms = get_terms($tax_slug);
+      if(count($terms) > 0) {
+        echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
+        echo "<option value=''>All $tax_name</option>";
+        foreach ($terms as $term) { 
+          echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
+        }
+        echo "</select>";
+      }
+    }
+  }
+}
+add_action( 'restrict_manage_posts', 'add_game_category_taxonomy_filters' );
+
+
+function add_game_operator_taxonomy_filters() {
+  global $typenow;
+ 
+  $taxonomies = array('game_operator');
+  if( $typenow == 'vegashero_games' ){
+ 
+    foreach ($taxonomies as $tax_slug) {
+      $tax_obj = get_taxonomy($tax_slug);
+      $tax_name = $tax_obj->labels->name;
+      $terms = get_terms($tax_slug);
+      if(count($terms) > 0) {
+        echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
+        echo "<option value=''>All $tax_name</option>";
+        foreach ($terms as $term) { 
+          echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
+        }
+        echo "</select>";
+      }
+    }
+  }
+}
+add_action( 'restrict_manage_posts', 'add_game_operator_taxonomy_filters' );
+
+
+function add_game_provider_taxonomy_filters() {
+  global $typenow;
+ 
+  $taxonomies = array('game_provider');
+  if( $typenow == 'vegashero_games' ){
+ 
+    foreach ($taxonomies as $tax_slug) {
+      $tax_obj = get_taxonomy($tax_slug);
+      $tax_name = $tax_obj->labels->name;
+      $terms = get_terms($tax_slug);
+      if(count($terms) > 0) {
+        echo "<select name='$tax_slug' id='$tax_slug' class='postform'>";
+        echo "<option value=''>All $tax_name</option>";
+        foreach ($terms as $term) { 
+          echo '<option value='. $term->slug, $_GET[$tax_slug] == $term->slug ? ' selected="selected"' : '','>' . $term->name .' (' . $term->count .')</option>'; 
+        }
+        echo "</select>";
+      }
+    }
+  }
+}
+add_action( 'restrict_manage_posts', 'add_game_provider_taxonomy_filters' );
