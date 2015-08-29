@@ -12,8 +12,7 @@ jQuery(document).ready(function($) {
                 'taxonomy': options.taxonomy ? options.taxonomy : '',
                 'filterBy': options.filterBy ? options.filterBy : '',
                 'site_url': ajax_object.site_url,
-                'image_url': ajax_object.image_url,
-                'image_path': ajax_object.image_path
+                'image_url': ajax_object.image_url
             };
         };
 
@@ -37,7 +36,7 @@ jQuery(document).ready(function($) {
         };
 
         this.getPaginationMarkup = function(res) {
-            console.log(res);
+            //console.log(res);
             var markup = '<div class="vh-pagination">';
             if(res.pagination.prev) {
                 markup += res.pagination.prev;
@@ -74,7 +73,7 @@ jQuery(document).ready(function($) {
             var data = this.getQueryData(options);
             console.log(data);
             this.getGames(data, function(res) {
-                console.log(res);
+                //console.log(res);
                 var markup = ''
                 jQuery.each(res.posts, function(key, post) {
                     markup += self.getGameMarkup(data, post);
@@ -93,6 +92,36 @@ jQuery(document).ready(function($) {
                         this.prop('selectedIndex', 0);
                     }.bind($(this)));
                 });
+
+                // search games
+                var quicksearch = $('.vh-filter #vh-search').keyup( debounce( function() {
+                    //qsRegex = new RegExp( quicksearch.val() );
+                    qsRegex = $('.vh-filter #vh-search').val();
+                    console.log(quicksearch);
+                    self.loadGames({
+                        taxonomy: 'keyword',
+                        filterBy: qsRegex
+                    }, function() {
+                        this.prop('selectedIndex', 0);
+                    }.bind($(this)));
+                }, 200 ) );
+
+                // debounce so filtering doesn't happen every millisecond when typing search query
+                function debounce( fn, threshold ) {
+                  var timeout;
+                  return function debounced() {
+                    if ( timeout ) {
+                      clearTimeout( timeout );
+                    }
+                    function delayed() {
+                      fn();
+                      timeout = null;
+                    }
+                    timeout = setTimeout( delayed, threshold || 100 );
+                  }
+                }                  
+
+
                 // pagination
                 $('div.vh-pagination').on('click', 'a', function(event) {
                     event.preventDefault();
