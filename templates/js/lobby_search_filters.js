@@ -62,7 +62,7 @@ jQuery(document).ready(function($) {
         };
 
         this.showLoading = function() {
-            var loadingIndicator = '<span class="loading-wrap"><span class="loading-icon">Loading games...</span></span>';
+            var loadingIndicator = '<span class="cssload-spin-box"></span>';
             $('ul#vh-lobby-posts.vh-row-sm').html(loadingIndicator);
         };
 
