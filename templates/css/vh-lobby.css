@@ -301,13 +301,23 @@ ul#vh-lobby-posts {
   cursor: pointer;
 }
 
-.vh-filter:active,
+/*.vh-filter:active,
 .vh-filter.is-checked {
   background-color: #2e2e2e;
   color: #f4e86b;
-}
+}*/
 .vh-filter:focus {
   outline: none;
+}
+
+.vh-filter input[type="text"].vh-search {
+  float: right;
+  width: 20%;
+  margin: 1px 10px 0 0;
+  padding: 10px 20px 8px 20px;
+  font-size: 18px;
+  border-radius:1000px;
+  -webkit-border-radius:1000px;
 }
 
 .vh-sorting {
@@ -372,6 +382,14 @@ input[type="text"].vh-search {
 @media (max-width: 480px) {
   .vh-filter select {
     margin-right: 0;
+    margin-top:7px;
+  }
+  .vh-filter input[type="text"].vh-search {
+    float: none;
+    margin: 7px auto;
+    width: 57%;
+    text-align: center;
+    display: block;
   }
 }
 

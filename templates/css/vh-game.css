@@ -10,6 +10,13 @@
 	height:30px;
 	width:30px;
 }
+
+.game_provider-nyx .kh-no-close {
+	height: 58px;
+    width: 100%;
+    background:#000;
+}
+
 .iframe_kh_wrapper iframe {
 	position:relative;
 	min-width:730px;
