@@ -48,20 +48,34 @@ class Vegashero_Settings
     }
 
     public function registerSettings() {
-        $this->_config = new Vegashero_Config();
-        $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
-        // this needs to be cached locally!!!!
-        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
-        $this->_operators = json_decode(json_decode($response), true);
-        foreach($this->_operators as $operator) {
-            $this->_operator = $operator;
-            $section = $this->_getSectionName($operator);
-            $page = $this->_getPageName($operator);
-            $field = $this->_getAffiliateCodeInputKey($operator);
-            add_settings_section($section, sprintf('%s Settings', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
-            add_settings_field($field, 'Link', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
-            $option_group = $this->_getOptionGroup($operator);
-            $option_name = $this->getOptionName($operator);
+
+        delete_transient('providers');
+
+        // Get any existing copy of our transient data
+        if ( false === ( $providers = get_transient('providers'))) {
+            print 'nothing cached';
+            $this->_config = new Vegashero_Config();
+            $endpoint = sprintf('%s/vegasgod/providers', $this->_config->apiUrl);
+            $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
+            $providers = json_decode(json_decode($response), true);
+            if(count($providers) > 0) {
+                set_transient( 'providers', $providers, WEEK_IN_SECONDS);
+            }
+        } else {
+            echo 'fetching from cache';
+        }
+
+        $this->_providers = $providers;
+
+        foreach($providers as $provider) {
+            $this->_provider = $provider;
+            $section = $this->_getSectionName($provider);
+            $page = $this->_getPageName($provider);
+            $field = $this->_getAffiliateCodeInputKey($provider);
+            add_settings_section($section, sprintf('%s Settings', ucfirst($provider)), array($this, 'getDescriptionForSiteSettings'), $page);
+            add_settings_field($field, 'Link', array($this, 'createAffiliateCodeInput'), $page, $section, array($provider));
+            $option_group = $this->_getOptionGroup($provider);
+            $option_name = $this->getOptionName($provider);
             register_setting($option_group, $option_name);
         }
     }
@@ -122,17 +136,17 @@ class Vegashero_Settings
         <h3>Operators available to install</h3>
         <ul class="operator-cards">
         <?php
-          foreach($this->_operators as $operator) {
+          foreach($this->_providers as $provider) {
               echo '<li>';
               echo '<div class="desc">';
               echo '<form method="post" action="options.php">';
-              settings_fields($this->_getOptionGroup($operator));
-              $page = $this->_getPageName($operator);
+              settings_fields($this->_getOptionGroup($provider));
+              $page = $this->_getPageName($provider);
               do_settings_sections($page);
               echo '<div class="btn-area">';
               echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
-              echo $this->_getUpdateBtn($operator);
-              echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/operators/' . $operator . '.png" /></div>';
+              echo $this->_getUpdateBtn($provider);
+              echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/providers/' . $provider . '.png" /></div>';
               echo '</div></div>';
               echo '</form>';
               echo '</li>';
