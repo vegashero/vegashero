@@ -23,7 +23,7 @@ class Vegashero_Template
 
     function get_after_content() {
             ob_start();
-            dynamic_sidebar( 'single_game_widget_area' ); 
+            dynamic_sidebar( 'single_game_widget_area' );
             $single_game_widget = ob_get_contents();
             ob_end_clean();
             return $single_game_widget;
@@ -144,7 +144,7 @@ class Vegashero_Template
             }
 
             $table_template = sprintf($table_string, $tablebody_template);
-            $content = sprintf("%s %s $content %s", $iframe_template, $table_template, $shortcodetable_widget);
+            $content = sprintf("%s %s %s", $iframe_template, $content, $table_template, $shortcodetable_widget);
         }
         return $content;
     }
