@@ -4,6 +4,8 @@ if ( ! defined( 'WPINC' ) ) {
     exit();
 }
 
+require_once "config.php";
+
 class Vegashero_Template
 {
 

@@ -43,20 +43,21 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 
-spl_autoload_register(function($classname) {
-    $segments = explode('_', $classname);
-    if($segments[0] == 'Vegashero') {
-        $filename = plugin_dir_path(__FILE__) . strtolower($segments[1]) .".php";
-        if(file_exists($filename)) {
-            include_once($filename);
-        }
-    }
-});
-
+require_once "import.php";
 $import = new Vegashero_Import();
+
+require_once "template.php";
 $template = new Vegashero_Template();
+
+require_once "settings.php";
 $settings = new Vegashero_Settings();
+
+require_once "stylesheet.php";
 $stylesheet = new Vegashero_Stylesheet();
+
+require_once "shortcodes.php";
 $shortcode = new Vegashero_Shortcodes();
+
+require_once "ajax.php";
 $ajax = new Vegashero_Ajax();
 // $taxonomy = new Vegashero_Taxonomy();

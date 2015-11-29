@@ -1,5 +1,7 @@
 <?php
 
+require_once "config.php";
+
 // VH Lobby shortcode
 class Vegashero_Shortcodes
 {

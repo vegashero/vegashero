@@ -1,5 +1,7 @@
 <?php
 
+require_once "config.php";
+
 class Vegashero_Import
 {
 

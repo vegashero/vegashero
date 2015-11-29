@@ -1,4 +1,7 @@
 <?php
+
+require_once "../config.php";
+
 $config = new Vegashero_Config();
 $categories = get_terms($config->gameCategoryTaxonomy);
 $operators = get_terms($config->gameOperatorTaxonomy);

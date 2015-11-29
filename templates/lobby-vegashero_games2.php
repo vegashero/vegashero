@@ -1,4 +1,7 @@
 <?php
+
+require_once "../config.php";
+
 if( get_option('permalink_structure') ) {
     $format = "page/%#%/";
 } else {
