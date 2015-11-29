@@ -52,11 +52,14 @@ class Vegashero_Ajax
 
         // for image links
         foreach($posts as $post) {
-            $operator = wp_get_post_terms($post->ID, $this->_config->gameOperatorTaxonomy)[0];
+            $operators = wp_get_post_terms($post->ID, $this->_config->gameOperatorTaxonomy);
+	    $operator = $operators[0];
             $post->operator = sanitize_title($operator->name);
-            $provider = wp_get_post_terms($post->ID, $this->_config->gameProviderTaxonomy)[0];
+            $providers = wp_get_post_terms($post->ID, $this->_config->gameProviderTaxonomy);
+	    $provider = $provider[0];
             $post->provider = sanitize_title($provider->name);
-            $category = wp_get_post_terms($post->ID, $this->_config->gameCategoryTaxonomy)[0];
+            $categories = wp_get_post_terms($post->ID, $this->_config->gameCategoryTaxonomy);
+	    $category = $categories[0];
             $post->category = sanitize_title($category->name);
             $post->imgpath = sanitize_title($post->post_title);
         }
