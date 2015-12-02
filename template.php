@@ -144,7 +144,7 @@ class Vegashero_Template
             }
 
             $table_template = sprintf($table_string, $tablebody_template);
-            $content = sprintf("%s %s %s", $iframe_template, $content, $table_template, $shortcodetable_widget);
+            $content = sprintf("%s %s %s %s", $iframe_template, $content, $table_template, $shortcodetable_widget);
         }
         return $content;
     }
