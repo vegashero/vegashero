@@ -1,6 +1,6 @@
 <?php
 
-require_once "../config.php";
+require_once( dirname( __FILE__ ) . '/../config.php' );
 
 $config = new Vegashero_Config();
 $categories = get_terms($config->gameCategoryTaxonomy);

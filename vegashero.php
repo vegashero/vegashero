@@ -38,22 +38,22 @@ function edd_sl_sample_plugin_updater() {
 }
 add_action( 'admin_init', 'edd_sl_sample_plugin_updater', 0 );
 
-require( dirname( __FILE__ ) . '/config.php' );
-require( dirname( __FILE__ ) . '/import.php' );
+require_once( dirname( __FILE__ ) . '/config.php' );
+require_once( dirname( __FILE__ ) . '/import.php' );
 $import = new Vegashero_Import();
 
-require( dirname( __FILE__ ) . '/template.php' );
+require_once( dirname( __FILE__ ) . '/template.php' );
 $template = new Vegashero_Template();
 
-require( dirname( __FILE__ ) . '/settings.php' );
+require_once( dirname( __FILE__ ) . '/settings.php' );
 $settings = new Vegashero_Settings();
 
-require( dirname( __FILE__ ) . '/stylesheet.php' );
+require_once( dirname( __FILE__ ) . '/stylesheet.php' );
 $stylesheet = new Vegashero_Stylesheet();
 
-require( dirname( __FILE__ ) . '/shortcodes.php' );
+require_once( dirname( __FILE__ ) . '/shortcodes.php' );
 $shortcode = new Vegashero_Shortcodes();
 
-require( dirname( __FILE__ ) . '/ajax.php' );
+require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
 // $taxonomy = new Vegashero_Taxonomy();

@@ -73,7 +73,7 @@ jQuery(document).ready(function($) {
             var data = this.getQueryData(options);
             console.log(data);
             this.getGames(data, function(res) {
-                //console.log(res);
+                console.log(res);
                 var markup = ''
                 jQuery.each(res.posts, function(key, post) {
                     markup += self.getGameMarkup(data, post);

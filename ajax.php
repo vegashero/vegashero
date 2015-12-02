@@ -56,7 +56,7 @@ class Vegashero_Ajax
 	    $operator = $operators[0];
             $post->operator = sanitize_title($operator->name);
             $providers = wp_get_post_terms($post->ID, $this->_config->gameProviderTaxonomy);
-	    $provider = $provider[0];
+	    $provider = $providers[0];
             $post->provider = sanitize_title($provider->name);
             $categories = wp_get_post_terms($post->ID, $this->_config->gameCategoryTaxonomy);
 	    $category = $categories[0];
