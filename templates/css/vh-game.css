@@ -64,7 +64,7 @@
 	background:#6ac144;
 	padding:15px 30px;
 	font-size:16px;
-	color:white;
+	color:white !important;
 	text-transform:uppercase;
 	text-align:center;
 	text-decoration:none;
@@ -82,7 +82,7 @@
 }
 .vh-casino-providers .vh-devices {
 	width: 25%;
-} 
+}
 .vh-casino-providers .results-desktop {
 	display:inline-block;
 	padding-top:50px;
