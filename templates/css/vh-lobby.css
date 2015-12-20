@@ -221,12 +221,14 @@ ul#vh-lobby-posts {
   white-space: pre-wrap;
   background:#f1f1f1;
   vertical-align: middle;
+  text-transform: capitalize;
 }
 .vh-pagination {
   width:100%;
   clear:both;
   margin:20px 0px;
   display: inline-block;
+  text-align: center;
 }
 .vh-pagination .next {
   background:#f1f1f1;
@@ -288,11 +290,12 @@ ul#vh-lobby-posts {
 .vh-filter select {
   text-align: left;
 	color: #999999;
-	height: 35px;
+	height: auto;
 	font-size: 13px;
 	font-family: "Helvetica", Arial, sans-serif;
   margin-right:15px;
   border:1px solid #f4f4f4;
+  outline: none;
 }
 .vh-filter select:hover {
   background-color:#2e2e2e;
@@ -357,10 +360,17 @@ input[type="text"].vh-search {
 /* ---- game-item ---- */
 
 
+.vegashero_games .entry-title {
+  text-transform: capitalize;
+}
+
 @media (min-width: 992px) {
   .vh-filter select {
     width: 24%;
     float:left;
+  }
+  .vh-filter select:first-child {
+    margin-left:10px;
   }
 }
 @media (min-width: 1100px) {
