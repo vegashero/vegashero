@@ -5,6 +5,8 @@ class Vegashero_Settings
 
     private $_operators;
     private $_operator;
+    private $_providers;
+    private $_provider;
     private $_config;
 
     public function __construct() {
@@ -15,7 +17,8 @@ class Vegashero_Settings
             add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        add_action('admin_init', array($this, 'registerSettings'));
+        add_action('admin_init', array($this, 'registerOperatorSettings'));
+        add_action('admin_init', array($this, 'registerProviderSettings'));
 
     }
 
@@ -47,7 +50,24 @@ class Vegashero_Settings
         return sprintf('%s-affiliate-code', $operator);
     }
 
-    public function registerSettings() {
+    public function registerProviderSettings() {
+        $this->_config = new Vegashero_Config();
+        $endpoint = sprintf('%s/vegasgod/providers', $this->_config->apiUrl);
+        // this needs to be cached locally!!!!
+        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
+        $this->_providers = json_decode(json_decode($response), true);
+        foreach($this->_providers as $provider) {
+            $this->_provider = $provider;
+            $section = $this->_getSectionName(sprintf('%s-provider', $provider));
+            $page = $this->_getPageName(sprintf('%s-provider', $provider));
+            //add_settings_section($section, sprintf('%s Settings', ucfirst($provider)), array($this, 'getDescriptionForSiteSettings'), $page);
+            $option_group = $this->_getOptionGroup($provider);
+            $option_name = $this->getOptionName($provider);
+            register_setting($option_group, $option_name);
+        }
+    }
+
+    public function registerOperatorSettings() {
         $this->_config = new Vegashero_Config();
         $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
         // this needs to be cached locally!!!!
@@ -55,8 +75,8 @@ class Vegashero_Settings
         $this->_operators = json_decode(json_decode($response), true);
         foreach($this->_operators as $operator) {
             $this->_operator = $operator;
-            $section = $this->_getSectionName($operator);
-            $page = $this->_getPageName($operator);
+            $section = $this->_getSectionName(sprintf('%s-operator', $operator));
+            $page = $this->_getPageName(sprintf('%s-operator', $operator));
             $field = $this->_getAffiliateCodeInputKey($operator);
             add_settings_section($section, sprintf('%s Settings', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
             add_settings_field($field, 'Link', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
@@ -66,22 +86,26 @@ class Vegashero_Settings
         }
     }
 
-    private function _getPageName($operator) {
-        return sprintf('vegashero-plugin-%s-settings-page', $operator);
+    private function _getPageName($name) {
+        return sprintf('vegashero-%s-page', $name);
     }
 
-    private function _getSectionName($operator) {
-        return sprintf('%s-settings-section', $operator);
+    private function _getSectionName($name) {
+        return sanitize_title(sprintf('vegashero-%s-section', $name));
     }
 
     public function getDescriptionForSiteSettings() {
+        echo "<h1>HALLO HALLO HALLO</h1>";
         echo "<p>Add your full affiliate url here.</p>";
     }
 
     public function createAffiliateCodeInput($args) {
-        $operator = $args[0];
-        $key = $this->_getAffiliateCodeInputKey($operator);
-        $name = $this->getOptionName($operator);
+        echo "<pre>";
+        print_r($args);
+        echo "</pre>";
+        $name = $args[0];
+        $key = $this->_getAffiliateCodeInputKey($name);
+        $name = $this->getOptionName($name);
         // for array of options
         // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
         // for single option
@@ -91,7 +115,32 @@ class Vegashero_Settings
 
 
     public function addSettingsMenu() {
-        add_menu_page('VegasHero Settings', 'Vegas Hero', 'manage_options', 'vegashero-plugin', array($this, 'createSettingsPage'));
+        add_menu_page(
+            'VegasHero Settings', // The title to be displayed on this menu's corresponding page
+            'Vegas Hero', // The text to be displayed for this actual menu item
+            'manage_options', // Which type of users can see this menu
+            'vegashero-plugin', // The unique ID - that is, the slug - for this menu item
+            array($this, 'createDashboardPage') // The name of the function to call when rendering this menu's page
+        );
+
+        add_submenu_page(
+            'vegashero-plugin',         // Register this submenu with the menu defined above
+            'Operator Imports',          // The text to the display in the browser when this menu item is active
+            'Operator imports',                  // The text for this menu item
+            'administrator',            // Which type of users can see this menu
+            'vegashero-operator-import',          // The unique ID - the slug - for this menu item
+            array($this, 'createOperatorImportPage')   // The function used to render this menu's page to the screen
+        );
+
+        add_submenu_page(
+            'vegashero-plugin',         // Register this submenu with the menu defined above
+            'Provider Imports',          // The text to the display in the browser when this menu item is active
+            'Provider imports',                  // The text for this menu item
+            'administrator',            // Which type of users can see this menu
+            'vegashero-provider-import',          // The unique ID - the slug - for this menu item
+            array($this, 'createProviderImportPage')   // The function used to render this menu's page to the screen
+        );
+
     }
 
     private function _getUpdateBtn($operator) {
@@ -110,56 +159,17 @@ class Vegashero_Settings
         return $markup;
     }
 
-    public function createSettingsPage() { ?>
+    public function createOperatorImportPage() {
+        include dirname(__FILE__) . '/templates/settings/operator-import.php';
+    }
 
-      <div class="wrap about-wrap">
-        <h1>Welcome to Vegas Hero Games</h1>
-        <div class="about-text">
-			  Install a whole ton of games in an instant, add your affiliate codes from multiple operators.
-        </div>
-        <!-- <div class="vh-badge">Version 1.0</div> -->
-        <hr>
-        <h3>Operators available to install</h3>
-        <ul class="operator-cards">
-        <?php
-          foreach($this->_operators as $operator) {
-              echo '<li>';
-              echo '<div class="desc">';
-              echo '<form method="post" action="options.php">';
-              settings_fields($this->_getOptionGroup($operator));
-              $page = $this->_getPageName($operator);
-              do_settings_sections($page);
-              echo '<div class="btn-area">';
-              echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
-              echo $this->_getUpdateBtn($operator);
-              echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/operators/' . $operator . '.png" /></div>';
-              echo '</div></div>';
-              echo '</form>';
-              echo '</li>';
-          }
-        ?>
-        </ul>
+    public function createProviderImportPage() {
+        include dirname(__FILE__) . '/templates/settings/provider-import.php';
+    }
 
-        <div class="clear"></div>
-        <h3>Lobby Setup</h3>
-        <ul class="instructions">
-          <li>
-            <ul>
-              <li><b>1.</b> Add your affiliate code</li>
-              <li><b>2.</b> Click "Apply Link"</li>
-              <li><b>3.</b> Then click "Import games"</li>
-              <li><b>4.</b> Create a new page</li>
-              <li><b>5.</b> Add in this shortcode <span style="background:#f3f3f3; padding:3px 8px;">[vegashero-lobby]</span> </li>
-            </ul>
-            <div class="clear"></div>
-          </li>
 
-        </ul>
-            <div class="clear"></div>
-          </li>
-        </ul>
-      </div>
-        <?php
+    public function createDashboardPage() { 
+        include dirname(__FILE__) . '/templates/settings/dashboard.php';
     }
 }
 

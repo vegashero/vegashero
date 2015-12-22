@@ -56,4 +56,4 @@ $shortcode = new Vegashero_Shortcodes();
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
-// $taxonomy = new Vegashero_Taxonomy();
+
