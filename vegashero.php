@@ -45,8 +45,14 @@ $import = new Vegashero_Import();
 require_once( dirname( __FILE__ ) . '/template.php' );
 $template = new Vegashero_Template();
 
-require_once( dirname( __FILE__ ) . '/settings.php' );
-$settings = new Vegashero_Settings();
+require_once( dirname( __FILE__ ) . '/settings/dashboard.php' );
+$dashboard = new Vegashero_Settings_Dashboard();
+
+require_once( dirname( __FILE__ ) . '/settings/operators.php' );
+$operators = new Vegashero_Settings_Operators();
+
+require_once( dirname( __FILE__ ) . '/settings/providers.php' );
+$providers = new Vegashero_Settings_Providers();
 
 require_once( dirname( __FILE__ ) . '/stylesheet.php' );
 $stylesheet = new Vegashero_Stylesheet();
