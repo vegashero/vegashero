@@ -11,13 +11,26 @@ class Vegashero_Settings_Operators
 
         $this->_config = new Vegashero_Config();
 
+        if(array_key_exists('page', $_GET)) {
+            if($_GET['page'] === 'vegashero-operator-import') {
+                add_action('admin_init', array($this, 'registerSettings'));
+                add_action('admin_head', array($this, 'loadOperatorStyles'));
+            }
+        }
+        add_action('admin_menu', array($this, 'addSettingsMenu'));
+
+
         if(@$_GET['page'] === 'vegashero-plugin' && @$_GET['vegashero-import'] === 'queued') {
             add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
         }
-        add_action('admin_menu', array($this, 'addSettingsMenu'));
-        add_action('admin_init', array($this, 'registerSettings'));
 
     }
+     
+    public function loadOperatorStyles() {
+        $url = plugin_dir_url( __FILE__ ) . 'templates/operators.css';
+        echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
+    }
+
 
     public function vegashero_admin_import_notice() {
       $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );

@@ -11,8 +11,11 @@ class Vegashero_Settings_Providers
 
         $this->_config = new Vegashero_Config();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        add_action('admin_init', array($this, 'registerSettings'));
-
+        if(array_key_exists('page', $_GET)) {
+            if($_GET['page'] === 'vegashero-provider-import') {
+                add_action('admin_init', array($this, 'registerSettings'));
+            }
+        }
     }
 
     private function _getOptionGroup($provider=null) {
@@ -46,7 +49,7 @@ class Vegashero_Settings_Providers
             $this->_provider = $provider;
             $section = $this->_getSectionName($provider);
             $page = $this->_getPageName($provider);
-            add_settings_section($section, sprintf('%s', ucfirst($provider)), array($this, 'getDescriptionForSiteSettings'), $page);
+            add_settings_section($section, sprintf('%s', ucfirst($provider)), array($this, 'getProviderDescription'), $page);
             $option_group = $this->_getOptionGroup($provider);
             $option_name = $this->getOptionName($provider);
             register_setting($option_group, $option_name);
@@ -61,8 +64,8 @@ class Vegashero_Settings_Providers
         return sanitize_title(sprintf('vegashero-%s-section', $name));
     }
 
-    public function getDescriptionForSiteSettings() {
-        echo "<p>This is the provider import description.</p>";
+    public function getProviderDescription() {
+        echo "<p>This is a provider import description.</p>";
     }
 
     public function addSettingsMenu() {
@@ -79,14 +82,8 @@ class Vegashero_Settings_Providers
     private function _getUpdateBtn($provider) {
 
         $markup = "&nbsp;&nbsp;<a href='";
-        $option_name = $this->getOptionName($provider);
-        $option = get_option($option_name);
-        if( ! empty($option)) {
-            $update_url = plugins_url('update.php', __FILE__);
-            $markup .= "$update_url?provider=$provider'";
-        } else {
-            $markup .= "#' disabled='disabled'";
-        }
+        $update_url = plugins_url('update.php', __FILE__);
+        $markup .= "$update_url?provider=$provider'";
         $markup .= " class='button button-primary'";
         $markup .= ">Import games</a>";
         return $markup;
