@@ -19,7 +19,6 @@ class Vegashero_Settings_Operators
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
 
-
         if(@$_GET['page'] === 'vegashero-plugin' && @$_GET['vegashero-import'] === 'queued') {
             add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
         }
@@ -100,8 +99,6 @@ class Vegashero_Settings_Operators
         // for single option
         echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' placeholder='http://your-affiliate-url.com' />";
     }
-
-
 
     public function addSettingsMenu() {
         add_submenu_page(
