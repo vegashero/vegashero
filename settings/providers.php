@@ -8,14 +8,9 @@ class Vegashero_Settings_Providers
     private $_config;
 
     public function __construct() {
-
         $this->_config = new Vegashero_Config();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        if(array_key_exists('page', $_GET)) {
-            if($_GET['page'] === 'vegashero-provider-import') {
-                add_action('admin_init', array($this, 'registerSettings'));
-            }
-        }
+        add_action('admin_init', array($this, 'registerSettings'));
     }
 
     private function _getOptionGroup($provider=null) {
@@ -70,7 +65,7 @@ class Vegashero_Settings_Providers
 
     public function addSettingsMenu() {
         add_submenu_page(
-            'vegashero-plugin',         // Register this submenu with the menu defined above
+            'vegashero-dashboard',         // Register this submenu with the menu defined above
             'Provider Imports',          // The text to the display in the browser when this menu item is active
             'Provider imports',                  // The text for this menu item
             'administrator',            // Which type of users can see this menu

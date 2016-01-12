@@ -5,6 +5,16 @@
 </div>
 <p>To get access to all games paste your license key below</p>
 <label for="vegashero-license">License key</label>
+
+ <form method="post" action="options.php">
+<?php 
+settings_fields($this->_getOptionGroup());
+$page = $this->_getPageName();
+do_settings_sections($page); 
+?>
 <input id="vegashero-license" type="text" placeholder="vegashero license key">
+<input type='submit' name='submit' class='button button-primary' value='Apply Link'>
+</form>
+
 <p>Don't have a license key? You can still import a sample of games or <a href="#">purchase your key now</a></p>
 </div>

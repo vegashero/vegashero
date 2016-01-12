@@ -13,15 +13,15 @@ class Vegashero_Settings_Operators
 
         if(array_key_exists('page', $_GET)) {
             if($_GET['page'] === 'vegashero-operator-import') {
-                add_action('admin_init', array($this, 'registerSettings'));
                 add_action('admin_head', array($this, 'loadOperatorStyles'));
             }
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
 
-        if(@$_GET['page'] === 'vegashero-plugin' && @$_GET['vegashero-import'] === 'queued') {
+        if(@$_GET['page'] === 'vegashero-dashboard' && @$_GET['vegashero-import'] === 'queued') {
             add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
         }
+        add_action('admin_init', array($this, 'registerSettings'));
 
     }
      
@@ -29,7 +29,6 @@ class Vegashero_Settings_Operators
         $url = plugin_dir_url( __FILE__ ) . 'templates/operators.css';
         echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
     }
-
 
     public function vegashero_admin_import_notice() {
       $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );
@@ -39,10 +38,13 @@ class Vegashero_Settings_Operators
     }
 
     private function _getOptionGroup($operator=null) {
+        return 'vegashero_operator_settings';
+        /*
         if(is_null($operator)) {
             $operator = $this->_operator;
         }
         return sprintf('vegashero_settings_group_%s', $operator);
+        */
     }
 
     public function getOptionName($operator=null) {
@@ -102,7 +104,7 @@ class Vegashero_Settings_Operators
 
     public function addSettingsMenu() {
         add_submenu_page(
-            'vegashero-plugin',         // Register this submenu with the menu defined above
+            'vegashero-dashboard',         // Register this submenu with the menu defined above
             'Operator Imports',          // The text to the display in the browser when this menu item is active
             'Operator imports',                  // The text for this menu item
             'administrator',            // Which type of users can see this menu

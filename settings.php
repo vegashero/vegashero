@@ -13,7 +13,7 @@ class Vegashero_Settings
 
         $this->_config = new Vegashero_Config();
 
-        if(@$_GET['page'] === 'vegashero-plugin' && @$_GET['vegashero-import'] === 'queued') {
+        if(@$_GET['page'] === 'vegashero-dashboard' && @$_GET['vegashero-import'] === 'queued') {
             add_action( 'admin_notices', array($this, 'vegashero_admin_import_notice'));
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
@@ -119,12 +119,12 @@ class Vegashero_Settings
             'VegasHero Settings', // The title to be displayed on this menu's corresponding page
             'Vegas Hero', // The text to be displayed for this actual menu item
             'manage_options', // Which type of users can see this menu
-            'vegashero-plugin', // The unique ID - that is, the slug - for this menu item
+            'vegashero-dashboard', // The unique ID - that is, the slug - for this menu item
             array($this, 'createDashboardPage') // The name of the function to call when rendering this menu's page
         );
 
         add_submenu_page(
-            'vegashero-plugin',         // Register this submenu with the menu defined above
+            'vegashero-dashboard',         // Register this submenu with the menu defined above
             'Operator Imports',          // The text to the display in the browser when this menu item is active
             'Operator imports',                  // The text for this menu item
             'administrator',            // Which type of users can see this menu
@@ -133,7 +133,7 @@ class Vegashero_Settings
         );
 
         add_submenu_page(
-            'vegashero-plugin',         // Register this submenu with the menu defined above
+            'vegashero-dashboard',         // Register this submenu with the menu defined above
             'Provider Imports',          // The text to the display in the browser when this menu item is active
             'Provider imports',                  // The text for this menu item
             'administrator',            // Which type of users can see this menu
@@ -174,7 +174,7 @@ class Vegashero_Settings
 }
 
 function affiliate_id_notice() {
-  $vegas_settings_page = admin_url( "admin.php?page=vegashero-plugin" );
+  $vegas_settings_page = admin_url( "admin.php?page=vegashero-dashboard" );
 ?>
 <div class="error notice is-dismissible importwarning">
     <p><?php echo "You can add your affiliate code and import VegasHero Games <a href='".$vegas_settings_page."'>here</a>."; ?></p>

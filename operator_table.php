@@ -3,7 +3,7 @@
   add_action('admin_menu', 'addOperatorTableMenu');
 
   function addOperatorTableMenu() {
-      add_submenu_page( 'vegashero-plugin', 'Operators', 'Operator Table', 'manage_options', 'operator-table', 'operator_table_page' );
+      add_submenu_page( 'vegashero-dashboard', 'Operators', 'Operator Table', 'manage_options', 'operator-table', 'operator_table_page' );
       //add_menu_page('op_vegashero', 'Operator Table', 'manage_options', 'vegashero-operator', 'operatorTablePage');
   }
 
@@ -18,7 +18,7 @@
   // function custom_operator_init() {
   //
   //   add_settings_section('section', 'Operator Shortcode Settings', null, "theme-options");
-  //   add_settings_field('custom_operator', 'Operator Shortcode', 'custom_operator_html', 'vegashero-plugin', 'section');
+  //   add_settings_field('custom_operator', 'Operator Shortcode', 'custom_operator_html', 'vegashero-dashboard', 'section');
   //   register_setting('vh_operator', 'custom_operator');
   //
   // }
