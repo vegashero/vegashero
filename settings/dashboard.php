@@ -20,19 +20,26 @@ class Vegashero_Settings_Dashboard
         add_settings_field($field, 'License key', array($this, 'createAffiliateCodeInput'), $page, $section);
         $option_group = $this->_getOptionGroup();
         $option_name = $this->getOptionName();
-        register_setting($option_group, $option_name);
+        register_setting($option_group, $option_name, array($this, 'validateLicenseKey'));
+    }
+
+    /*
+     * We could validate license key here upon saving
+     */
+    public function validateLicenseKey($license_key) {
+        return $license_key;
     }
 
     private function _getOptionGroup() {
-        return 'vegashero_settings_group_license';
+        return $this->_config->settingsLicenseName;
     }
 
     public function getOptionName() {
-        return 'vegashero_settings_name_license';
+        return $this->_config->settingsLicenseName;
     }
 
     private function _getAffiliateCodeInputKey() {
-        return 'vegashero-license';
+        return $this->_config->settingsLicenseName;
     }
 
     private function _getPageName() {

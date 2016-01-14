@@ -12,8 +12,7 @@ settings_fields($this->_getOptionGroup());
 $page = $this->_getPageName();
 do_settings_sections($page); 
 ?>
-<input id="vegashero-license" type="text" placeholder="vegashero license key">
-<input type='submit' name='submit' class='button button-primary' value='Apply Link'>
+<input type='submit' name='submit' class='button button-primary' value='Save License'>
 </form>
 
 <p>Don't have a license key? You can still import a sample of games or <a href="#">purchase your key now</a></p>
