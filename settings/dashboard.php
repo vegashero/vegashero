@@ -39,10 +39,6 @@ class Vegashero_Settings_Dashboard
                 'sslverify' => false,
                 'body'      => $api_params
             ) );
-            echo "<pre>";
-            print_r($response);
-            echo "</pre>";
-            exit();
 
             // make sure the response came back okay
             if ( is_wp_error( $response ) )
@@ -50,13 +46,21 @@ class Vegashero_Settings_Dashboard
 
             // decode the license data
             $license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
             // $license_data->license will be either "active" or "inactive"
 
             $license_status_name = sprintf('%s_activation_status', $this->_config->settingsLicensePrefix);
             update_option($license_status_name, $license_data->license );
 
         }
+    }
+
+    public function sanitizeLicense($new) {
+        $name = $this->getOptionName();
+        $old = get_option($name);
+        if( $old && $old != $new ) {
+            delete_option(sprintf('%s_activation_status', $this->_config->settingsLicensePrefix)); // new license has been entered, so must reactivate
+        }
+        return $new;
     }
 
     public function registerSettings() {
@@ -67,7 +71,7 @@ class Vegashero_Settings_Dashboard
         add_settings_field($this->_getLicenseActivationButtonKey(), 'Activate License', array($this, 'createLicenseActivationButton'), $page, $section);
         $option_group = $this->_getOptionGroup();
         $option_name = $this->getOptionName();
-        register_setting($option_group, $option_name, array($this, 'validateLicenseKey'));
+        register_setting($option_group, $option_name, array($this, 'sanitizeLicense'));
     }
 
     private function _getLicenseNonceName() {
@@ -84,6 +88,7 @@ class Vegashero_Settings_Dashboard
 
     public function createLicenseActivationButton() {
         $name = sprintf('%s_activation', $this->_config->settingsLicensePrefix);
+        //echo sprintf('is license active? %s', (int)$this->_isLicenseActive());
         if($this->_isLicenseActive()) {
             echo "<span style='color:green;'>active</span>";
         } else {
@@ -93,7 +98,8 @@ class Vegashero_Settings_Dashboard
     }
 
     private function _isLicenseActive() {
-        $status = get_option('%s_activation_status', $this->_config->settingsLicensePrefix);
+        $license_status_name = sprintf('%s_activation_status', $this->_config->settingsLicensePrefix);
+        $status = get_option($license_status_name);
         return $status !== false && $status == 'valid';
     }
 
