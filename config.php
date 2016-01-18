@@ -4,7 +4,16 @@
 class Vegashero_Config
 {
 
-    public function __construct() {
+    private static $instance;
+
+    public static function getInstance() {
+        if (null === static::$instance) {
+            static::$instance = new static();
+        }
+        return static::$instance;
+    }
+
+    protected function __construct() {
         $config = $this->parseIniFileExtended('config.ini');
         if( ! getenv('VEGASHERO_ENV')) {
             putenv('VEGASHERO_ENV=production');
@@ -12,7 +21,11 @@ class Vegashero_Config
         foreach($config[getenv('VEGASHERO_ENV')] as $key => $value) {
             $this->$key = $value;
         }
+    }   
+
+    private function __clone() {
     }
+
 
     public function parseIniFileExtended($filename) {
         $p_ini = parse_ini_file($filename, true);

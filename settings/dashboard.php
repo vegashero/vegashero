@@ -6,7 +6,7 @@ class Vegashero_Settings_Dashboard
     private $_config;
 
     public function __construct() {
-        $this->_config = new Vegashero_Config();
+        $this->_config = Vegashero_Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
         add_action('admin_init', array($this, 'activateLicense'));

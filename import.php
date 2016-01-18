@@ -6,7 +6,7 @@ class Vegashero_Import
     private $_config = array();
 
     public function __construct() {
-        $this->_config = new Vegashero_Config();
+        $this->_config = Vegashero_Config::getInstance();
 
         // add_action( 'init', array($this, 'setPermalinkStructure'));
         add_action('init', array($this, 'registerCustomPostType'));

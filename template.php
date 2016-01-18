@@ -11,7 +11,7 @@ class Vegashero_Template
 
     public function __construct() {
 
-        $this->_config = new Vegashero_Config();
+        $this->_config = Vegashero_Config::getInstance();
         $this->_images = plugins_url('vegashero/templates/img/');
 
         add_filter( 'single_template', array($this, 'getSingleTemplate'));

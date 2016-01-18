@@ -8,7 +8,7 @@ class Vegashero_Settings_Providers
     private $_config;
 
     public function __construct() {
-        $this->_config = new Vegashero_Config();
+        $this->_config = Vegashero_Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
     }
@@ -35,7 +35,6 @@ class Vegashero_Settings_Providers
     }
 
     public function registerSettings() {
-        $this->_config = new Vegashero_Config();
         $endpoint = sprintf('%s/vegasgod/providers', $this->_config->apiUrl);
         // this needs to be cached locally!!!!
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));

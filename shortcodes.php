@@ -7,7 +7,7 @@ class Vegashero_Shortcodes
     private $_config;
 
     public function __construct() {
-        $this->_config = new Vegashero_Config();
+        $this->_config = Vegashero_Config::getInstance();
         add_shortcode('vegashero-lobby', array($this, 'lobby'));
     }
 

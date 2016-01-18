@@ -9,7 +9,7 @@ class Vegashero_Settings_Operators
 
     public function __construct() {
 
-        $this->_config = new Vegashero_Config();
+        $this->_config = Vegashero_Config::getInstance();
 
         if(array_key_exists('page', $_GET)) {
             if($_GET['page'] === 'vegashero-operator-import') {
@@ -62,7 +62,6 @@ class Vegashero_Settings_Operators
     }
 
     public function registerSettings() {
-        $this->_config = new Vegashero_Config();
         $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
         // this needs to be cached locally!!!!
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));

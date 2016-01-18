@@ -2,7 +2,7 @@
       <div class="wrap about-wrap">
         <h1>Import games by provider</h1>
         <div class="about-text">
-			  Install a whole ton of games in an instant, add your affiliate codes from multiple operators.
+			  Install a whole ton of games per provider and create your own operators
         </div>
         <!-- <div class="vh-badge">Version 1.0</div> -->
         <hr>

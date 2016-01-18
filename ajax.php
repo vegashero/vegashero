@@ -6,7 +6,7 @@ class Vegashero_Ajax
     private $_config;
 
     public function __construct() {
-        $this->_config = new Vegashero_Config();
+        $this->_config = Vegashero_Config::getInstance();
         // add_action( 'init', array($this, 'lobby_filters') );
         add_action('wp_enqueue_scripts', array($this, 'lobby_filters'));
         add_action( 'wp_ajax_lobby_search_filter', array($this, 'filter_lobby'));
