@@ -23,7 +23,7 @@ class Vegashero_Settings_Dashboard
 
             // retrieve the license from the database
             $option_name = $this->getOptionName();
-            $license = trim($_POST[$option_name]);
+            $license = get_option($option_name);
 
             // data to send in our API request
             $api_params = array( 
@@ -41,8 +41,13 @@ class Vegashero_Settings_Dashboard
             ) );
 
             // make sure the response came back okay
-            if ( is_wp_error( $response ) )
+            if (is_wp_error( $response )) {
+                echo '<h3>Error</h3>';
+                echo "<pre>";
+                print_r($response);
+                echo "</pre>";
                 return false;
+            }
 
             // decode the license data
             $license_data = json_decode( wp_remote_retrieve_body( $response ) );
@@ -55,6 +60,7 @@ class Vegashero_Settings_Dashboard
     }
 
     public function sanitizeLicense($new) {
+        //echo sprintf('<h3>sanitizing license</h3>', '');
         $name = $this->getOptionName();
         $old = get_option($name);
         if( $old && $old != $new ) {
