@@ -39,23 +39,27 @@ function edd_sl_sample_plugin_updater() {
 add_action( 'admin_init', 'edd_sl_sample_plugin_updater', 0 );
 
 require_once( dirname( __FILE__ ) . '/config.php' );
-require_once( dirname( __FILE__ ) . '/import.php' );
-$import = new Vegashero_Import();
-
-require_once( dirname( __FILE__ ) . '/template.php' );
-$template = new Vegashero_Template();
 
 //require_once( dirname( __FILE__ ) . '/settings.php' );
 //$dashboard = new Vegashero_Settings();
 
 require_once( dirname( __FILE__ ) . '/settings/dashboard.php' );
-$dashboard = new Vegashero_Settings_Dashboard();
+$dashboard = Vegashero_Settings_Dashboard::getInstance();
 
 require_once( dirname( __FILE__ ) . '/settings/operators.php' );
 $operators = new Vegashero_Settings_Operators();
 
 require_once( dirname( __FILE__ ) . '/settings/providers.php' );
 $providers = new Vegashero_Settings_Providers();
+
+require_once( dirname( __FILE__ ) . '/import/operator.php' );
+$import_operator = new Vegashero_Import_Operator();
+
+require_once( dirname( __FILE__ ) . '/import/provider.php' );
+$import_provider = new Vegashero_Import_Provider();
+
+require_once( dirname( __FILE__ ) . '/template.php' );
+$template = new Vegashero_Template();
 
 require_once( dirname( __FILE__ ) . '/stylesheet.php' );
 $stylesheet = new Vegashero_Stylesheet();

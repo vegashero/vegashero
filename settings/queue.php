@@ -4,11 +4,23 @@
 // error_reporting(-1);
 
 $current_dir = dirname(__FILE__);
-$root_dir = realpath("$current_dir/../../../");
+$root_dir = realpath("$current_dir/../../../../");
 require_once "$root_dir/wp-load.php";
 $location = @$_SERVER['HTTP_REFERER'];
 
-if( ! empty($location) && isset($_GET['operator'])  ) {
+if( ! empty($location)) {
+
+    if(isset($_GET['operator'])) {
+        // TODO: add whitelist and check
+        $whitelist = array();
+        $import_type = 'operator';
+        $identifier = trim($_GET['operator']);
+    } elseif (isset($_GET['provider'])) {
+        // TODO: add whitelist and check
+        $whitelist = array();
+        $import_type = 'provider';
+        $identifier = trim($_GET['provider']);
+    } 
 
     $parsed = parse_url($location);
     parse_str($parsed['query'], $dirty);
@@ -26,8 +38,8 @@ if( ! empty($location) && isset($_GET['operator'])  ) {
     // }
 
     // schedule import of games for the specific operator
-    if( ! wp_next_scheduled('vegashero_import_'+$_GET['operator'])) {
-        wp_schedule_single_event(time(), 'vegashero_import', array(trim($_GET['operator'])));
+    if( ! wp_next_scheduled(sprintf('vegashero_import_%s', $identifier))) {
+        wp_schedule_single_event(time(), sprintf('vegashero_import_%s', $import_type), array($identifier));
     }
 
 } else {

@@ -76,7 +76,7 @@ class Vegashero_Settings_Providers
     private function _getUpdateBtn($provider) {
 
         $markup = "&nbsp;&nbsp;<a href='";
-        $update_url = plugins_url('update.php', __FILE__);
+        $update_url = plugins_url('queue.php', __FILE__);
         $markup .= "$update_url?provider=$provider'";
         $markup .= " class='button button-primary'";
         $markup .= ">Import games</a>";

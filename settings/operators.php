@@ -118,7 +118,7 @@ class Vegashero_Settings_Operators
         $option_name = $this->getOptionName($operator);
         $option = get_option($option_name);
         if( ! empty($option)) {
-            $update_url = plugins_url('update.php', __FILE__);
+            $update_url = plugins_url('queue.php', __FILE__);
             $markup .= "$update_url?operator=$operator'";
         } else {
             $markup .= "#' disabled='disabled'";

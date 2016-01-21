@@ -26,7 +26,6 @@ class Vegashero_Config
     private function __clone() {
     }
 
-
     public function parseIniFileExtended($filename) {
         $p_ini = parse_ini_file($filename, true);
         $config = array();
