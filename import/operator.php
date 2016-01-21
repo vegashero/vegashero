@@ -15,7 +15,7 @@ class Vegashero_Import_Operator
         // add_action( 'init', array($this, 'setPermalinkStructure'));
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerTaxonomies'));
-
+        add_filter( 'block_local_requests', '__return_false' );
         // this action is scheduled in queue.php
         add_action('vegashero_import_operator', array($this, 'import_games'));
     }
