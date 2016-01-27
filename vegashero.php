@@ -52,6 +52,9 @@ $operators = new Vegashero_Settings_Operators();
 require_once( dirname( __FILE__ ) . '/settings/providers.php' );
 $providers = new Vegashero_Settings_Providers();
 
+require_once( dirname( __FILE__ ) . '/settings/affiliates.php' );
+$affiliates = new Vegashero_Settings_Affiliates();
+
 require_once( dirname( __FILE__ ) . '/import/operator.php' );
 $import_operator = new Vegashero_Import_Operator();
 
