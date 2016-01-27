@@ -17,7 +17,7 @@ class Vegashero_Import_Operator
         add_action('init', array($this, 'registerTaxonomies'));
         add_filter( 'block_local_requests', '__return_false' );
         // this action is scheduled in queue.php
-        add_action('vegashero_import_operator', array($this, 'import_games'));
+        add_action('vegashero_import_operator', array($this, 'importGamesForOperator'));
     }
 
     private function _setOperators() {
@@ -92,17 +92,13 @@ class Vegashero_Import_Operator
         // [europa] => 0
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
-        echo "<h4>$operator</h4>";
-        echo "<pre>";
-        print_r($game);
-        echo "</pre>";
         $post = array(
-            'post_content'   => '', //the_content(),
+            'post_content'   => the_content() ? the_content() : '',
             'post_name'      => sanitize_title($game->name),
             'post_title'     => ucfirst($game->name),
             'post_status'    => $game->status ? 'publish' : 'draft',
             'post_type'      => $this->_config->customPostType,
-            'post_excerpt'   => '' //the_excerpt()
+            'post_excerpt'   => the_excerpt() ? the_excerpt() : ''
         );
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
@@ -206,7 +202,7 @@ class Vegashero_Import_Operator
         }
     }
 
-    public function import_games($operator) {
+    public function importGamesForOperator($operator) {
         // $this->registerTaxonomies();
 
         // [id] => 6
@@ -231,7 +227,6 @@ class Vegashero_Import_Operator
         if($this->_haveLicense()) {
             $endpoint = sprintf('%s?license=%s', $endpoint, $this->_license);
         }
-        echo sprintf('endpoint: %s<br>', $endpoint);
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $games = json_decode(json_decode($response));
 

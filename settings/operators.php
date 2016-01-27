@@ -38,13 +38,10 @@ class Vegashero_Settings_Operators
     }
 
     private function _getOptionGroup($operator=null) {
-        return 'vegashero_operator_settings';
-        /*
         if(is_null($operator)) {
             $operator = $this->_operator;
         }
         return sprintf('vegashero_settings_group_%s', $operator);
-        */
     }
 
     public function getOptionName($operator=null) {

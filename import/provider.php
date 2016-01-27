@@ -4,9 +4,14 @@ class Vegashero_Import_Provider
 {
 
     private $_config = array();
+    private $_license = '';
 
     public function __construct() {
         $this->_config = Vegashero_Config::getInstance();
+        $dashboard = Vegashero_Settings_Dashboard::getInstance();
+        $this->_license = $dashboard->getLicense();
+
+        //echo '<pre>'; print_r( _get_cron_array() ); echo '</pre>';
 
         // add_action( 'init', array($this, 'setPermalinkStructure'));
         add_action('init', array($this, 'registerCustomPostType'));
@@ -82,12 +87,12 @@ class Vegashero_Import_Provider
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
         $post = array(
-            'post_content'   => the_content(),
+            'post_content'   => the_content() ? the_content() : '',
             'post_name'      => sanitize_title($game->name),
             'post_title'     => ucfirst($game->name),
             'post_status'    => $game->status ? 'publish' : 'draft',
             'post_type'      => $this->_config->customPostType,
-            'post_excerpt'   => the_excerpt()
+            'post_excerpt'   => the_excerpt() ? the_excerpt() : ''
         );
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
@@ -150,7 +155,7 @@ class Vegashero_Import_Provider
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
 
-        $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
+        $endpoint = sprintf('%s/vegasgod/games/provider/%s?license=%s', $this->_config->apiUrl, $provider, $this->_license);
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $games = json_decode(json_decode($response));
 
