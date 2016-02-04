@@ -4,7 +4,7 @@
  * Plugin Name: Vegas Hero
  * Plugin URI: http://vegashero.co
  * Description: Bulk import of slots, table and poker games from the biggest iGaming software providers. Instant lobby and games pages including options to add your affiliate links.
- * Version: 1.3.1
+ * Version: 1.3.2
  * Author: Vegas Hero
  * Author URI: http://vegashero.co
  * License: GPL2
@@ -20,10 +20,10 @@ $dashboard = Vegashero_Settings_Dashboard::getInstance();
 require_once( dirname(__FILE__) . '/updater.php' );
 $updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__, 
     array(
-        'version'   => '1.0',       // current version number
+        'version'   => '1.3.2',       // current version number
         'license'   => $dashboard->getLicense(),    // license key (used get_option above to retrieve from DB)
-        'item_name'     => $config->eddItemName,    // name of this plugin
-        'author'    => 'Vegas Heroes', // author of this plugin
+        'item_name'     => $config->eddDownloadName,    // name of this plugin
+        'author'    => 'Vegas Hero', // author of this plugin
         'url'           => home_url()
     ) 
 );
