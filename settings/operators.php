@@ -37,65 +37,11 @@ class Vegashero_Settings_Operators
         echo '</p></div>';
     }
 
-    private function _getOptionGroup($operator=null) {
-        if(is_null($operator)) {
-            $operator = $this->_operator;
-        }
-        return sprintf('vegashero_settings_group_%s', $operator);
-    }
-
-    public function getOptionName($operator=null) {
-        if(is_null($operator)) {
-            $operator = $this->_operator;
-        }
-        return sprintf('%s%s', $this->_config->settingsNamePrefix, $operator);
-    }
-
-    private function _getAffiliateCodeInputKey($operator=null) {
-        if(is_null($operator)) {
-            $operator = $this->_operator;
-        }
-        return sprintf('%s-affiliate-code', $operator);
-    }
 
     public function registerSettings() {
         $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
-        // this needs to be cached locally!!!!
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $this->_operators = json_decode(json_decode($response), true);
-        foreach($this->_operators as $operator) {
-            $this->_operator = $operator;
-            $section = $this->_getSectionName($operator);
-            $page = $this->_getPageName($operator);
-            $field = $this->_getAffiliateCodeInputKey($operator);
-            add_settings_section($section, sprintf('%s', ucfirst($operator)), array($this, 'getDescriptionForSiteSettings'), $page);
-            add_settings_field($field, 'Link', array($this, 'createAffiliateCodeInput'), $page, $section, array($operator));
-            $option_group = $this->_getOptionGroup($operator);
-            $option_name = $this->getOptionName($operator);
-            register_setting($option_group, $option_name);
-        }
-    }
-
-    private function _getPageName($operator) {
-        return sprintf('vegashero-operator-%s-page', $operator);
-    }
-
-    private function _getSectionName($operator) {
-        return sanitize_title(sprintf('vegashero-operator-%s-section', $operator));
-    }
-
-    public function getDescriptionForSiteSettings() {
-        echo "<p>Add your full affiliate url here.</p>";
-    }
-
-    public function createAffiliateCodeInput($args) {
-        $operator = $args[0];
-        $key = $this->_getAffiliateCodeInputKey($operator);
-        $name = $this->getOptionName($operator);
-        // for array of options
-        // echo "<input name='".$name."[".$key."]' size='40' type='text' value='".get_option($name)."' />";
-        // for single option
-        echo "<input name='".$name."' size='30' type='text' value='".get_option($name)."' placeholder='http://your-affiliate-url.com' />";
     }
 
     public function addSettingsMenu() {
@@ -110,16 +56,9 @@ class Vegashero_Settings_Operators
     }
 
     private function _getUpdateBtn($operator) {
-
-        $markup = "&nbsp;&nbsp;<a href='";
-        $option_name = $this->getOptionName($operator);
-        $option = get_option($option_name);
-        if( ! empty($option)) {
-            $update_url = plugins_url('queue.php', __FILE__);
-            $markup .= "$update_url?operator=$operator'";
-        } else {
-            $markup .= "#' disabled='disabled'";
-        }
+        $markup = "<a href='";
+        $update_url = plugins_url('queue.php', __FILE__);
+        $markup .= "$update_url?operator=$operator'";
         $markup .= " class='button button-primary'";
         $markup .= ">Import games</a>";
         return $markup;

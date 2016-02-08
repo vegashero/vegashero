@@ -12,16 +12,17 @@
           foreach($this->_operators as $operator) {
               echo '<li>';
               echo '<div class="desc">';
-              echo '<form method="post" action="options.php">';
-              settings_fields($this->_getOptionGroup($operator));
-              $page = $this->_getPageName($operator);
-              do_settings_sections($page);
+              //echo '<form method="post" action="options.php">';
+              //settings_fields($this->_getOptionGroup($operator));
+              //$page = $this->_getPageName($operator);
+              //do_settings_sections($page);
               echo '<div class="btn-area">';
-              echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
+              //echo "<input type='submit' name='submit' class='button button-primary' value='Apply Link'>";
               echo $this->_getUpdateBtn($operator);
               echo '<div class="operator-img"><img src="http://cdn.vegasgod.com/operators/' . $operator . '.png" /></div>';
-              echo '</div></div>';
-              echo '</form>';
+              echo '</div>';
+              echo '</div>';
+              //echo '</form>';
               echo '</li>';
           }
         ?>
