@@ -4,13 +4,17 @@
 To get access to all games paste your license key below
 </div>
  <form method="post" action="options.php">
-<?php 
+<?php
 settings_fields($this->_getOptionGroup());
 $page = $this->_getPageName();
-do_settings_sections($page); 
+do_settings_sections($page);
 ?>
 <input type='submit' name='submit' class='button button-primary' value='Save License'>
 </form>
 
-<p>Don't have a license key? You can still import a sample of games or <a href="#">purchase your key now</a></p>
+<p>Don't have a license key? You can still import a sample of games or <a href="http://vegashero.co">purchase your key now</a></p>
+<div class="purchase-banner">
+  <h3>Import 1000+ games</h3>
+  <a href="http://vegashero.co">Purchase a license</a>
+</div>
 </div>

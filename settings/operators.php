@@ -12,7 +12,7 @@ class Vegashero_Settings_Operators
         $this->_config = Vegashero_Config::getInstance();
 
         if(array_key_exists('page', $_GET)) {
-            if($_GET['page'] === 'vegashero-operator-import') {
+            if($_GET['page'] === 'vegashero-operator-import' || 'vegashero-provider-import') {
                 add_action('admin_head', array($this, 'loadOperatorStyles'));
             }
         }
@@ -24,7 +24,7 @@ class Vegashero_Settings_Operators
         add_action('admin_init', array($this, 'registerSettings'));
 
     }
-     
+
     public function loadOperatorStyles() {
         $url = plugin_dir_url( __FILE__ ) . 'templates/operators.css';
         echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
@@ -69,6 +69,3 @@ class Vegashero_Settings_Operators
     }
 
 }
-
-
-

@@ -59,7 +59,7 @@ class Vegashero_Settings_Providers
     }
 
     public function getProviderDescription() {
-        echo "<p>This is a provider import description.</p>";
+        //echo "<p>This is a provider import description.</p>";
     }
 
     public function addSettingsMenu() {
@@ -74,8 +74,7 @@ class Vegashero_Settings_Providers
     }
 
     private function _getUpdateBtn($provider) {
-
-        $markup = "&nbsp;&nbsp;<a href='";
+        $markup = "<a href='";
         $update_url = plugins_url('queue.php', __FILE__);
         $markup .= "$update_url?provider=$provider'";
         $markup .= " class='button button-primary'";
