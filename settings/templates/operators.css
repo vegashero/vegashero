@@ -250,6 +250,10 @@ ul.products li.support-upsell ul.addon li .button-primary {
   display: none;
 }
 
+.about-wrap hr.dash-divider {
+  margin:40px 0;
+}
+
 @media screen and (max-width: 500px) {
   .vh-about-wrap h1 {
     font-size: 1.8em;
