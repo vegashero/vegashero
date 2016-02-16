@@ -67,7 +67,13 @@ class Vegashero_Ajax
                 $category = $categories[0];
                 $post->category = sanitize_title($category->name);
             }
-            $post->imgpath = sanitize_title($post->post_title);
+            //has featured image?
+            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'thumbnail_size');
+            if($thumbnail) {
+                $post->thumbnail = $thumbnail[0];
+            } else {
+                $post->imgpath = sanitize_title($post->post_title);
+            }
         }
 
         echo json_encode(array(

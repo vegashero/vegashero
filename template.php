@@ -18,7 +18,11 @@ class Vegashero_Template
         add_filter( 'archive_template', array($this, 'getArchiveTemplate'));
         add_filter( 'page_template', array($this, 'getArchiveTemplate'));
         add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent'));
+        add_action( 'after_setup_theme', array($this, 'enableFeaturedImages' ));
+    }
 
+    public function enableFeaturedImages() {
+        add_theme_support('post-thumbnails');
     }
 
     function get_after_content() {

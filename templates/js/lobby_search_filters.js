@@ -26,7 +26,11 @@ jQuery(document).ready(function($) {
             var markup = '<li class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
             markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">';
             markup += '<div class="vh-overlay">';
-            markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.imgpath + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+            if(post.thumbnail) {
+                markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+            } else if(post.imgpath) {
+                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.imgpath + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+            }
             markup += '<span class="play-now">Play now</span>';
             markup += '</div>';
             markup += '</a>';

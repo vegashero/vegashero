@@ -385,7 +385,8 @@ class Vegashero_Import_Operator
             'rewrite' => array(
                 'slug' => $this->_config->customPostTypeUrlSlug,
                 'with_front' => true
-            )
+            ),
+            'supports' => array('thumbnail')
         );
         register_post_type($this->_config->customPostType, $options);
     }
