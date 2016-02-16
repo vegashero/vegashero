@@ -36,6 +36,7 @@ class Vegashero_Settings_Providers
 
     public function registerSettings() {
         $endpoint = sprintf('%s/vegasgod/providers', $this->_config->apiUrl);
+        echo $endpoint;
         // this needs to be cached locally!!!!
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $this->_providers = json_decode(json_decode($response), true);
