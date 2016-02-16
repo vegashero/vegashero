@@ -2,7 +2,7 @@
 
 require_once( dirname( __FILE__ ) . '/../config.php' );
 
-$config = new Vegashero_Config();
+$config = Vegashero_Config::getInstance();
 $categories = get_terms($config->gameCategoryTaxonomy);
 $operators = get_terms($config->gameOperatorTaxonomy);
 $providers = get_terms($config->gameProviderTaxonomy);
