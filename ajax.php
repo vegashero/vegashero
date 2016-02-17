@@ -29,9 +29,19 @@ class Vegashero_Ajax
         $posts_per_page = get_option('posts_per_page');
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
+        $gamecount = get_option( 'vegashero_settings', 20 );
+        //$gamecount = $options['vegashero_lobbyGamesPerPage'];
+        if (($gamecount['vegashero_lobbyGamesPerPage'] == "") || ($gamecount['vegashero_lobbyGamesPerPage'] == 0)) {
+            $gamecountnew = 20;
+        }
+        else {
+            $gamecountnew = $gamecount['vegashero_lobbyGamesPerPage'];
+        }
         $post_args = array(
-            'posts_per_page'   => $posts_per_page,
-            'offset' => ($page-1)*$posts_per_page,
+            // 'posts_per_page'   => $posts_per_page,
+            // 'offset' => ($page-1)*$posts_per_page,
+            'posts_per_page'   => $gamecountnew,
+            'offset' => ($page-1)*$gamecountnew,
             'orderby'          => 'post_date',
             'order'            => 'DESC',
             'post_type'        => $this->_config->customPostType,
@@ -68,7 +78,7 @@ class Vegashero_Ajax
                 $post->category = sanitize_title($category->name);
             }
             //has featured image?
-            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'thumbnail_size');
+            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'vegashero-thumb');
             if($thumbnail) {
                 $post->thumbnail = $thumbnail[0];
             } else {

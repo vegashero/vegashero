@@ -19,10 +19,17 @@ class Vegashero_Template
         add_filter( 'page_template', array($this, 'getArchiveTemplate'));
         add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent'));
         add_action( 'after_setup_theme', array($this, 'enableFeaturedImages' ));
+        add_action( 'after_setup_theme', array($this, 'registerImageSize'));
     }
 
     public function enableFeaturedImages() {
         add_theme_support('post-thumbnails');
+    }
+
+    public function registerImageSize() {
+        if ( function_exists( 'add_image_size' ) ) { 
+                add_image_size( 'vegashero-thumb', 376, 250, true );
+            }
     }
 
     function get_after_content() {

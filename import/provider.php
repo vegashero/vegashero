@@ -14,8 +14,8 @@ class Vegashero_Import_Provider
         //echo '<pre>'; print_r( _get_cron_array() ); echo '</pre>';
 
         // add_action( 'init', array($this, 'setPermalinkStructure'));
-        add_action('init', array($this, 'registerCustomPostType'));
-        add_action('init', array($this, 'registerTaxonomies'));
+        add_action('init', array($this, 'registerCustomPostType'), 1);
+        add_action('init', array($this, 'registerTaxonomies'), 1);
 
         // this action is scheduled in queue.php
         add_action('vegashero_import_provider', array($this, 'importGamesForProvider'));
@@ -282,7 +282,9 @@ class Vegashero_Import_Provider
                 'slug' => $this->_config->customPostTypeUrlSlug,
                 'with_front' => true
             ),
-            'supports' => array('thumbnail')
+            'menu_icon' => 'dashicons-screenoptions',
+            'show_in_nav_menus' => true,
+            'supports' => array( 'title', 'editor', 'thumbnail', 'revisions' )
         );
         register_post_type($this->_config->customPostType, $options);
     }

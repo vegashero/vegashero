@@ -151,9 +151,16 @@ class Vegashero_Settings_Dashboard
     }
 
     public function vegashero_lobbyGamesPerPage_render() { 
-      $options = get_option( 'vegashero_settings' , 20 );   //default game count 20
-      echo "<input type='text' name='vegashero_settings[vegashero_lobbyGamesPerPage]' value='".$options['vegashero_lobbyGamesPerPage']."'>";
-      echo "<p class='description'>If your lobby is showing in 4 columns set the number of games to show to be multiples of 4. For example to display a 4x4 grid of games set the number to 16. Default value is 20.</p>";
+        //$options = get_option( 'vegashero_settings' , 20 );   //default game count 20
+        $gamecount = get_option( 'vegashero_settings' , 20 );
+        if (($gamecount['vegashero_lobbyGamesPerPage'] == "") || ($gamecount['vegashero_lobbyGamesPerPage'] == 0)) {
+            $gamecountnew = 20;
+        }
+        else {
+            $gamecountnew = $gamecount['vegashero_lobbyGamesPerPage'];
+        }
+        echo "<input type='text' name='vegashero_settings[vegashero_lobbyGamesPerPage]' placeholder='20' value='".$gamecountnew."'>";
+        echo "<p class='description'>If your lobby is showing in 4 columns set the number of games to show to be multiples of 4. For example to display a 4x4 grid of games set the number to 16. Default value is 20.</p>";
     }
 
 
