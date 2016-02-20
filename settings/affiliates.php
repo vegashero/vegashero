@@ -62,16 +62,16 @@ class Vegashero_Settings_Affiliates
         echo "<p>This is a provider import description.</p>";
     }
 
-    public function addSettingsMenu() {
-        add_submenu_page(
-            'vegashero-dashboard',         // Register this submenu with the menu defined above
-            'Affiliate Links',          // The text to the display in the browser when this menu item is active
-            'Affiliate links',                  // The text for this menu item
-            'administrator',            // Which type of users can see this menu
-            'vegashero-affiliates',          // The unique ID - the slug - for this menu item
-            array($this, 'createAffiliatesPage')   // The function used to render this menu's page to the screen
-        );
-    }
+    // public function addSettingsMenu() {
+    //     add_submenu_page(
+    //         'vegashero-dashboard',         // Register this submenu with the menu defined above
+    //         'Affiliate Links',          // The text to the display in the browser when this menu item is active
+    //         'Affiliate links',                  // The text for this menu item
+    //         'administrator',            // Which type of users can see this menu
+    //         'vegashero-affiliates',          // The unique ID - the slug - for this menu item
+    //         array($this, 'createAffiliatesPage')   // The function used to render this menu's page to the screen
+    //     );
+    // }
 
     private function _getUpdateBtn($provider) {
 
