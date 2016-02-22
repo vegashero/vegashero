@@ -265,10 +265,10 @@ class Vegashero_Import_Provider
                 'singular_name' => 'Vegas Hero Game'
             ),
             'public' => true,
-            'query_var' => true,
-            'has_archive' => $this->_config->customPostTypeUrlSlug,
             'exclude_from_search' => false,
             'publicly_queryable' => true,
+            'has_archive' => $this->_config->customPostTypeUrlSlug,
+            'query_var' => $this->_config->customPostTypeUrlSlug,
             'hierarchical' => false,
             'taxonomies' => array(
                 'post_tag',
@@ -277,7 +277,7 @@ class Vegashero_Import_Provider
             ),
             'show_ui' => true,
             'can_export' => false,
-            'rewrite' => true,
+            //'rewrite' => true,
             'rewrite' => array(
                 'slug' => $this->_config->customPostTypeUrlSlug,
                 'with_front' => true

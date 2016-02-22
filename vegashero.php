@@ -43,6 +43,9 @@ $affiliates = new Vegashero_Settings_Affiliates();
 require_once( dirname( __FILE__ ) . '/import/operator.php' );
 $import_operator = new Vegashero_Import_Operator();
 
+require_once( dirname( __FILE__ ) . '/settings/permalinks.php' );
+$permalinks = new Vegashero_Settings_Permalinks();
+
 require_once( dirname( __FILE__ ) . '/import/provider.php' );
 $import_provider = new Vegashero_Import_Provider();
 
@@ -54,6 +57,7 @@ $stylesheet = new Vegashero_Stylesheet();
 
 require_once( dirname( __FILE__ ) . '/shortcodes.php' );
 $shortcode = new Vegashero_Shortcodes();
+
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
