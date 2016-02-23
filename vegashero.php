@@ -14,8 +14,14 @@
 require_once( dirname( __FILE__ ) . '/config.php' );
 $config = Vegashero_Config::getInstance();
 
+require_once( dirname( __FILE__ ) . '/custom_post_type.php' );
+$operators = new Vegashero_Custom_Post_Type();
+
 require_once( dirname( __FILE__ ) . '/settings/dashboard.php' );
 $dashboard = Vegashero_Settings_Dashboard::getInstance();
+
+require_once( dirname( __FILE__ ) . '/settings/lobby.php' );
+$lobby = Vegashero_Settings_Lobby::getInstance();
 
 require_once( dirname(__FILE__) . '/updater.php' );
 $updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__, 
@@ -40,12 +46,12 @@ $providers = new Vegashero_Settings_Providers();
 require_once( dirname( __FILE__ ) . '/settings/affiliates.php' );
 $affiliates = new Vegashero_Settings_Affiliates();
 
+//require_once( dirname( __FILE__ ) . '/settings/permalinks.php' );
+//$permalinks = new Vegashero_Settings_Permalinks();
+
+require_once( dirname( __FILE__ ) . '/import/import.php' );
 require_once( dirname( __FILE__ ) . '/import/operator.php' );
 $import_operator = new Vegashero_Import_Operator();
-
-require_once( dirname( __FILE__ ) . '/settings/permalinks.php' );
-$permalinks = new Vegashero_Settings_Permalinks();
-
 require_once( dirname( __FILE__ ) . '/import/provider.php' );
 $import_provider = new Vegashero_Import_Provider();
 
