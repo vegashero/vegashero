@@ -23,6 +23,9 @@ $dashboard = Vegashero_Settings_Dashboard::getInstance();
 require_once( dirname( __FILE__ ) . '/settings/lobby.php' );
 $lobby = Vegashero_Settings_Lobby::getInstance();
 
+require_once( dirname( __FILE__ ) . '/settings/permalinks.php' );
+$lobby = Vegashero_Settings_Permalinks::getInstance();
+
 require_once( dirname(__FILE__) . '/updater.php' );
 $updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__, 
     array(
