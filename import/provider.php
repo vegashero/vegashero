@@ -117,7 +117,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
             'query_var'         => true,
             // 'rewrite'           => true
             'rewrite' => array(
-                'slug' => $this->_config->gameProviderUrlSlug,
+                'slug' => get_option('vh_game_provider_url_slug', $this->_config->gameProviderUrlSlug),
                 'with_front' => true
             )
         );

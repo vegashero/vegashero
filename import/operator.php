@@ -187,7 +187,7 @@ class Vegashero_Import_Operator extends Vegashero_Import
             'query_var'         => true,
             // 'rewrite'           => true
             'rewrite' => array(
-                'slug' => $this->_config->gameOperatorUrlSlug,
+                'slug' => get_option('vh_game_operator_url_slug', $this->_config->gameOperatorUrlSlug),
                 'with_front' => true
             )
         );

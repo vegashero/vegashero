@@ -38,13 +38,15 @@ class Vegashero_Custom_Post_Type
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
-            'query_var'         => true,
-            // 'rewrite'           => true 
+            'query_var' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url'),
             'rewrite' => array(
-                'slug' => $this->_config->gameCategoryUrlSlug,
+                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url'),
                 'with_front' => true
             )
         );
+
+        if(get_option('vh_custom_post_type_url_slug')) {
+        }
 
         register_taxonomy( $this->_config->gameCategoryTaxonomy, array($this->_config->customPostType), $args );
         register_taxonomy_for_object_type( $this->_config->gameCategoryTaxonomy, $this->_config->customPostType );
@@ -61,8 +63,8 @@ class Vegashero_Custom_Post_Type
             'public' => true,
             'exclude_from_search' => false,
             'publicly_queryable' => true,
-            'has_archive' => $this->_config->customPostTypeUrlSlug,
-            'query_var' => $this->_config->customPostTypeUrlSlug,
+            'has_archive' => get_option('vh_custom_post_type_url_slug', $this->_config->customPostTypeUrlSlug),
+            'query_var' => get_option('vh_custom_post_type_url_slug', $this->_config->customPostTypeUrlSlug),
             'hierarchical' => false,
             'taxonomies' => array(
                 'post_tag',
@@ -73,7 +75,7 @@ class Vegashero_Custom_Post_Type
             'can_export' => false,
             //'rewrite' => true,
             'rewrite' => array(
-                'slug' => $this->_config->customPostTypeUrlSlug,
+                'slug' => get_option('vh_custom_post_type_url_slug', $this->_config->customPostTypeUrlSlug),
                 'with_front' => true
             ),
             'show_in_rest' => false,

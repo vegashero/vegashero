@@ -8,11 +8,6 @@
 
     <form method="post" action="options.php">
     <?php settings_fields('vegashero-dashboard'); //outputs boilerplate hidden fields ?> 
-    <?php settings_fields($this->_getOptionGroup()); ?>
-    <?php $page = $this->_getPageName();?>
-    <?php do_settings_sections($page);?>
-
-	<hr class="dash-divider" />
 
     <?php do_settings_sections( 'lobbySettings' );?>
 

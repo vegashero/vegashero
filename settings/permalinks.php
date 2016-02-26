@@ -21,17 +21,63 @@ class Vegashero_Settings_Permalinks
         add_action('admin_init', array($this, 'registerSettings'));
     }
 
-    public function settingsFieldMarkup() {
-        $args = func_get_args();
-        $id = $args[0]['id'];
-        include_once( dirname( __FILE__ ) . '/templates/permalinks-field.php' );
-    }
-
     public function settingsSectionHeaderDescriptionMarkup() {
         $args = func_get_args();
         $id = $args[0]['id'];
         $title = $args[0]['title'];
-        include_once( dirname( __FILE__ ) . '/templates/permalinks-section.php' );
+        include_once( dirname( __FILE__ ) . '/templates/permalinks/section-heading.php' );
+    }
+
+    private function permalinksEnabled() {
+        return get_option('permalink-structure');
+    }
+
+    private function getPermalinkTagBase() {
+        return get_option('tag_base');
+    }
+
+    private function getPermalinkCategoryBase() {
+        return get_option('category_base');
+    }
+
+    public function inputForCustomPostTypeUrl() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        if( ! $option = get_option('vh_custom_post_type_url_slug')) {
+            update_option('vh_custom_post_type_url_slug', static::$_config->customPostTypeUrlSlug);
+        }
+        $option = get_option('vh_custom_post_type_url_slug');
+        include_once( dirname( __FILE__ ) . '/templates/permalinks/custom-post-type-url-input.php' );
+    }
+
+    public function inputForGameCategoryUrl() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        if( ! $option = get_option('vh_game_category_url_slug')) {
+            update_option('vh_game_category_url_slug', static::$_config->gameCategoryUrlSlug);
+        }
+        $option = get_option('vh_game_category_url_slug');
+        include_once( dirname( __FILE__ ) . '/templates/permalinks/game-category-url-input.php' );
+    }
+
+    public function inputForGameOperatorUrl() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        if( ! $option = get_option('vh_game_operator_url_slug')) {
+            update_option('vh_game_operator_url_slug', static::$_config->gameOperatorUrlSlug);
+        }
+        $option = get_option('vh_game_operator_url_slug');
+        include_once( dirname( __FILE__ ) . '/templates/permalinks/game-operator-url-input.php' );
+    }
+
+    public function inputForGameProviderUrl() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        if( ! $option = get_option('vh_game_provider_url_slug')) {
+            update_option('vh_game_provider_url_slug', static::$_config->gameProviderUrlSlug);
+        }
+        $option = get_option('vh_game_provider_url_slug');
+        include_once( dirname( __FILE__ ) . '/templates/permalinks/game-provider-url-input.php' );
     }
 
     public function registerSettings() {
@@ -44,32 +90,70 @@ class Vegashero_Settings_Permalinks
         );
 
         add_settings_field( 
-            $id = 'vegashero-permalink-field', 
-            $title = 'Permalink field', 
-            $callback = array($this, 'settingsFieldMarkup'), 
+            $id = 'vh_custom_post_type_url_slug', 
+            $title = 'Game base', 
+            $callback = array($this, 'inputForCustomPostTypeUrl'), 
             $page = 'vegashero-dashboard', 
             $section = 'vegashero-permalink-section',
             $args = array(
-                'id' => 'vegashero-permalink-field'
+                'id' => 'vh_custom_post_type_url_slug'
             )
         );
 
         register_setting(
-            $option_group = 'permalinkSettings', 
-            $option_name = 'vegashero_settings'
+            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_name = 'vh_custom_post_type_url_slug'
         );
 
-        // lobby settings
-        //add_settings_section('vegashero_permalink_section', 'Permalink Settings', '', 'permalinkSettings');
-        //add_settings_field('vegashero_lobbyGamesPerPage', 'Number of games to show', array($this, 'vegashero_lobbyGamesPerPage_render'), 'permalinkSettings', 'vegashero_lobbySettings_section');
-    }
+        add_settings_field( 
+            $id = 'vh_game_category_url_slug', 
+            $title = 'Game category url slug', 
+            $callback = array($this, 'inputForGameCategoryUrl'), 
+            $page = 'vegashero-dashboard', 
+            $section = 'vegashero-permalink-section',
+            $args = array(
+                'id' => 'vh_game_category_url_slug'
+            )
+        );
 
-    public function vegashero_lobbyGamesPerPage_render() { 
-      $options = get_option( 'vegashero_settings' , 20 );   //default game count 20
-      echo "<input type='text' name='vegashero_settings[vegashero_lobbyGamesPerPage]' value='".$options['vegashero_lobbyGamesPerPage']."'>";
-      echo "<p class='description'>If your lobby is showing in 4 columns set the number of games to show to be multiples of 4. For example to display a 4x4 grid of games set the number to 16. Default value is 20.</p>";
-    }
+        register_setting(
+            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_name = 'vh_game_category_url_slug'
+        );
 
+        add_settings_field( 
+            $id = 'vh_game_operator_url_slug', 
+            $title = 'Game operator url slug', 
+            $callback = array($this, 'inputForGameOperatorUrl'), 
+            $page = 'vegashero-dashboard', 
+            $section = 'vegashero-permalink-section',
+            $args = array(
+                'id' => 'vh_game_operator_url_slug'
+            )
+        );
+
+        register_setting(
+            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_name = 'vh_game_operator_url_slug'
+        );
+
+        add_settings_field( 
+            $id = 'vh_game_provider_url_slug', 
+            $title = 'Game provider url slug', 
+            $callback = array($this, 'inputForGameProviderUrl'), 
+            $page = 'vegashero-dashboard', 
+            $section = 'vegashero-permalink-section',
+            $args = array(
+                'id' => 'vh_game_provider_url_slug'
+            )
+        );
+
+        register_setting(
+            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_name = 'vh_game_provider_url_slug'
+        );
+
+    }
 
 }
 
