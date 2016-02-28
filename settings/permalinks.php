@@ -18,10 +18,30 @@ class Vegashero_Settings_Permalinks
 
     protected function __construct() {
         static::$_config = Vegashero_Config::getInstance();
+        add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
     }
 
-    public function settingsSectionHeaderDescriptionMarkup() {
+    public function addSettingsMenu() {
+
+        add_submenu_page(
+            'vh-settings', // The title to be displayed on this menu's corresponding page
+            'Permalinks', // The text to be displayed for this actual menu item
+            'Permalinks', // The text to be displayed for this actual menu item
+            'manage_options', // Which type of users can see this menu
+            'vh-permalinks', // The unique ID - that is, the slug - for this menu item
+            array($this, 'createPermalinksPage') // The name of the function to call when rendering this menu's page
+        );
+        //add_menu_page('My Page Title', 'My Menu Title', 'manage_options', 'my-menu', 'my_menu_output' );
+        //add_submenu_page('my-menu', 'Submenu Page Title', 'Whatever You Want', 'manage_options', 'my-menu' );
+        //add_submenu_page('my-menu', 'Submenu Page Title2', 'Whatever You Want2', 'manage_options', 'my-menu2' );
+    }
+
+    public function createPermalinksPage() { 
+        include dirname(__FILE__) . '/templates/permalinks.php';
+    }
+
+    public function sectionHeading() {
         $args = func_get_args();
         $id = $args[0]['id'];
         $title = $args[0]['title'];
@@ -85,15 +105,15 @@ class Vegashero_Settings_Permalinks
         add_settings_section(
             $id = 'vegashero-permalink-section',
             $title = 'Permalink section',
-            $callback = array($this, 'settingsSectionHeaderDescriptionMarkup'),
-            $page = 'vegashero-dashboard'
+            $callback = array($this, 'sectionHeading'),
+            $page = 'vh-permalinks'
         );
 
         add_settings_field( 
             $id = 'vh_custom_post_type_url_slug', 
             $title = 'Game base', 
             $callback = array($this, 'inputForCustomPostTypeUrl'), 
-            $page = 'vegashero-dashboard', 
+            $page = 'vh-permalinks', 
             $section = 'vegashero-permalink-section',
             $args = array(
                 'id' => 'vh_custom_post_type_url_slug'
@@ -101,15 +121,15 @@ class Vegashero_Settings_Permalinks
         );
 
         register_setting(
-            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
             $option_name = 'vh_custom_post_type_url_slug'
         );
 
         add_settings_field( 
             $id = 'vh_game_category_url_slug', 
-            $title = 'Game category url slug', 
+            $title = 'Category base', 
             $callback = array($this, 'inputForGameCategoryUrl'), 
-            $page = 'vegashero-dashboard', 
+            $page = 'vh-permalinks', 
             $section = 'vegashero-permalink-section',
             $args = array(
                 'id' => 'vh_game_category_url_slug'
@@ -117,15 +137,15 @@ class Vegashero_Settings_Permalinks
         );
 
         register_setting(
-            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
             $option_name = 'vh_game_category_url_slug'
         );
 
         add_settings_field( 
             $id = 'vh_game_operator_url_slug', 
-            $title = 'Game operator url slug', 
+            $title = 'Operator base', 
             $callback = array($this, 'inputForGameOperatorUrl'), 
-            $page = 'vegashero-dashboard', 
+            $page = 'vh-permalinks', 
             $section = 'vegashero-permalink-section',
             $args = array(
                 'id' => 'vh_game_operator_url_slug'
@@ -133,15 +153,15 @@ class Vegashero_Settings_Permalinks
         );
 
         register_setting(
-            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
             $option_name = 'vh_game_operator_url_slug'
         );
 
         add_settings_field( 
             $id = 'vh_game_provider_url_slug', 
-            $title = 'Game provider url slug', 
+            $title = 'Provider base', 
             $callback = array($this, 'inputForGameProviderUrl'), 
-            $page = 'vegashero-dashboard', 
+            $page = 'vh-permalinks', 
             $section = 'vegashero-permalink-section',
             $args = array(
                 'id' => 'vh_game_provider_url_slug'
@@ -149,7 +169,7 @@ class Vegashero_Settings_Permalinks
         );
 
         register_setting(
-            $option_group = 'vegashero-dashboard', // must match page slug name from add_settings_field
+            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
             $option_name = 'vh_game_provider_url_slug'
         );
 

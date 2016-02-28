@@ -167,15 +167,15 @@ class Vegashero_Settings_Dashboard
             'Vegas Hero',
             'Vegas Hero',
             'manage_options',
-            'vegashero-dashboard'
+            'vh-settings'
         );
 
         add_submenu_page(
-            'vegashero-dashboard', // The title to be displayed on this menu's corresponding page
+            'vh-settings', // The title to be displayed on this menu's corresponding page
             'Dashboard', // The text to be displayed for this actual menu item
             'Dashboard', // The text to be displayed for this actual menu item
             'manage_options', // Which type of users can see this menu
-            'vegashero-dashboard', // The unique ID - that is, the slug - for this menu item
+            'vh-settings', // The unique ID - that is, the slug - for this menu item
             array($this, 'createDashboardPage') // The name of the function to call when rendering this menu's page
         );
         //add_menu_page('My Page Title', 'My Menu Title', 'manage_options', 'my-menu', 'my_menu_output' );

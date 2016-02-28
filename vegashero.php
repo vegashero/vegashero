@@ -17,14 +17,7 @@ $config = Vegashero_Config::getInstance();
 require_once( dirname( __FILE__ ) . '/custom_post_type.php' );
 $operators = new Vegashero_Custom_Post_Type();
 
-require_once( dirname( __FILE__ ) . '/settings/dashboard.php' );
-$dashboard = Vegashero_Settings_Dashboard::getInstance();
-
-require_once( dirname( __FILE__ ) . '/settings/lobby.php' );
-$lobby = Vegashero_Settings_Lobby::getInstance();
-
-require_once( dirname( __FILE__ ) . '/settings/permalinks.php' );
-$lobby = Vegashero_Settings_Permalinks::getInstance();
+require_once(dirname(__FILE__) . '/settings/settings.php');
 
 require_once( dirname(__FILE__) . '/updater.php' );
 $updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__, 
@@ -39,18 +32,6 @@ $updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
 
 //require_once( dirname( __FILE__ ) . '/settings.php' );
 //$dashboard = new Vegashero_Settings();
-
-require_once( dirname( __FILE__ ) . '/settings/operators.php' );
-$operators = new Vegashero_Settings_Operators();
-
-require_once( dirname( __FILE__ ) . '/settings/providers.php' );
-$providers = new Vegashero_Settings_Providers();
-
-require_once( dirname( __FILE__ ) . '/settings/affiliates.php' );
-$affiliates = new Vegashero_Settings_Affiliates();
-
-//require_once( dirname( __FILE__ ) . '/settings/permalinks.php' );
-//$permalinks = new Vegashero_Settings_Permalinks();
 
 require_once( dirname( __FILE__ ) . '/import/import.php' );
 require_once( dirname( __FILE__ ) . '/import/operator.php' );

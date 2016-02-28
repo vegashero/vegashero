@@ -64,7 +64,7 @@ class Vegashero_Settings_Providers
 
     public function addSettingsMenu() {
         add_submenu_page(
-            'vegashero-dashboard',         // Register this submenu with the menu defined above
+            'vh-settings',         // Register this submenu with the menu defined above
             'Provider Imports',          // The text to the display in the browser when this menu item is active
             'Provider imports',                  // The text for this menu item
             'administrator',            // Which type of users can see this menu

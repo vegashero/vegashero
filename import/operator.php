@@ -7,8 +7,8 @@ class Vegashero_Import_Operator extends Vegashero_Import
 
     public function __construct() {
         $this->_config = Vegashero_Config::getInstance();
-        $dashboard = Vegashero_Settings_Dashboard::getInstance();
-        $this->_license = $dashboard->getLicense();
+        $license = Vegashero_Settings_License::getInstance();
+        $this->_license = $license->getLicense();
 
         add_action('init', array($this, 'registerGameOperatorTaxonomy'));
         // this action is scheduled in queue.php
