@@ -21,7 +21,9 @@ class Vegashero_Settings_Operators
         if(@$_GET['page'] === 'vegashero-operator-import' && @$_GET['vegashero-import'] === 'queued') {
             add_action( 'admin_notices', array($this, 'importNotice'));
         }
-        add_action('admin_init', array($this, 'registerSettings'));
+        if(@$_GET['page'] === 'vegashero-operator-import') {
+            add_action('admin_init', array($this, 'registerSettings'));
+        }
 
     }
 

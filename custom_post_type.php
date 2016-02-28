@@ -41,6 +41,7 @@ class Vegashero_Custom_Post_Type
             'query_var' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
             'rewrite' => array(
                 'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
+                //'slug' => 'mygame/mycategory',
                 'with_front' => true
             )
         );
@@ -48,7 +49,6 @@ class Vegashero_Custom_Post_Type
         register_taxonomy( $this->_config->gameCategoryTaxonomy, array($this->_config->customPostType), $args );
         register_taxonomy_for_object_type( $this->_config->gameCategoryTaxonomy, $this->_config->customPostType );
         flush_rewrite_rules();
-
     }
 
     public function registerCustomPosttype() {
@@ -61,6 +61,8 @@ class Vegashero_Custom_Post_Type
             'exclude_from_search' => false,
             'publicly_queryable' => true,
             'has_archive' => get_option('vh_custom_post_type_url_slug'),
+            //'has_archive' => false,
+            //'query_var' => false,
             'query_var' => get_option('vh_custom_post_type_url_slug'),
             'hierarchical' => false,
             'taxonomies' => array(
@@ -72,13 +74,14 @@ class Vegashero_Custom_Post_Type
             'can_export' => false,
             //'rewrite' => true,
             'rewrite' => array(
-                'slug' => get_option('vh_custom_post_type_url_slug'),
+                'slug' => sprintf('%s/', get_option('vh_custom_post_type_url_slug')),
                 'with_front' => true
             ),
             'show_in_rest' => false,
             'supports' => array('title', 'editor', 'thumbnail', 'custom-fields')
         );
         register_post_type($this->_config->customPostType, $options);
+        flush_rewrite_rules();
     }
 
 

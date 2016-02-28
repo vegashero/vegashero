@@ -171,6 +171,8 @@ class Vegashero_Import_Provider extends Vegashero_Import
             // 'rewrite'           => true
             'rewrite' => array(
                 'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
+                //'slug' => get_option('vh_game_provider_url_slug', $this->_config->gameProviderUrlSlug),
+                //'slug' => 'mygame/provider',
                 'with_front' => true
             )
         );

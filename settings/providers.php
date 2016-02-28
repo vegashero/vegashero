@@ -13,7 +13,9 @@ class Vegashero_Settings_Providers
         if(@$_GET['page'] === 'vegashero-provider-import' && @$_GET['vegashero-import'] === 'queued') {
             add_action( 'admin_notices', array($this, 'importNotice'));
         }
-        add_action('admin_init', array($this, 'registerSettings'));
+        if(@$_GET['page'] === 'vegashero-provider-import') {
+            add_action('admin_init', array($this, 'registerSettings'));
+        }
     }
 
     public function importNotice() {
@@ -47,14 +49,16 @@ class Vegashero_Settings_Providers
         // this needs to be cached locally!!!!
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $this->_providers = json_decode(json_decode($response), true);
-        foreach($this->_providers as $provider) {
-            $this->_provider = $provider;
-            $section = $this->_getSectionName($provider);
-            $page = $this->_getPageName($provider);
-            add_settings_section($section, sprintf('%s', ucfirst($provider)), array($this, 'getProviderDescription'), $page);
-            $option_group = $this->_getOptionGroup($provider);
-            $option_name = $this->getOptionName($provider);
-            register_setting($option_group, $option_name);
+        if(count($this->_providers)) {
+            foreach($this->_providers as $provider) {
+                $this->_provider = $provider;
+                $section = $this->_getSectionName($provider);
+                $page = $this->_getPageName($provider);
+                add_settings_section($section, sprintf('%s', ucfirst($provider)), array($this, 'getProviderDescription'), $page);
+                $option_group = $this->_getOptionGroup($provider);
+                $option_name = $this->getOptionName($provider);
+                register_setting($option_group, $option_name);
+            }
         }
     }
 
