@@ -126,5 +126,4 @@ class Vegashero_Import_Provider extends Vegashero_Import
         register_taxonomy_for_object_type( $this->_config->gameProviderTaxonomy, $this->_config->customPostType );
         flush_rewrite_rules();
     }
-
 }

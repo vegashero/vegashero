@@ -11,6 +11,7 @@ class Vegashero_Import_Operator extends Vegashero_Import
         $this->_license = $license->getLicense();
 
         add_action('init', array($this, 'registerGameOperatorTaxonomy'));
+
         // this action is scheduled in queue.php
         add_action('vegashero_import_operator', array($this, 'importGamesForOperator'));
     }
