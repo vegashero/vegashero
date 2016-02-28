@@ -22,10 +22,17 @@ class Vegashero_Settings_Lobby
         add_action('admin_init', array($this, 'registerSettings'));
     }
 
+    public function sectionHeading() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        $title = $args[0]['title'];
+        include_once( dirname( __FILE__ ) . '/templates/lobby/section-heading.php' );
+    }
+
     public function inputForGamesPerPage() { 
         $args = func_get_args();
         $id = $args[0]['id'];
-        include_once( dirname( __FILE__ ) . '/templates/lobby.php' );
+        include_once( dirname( __FILE__ ) . '/templates/lobby/games-per-page-input.php' );
     }
 
     public function registerSettings() {
@@ -33,8 +40,8 @@ class Vegashero_Settings_Lobby
         // lobby settings
         add_settings_section(
             $id = 'vh-lobby-section', 
-            $title = __( 'Lobby Settings', 'vhero' ), 
-            $callback = '', 
+            $title = 'Lobby Settings', 
+            $callback = array($this, 'sectionHeading'), 
             $page = 'vh-lobby-page'
         );
 
@@ -50,7 +57,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby', 
+            $option_group = 'vh-lobby-page', 
             $option_name = 'vh_lobby_games_per_page' 
         );
     }
