@@ -11,9 +11,19 @@ class Vegashero_Import_Provider extends Vegashero_Import
         $this->_license = $license->getLicense();
 
         add_action('init', array($this, 'registerGameProviderTaxonomy'));
+        add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
 
         // this action is scheduled in queue.php
         add_action('vegashero_import_provider', array($this, 'importGamesForProvider'));
+    }
+
+    public function addRewriteRules( $wp_rewrite ) {
+        //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
+        $new_rules = array( 
+            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_provider_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_provider_url_slug').'=' .
+            $wp_rewrite->preg_index(1) );
+
+            $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
     }
 
     private function _haveLicense() {

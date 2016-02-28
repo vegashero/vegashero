@@ -11,7 +11,17 @@ class Vegashero_Custom_Post_Type
         // add_action( 'init', array($this, 'setPermalinkStructure'));
         add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerGameCategoryTaxonomy'));
+        add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
 
+    }
+
+    public function addRewriteRules( $wp_rewrite ) {
+        //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
+        $new_rules = array( 
+            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_category_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_category_url_slug').'=' .
+            $wp_rewrite->preg_index(1) );
+
+            $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
     }
 
    // public function setPermalinkStructure() {
@@ -39,11 +49,11 @@ class Vegashero_Custom_Post_Type
             'show_ui'           => true,
             'show_admin_column' => true,
             'query_var' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
+            //'query_var' => get_option('vh_game_category_url_slug'),
             'rewrite' => array(
-                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
-                //'slug' => 'mygame/mycategory',
+               'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
                 'with_front' => true
-            )
+           )
         );
 
         register_taxonomy( $this->_config->gameCategoryTaxonomy, array($this->_config->customPostType), $args );
@@ -72,10 +82,12 @@ class Vegashero_Custom_Post_Type
             ),
             'show_ui' => true,
             'can_export' => false,
-            //'rewrite' => true,
+            'rewrite' => true,
             'rewrite' => array(
-                'slug' => sprintf('%s/', get_option('vh_custom_post_type_url_slug')),
-                'with_front' => true
+                'hierarchical' => true,
+                'slug' => sprintf('%s', get_option('vh_custom_post_type_url_slug')),
+            //    'ep_mask' => EP_CATEGORIES,
+            //    'with_front' => true
             ),
             'show_in_rest' => false,
             'supports' => array('title', 'editor', 'thumbnail', 'custom-fields')

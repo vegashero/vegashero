@@ -11,9 +11,19 @@ class Vegashero_Import_Operator extends Vegashero_Import
         $this->_license = $license->getLicense();
 
         add_action('init', array($this, 'registerGameOperatorTaxonomy'));
+        add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
 
         // this action is scheduled in queue.php
         add_action('vegashero_import_operator', array($this, 'importGamesForOperator'));
+    }
+
+    public function addRewriteRules( $wp_rewrite ) {
+        //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
+        $new_rules = array( 
+            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_operator_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_operator_url_slug').'=' .
+            $wp_rewrite->preg_index(1) );
+
+            $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
     }
 
     private function _setOperators() {
@@ -167,10 +177,10 @@ class Vegashero_Import_Operator extends Vegashero_Import
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
-            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_opperator_url_slug')) : get_option('vh_game_operator_url_slug'),
+            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug'),
             // 'rewrite'           => true
             'rewrite' => array(
-                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_opperator_url_slug')) : get_option('vh_game_operator_url_slug'),
+                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug'),
                 'with_front' => true
             )
         );
