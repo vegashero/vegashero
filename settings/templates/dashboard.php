@@ -35,4 +35,10 @@
 		</form>
 	</div>
 
+	<hr class="dash-divider" />
+
+    <div class="permalink-settings">
+        Permalink settings go here
+    </div>
+
 </div>
