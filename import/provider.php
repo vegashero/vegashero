@@ -16,7 +16,13 @@ class Vegashero_Import_Provider extends Vegashero_Import
         add_action('vegashero_import_provider', array($this, 'importGamesForProvider'));
     }
 
-    private function _insertNewGame($game) {
+    private function _haveLicense() {
+        if( ! empty($this->_license)) {
+            return true;
+        }
+    }
+
+    private function _insertNewGame($game, $provider) {
         // [id] => 6
         // [name] => wild witches
         // [provider] => netent
@@ -38,7 +44,8 @@ class Vegashero_Import_Provider extends Vegashero_Import
         );
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
-        $provider_id = $this->_getProviderId(trim($game->provider));
+        $provider_id = $this->_getProviderId(trim($provider));
+        //$operator_id = $this->_getOperatorId(trim($game->operator));
 
         $post_meta_game_id = add_post_meta($post_id, $this->_config->postMetaGameId, $game->id, true); // add post meta data
         $post_meta_game_src_id = add_post_meta($post_id, $this->_config->postMetaGameSrc, $game->src, true); // add post meta data
@@ -46,14 +53,47 @@ class Vegashero_Import_Provider extends Vegashero_Import
 
         $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
         $game_provider_term_id = wp_set_object_terms($post_id, $provider_id, $this->_config->gameProviderTaxonomy); // link provider and post
+        //$game_operator_term_id = wp_set_object_terms($post_id, $operator_id, $this->_config->gameOperatorTaxonomy); // link operator and post
 
         $this->_groupTerms(array($category_id), $this->_config->gameCategoryTermGroupId, $this->_config->gameCategoryTaxonomy);
         $this->_groupTerms(array($provider_id), $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
+        //$this->_groupTerms(array($operator_id), $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
     }
 
-    private function _updateExistingGame($existing, $new) {
+    private function _updateExistingGame($existing, $new, $provider) {
         $this->_updateStatus($existing, $new);
+        //$this->_updateProviders($existing, $new, $provider);
     }
+
+    /*
+    private function _getProviderIds($providers) {
+        $provider_ids = array();
+        foreach($providers as $provider) {
+            $provider_id = $this->_getProviderId(trim($provider));
+            array_push($provider_ids, $provider_id);
+        }
+        return $provider_ids;
+    }   
+
+    private function _updateProviders($existing, $new, $provider) {
+        $update = false;
+        $providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy, array('fields' => 'names'));
+        if( ! in_array($provider, $providers) && $new->{$provider}) {
+            array_push($providers, $provider);
+            $update = true;
+        }  elseif(! $new->{$provider}) {
+            if(($key = array_search($provider, $providers)) !== false) {
+                unset($providers[$key]);
+                $update = true;
+            }
+        }
+        if($update) {
+            $provider_ids = $this->_getProviderIds($providers);
+            $game_provider_term_id = wp_set_object_terms($existing->ID, $provider_ids, $this->_config->gameProviderTaxonomy); 
+            $this->_groupTerms($provider_ids, $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
+        }
+    }
+     */
 
     public function importGamesForProvider($provider) {
         // $this->registerTaxonomies();
@@ -70,7 +110,20 @@ class Vegashero_Import_Provider extends Vegashero_Import
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
 
-        $endpoint = sprintf('%s/vegasgod/games/provider/%s?license=%s', $this->_config->apiUrl, $provider, $this->_license);
+        # first time importing games for this provider
+        /*
+        if( ! term_exists($provider, $this->_config->gameProviderTaxonomy)){ 
+            $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
+        } else {
+            # get all games so we can remove providers
+            $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
+        }
+         */
+        $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
+        if($this->_haveLicense()) {
+            $endpoint = sprintf('%s?license=%s', $endpoint, $this->_license);
+        }
+
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $games = json_decode(json_decode($response));
 
@@ -86,9 +139,9 @@ class Vegashero_Import_Provider extends Vegashero_Import
                 }
 
                 if( ! $post_id) { // no existing post
-                    $this->_insertNewGame($game);
+                    $this->_insertNewGame($game, $provider);
                 } else { 
-                    $this->_updateExistingGame($post, $game);
+                    $this->_updateExistingGame($post, $game, $provider);
                     $this->_updateExistingPostMeta($post, $game);
                 }
             }
@@ -114,10 +167,10 @@ class Vegashero_Import_Provider extends Vegashero_Import
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
-            'query_var'         => true,
+            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
             // 'rewrite'           => true
             'rewrite' => array(
-                'slug' => get_option('vh_game_provider_url_slug', $this->_config->gameProviderUrlSlug),
+                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
                 'with_front' => true
             )
         );

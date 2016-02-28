@@ -1,9 +1,28 @@
 <?php
+require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
 
 abstract class Vegashero_Import
 {
 
     protected $_config;
+
+    protected function _getOperatorId($operator) {
+        if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
+            $operator_id = wp_insert_category(
+                array(
+                    'cat_name' => $operator,
+                    'category_description' => 'Vegas Hero Game Operators',
+                    'category_nicename' => sanitize_title($operator),
+                    'taxonomy' => $this->_config->gameOperatorTaxonomy
+                ),
+                true
+            );
+        }  else {
+            $term_details = get_term_by('name', $operator, $this->_config->gameOperatorTaxonomy);
+            $operator_id = (int)$term_details->term_id;
+        }
+        return $operator_id;
+    }
 
     protected function _getProviderId($provider) {
         if( ! $provider_id = term_exists($provider, $this->_config->gameProviderTaxonomy)){

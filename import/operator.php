@@ -70,24 +70,6 @@ class Vegashero_Import_Operator extends Vegashero_Import
         return $operator_ids;
     }
 
-    private function _getOperatorId($operator) {
-        if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
-            $operator_id = wp_insert_category(
-                array(
-                    'cat_name' => $operator,
-                    'category_description' => 'Vegas Hero Game Operators',
-                    'category_nicename' => sanitize_title($operator),
-                    'taxonomy' => $this->_config->gameOperatorTaxonomy
-                ),
-                true
-            );
-        }  else {
-            $term_details = get_term_by('name', $operator, $this->_config->gameOperatorTaxonomy);
-            $operator_id = (int)$term_details->term_id;
-        }
-        return $operator_id;
-    }
-
     private function _updateOperators($existing, $new, $operator) {
         $update = false;
         $operators = wp_get_post_terms($existing->ID, $this->_config->gameOperatorTaxonomy, array('fields' => 'names'));
@@ -185,16 +167,17 @@ class Vegashero_Import_Operator extends Vegashero_Import
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
-            'query_var'         => true,
+            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_opperator_url_slug')) : get_option('vh_game_operator_url_slug'),
             // 'rewrite'           => true
             'rewrite' => array(
-                'slug' => get_option('vh_game_operator_url_slug', $this->_config->gameOperatorUrlSlug),
+                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_opperator_url_slug')) : get_option('vh_game_operator_url_slug'),
                 'with_front' => true
             )
         );
 
         register_taxonomy( $this->_config->gameOperatorTaxonomy, array( $this->_config->customPostType ), $args );
         register_taxonomy_for_object_type( $this->_config->gameOperatorTaxonomy, $this->_config->customPostType );
+        flush_rewrite_rules();
 
     }
 

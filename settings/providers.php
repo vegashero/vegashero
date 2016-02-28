@@ -10,7 +10,15 @@ class Vegashero_Settings_Providers
     public function __construct() {
         $this->_config = Vegashero_Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
+        if(@$_GET['page'] === 'vegashero-provider-import' && @$_GET['vegashero-import'] === 'queued') {
+            add_action( 'admin_notices', array($this, 'importNotice'));
+        }
         add_action('admin_init', array($this, 'registerSettings'));
+    }
+
+    public function importNotice() {
+      $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );
+      include_once dirname(__FILE__) . '/templates/import-notice.php';
     }
 
     private function _getOptionGroup($provider=null) {
