@@ -25,7 +25,7 @@ class Vegashero_Settings
     public function vegashero_admin_import_notice() {
       $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );
         echo '<div class="notice notice-success is-dismissible below-h2"><p>';
-        echo _e( 'Your import has been queued. Please head over to the <a href="'.$vegas_gameslist_page.'">Vegas Hero Games</a> area to view/edit the games.' );
+        echo _e( 'Your import has been queued. Please head over to the <a href="'.$vegas_gameslist_page.'">VegasHero Games</a> area to view/edit the games.' );
         echo '</p></div>';
     }
 
@@ -117,7 +117,7 @@ class Vegashero_Settings
     public function addSettingsMenu() {
         add_menu_page(
             'VegasHero Settings', // The title to be displayed on this menu's corresponding page
-            'Vegas Hero', // The text to be displayed for this actual menu item
+            'VegasHero', // The text to be displayed for this actual menu item
             'manage_options', // Which type of users can see this menu
             'vegashero-dashboard', // The unique ID - that is, the slug - for this menu item
             array($this, 'createDashboardPage') // The name of the function to call when rendering this menu's page
@@ -125,8 +125,8 @@ class Vegashero_Settings
 
         add_submenu_page(
             'vegashero-dashboard',         // Register this submenu with the menu defined above
-            'Operator Imports',          // The text to the display in the browser when this menu item is active
-            'Operator imports',                  // The text for this menu item
+            'Import by Operator',          // The text to the display in the browser when this menu item is active
+            'Import by Operator',                  // The text for this menu item
             'administrator',            // Which type of users can see this menu
             'vegashero-operator-import',          // The unique ID - the slug - for this menu item
             array($this, 'createOperatorImportPage')   // The function used to render this menu's page to the screen
@@ -134,8 +134,8 @@ class Vegashero_Settings
 
         add_submenu_page(
             'vegashero-dashboard',         // Register this submenu with the menu defined above
-            'Provider Imports',          // The text to the display in the browser when this menu item is active
-            'Provider imports',                  // The text for this menu item
+            'Import by Provider',          // The text to the display in the browser when this menu item is active
+            'Import by Provider',                  // The text for this menu item
             'administrator',            // Which type of users can see this menu
             'vegashero-provider-import',          // The unique ID - the slug - for this menu item
             array($this, 'createProviderImportPage')   // The function used to render this menu's page to the screen

@@ -144,8 +144,8 @@ class Vegashero_Settings_License
 
     public function addSettingsMenu() {
         add_menu_page(
-            $page_title = 'Vegas Hero',
-            $menu_title = 'Vegas Hero',
+            $page_title = 'VegasHero Settings',
+            $menu_title = 'VegasHero',
             $capability = 'manage_options',
             $menu_slug = 'vh-settings',
             $callback = '',
@@ -155,8 +155,8 @@ class Vegashero_Settings_License
 
         add_submenu_page(
             $parent_slug = 'vh-settings', 
-            $page_title = 'License', 
-            $menu_title = 'License', 
+            $page_title = 'License & Support', 
+            $menu_title = 'License & Support', 
             $capability = 'manage_options', 
             $menu_slug = 'vh-settings', 
             $callback = array($this, 'createLicensePage') 

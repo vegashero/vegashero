@@ -164,8 +164,8 @@ class Vegashero_Settings_Dashboard
 
     public function addSettingsMenu() {
         add_menu_page(
-            'Vegas Hero',
-            'Vegas Hero',
+            'VegasHero',
+            'VegasHero',
             'manage_options',
             'vh-settings'
         );
