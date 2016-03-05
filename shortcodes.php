@@ -114,7 +114,7 @@ class Widget_vh_recent_games extends WP_Widget {
 public function __construct() {
         $widget_ops = array( 
             'classname' => 'Widget_vh_recent_games',
-            'description' => 'Display games in a widget from the VegasHero Plugin.',
+            'description' => 'Display games with thumbnails from the VegasHero Plugin.',
             'title' => 'Latest Casino Games',
             'maxgames' => 5,
         );

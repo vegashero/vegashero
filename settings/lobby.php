@@ -52,7 +52,8 @@ class Vegashero_Settings_Lobby
             $page = 'vh-lobby-page', 
             $section = 'vh-lobby-section',
             $args = array(
-                'id' => 'vh_lobby_games_per_page'
+                'id' => 'vh_lobby_games_per_page',
+                'vh_lobby_games_per_page' => 20
             )
         );
 

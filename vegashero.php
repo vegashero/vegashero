@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Plugin Name: VegasHero
+ * Plugin Name: VegasHero Casino Affiliate Plugin
  * Plugin URI: http://vegashero.co
  * Description: The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino and slots games and option to add your own games. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO.
  * Version: 1.4

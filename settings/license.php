@@ -88,7 +88,7 @@ class Vegashero_Settings_License
     public function registerSettings() {
         add_settings_section(
             $id = 'vh-license-section',
-            $title = 'License section',
+            $title = 'License & Support',
             $callback = array($this, 'sectionHeading'),
             $page = 'vh-license-page'
         );

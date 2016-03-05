@@ -13,7 +13,7 @@ $providers = get_terms($config->gameProviderTaxonomy);
   <select data-taxonomy="<?=$config->gameOperatorTaxonomy?>">
     <option selected disabled>Filter by operator</option>
     <?php foreach($operators as $operator): ?>
-    <option value="<?=$operator->slug?>"><?=$operator->name?></option>
+    <option value="<?=$operator->slug?>"><?=$operator->name?> (<?=$operator->count?>)</option>
     <?php endforeach; ?>
   </select>
 <?php endif ?>
@@ -22,7 +22,7 @@ $providers = get_terms($config->gameProviderTaxonomy);
   <select data-taxonomy="<?=$config->gameCategoryTaxonomy?>">
     <option selected disabled>Filter by category</option>
     <?php foreach($categories as $category): ?>
-    <option value="<?=$category->slug?>"><?=$category->name?></option>
+    <option value="<?=$category->slug?>"><?=$category->name?> (<?=$category->count?>)</option>
     <?php endforeach; ?>
   </select>
 <?php endif ?>
@@ -31,7 +31,7 @@ $providers = get_terms($config->gameProviderTaxonomy);
   <select data-taxonomy="<?=$config->gameProviderTaxonomy?>">
     <option selected disabled>Filter by provider</option>
     <?php foreach($providers as $provider): ?>
-    <option value="<?=$provider->slug?>"><?=$provider->name?></option>
+    <option value="<?=$provider->slug?>"><?=$provider->name?> (<?=$provider->count?>)</option>
     <?php endforeach; ?>
   </select>
 <?php endif ?>
@@ -40,3 +40,7 @@ $providers = get_terms($config->gameProviderTaxonomy);
 </div>
 
 <ul id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon">loading games...</span></ul>
+<?php if(get_option('vh_license_status') === 'valid'): ?>
+<?php else: ?>
+<div class="vh-linklove">- <a target="_blank" href="http://vegashero.co">VegasHero Casino Affiliate Plugin</a> -</div>
+<?php endif ?>
