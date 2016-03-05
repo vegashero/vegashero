@@ -36,7 +36,7 @@ $providers = get_terms($config->gameProviderTaxonomy);
   </select>
 <?php endif ?>
 
-  <input type="text" id="vh-search" class="vh-search" placeholder="Search" />
+  <!-- <input type="text" id="vh-search" class="vh-search" placeholder="Search" /> -->
 </div>
 
 <ul id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon">loading games...</span></ul>
