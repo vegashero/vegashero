@@ -19,14 +19,18 @@
           foreach($this->_providers as $provider) {
               echo '<li>';
               echo '<div class="desc">';
-              echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/providers/' . $provider . '.png" /></div>';
+              echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/providers/' . $provider['provider'] . '.png" /></div>';
               echo '<form method="post" action="options.php">';
-              settings_fields($this->_getOptionGroup($provider));
-              $page = $this->_getPageName($provider);
+              settings_fields($this->_getOptionGroup($provider['provider']));
+              $page = $this->_getPageName($provider['provider']);
               do_settings_sections($page);
               echo '<div class="btn-area">';
-              echo $this->_getUpdateBtn($provider);
-              echo '</div></div>';
+              echo $this->_getUpdateBtn($provider['provider']);
+              echo '</div>';
+              echo '<div class="btn-area">';
+              echo $this->_getGameCount($provider['count']);
+              echo '</div>';
+              echo '</div>';
               echo '</form>';
               echo '</li>';
           }

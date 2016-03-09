@@ -64,6 +64,10 @@ class Vegashero_Settings_Operators
         return $markup;
     }
 
+    private function _getGameCount($count) {
+        return "<span class='right'>$count</span>";
+    }
+
     public function createSettingsPage() {
         include dirname(__FILE__) . '/templates/operators.php';
     }

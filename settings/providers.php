@@ -51,12 +51,13 @@ class Vegashero_Settings_Providers
         $this->_providers = json_decode(json_decode($response), true);
         if(count($this->_providers)) {
             foreach($this->_providers as $provider) {
-                $this->_provider = $provider;
-                $section = $this->_getSectionName($provider);
-                $page = $this->_getPageName($provider);
-                add_settings_section($section, sprintf('%s', ucfirst($provider)), array($this, 'getProviderDescription'), $page);
-                $option_group = $this->_getOptionGroup($provider);
-                $option_name = $this->getOptionName($provider);
+                $this->_provider = $provider['provider'];
+                $this->_count = $provider['count'];
+                $section = $this->_getSectionName($provider['provider']);
+                $page = $this->_getPageName($provider['provider']);
+                add_settings_section($section, sprintf('%s', ucfirst($provider['provider'])), array($this, 'getProviderDescription'), $page);
+                $option_group = $this->_getOptionGroup($provider['provider']);
+                $option_name = $this->getOptionName($provider['provider']);
                 register_setting($option_group, $option_name);
             }
         }
@@ -83,6 +84,10 @@ class Vegashero_Settings_Providers
             'vegashero-provider-import',          // The unique ID - the slug - for this menu item
             array($this, 'createSettingsPage')   // The function used to render this menu's page to the screen
         );
+    }
+
+    private function _getGameCount($count) {
+        return "<span class='right'>$count</span>";
     }
 
     private function _getUpdateBtn($provider) {
