@@ -94,9 +94,9 @@ class Vegashero_Ajax
             if($next = $this->_getNext($pagination_links)) {
                 $pagination['next'] = $next;
             }
-            if($prev = $this->_getPrevious($pagination_links)) {
-                $pagination['prev'] = $prev;
-            }
+        }
+        if($prev = $this->_getPrevious($pagination_links)) {
+            $pagination['prev'] = $prev;
         }
         return $pagination;
     }
