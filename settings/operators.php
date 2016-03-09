@@ -58,8 +58,9 @@ class Vegashero_Settings_Operators
         $markup = "<a href='";
         $update_url = plugins_url('queue.php', __FILE__);
         $markup .= "$update_url?operator=$operator'";
-        $markup .= " class='button button-primary'";
-        $markup .= ">Import games</a>";
+        $markup .= " class='button";
+        $markup .= wp_next_scheduled('vegashero_import_operator', array($operator)) ? "' disabled>Import queued" : " button-primary'>Import games";
+        $markup .= "</a>";
         return $markup;
     }
 

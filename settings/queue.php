@@ -38,7 +38,7 @@ if( ! empty($location)) {
     // }
 
     // schedule import of games for the specific operator
-    if( ! wp_next_scheduled(sprintf('vegashero_import_%s', $identifier))) {
+    if( ! wp_next_scheduled(sprintf('vegashero_import_%s', $import_type), array($identifier))) {
         wp_schedule_single_event(time(), sprintf('vegashero_import_%s', $import_type), array($identifier));
     }
 
