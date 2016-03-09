@@ -16,7 +16,7 @@ $page = (get_query_var('page')) ? get_query_var('page') : 1;
 $categories = get_terms($config->gameCategoryTaxonomy);
 $operators = get_terms($config->gameOperatorTaxonomy);
 $providers = get_terms($config->gameProviderTaxonomy);
-$posts_per_page = get_option('posts_per_page');
+$posts_per_page = get_option('vh_lobby_games_per_page');
 
 $post_args = array(
   'posts_per_page'   => $posts_per_page,
@@ -37,7 +37,7 @@ $post_args = array(
 
 $posts = get_posts( $post_args );
 $total_posts = wp_count_posts($config->customPostType)->publish;
-$max_pages = ceil($total_posts/get_option('posts_per_page'));
+$max_pages = ceil($total_posts/$posts_per_page);
 ?>
 <div class="vh-filter">
   <select data-taxonomy="<?=$config->gameOperatorTaxonomy?>">

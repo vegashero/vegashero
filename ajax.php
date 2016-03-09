@@ -27,14 +27,12 @@ class Vegashero_Ajax
 
     public function filter_lobby() {
         //$posts_per_page = get_option('posts_per_page');
+        $posts_per_page = get_option('vh_lobby_games_per_page');
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
-        $gamecount = get_option('vh_lobby_games_per_page', 20);
         $post_args = array(
-            // 'posts_per_page'   => $posts_per_page,
-            // 'offset' => ($page-1)*$posts_per_page,
-            'posts_per_page'   => $gamecount,
-            'offset' => ($page-1)*$gamecount,
+            'posts_per_page'   => $posts_per_page,
+            'offset' => ($page-1)*$posts_per_page,
             'orderby'          => 'post_date',
             'order'            => 'DESC',
             'post_type'        => $this->_config->customPostType,
@@ -80,6 +78,7 @@ class Vegashero_Ajax
         }
 
         echo json_encode(array(
+            'args' => $post_args,
             'page' => $page,
             'posts' => $posts,
             'pagination' => $this->_getPaginationLinks($paged, count($posts))
@@ -90,7 +89,7 @@ class Vegashero_Ajax
     private function _getPaginationLinks($paged, $total) {
         $pagination_links = paginate_links($this->_getPaginationOptions($paged, $total));
         $pagination = array();
-        if($total >= get_option('vh_lobby_games_per_page', 20)) {
+        if($total >= get_option('vh_lobby_games_per_page')) {
             if($next = $this->_getNext($pagination_links)) {
                 $pagination['next'] = $next;
             }
@@ -118,7 +117,7 @@ class Vegashero_Ajax
 
     private function _getPaginationOptions($paged) {
         $total_posts = wp_count_posts($this->_config->customPostType)->publish;
-        $max_pages = ceil($total_posts/get_option('vh_lobby_games_per_page', 20));
+        $max_pages = ceil($total_posts/get_option('vh_lobby_games_per_page'));
         $big = $paged+1;
         return array(
             'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),

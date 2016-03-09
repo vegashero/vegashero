@@ -48,6 +48,7 @@ class Vegashero_Custom_Post_Type
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
+            // TODO refactor into a method
             'query_var' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
             //'query_var' => get_option('vh_game_category_url_slug'),
             'rewrite' => array(

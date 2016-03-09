@@ -6,11 +6,16 @@ $config = Vegashero_Config::getInstance();
 $categories = get_terms($config->gameCategoryTaxonomy);
 $operators = get_terms($config->gameOperatorTaxonomy);
 $providers = get_terms($config->gameProviderTaxonomy);
+
+// TODO refactor into a method
+$provider_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug');
+$operator_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug');
+$category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug');
 ?>
 <div class="vh-filter">
 
 <?php if(count($operators)): ?>
-  <select data-taxonomy="<?=$config->gameOperatorTaxonomy?>">
+  <select data-taxonomy="<?=$operator_query_var?>">
     <option selected disabled>Filter by operator</option>
     <?php foreach($operators as $operator): ?>
     <option value="<?=$operator->slug?>"><?=$operator->name?> (<?=$operator->count?>)</option>
@@ -19,7 +24,7 @@ $providers = get_terms($config->gameProviderTaxonomy);
 <?php endif ?>
 
 <?php if(count($categories)): ?>
-  <select data-taxonomy="<?=$config->gameCategoryTaxonomy?>">
+  <select data-taxonomy="<?=$category_query_var?>">
     <option selected disabled>Filter by category</option>
     <?php foreach($categories as $category): ?>
     <option value="<?=$category->slug?>"><?=$category->name?> (<?=$category->count?>)</option>
@@ -28,7 +33,7 @@ $providers = get_terms($config->gameProviderTaxonomy);
 <?php endif ?>
 
 <?php if(count($providers)): ?>
-  <select data-taxonomy="<?=$config->gameProviderTaxonomy?>">
+  <select data-taxonomy="<?=$provider_query_var?>">
     <option selected disabled>Filter by provider</option>
     <?php foreach($providers as $provider): ?>
     <option value="<?=$provider->slug?>"><?=$provider->name?> (<?=$provider->count?>)</option>

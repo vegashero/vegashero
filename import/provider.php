@@ -177,6 +177,8 @@ class Vegashero_Import_Provider extends Vegashero_Import
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
+            //'query_var' => true,
+            // TODO refactor into a method
             'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
             // 'rewrite'           => true
             'rewrite' => array(
