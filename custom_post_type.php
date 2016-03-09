@@ -34,12 +34,12 @@ class Vegashero_Custom_Post_Type
         $labels = array(
             'name'              => 'Game Categories',
             'singular_name'     => 'Game Category',
-            'search_items'      => 'Search Game',
-            'all_items'         => 'All Games',
-            'edit_item'         => 'Edit Game',
-            'update_item'       => 'Update Game',
-            'add_new_item'      => 'Add New Game',
-            'new_item_name'     => 'New Game',
+            'search_items'      => 'Search Game Category',
+            'all_items'         => 'All Game Categories',
+            'edit_item'         => 'Edit Category',
+            'update_item'       => 'Update Category',
+            'add_new_item'      => 'Add New Game Category',
+            'new_item_name'     => 'New Category',
             'menu_name'         => 'Game Categories',
         );
 
@@ -64,8 +64,14 @@ class Vegashero_Custom_Post_Type
     public function registerCustomPosttype() {
         $options = array(
             'labels' => array(
-                'name' => 'Vegas Hero Games',
-                'singular_name' => 'Vegas Hero Game'
+                'name' => 'VegasHero Games',
+                'singular_name' => 'VegasHero Game',
+                'search_items'  => 'Search Game',
+                'all_items'     => 'All Games',
+                'edit_item'     => 'Edit Game',
+                'update_item'   => 'Update Game',
+                'add_new_item'  => 'Add New Game',
+                'new_item_name' => 'New Game'
             ),
             'public' => true,
             'exclude_from_search' => false,

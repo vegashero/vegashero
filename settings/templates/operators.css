@@ -133,13 +133,13 @@ ul.operator-cards li .btn-area {
   border-top: 1px solid #dedede;
   overflow: hidden;
 }
-ul.products li, ul.instructions li {
+ul.products li, ul.instructions li, .helpinfo {
   background:white;
   border: 1px solid #dedede;
   clear:both;
 }
 
-ul.products li.support-upsell, ul.instructions li ul {
+ul.products li.support-upsell, ul.instructions li ul, .helpinfo {
   padding:35px 40px;
 }
 ul.instructions li ul li {

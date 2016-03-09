@@ -116,6 +116,29 @@
 	background:url(../img/mobile.png) 50% 18px no-repeat
 }
 
+.vh-games-widget-item {
+    width: 100%;
+    max-width: 376px;
+    list-style: none;
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    background: #f1f1f1;
+    vertical-align: middle;
+    text-transform: capitalize;
+}
+
+.vh-games-widget-item h3 {
+    text-align: center;
+    padding: 10px 5px;
+    margin: 0;
+    line-height: 1.2em;
+    font-size: 1.4em;
+}
+
+.vh-games-widget-item:hover img {
+    opacity: 0.8;
+}
+
 @media (max-width: 480px) {
   .vh-casino-providers .vh-playnow {
     padding:18px;

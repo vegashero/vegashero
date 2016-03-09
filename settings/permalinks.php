@@ -104,7 +104,7 @@ class Vegashero_Settings_Permalinks
 
         add_settings_section(
             $id = 'vegashero-permalink-section',
-            $title = 'Permalink section',
+            $title = 'Permalink Settings',
             $callback = array($this, 'sectionHeading'),
             $page = 'vh-permalinks'
         );

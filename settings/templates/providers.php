@@ -1,9 +1,14 @@
 
       <div class="wrap about-wrap">
+        <?php if(get_option('vh_license_status') === 'valid'): ?>
+        <div><!-- display this if valid license key entered --></div>
+        <?php else: ?>
         <div class="purchase-banner">
           <h3>Import 1000+ games</h3>
-          <a href="http://vegashero.co">Purchase a license</a>
+          <a target="_blank" href="http://vegashero.co?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=providers%20import%20page">Purchase a license</a>
         </div>
+        <?php endif ?>
+        
         <h1>Import by Game Provider</h1>
         <br>
         <!-- <div class="vh-badge">Version 1.0</div> -->

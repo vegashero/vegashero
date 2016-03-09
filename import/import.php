@@ -11,7 +11,7 @@ abstract class Vegashero_Import
             $operator_id = wp_insert_category(
                 array(
                     'cat_name' => $operator,
-                    'category_description' => 'Vegas Hero Game Operators',
+                    'category_description' => 'VegasHero Game Operators',
                     'category_nicename' => sanitize_title($operator),
                     'taxonomy' => $this->_config->gameOperatorTaxonomy
                 ),
@@ -29,7 +29,7 @@ abstract class Vegashero_Import
             $provider_id = wp_insert_category(
                 array(
                     'cat_name' => $provider,
-                    'category_description' => 'Vegas Hero Game Providers',
+                    'category_description' => 'VegasHero Game Providers',
                     'category_nicename' => sanitize_title($provider),
                     'taxonomy' => $this->_config->gameProviderTaxonomy
                 ),
@@ -47,7 +47,7 @@ abstract class Vegashero_Import
             $category_id = wp_insert_category(
                 array(
                     'cat_name' => $category,
-                    'category_description' => 'Vegas Hero Game Categories',
+                    'category_description' => 'VegasHero Game Categories',
                     'category_nicename' => sanitize_title($category),
                     // 'category_parent' => $parent_id,
                     'taxonomy' => $this->_config->gameCategoryTaxonomy
