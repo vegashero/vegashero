@@ -254,6 +254,11 @@ ul.products li.support-upsell ul.addon li .button-primary {
   margin:40px 0;
 }
 
+.gamecount .dashicons-lock {
+    color: #ccc;
+    font-size: 17px;
+}
+
 @media screen and (max-width: 500px) {
   .vh-about-wrap h1 {
     font-size: 1.8em;

@@ -14,6 +14,7 @@
         <!-- <div class="vh-badge">Version 1.0</div> -->
         <hr>
         <h3>Import game selections from the following operators:</h3>
+        <p>Some operators may share the same game selection. Importing games from multiple operators won't duplicate games. It will result multiple operators assigned to a game that is featured those operators.</p>
         <?php if(isset($this->_operators) && count($this->_operators)): ?>
             <ul class="operator-cards">
             <?php foreach($this->_operators as $operator): ?>
