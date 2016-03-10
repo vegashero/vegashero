@@ -38,7 +38,7 @@ class Vegashero_Settings_Operators
     }
 
     public function registerSettings() {
-        $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
+        $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $this->_operators = json_decode(json_decode($response), true);
     }

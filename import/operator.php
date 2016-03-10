@@ -27,7 +27,7 @@ class Vegashero_Import_Operator extends Vegashero_Import
     }
 
     private function _setOperators() {
-        $endpoint = sprintf('%s/vegasgod/operators', $this->_config->apiUrl);
+        $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $this->_operators = json_decode(json_decode($response), true);
         // $this->_operators = array_slice(array_keys((array)$game), 6, -2);

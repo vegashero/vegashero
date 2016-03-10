@@ -14,27 +14,29 @@
         <!-- <div class="vh-badge">Version 1.0</div> -->
         <hr>
         <h3>Import 1 at a time</h3>
+        <?php if(isset($this->_providers) && count($this->_providers)): ?>
         <ul class="operator-cards">
-        <?php
-          foreach($this->_providers as $provider) {
-              echo '<li>';
-              echo '<div class="desc">';
-              echo '<div class="provider-img"><img src="http://cdn.vegasgod.com/providers/' . $provider['provider'] . '.png" /></div>';
-              echo '<form method="post" action="options.php">';
-              settings_fields($this->_getOptionGroup($provider['provider']));
+        <?php foreach($this->_providers as $provider): ?>
+              <li>
+              <div class="desc">
+              <div class="provider-img"><img src="http://cdn.vegasgod.com/providers/<?=$provider['provider']?>.png" /></div>
+              <form method="post" action="options.php">
+              <?= settings_fields($this->_getOptionGroup($provider['provider'])); 
               $page = $this->_getPageName($provider['provider']);
-              do_settings_sections($page);
-              echo '<div class="btn-area">';
-              echo $this->_getUpdateBtn($provider['provider']);
-              echo '</div>';
-              echo '<div class="btn-area">';
-              echo $this->_getGameCount($provider['count']);
-              echo '</div>';
-              echo '</div>';
-              echo '</form>';
-              echo '</li>';
-          }
-        ?>
+              do_settings_sections($page); ?>
+              <div class="btn-area">
+              <?= $this->_getUpdateBtn($provider['provider']); ?>
+              </div>
+              <div class="btn-area">
+              <?= $this->_getGameCount($provider['count']); ?>
+              </div>
+              </div>
+              </form>
+              </li>
+        <?php endforeach ?>
         </ul>
+        <?php else: ?>
+        <p style="color:red">Unable to fetch a list of providers. Please try again by refreshing your page.</p>
+        <?php endif ?>
 
       </div>
