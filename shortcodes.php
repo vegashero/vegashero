@@ -117,6 +117,7 @@ public function __construct() {
             'description' => 'Display games with thumbnails from the VegasHero Plugin.',
             'title' => 'Latest Casino Games',
             'maxgames' => 5,
+            'orderby' => 'date',
         );
         parent::__construct( 'Widget_vh_recent_games', 'VegasHero Games Widget', $widget_ops );
     }
@@ -126,7 +127,7 @@ public function form( $instance ) {
         $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Latest Games', 'text_domain' );
         $post_type = 'vegashero_games';
         $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : __( '5', 'text_domain' );
-        $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : __( 'post_date desc', 'text_domain' );
+        $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : __( 'date', 'text_domain' );
 
 ?>
 
@@ -141,16 +142,16 @@ public function form( $instance ) {
 </fieldset>
 <br/>
 
-<!-- <fieldset><legend>Sort Order:</legend> 
+<fieldset><legend>Sort Order:</legend> 
     <select id="<?php echo $this->get_field_id('orderby'); ?>" name="<?php echo $this->get_field_name('orderby'); ?>">
-        <option value="post_date desc"<?php if ($orderby=="post_date desc") echo ' selected="true"';  ?>>Date (Newest first)</option>
-        <option value="post_date"<?php if ($orderby=="post_date") echo ' selected="true"';  ?>>Date (Oldest first)</option>
-        <option value="upper(post_title)"<?php if ($orderby=="upper(post_title)") echo ' selected="true"';  ?>>Alphabetical Title</option>
+        <option value="datenewest"<?php if ($orderby=="datenewest") echo ' selected="true"';  ?>>Date (Newest first)</option>
+        <option value="dateoldest"<?php if ($orderby=="dateoldest") echo ' selected="true"';  ?>>Date (Oldest first)</option>
+        <option value="titleaz"<?php if ($orderby=="titleaz") echo ' selected="true"';  ?>>Alphabetical Title (A-Z)</option>
+        <option value="titleza"<?php if ($orderby=="titleza") echo ' selected="true"';  ?>>Alphabetical Title (Z-A)</option>
         <option value="random"<?php if ($orderby=="random") echo ' selected="true"';  ?>>Random</option>
-        <option value="post_modified desc, post_date desc"<?php if ($orderby=="post_modified desc, post_date desc") echo ' selected="true"';  ?>>Recently Modified</option>
     </select>   
 </fieldset>
-<br/> -->
+<br/>
 
 <?php
     }
@@ -170,21 +171,46 @@ public function form( $instance ) {
 
         if (empty($title)) $title='';
         if (empty($post_type)) $post_type='post';
-        if (empty($orderby)) $pfunc='post_date desc';
+        if (empty($orderby)) $pfunc='date';
         if (empty($maxgames)) $maxgames=5;
         
-        $sort=$orderby;
-        if ($sort=='random') $sort='ID';
-        $datelimit='';
-        $items=vh_recent_games_get_results($sort,$post_type,$datelimit);
+        $orderbynew = 'date';
+        $sort = 'DESC';
+
+        if ($orderby=="datenewest") {
+            $orderbynew = 'date';
+            $sort = 'DESC';
+        }
+        if ($orderby=="dateoldest") {
+            $orderbynew = 'date';
+            $sort = 'ASC';
+        }
+        if ($orderby=="titleaz") {
+            $orderbynew = 'title';
+            $sort = 'ASC';
+        }
+        if ($orderby=="titleza") {
+            $orderbynew = 'title';
+            $sort = 'DESC';
+        }
+        if ($orderby=="random") {
+            $orderbynew = 'rand';
+            $sort = 'DESC';
+        }
+
+        $args = array(
+         'orderby' => $orderbynew,
+         'order'    => $sort,
+         'post_type' => 'vegashero_games',
+         'post_status' => 'publish'
+        );
+        $items = get_posts( $args );
+
         if (empty($items)) {
             echo 'No games to display...';
             return;
         }
-        if ($orderby=='random') {
-            shuffle($items);
-        }
-        
+
         $max=$maxgames;
         $out='';
         global $wp_query;
@@ -224,18 +250,6 @@ public function form( $instance ) {
 
     }
 
-}
-
-function vh_recent_games_get_results($sort,$post_type,$datelimit) {
-    global $wpdb;
-    $dd='';
-    if (!empty($datelimit)) {
-        $dd=" AND POST_DATE>DATE('$datelimit')" ;
-    }
-    $sql="SELECT ID,post_title,post_author,comment_count, post_date, menu_order, post_modified FROM ".$wpdb->posts." WHERE post_status = 'publish' $dd and post_type='$post_type' ORDER by $sort";
-    
-    $results=$wpdb->get_results($sql);
-    return $results;
 }
 
 add_action('widgets_init', create_function('', 'return register_widget("Widget_vh_recent_games");'));

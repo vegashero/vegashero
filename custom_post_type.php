@@ -105,3 +105,83 @@ class Vegashero_Custom_Post_Type
 
 
 }
+
+
+/** Admin taxonomy filters for vegashero_games custom post type */
+
+function add_game_category_taxonomy_filters() {
+    global $typenow;
+    $post_type = 'vegashero_games';
+    $taxonomy = 'game_category';
+    $posttype_slug = get_option('vh_custom_post_type_url_slug');
+    $category_slug = get_option('vh_game_category_url_slug');
+    $taxonomy_permalink_slug = $posttype_slug.'-'.$category_slug;
+    if ($typenow == $post_type) {
+        $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+        $info_taxonomy = get_taxonomy($taxonomy);
+        wp_dropdown_categories(array(
+            'show_option_all' => __("All {$info_taxonomy->label}"),
+            'taxonomy' => $taxonomy,
+            'name' => $taxonomy_permalink_slug,
+            'orderby' => 'name',
+            'selected' => $selected,
+            'show_count' => true,
+            'hide_empty' => true,
+            'value_field' => 'slug',
+        ));
+    };
+}
+
+add_action('restrict_manage_posts', 'add_game_category_taxonomy_filters');
+
+
+function add_game_operator_taxonomy_filters() {
+    global $typenow;
+    $post_type = 'vegashero_games';
+    $taxonomy = 'game_operator';
+    $posttype_slug = get_option('vh_custom_post_type_url_slug');
+    $operator_slug = get_option('vh_game_operator_url_slug');
+    $taxonomy_permalink_slug = $posttype_slug.'-'.$operator_slug;
+    if ($typenow == $post_type) {
+        $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+        $info_taxonomy = get_taxonomy($taxonomy);
+        wp_dropdown_categories(array(
+            'show_option_all' => __("All {$info_taxonomy->label}"),
+            'taxonomy' => $taxonomy,
+            'name' => $taxonomy_permalink_slug,
+            'orderby' => 'name',
+            'selected' => $selected,
+            'show_count' => true,
+            'hide_empty' => true,
+            'value_field' => 'slug',
+        ));
+    };
+}
+
+add_action('restrict_manage_posts', 'add_game_operator_taxonomy_filters');
+
+
+function add_game_provider_taxonomy_filters() {
+    global $typenow;
+    $post_type = 'vegashero_games';
+    $taxonomy = 'game_provider';
+    $posttype_slug = get_option('vh_custom_post_type_url_slug');
+    $provider_slug = get_option('vh_game_provider_url_slug');
+    $taxonomy_permalink_slug = $posttype_slug.'-'.$provider_slug;
+    if ($typenow == $post_type) {
+        $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
+        $info_taxonomy = get_taxonomy($taxonomy);
+        wp_dropdown_categories(array(
+            'show_option_all' => __("All {$info_taxonomy->label}"),
+            'taxonomy' => $taxonomy,
+            'name' => $taxonomy_permalink_slug,
+            'orderby' => 'name',
+            'selected' => $selected,
+            'show_count' => true,
+            'hide_empty' => true,
+            'value_field' => 'slug',
+        ));
+    };
+}
+
+add_action('restrict_manage_posts', 'add_game_provider_taxonomy_filters');
