@@ -208,6 +208,7 @@ ul#vh-lobby-posts {
 }
 .vh-item .vh-game-title {
   font-size: 15px;
+  color:#525d64;
   line-height: 18px;
   height: 55px;
   display: -webkit-box;
@@ -295,6 +296,7 @@ ul#vh-lobby-posts {
   margin-right:15px;
   border:1px solid #f4f4f4;
   outline: none;
+  padding: 5px;
 }
 .vh-filter select:hover {
   background-color:#2e2e2e;
@@ -302,11 +304,6 @@ ul#vh-lobby-posts {
   cursor: pointer;
 }
 
-/*.vh-filter:active,
-.vh-filter.is-checked {
-  background-color: #2e2e2e;
-  color: #f4e86b;
-}*/
 .vh-filter:focus {
   outline: none;
 }

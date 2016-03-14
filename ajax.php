@@ -28,6 +28,9 @@ class Vegashero_Ajax
     public function filter_lobby() {
         //$posts_per_page = get_option('posts_per_page');
         $posts_per_page = get_option('vh_lobby_games_per_page');
+        if ((get_option('vh_lobby_games_per_page') == "") || (get_option('vh_lobby_games_per_page') == 0)) {
+            $posts_per_page = 20;
+        }
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
         $post_args = array(

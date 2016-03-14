@@ -253,3 +253,14 @@ public function form( $instance ) {
 }
 
 add_action('widgets_init', create_function('', 'return register_widget("Widget_vh_recent_games");'));
+
+
+// adds unique CSS class to lobby page for easy custom styling
+function vhLobby_body_class( $c ) {
+    global $post;
+    if( isset($post->post_content) && has_shortcode( $post->post_content, 'vegashero-lobby' ) ) {
+        $c[] = 'vh-lobby-page';
+    }
+    return $c;
+}
+add_filter( 'body_class', 'vhLobby_body_class' );
