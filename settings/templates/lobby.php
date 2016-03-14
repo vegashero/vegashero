@@ -3,6 +3,9 @@
     <form method="post" action="options.php">
     <?php settings_fields('vh-lobby-page'); //outputs boilerplate hidden fields ?> 
     <?php do_settings_sections( 'vh-lobby-page' ); //pass slug name of page ?>
+
+    <?php settings_fields('vh-lobbysort-page'); //outputs boilerplate hidden fields ?> 
+    <?php do_settings_sections( 'vh-lobbysort-page' ); //pass slug name of page ?>
     <?php submit_button(); ?>
     </form>
 

@@ -35,6 +35,12 @@ class Vegashero_Settings_Lobby
         include_once( dirname( __FILE__ ) . '/templates/lobby/games-per-page-input.php' );
     }
 
+    public function selectLobbySorting() { 
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        include_once( dirname( __FILE__ ) . '/templates/lobby/lobby-sorting-select.php' );
+    }
+
     public function registerSettings() {
 
         // lobby settings
@@ -60,6 +66,31 @@ class Vegashero_Settings_Lobby
         register_setting(
             $option_group = 'vh-lobby-page', 
             $option_name = 'vh_lobby_games_per_page' 
+        );
+
+        // lobby default sorting settings
+        add_settings_section(
+            $id = 'vh-lobbysort-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = 'vh-lobbysort-page'
+        );
+
+        add_settings_field(
+            $id = 'vh_lobby_games_sort',
+            $title = 'Sort lobby games by',
+            $callback = array($this, 'selectLobbySorting'),
+            $page = 'vh-lobbysort-page',
+            $section = 'vh-lobbysort-section',
+            $args = array(
+                'id' => 'vh_lobby_games_sort',
+                'vh_lobby_games_sort' => 'DESC'
+            )
+        );
+
+        register_setting(
+            $option_group = 'vh-lobbysort-page', 
+            $option_name = 'vh_lobby_games_sort' 
         );
     }
 

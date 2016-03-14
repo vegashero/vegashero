@@ -31,13 +31,52 @@ class Vegashero_Ajax
         if ((get_option('vh_lobby_games_per_page') == "") || (get_option('vh_lobby_games_per_page') == 0)) {
             $posts_per_page = 20;
         }
+
+        $sortingGames = get_option('vh_lobby_games_sort');
+        //default sorting
+        $orderby = 'post_date';
+        $order = 'DESC';
+
+        if ($sortingGames=="datenewest") {
+            $orderby = 'post_date';
+            $order = 'DESC';
+        }
+        if ($sortingGames=="dateoldest") {
+            $orderby = 'post_date';
+            $order = 'ASC';
+        }
+        if ($sortingGames=="modifiednewest") {
+            $orderby = 'modified';
+            $order = 'DESC';
+        }
+        if ($sortingGames=="modifiedoldest") {
+            $orderby = 'modified';
+            $order = 'ASC';
+        }
+        if ($sortingGames=="titleaz") {
+            $orderby = 'title';
+            $order = 'ASC';
+        }
+        if ($sortingGames=="titleza") {
+            $orderby = 'title';
+            $order = 'DESC';
+        }
+        if ($sortingGames=="random") {
+            $orderby = 'rand';
+            $order = 'DESC';
+        }
+
+        if ((get_option('vh_lobby_games_per_page') == "") || (get_option('vh_lobby_games_per_page') == 0)) {
+            $posts_per_page = 20;
+        }
+
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
         $post_args = array(
             'posts_per_page'   => $posts_per_page,
             'offset' => ($page-1)*$posts_per_page,
-            'orderby'          => 'post_date',
-            'order'            => 'DESC',
+            'orderby'          => $orderby,
+            'order'            => $order,
             'post_type'        => $this->_config->customPostType,
             'post_status'      => 'publish',
             'paged' => $paged,
