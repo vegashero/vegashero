@@ -133,7 +133,7 @@ class Vegashero_Import_Operator extends Vegashero_Import
             $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
         }
         if($this->_haveLicense()) {
-            $endpoint = sprintf('%s?license=%s', $endpoint, $this->_license);
+            $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
         }
         $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
         $games = json_decode(json_decode($response));
