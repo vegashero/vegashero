@@ -132,12 +132,19 @@
     text-align: center;
     padding: 10px 5px;
     margin: 0;
-    line-height: 1.2em;
-    font-size: 1.4em;
+    line-height: 18px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: normal;
+    color: #525d64!important;
 }
 
 .vh-games-widget-item:hover img {
     opacity: 0.8;
+}
+
+.Widget_vh_recent_games h4.widget-title {
+	font-family: inherit;
 }
 
 /* WMS left align fix */

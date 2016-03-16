@@ -75,9 +75,9 @@ jQuery(document).ready(function($) {
                 var options = {};
             }
             var data = this.getQueryData(options);
-            console.log(data);
+            //console.log(data);
             this.getGames(data, function(res) {
-                console.log(res);
+                //console.log(res);
                 var markup = ''
                 jQuery.each(res.posts, function(key, post) {
                     markup += self.getGameMarkup(data, post);
@@ -101,7 +101,7 @@ jQuery(document).ready(function($) {
                 var quicksearch = $('.vh-filter #vh-search').keyup( debounce( function() {
                     //qsRegex = new RegExp( quicksearch.val() );
                     qsRegex = $('.vh-filter #vh-search').val();
-                    console.log(quicksearch);
+                    //console.log(quicksearch);
                     self.loadGames({
                         taxonomy: 'keyword',
                         filterBy: qsRegex

@@ -1,9 +1,5 @@
-<!-- <input name="<?=$id?>" id="<?=$id?>" type='select' min='1' step='1' value='<?=get_option($id)?get_option($id):20?>' /> -->
-
 <?php
-
 $orderGamesBy = get_option( $id, 'DESC' );
-
 ?>
 
 <select name="<?=$id?>" id="<?=$id?>">

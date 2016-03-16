@@ -14,9 +14,9 @@
 
 .cssload-spin-box {
 	position: absolute;
-	margin: auto;
+	margin: 10px auto;
 	left: 0;
-	top: 100px;
+	top: 40px;
 	bottom: 0;
 	right: 0;
 	width: 15px;
@@ -119,6 +119,7 @@ ul#vh-lobby-posts {
   position: relative;
   margin:0 0 20px 0;
   padding:0;
+  min-height: 100px;
 }
 
 
