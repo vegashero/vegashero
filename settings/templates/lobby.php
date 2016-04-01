@@ -1,14 +1,8 @@
 <div class="wrap about-wrap">
 
     <form method="post" action="options.php">
-    <?php settings_fields('vh-lobby-page'); //outputs boilerplate hidden fields ?> 
+    <?php settings_fields('vh-lobby-settings'); //outputs boilerplate hidden fields ?> 
     <?php do_settings_sections( 'vh-lobby-page' ); //pass slug name of page ?>
-
-    <?php settings_fields('vh-lobbysort-page'); ?> 
-    <?php do_settings_sections( 'vh-lobbysort-page' ); ?>
-
-    <?php settings_fields('vh-lobbylink-page'); ?> 
-    <?php do_settings_sections( 'vh-lobbylink-page' ); ?>
 
     <?php submit_button(); ?>
     </form>

@@ -13,7 +13,7 @@ spl_autoload_register(function($classname) {
     }
 });
 
-$config = new Vegashero_Config();
+$config = Vegashero_Config::getInstance();
 
 global $wpdb;
 $wpdb->query("DELETE FROM wp_postmeta WHERE meta_key = '$config->postMetaGameId'");

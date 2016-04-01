@@ -70,7 +70,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-page', 
+            $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_lobby_games_per_page' 
         );
 
@@ -79,14 +79,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-lobbysort-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobbysort-page'
+            $page = 'vh-lobby-page'
         );
 
         add_settings_field(
             $id = 'vh_lobby_games_sort',
             $title = 'Sort lobby games by',
             $callback = array($this, 'selectLobbySorting'),
-            $page = 'vh-lobbysort-page',
+            $page = 'vh-lobby-page',
             $section = 'vh-lobbysort-section',
             $args = array(
                 'id' => 'vh_lobby_games_sort',
@@ -95,7 +95,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobbysort-page', 
+            $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_lobby_games_sort' 
         );
 
@@ -104,14 +104,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-lobbylink-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobbylink-page'
+            $page = 'vh-lobby-page'
         );
 
         add_settings_field(
             $id = 'vh_lobbylink',
             $title = 'Display VegasHero link?',
             $callback = array($this, 'tickboxLobbyLink'),
-            $page = 'vh-lobbylink-page',
+            $page = 'vh-lobby-page',
             $section = 'vh-lobbylink-section',
             $args = array(
                 'id' => 'vh_lobbylink',
@@ -120,7 +120,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobbylink-page', 
+            $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_lobbylink' 
         );
     }
