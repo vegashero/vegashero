@@ -140,12 +140,13 @@ ul#vh-lobby-posts {
   opacity: .5;
 }
 .vh-item a > div {
-  position: relative;
+  /*position: relative;*/
   display: block;
   overflow: hidden;
   z-index: 120;
   background: #F1F1F1;
   outline: none;
+  line-height: 0;
 }
 .play-now {
   background: white;
@@ -155,6 +156,7 @@ ul#vh-lobby-posts {
   width: 60%;
   top: 100%;
   font-size: 14px;
+  line-height: 23px;
   left:15%;
   right:15%;
   color: black;
@@ -174,6 +176,7 @@ ul#vh-lobby-posts {
   border-radius: 0;
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
+  margin:0;
 }
 .vh-item:hover .vh-overlay {
   background: #000;
@@ -232,6 +235,7 @@ ul#vh-lobby-posts {
   display: inline-block;
   text-align: center;
 }
+.vh-pagination .prev,
 .vh-pagination .next {
   background:#f1f1f1;
   font-size: 14px;
@@ -240,16 +244,9 @@ ul#vh-lobby-posts {
   border-radius:1000px;
   -webkit-border-radius:1000px;
   color:#999999;
-}
-.vh-pagination .prev {
-  background:#f1f1f1;
-  font-size: 14px;
-  border-radius:1000px;
-  padding: 14px 26px;
-  border-radius:1000px;
-  -webkit-border-radius:1000px;
-  color:#999999;
-  margin-right: 20px;
+  margin: 5px 10px;
+  width: 130px;
+  display: inline-block;
 }
 .bg-info {
   color: #dcf2f8;

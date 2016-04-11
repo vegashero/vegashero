@@ -117,18 +117,17 @@
 	background:url(../img/mobile.png) 50% 18px no-repeat
 }
 
-.vh-games-widget-item {
+.Widget_vh_recent_games .vh-games-widget-item {
     width: 100%;
     max-width: 376px;
     list-style: none;
-    margin-bottom: 20px;
+    margin: 0 0 20px 0;;
     white-space: pre-wrap;
     background: #f1f1f1;
-    vertical-align: middle;
-    text-transform: capitalize;
+    vertical-align: middle;    
 }
 
-.vh-games-widget-item h3 {
+.Widget_vh_recent_games .vh-games-widget-item h3 {
     text-align: center;
     padding: 10px 5px;
     margin: 0;
@@ -137,13 +136,14 @@
     font-size: 15px;
     font-weight: normal;
     color: #525d64!important;
+    text-transform: capitalize!important;
 }
 
-.vh-games-widget-item:hover img {
+.Widget_vh_recent_games .vh-games-widget-item:hover img {
     opacity: 0.8;
 }
 
-.Widget_vh_recent_games h4.widget-title {
+.Widget_vh_recent_games h3.widget-title {
 	font-family: inherit;
 }
 
