@@ -9,19 +9,88 @@ class Vegashero_Custom_Post_Type
         $this->_config = Vegashero_Config::getInstance();
 
         // add_action( 'init', array($this, 'setPermalinkStructure'));
-        add_action('init', array($this, 'registerCustomPostType'));
         add_action('init', array($this, 'registerGameCategoryTaxonomy'));
-        add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
+        add_action('init', array($this, 'registerGameOperatorTaxonomy'));
+        add_action('init', array($this, 'registerGameProviderTaxonomy'));
+        add_action('init', array($this, 'registerCustomPostType'));
+        //add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
 
     }
 
     public function addRewriteRules( $wp_rewrite ) {
         //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
         $new_rules = array( 
-            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_category_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_category_url_slug').'=' .
-            $wp_rewrite->preg_index(1) );
+//            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_category_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_category_url_slug').'=' . $wp_rewrite->preg_index(1),
+        );
+        $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
+        //echo "<pre>";
+        //print_r($wp_rewrite->rules);
+        //echo "</pre>";
+    }
 
-            $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
+    public function registerGameOperatorTaxonomy() {
+        $labels = array(
+            'name'              => 'Game Operators',
+            'singular_name'     => 'Game Operator',
+            'search_items'      => 'Search Game Operators',
+            'all_items'         => 'All Games Operators',
+            'edit_item'         => 'Edit Game Operator',
+            'update_item'       => 'Update Game Operator',
+            'add_new_item'      => 'Add New Game Operator',
+            'new_item_name'     => 'New Game Operator',
+            'menu_name'         => 'Game Operators',
+        );
+
+        $args = array(
+            'hierarchical'      => false,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            // TODO refactor into a method
+            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug'),
+            // 'rewrite'           => true
+            'rewrite' => array(
+                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug'),
+                'with_front' => true
+            )
+        );
+
+        register_taxonomy( $this->_config->gameOperatorTaxonomy, array( $this->_config->customPostType ), $args );
+        register_taxonomy_for_object_type( $this->_config->gameOperatorTaxonomy, $this->_config->customPostType );
+        flush_rewrite_rules();
+
+    }
+
+    public function registerGameProviderTaxonomy() {
+        //require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
+        $labels = array(
+            'name'              => 'Game Providers',
+            'singular_name'     => 'Game Provider',
+            'search_items'      => 'Search Game Providers',
+            'all_items'         => 'All Games Providers',
+            'edit_item'         => 'Edit Game Provider',
+            'update_item'       => 'Update Game Provider',
+            'add_new_item'      => 'Add New Game Provider',
+            'new_item_name'     => 'New Game Provider',
+            'menu_name'         => 'Game Providers',
+        );
+
+        $args = array(
+            'hierarchical'      => false,
+            'labels'            => $labels,
+            'show_ui'           => true,
+            'show_admin_column' => true,
+            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
+            'rewrite' => array(
+                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
+                'with_front' => true
+            )
+        );
+
+        register_taxonomy( $this->_config->gameProviderTaxonomy, array( $this->_config->customPostType ), $args );
+        register_taxonomy_for_object_type( $this->_config->gameProviderTaxonomy, $this->_config->customPostType );
+        flush_rewrite_rules();
+
     }
 
    // public function setPermalinkStructure() {

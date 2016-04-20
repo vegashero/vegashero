@@ -10,20 +10,8 @@ class Vegashero_Import_Operator extends Vegashero_Import
         $license = Vegashero_Settings_License::getInstance();
         $this->_license = $license->getLicense();
 
-        add_action('init', array($this, 'registerGameOperatorTaxonomy'));
-        add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
-
         // this action is scheduled in queue.php
         add_action('vegashero_import_operator', array($this, 'importGamesForOperator'));
-    }
-
-    public function addRewriteRules( $wp_rewrite ) {
-        //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
-        $new_rules = array( 
-            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_operator_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_operator_url_slug').'=' .
-            $wp_rewrite->preg_index(1) );
-
-            $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
     }
 
     private function _setOperators() {
@@ -159,37 +147,5 @@ class Vegashero_Import_Operator extends Vegashero_Import
         }
     }
 
-    public function registerGameOperatorTaxonomy() {
-        $labels = array(
-            'name'              => 'Game Operators',
-            'singular_name'     => 'Game Operator',
-            'search_items'      => 'Search Game Operators',
-            'all_items'         => 'All Games Operators',
-            'edit_item'         => 'Edit Game Operator',
-            'update_item'       => 'Update Game Operator',
-            'add_new_item'      => 'Add New Game Operator',
-            'new_item_name'     => 'New Game Operator',
-            'menu_name'         => 'Game Operators',
-        );
-
-        $args = array(
-            'hierarchical'      => false,
-            'labels'            => $labels,
-            'show_ui'           => true,
-            'show_admin_column' => true,
-            // TODO refactor into a method
-            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug'),
-            // 'rewrite'           => true
-            'rewrite' => array(
-                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug'),
-                'with_front' => true
-            )
-        );
-
-        register_taxonomy( $this->_config->gameOperatorTaxonomy, array( $this->_config->customPostType ), $args );
-        register_taxonomy_for_object_type( $this->_config->gameOperatorTaxonomy, $this->_config->customPostType );
-        flush_rewrite_rules();
-
-    }
 
 }

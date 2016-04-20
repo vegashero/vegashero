@@ -10,20 +10,8 @@ class Vegashero_Import_Provider extends Vegashero_Import
         $license = Vegashero_Settings_License::getInstance();
         $this->_license = $license->getLicense();
 
-        add_action('init', array($this, 'registerGameProviderTaxonomy'));
-        add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
-
         // this action is scheduled in queue.php
         add_action('vegashero_import_provider', array($this, 'importGamesForProvider'));
-    }
-
-    public function addRewriteRules( $wp_rewrite ) {
-        //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
-        $new_rules = array( 
-            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_provider_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_provider_url_slug').'=' .
-            $wp_rewrite->preg_index(1) );
-
-            $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
     }
 
     private function _haveLicense() {
@@ -158,39 +146,4 @@ class Vegashero_Import_Provider extends Vegashero_Import
         }
     }
 
-    public function registerGameProviderTaxonomy() {
-        //require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
-        $labels = array(
-            'name'              => 'Game Providers',
-            'singular_name'     => 'Game Provider',
-            'search_items'      => 'Search Game Providers',
-            'all_items'         => 'All Games Providers',
-            'edit_item'         => 'Edit Game Provider',
-            'update_item'       => 'Update Game Provider',
-            'add_new_item'      => 'Add New Game Provider',
-            'new_item_name'     => 'New Game Provider',
-            'menu_name'         => 'Game Providers',
-        );
-
-        $args = array(
-            'hierarchical'      => false,
-            'labels'            => $labels,
-            'show_ui'           => true,
-            'show_admin_column' => true,
-            //'query_var' => true,
-            // TODO refactor into a method
-            'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
-            // 'rewrite'           => true
-            'rewrite' => array(
-                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
-                //'slug' => get_option('vh_game_provider_url_slug', $this->_config->gameProviderUrlSlug),
-                //'slug' => 'mygame/provider',
-                'with_front' => true
-            )
-        );
-
-        register_taxonomy( $this->_config->gameProviderTaxonomy, array( $this->_config->customPostType ), $args );
-        register_taxonomy_for_object_type( $this->_config->gameProviderTaxonomy, $this->_config->customPostType );
-        flush_rewrite_rules();
-    }
 }
