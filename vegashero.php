@@ -20,7 +20,7 @@ $operators = new Vegashero_Custom_Post_Type();
 require_once(dirname(__FILE__) . '/settings/settings.php');
 
 require_once( dirname(__FILE__) . '/updater.php' );
-$updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__, 
+$updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
     array(
         'version'   => '1.4',       // current version number
         'license'   => $dashboard->getLicense(),    // license key (used get_option above to retrieve from DB)
