@@ -263,6 +263,69 @@ ul.products li.support-upsell ul.addon li .button-primary {
     font-size: 17px;
 }
 
+
+.op-ribbon {
+  font-size: 14px;
+  position: relative;
+  background: #4CAF50;
+  color: #fff;
+  line-height: 0;
+  text-align: center;
+  padding: 0.5em 1em;
+  visibility: hidden;
+  left: -11px;
+  text-transform: uppercase;
+  top: -3px;
+}
+.op-ribbon .op-ribbon-content:before {
+  content: "";
+  position: absolute;
+  display: block;
+  border-style: solid;
+  border-color: #3C813F transparent transparent transparent;
+  bottom: -0.7em;
+}
+.op-ribbon .op-ribbon-content:before {
+  left: 0;
+  border-width: 0.8em 0 0 0.8em;
+}
+.op-energycasino .op-ribbon { 
+  visibility: visible;
+}
+
+.op-admin-iframe-bottom {
+  width: 100%;
+  height: 1350px;
+}
+.op-admin-iframe-top {
+  width: 728px;
+  height: 90px;
+  right: 0;
+  position: absolute;
+  top: -10px;
+}
+.op-pagetitle {
+  margin-bottom: 50px!important;
+}
+.prov-admin-iframe-bottom {
+  width: 100%;
+  height: 500px;
+}
+.prov-admin-iframe-top {
+  width: 728px;
+  height: 90px;
+  right: 0;
+  position: absolute;
+  top: -10px;
+}
+.prov-pagetitle {
+  margin-bottom: 50px!important;
+}
+.licensing-admin-iframe-bottom {
+  width: 100%;
+  height: 200px;
+}
+
 @media screen and (max-width: 500px) {
   .vh-about-wrap h1 {
     font-size: 1.8em;

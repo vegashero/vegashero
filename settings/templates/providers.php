@@ -9,10 +9,10 @@
         </div>
         <?php endif ?>
         
-        <h1>Import by Game Provider</h1>
-        <br>
-        <!-- <div class="vh-badge">Version 1.0</div> -->
-        <hr>
+        <h1 class="prov-pagetitle">Import by Game Provider</h1>
+
+        <iframe class="prov-admin-iframe-top" frameborder="0" scrolling="no" src="http://vegasgod.com/iframes/providers-admin-top.php"></iframe>
+
         <h3>Import 1 at a time</h3>
         <?php if(isset($this->_providers) && count($this->_providers)): ?>
         <ul class="operator-cards">
@@ -38,5 +38,9 @@
         <?php else: ?>
         <p style="color:red">Unable to fetch a list of providers. Please try again by refreshing your page.</p>
         <?php endif ?>
+        <div class="clear"></div>
+        <hr>
+
+        <iframe class="prov-admin-iframe-bottom" frameborder="0" scrolling="no" src="http://vegasgod.com/iframes/providers-admin-bottom.php"></iframe>
 
       </div>

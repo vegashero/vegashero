@@ -23,7 +23,7 @@
 
 	<p>Check the <a target="_blank" href="http://vegashero.co/category/game-releases/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">latest game release</a> posts.</p>
 
-	<div style="font-size:11px; margin-top:40px;">
+	<div style="font-size:11px; margin-top:25px;">
 		<strong>Notice about game assets</strong>
 		<p style="font-size:11px;">The VegasHero Plugin sources games and game images from external sources. Although regular quality checks are carried out to safeguard the reliability of the games and image assets used by the plugin neither VegasHero.co nor its contracting partners can give any explicit or implicit assurance or warranty (including to third parties) in respect of the accuracy, reliability or completeness of the games and their assets. Casino games operated by third parties are provided "as is" without warranty of any kind. VegasHero accepts no responsibility and gives no guarantee to the effect that the functions of VegasHero Plugin will not be interrupted.</p>
 	</div>
@@ -31,5 +31,7 @@
 </div>
 
 <div class="clear"></div>
+
+<iframe class="licensing-admin-iframe-bottom" frameborder="0" scrolling="no" src="http://vegasgod.com/iframes/licensing-admin-bottom.php"></iframe>
 
 </div>
