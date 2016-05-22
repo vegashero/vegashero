@@ -264,3 +264,107 @@ function vhLobby_body_class( $c ) {
     return $c;
 }
 add_filter( 'body_class', 'vhLobby_body_class' );
+
+
+
+
+/** VegasHero Grid Shortcode with taxonomy filters with configurable game sorting and count and optional pagination */
+add_shortcode( 'vh-grid', 'vh_grid_shortcode' );
+function vh_grid_shortcode( $atts ) {
+    ob_start();
+ 
+    // define attributes and their defaults
+    extract( shortcode_atts( array (
+        'order' => 'ASC',
+        'orderby' => 'title',
+        'gamesperpage' => -1,
+        'pagination' => 'off',
+        'provider' => '',
+        'operator' => '',
+        'category' => '',
+    ), $atts ) );
+ 
+    // define query parameters based on attributes
+    $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+    $options = array(
+        'post_type' => 'vegashero_games',
+        'order' => $order,
+        'orderby' => $orderby,
+        'posts_per_page' => $gamesperpage,
+        'paged' => $paged,
+        'tax_query' => array(
+            'relation' => 'OR',
+                array(
+                    'taxonomy' => 'game_provider',
+                    'field'    => 'slug',
+                    'terms'    => $provider,
+                ),
+                array(
+                    'taxonomy' => 'game_operator',
+                    'field'    => 'slug',
+                    'terms'    => $operator,
+                ),
+                array(
+                    'taxonomy' => 'game_category',
+                    'field'    => 'slug',
+                    'terms'    => $category,
+                ),
+        ),
+        // 'game_provider' => $provider,
+        // 'game_operator' => $operator,
+        // 'game_category' => $category,
+    );
+    $the_query = new WP_Query( $options ); ?>
+    <ul id="vh-lobby-posts-grid" class="vh-row-sm">
+    <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); // run the loop ?>
+        
+            <?php 
+            $providerz = wp_get_post_terms(get_the_ID(), 'game_provider', array('fields' => 'all'));            
+            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
+            $mypostslug = get_the_title();
+            if($thumbnail) {
+                $thumbnail_new = $thumbnail[0];
+            } else {
+                $thumbnail_new = 'http://cdn.vegasgod.com/' . $providerz[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+            }
+            ?>            
+
+            <li class="vh-item" id="post-<?php the_ID(); ?>">
+                <a class="vh-thumb-link" href="<?php the_permalink(); ?>">
+                    <div class="vh-overlay">
+                        <img src="<?php echo $thumbnail_new; ?>" title="<?php the_title(); ?>" alt="<?php the_title(); ?>" />
+                        <!-- <span class="play-now">Play now</span> -->
+                    </div>
+                </a>
+                <div class="vh-game-title"><?php the_title(); ?></div>
+            </li>
+            <?php endwhile; ?>
+
+            <!-- grid pagination -->
+            <?php if ($pagination == 'on') { ?>
+            <?php if ($the_query->max_num_pages > 1) { ?>
+              <nav class="vh-pagination">                
+                <?php if( is_paged() ) { //check if first page ?>
+                <div class="prev page-numbers">
+                  <?php echo get_previous_posts_link( '<< Previous' ); ?>
+                </div>
+                <?php } ?>
+                <?php if ( $the_query->max_num_pages > get_query_var('paged') ) { //check if last page ?>
+                <div class="next page-numbers">
+                  <?php echo get_next_posts_link( 'Next >>', $the_query->max_num_pages ); ?>
+                </div>
+                <?php } ?>
+              </nav>
+            <?php } ?>
+            <?php } ?>
+
+            <?php else: ?>
+              <p><?php _e('Sorry, no games matched your criteria.'); ?></p>
+            <?php endif; 
+            wp_reset_postdata(); ?>
+        </ul>
+        <div class="clear"></div>
+
+    <?php $myvariable = ob_get_clean();
+    return $myvariable;
+    }   

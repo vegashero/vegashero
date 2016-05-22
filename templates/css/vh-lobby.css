@@ -376,6 +376,11 @@ input[type="text"].vh-search {
   outline: none;
 }
 
+ul#vh-lobby-posts-grid {
+    margin: 20px 0;
+    padding: 0;
+}
+
 @media (min-width: 992px) {
   .vh-filter select {
     width: 24%;
