@@ -282,6 +282,7 @@ function vh_grid_shortcode( $atts ) {
         'provider' => '',
         'operator' => '',
         'category' => '',
+        'keyword' => '',
     ), $atts ) );
  
     // define query parameters based on attributes
@@ -310,6 +311,7 @@ function vh_grid_shortcode( $atts ) {
                     'terms'    => $category,
                 ),
         ),
+        's' => $keyword,
         // 'game_provider' => $provider,
         // 'game_operator' => $operator,
         // 'game_category' => $category,

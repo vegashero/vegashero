@@ -379,6 +379,8 @@ input[type="text"].vh-search {
 ul#vh-lobby-posts-grid {
     margin: 20px 0;
     padding: 0;
+    float: left;
+    width: 100%;
 }
 
 @media (min-width: 992px) {
