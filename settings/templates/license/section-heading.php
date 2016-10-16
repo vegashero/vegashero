@@ -3,7 +3,7 @@
 <?php else: ?>
 <div class="updated" style="display:block!important;">
 	<h3 style="margin-top:0.5em;">Get a license key and add 1000+ games to your website!</h3>
-	<p>The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target="_blank" href="http://vegashero.co/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">purchase a license key here.</a></strong></p>
+	<p>The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target="_blank" href="https://vegashero.co/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">purchase a license key here.</a></strong></p>
 </div>
 <?php endif ?>
 

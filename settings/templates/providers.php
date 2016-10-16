@@ -5,13 +5,13 @@
         <?php else: ?>
         <div class="purchase-banner">
           <h3>Import 1000+ games</h3>
-          <a target="_blank" href="http://vegashero.co?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=providers%20import%20page">Purchase a license</a>
+          <a target="_blank" href="https://vegashero.co?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=providers%20import%20page">Purchase a license</a>
         </div>
         <?php endif ?>
         
         <h1 class="prov-pagetitle">Import by Game Provider</h1>
 
-        <iframe class="prov-admin-iframe-top" frameborder="0" scrolling="no" src="http://vegasgod.com/iframes/providers-admin-top.php"></iframe>
+        <iframe class="prov-admin-iframe-top" frameborder="0" scrolling="no" src="https://vegasgod.com/iframes/providers-admin-top.php"></iframe>
 
         <h3>Import 1 at a time</h3>
         <?php if(isset($this->_providers) && count($this->_providers)): ?>
@@ -19,7 +19,7 @@
         <?php foreach($this->_providers as $provider): ?>
               <li>
               <div class="desc">
-              <div class="provider-img"><img src="http://cdn.vegasgod.com/providers/<?=$provider['provider']?>.png" /></div>
+              <div class="provider-img"><img src="https://cdn.vegasgod.com/providers/<?=$provider['provider']?>.png" /></div>
               <form method="post" action="options.php">
               <?= settings_fields($this->_getOptionGroup($provider['provider'])); 
               $page = $this->_getPageName($provider['provider']);
@@ -41,6 +41,6 @@
         <div class="clear"></div>
         <hr>
 
-        <iframe class="prov-admin-iframe-bottom" frameborder="0" scrolling="no" src="http://vegasgod.com/iframes/providers-admin-bottom.php"></iframe>
+        <iframe class="prov-admin-iframe-bottom" frameborder="0" scrolling="no" src="https://vegasgod.com/iframes/providers-admin-bottom.php"></iframe>
 
       </div>

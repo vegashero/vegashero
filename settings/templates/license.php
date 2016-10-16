@@ -17,11 +17,11 @@
 	<h3>Need support?</h3>
 	Email us: <a href="mailto:support@vegashero.co">support@vegashero.co</a></p>
 
-	<p>See the <a target="_blank" href="http://vegashero.co/faq/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">FAQs</a>.</p>
+	<p>See the <a target="_blank" href="https://vegashero.co/faq/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">FAQs</a>.</p>
 
-	<p>Browse the <a target="_blank" href="http://vegashero.co/category/support/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">support section</a> of our website.</p>
+	<p>Browse the <a target="_blank" href="https://vegashero.co/category/support/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">support section</a> of our website.</p>
 
-	<p>Check the <a target="_blank" href="http://vegashero.co/category/game-releases/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">latest game release</a> posts.</p>
+	<p>Check the <a target="_blank" href="https://vegashero.co/category/game-releases/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">latest game release</a> posts.</p>
 
 	<div style="font-size:11px; margin-top:25px;">
 		<strong>Notice about game assets</strong>
@@ -32,6 +32,6 @@
 
 <div class="clear"></div>
 
-<iframe class="licensing-admin-iframe-bottom" frameborder="0" scrolling="no" src="http://vegasgod.com/iframes/licensing-admin-bottom.php"></iframe>
+<iframe class="licensing-admin-iframe-bottom" frameborder="0" scrolling="no" src="https://vegasgod.com/iframes/licensing-admin-bottom.php"></iframe>
 
 </div>

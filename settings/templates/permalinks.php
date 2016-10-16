@@ -4,7 +4,7 @@
 	<?php else: ?>
 	<div class="purchase-banner">
 	  <h3>Import 1000+ games</h3>
-	  <a target="_blank" href="http://vegashero.co?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=permalinks%20settings%20page">Purchase a license</a>
+	  <a target="_blank" href="https://vegashero.co?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=permalinks%20settings%20page">Purchase a license</a>
 	</div>
 	<?php endif ?>
 

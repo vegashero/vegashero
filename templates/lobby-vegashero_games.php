@@ -46,6 +46,6 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <ul id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon">loading games...</span></ul>
 <?php if(get_option('vh_lobbylink') === 'on'): ?>
-  <div class="vh-linklove">- <a target="_blank" href="http://vegashero.co">VegasHero Casino Affiliate Plugin</a> -</div>
+  <div class="vh-linklove">- <a target="_blank" href="https://vegashero.co">VegasHero Casino Affiliate Plugin</a> -</div>
 <?php else: ?>
 <?php endif ?>
