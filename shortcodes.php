@@ -227,10 +227,11 @@ public function form( $instance ) {
             }
             $providers = wp_get_post_terms($post->ID, 'game_provider', array("fields" => "all"));            
             $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'thumbnail_size');
+            $mypostslug = get_post_meta( $post->ID, 'game_title', true );
             if($thumbnail) {
                 $thumbnail_new = $thumbnail[0];
             } else {
-                $thumbnail_new = 'https://cdn.vegasgod.com/' . $providers[0]->slug . '/' . sanitize_title($post->post_title) . '/cover.jpg';
+                $thumbnail_new = 'https://cdn.vegasgod.com/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
             }
             $post_link=get_permalink($ID);
             $out.= "\r\n<li class=\"vh-games-widget-item vh_recent_games_$cpi\"><a href=\"$post_link\" title=\"$post_title\" class=\"vh_recent_games_item_$cpi\" ><img alt=\"$post_title\" src=\"$thumbnail_new\"/><h3>$post_title</h3></a></li>";
@@ -282,6 +283,7 @@ function vh_grid_shortcode( $atts ) {
         'provider' => '',
         'operator' => '',
         'category' => '',
+        'tag' => '',
         'keyword' => '',
     ), $atts ) );
  
@@ -310,6 +312,11 @@ function vh_grid_shortcode( $atts ) {
                     'field'    => 'slug',
                     'terms'    => $category,
                 ),
+                array(
+                    'taxonomy' => 'post_tag',
+                    'field'    => 'slug',
+                    'terms'    => $tag,
+                ),
         ),
         's' => $keyword,
         // 'game_provider' => $provider,
@@ -323,7 +330,7 @@ function vh_grid_shortcode( $atts ) {
             <?php 
             $providerz = wp_get_post_terms(get_the_ID(), 'game_provider', array('fields' => 'all'));            
             $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
-            $mypostslug = get_the_title();
+            $mypostslug = get_post_meta( get_the_ID(), 'game_title', true );
             if($thumbnail) {
                 $thumbnail_new = $thumbnail[0];
             } else {
