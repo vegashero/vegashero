@@ -9,12 +9,16 @@ class Vegashero_Shortcodes
     public function __construct() {
         $this->_config = Vegashero_Config::getInstance();
         add_shortcode('vegashero-lobby', array($this, 'lobby'));
+
     }
 
     public function lobby() {
+        ob_start();
         $lobby_template_file = sprintf('%s/templates/lobby-%s.php', dirname(__FILE__), $this->_config->customPostType);
         // return file_get_contents($lobby_template_file);
         include_once $lobby_template_file;
+        $lobby_template_file = ob_get_clean();
+        return $lobby_template_file;
     }
 
 }
