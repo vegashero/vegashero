@@ -34,11 +34,20 @@ class Vegashero_Shortcodes
 function vh_table_func($atts,$vhcontent = null){
     extract( shortcode_atts( array(
         'vh_tname' => '', //table title
+        'vh_bonushead' => '', //bonus column title
+        'vh_devicehead' => '', //device compatibility column title
     ), $atts ) );
+
+    if ( $vh_bonushead == '' ) { $vh_bonushead = 'Bonus'; }
+    if ( $vh_devicehead == '' ) { $vh_devicehead = 'Compatible Devices'; }
 
     $vhoutput = "<table class=\"vh-casino-providers\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><th class=\"vh-casino\">";
     $vhoutput .= $vh_tname;
-    $vhoutput .= "<th class=\"vh-bonus\">Bonus</th><th class=\"vh-devices\">Compatible Devices</th></th><th class=\"vh-cta-buttons\">&nbsp;</th></tr></thead><tbody>";
+    $vhoutput .= "<th class=\"vh-bonus\">";
+    $vhoutput .= $vh_bonushead;
+    $vhoutput .= "</th><th class=\"vh-devices\">";
+    $vhoutput .= $vh_devicehead;
+    $vhoutput .= "</th></th><th class=\"vh-cta-buttons\">&nbsp;</th></tr></thead><tbody>";
     $vhcontent = str_replace('<br />', '', $vhcontent);
     $vhoutput .= do_shortcode($vhcontent);
     $vhoutput .= "</tbody>";
@@ -54,14 +63,18 @@ function vh_table_line_func($atts){
         'vh_tablet' => '',      //tablet compatible
         'vh_mobile' => '',      //mobile compatible
         'vh_link' => '',        //Affiliate link URL
-        'vh_btnlabel' => ''     //CTA button title
+        'vh_btnlabel' => '',     //CTA button title
+        'vh_target' => ''     //open link in new window or not
     ), $atts ) );
 
-    if ( $vh_pc == '1' ) { $vh_pc = '<div class="results-desktop">Desktop</div>'; }  
-    if ( $vh_tablet == '1' ) { $vh_tablet = '<div class="results-tablet">Tablet</div>'; }  
-    if ( $vh_mobile == '1' ) { $vh_mobile = '<div class="results-mobile">Mobile</div>'; }  
+    if ( $vh_pc == '1' ) { $vh_pc = '<div class="results-desktop">Desktop</div>'; }
+    if ( $vh_tablet == '1' ) { $vh_tablet = '<div class="results-tablet">Tablet</div>'; }
+    if ( $vh_mobile == '1' ) { $vh_mobile = '<div class="results-mobile">Mobile</div>'; }
+    if ( $vh_target == 'new' ) { $vh_target = '_blank'; } else { $vh_target = '_self'; }
 
-    $vhoutput = "<tr><td class=\"vh-casino\"><a href=\"";
+    $vhoutput = "<tr><td class=\"vh-casino\"><a target=\"";
+    $vhoutput .= $vh_target;
+    $vhoutput .= "\" href=\"";
     $vhoutput .= $vh_link;
     $vhoutput .= "\"><img src=\"";
     $vhoutput .= $vh_img;
@@ -72,7 +85,9 @@ function vh_table_line_func($atts){
     $vhoutput .= "<td class=\"vh-devices\">";
     $vhoutput .= $vh_pc . $vh_tablet . $vh_mobile;
     $vhoutput .= "</td>";
-    $vhoutput .= "<td class=\"vh-cta-buttons\"><a href=\"";
+    $vhoutput .= "<td class=\"vh-cta-buttons\"><a target=\"";
+    $vhoutput .= $vh_target;
+    $vhoutput .= "\" href=\"";
     $vhoutput .= $vh_link;
     $vhoutput .= "\" class=\"vh-playnow\">";
     $vhoutput .= $vh_btnlabel;
