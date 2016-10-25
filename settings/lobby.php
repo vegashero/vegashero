@@ -41,6 +41,25 @@ class Vegashero_Settings_Lobby
         include_once( dirname( __FILE__ ) . '/templates/lobby/lobby-sorting-select.php' );
     }
 
+    public function DescriptionLobbyFilters() {
+        ?><p class='description'>You can change the default name of the lobby filters. Text entered here will show as default in the lobby filter dropdowns.</p><?php
+    }
+    public function inputLobbyFiltersOp() {
+        $args = func_get_args();
+        $id_op = $args[0]['id_op'];
+        ?><input name="<?=$id_op?>" id="<?=$id_op?>" type='text' value='<?=get_option($id_op)?get_option($id_op):'Filter by operator'?>' /><?php
+    }
+    public function inputLobbyFiltersCat() {
+        $args = func_get_args();
+        $id_cat = $args[0]['id_cat'];
+        ?><input name="<?=$id_cat?>" id="<?=$id_cat?>" type='text' value='<?=get_option($id_cat)?get_option($id_cat):'Filter by category'?>' /><?php
+    }
+    public function inputLobbyFiltersProv() {
+        $args = func_get_args();
+        $id_prov = $args[0]['id_prov'];
+        ?><input name="<?=$id_prov?>" id="<?=$id_prov?>" type='text' value='<?=get_option($id_prov)?get_option($id_prov):'Filter by provider'?>' /><?php
+    }
+
     public function tickboxLobbyLink() { 
         $args = func_get_args();
         $id = $args[0]['id'];
@@ -97,6 +116,65 @@ class Vegashero_Settings_Lobby
         register_setting(
             $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_lobby_games_sort' 
+        );
+
+        // lobby filters custom text
+        add_settings_section(
+            $id = 'vh-lobbyfilters-section', 
+            $title = 'Lobby Filters Custom Text', 
+            $callback = array($this, 'DescriptionLobbyFilters'), 
+            $page = 'vh-lobby-page'
+        );
+
+        add_settings_field(
+            $id_op = 'vh_lobby_filterstext_op',
+            $title = 'Operator Filter Text: ',
+            $callback = array($this, 'inputLobbyFiltersOp'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-lobbyfilters-section',
+            $args = array(
+                'id_op' => 'vh_lobby_filterstext_op',
+                'vh_lobby_filterstext_op' => 'Filter by operator',
+            )
+        );
+        
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_lobby_filterstext_op' 
+        );
+
+        add_settings_field(
+            $id_cat = 'vh_lobby_filterstext_cat',
+            $title = 'Category Filter Text: ',
+            $callback = array($this, 'inputLobbyFiltersCat'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-lobbyfilters-section',
+            $args = array(
+                'id_cat' => 'vh_lobby_filterstext_cat',
+                'vh_lobby_filterstext_cat' => 'Filter by category',
+            )
+        );
+
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_lobby_filterstext_cat' 
+        );
+
+        add_settings_field(
+            $id_prov = 'vh_lobby_filterstext_prov',
+            $title = 'Provider Filter Text: ',
+            $callback = array($this, 'inputLobbyFiltersProv'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-lobbyfilters-section',
+            $args = array(
+                'id_prov' => 'vh_lobby_filterstext_prov',
+                'vh_lobby_filterstext_prov' => 'Filter by provider',
+            )
+        );
+
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_lobby_filterstext_prov' 
         );
 
         // lobby link love

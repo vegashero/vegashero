@@ -26,7 +26,7 @@ class Vegashero_Shortcodes
 
 // VH Operators Table shortcode
 
-// [vh_table vh_tname="Table Title Here"]
+// [vh_table vh_tname="Table Title Here" vh_bonushead="Bonus Title" vh_devicehead="Devices Title"]
 //    [vh_table_line vh_img="http://url" vh_link="http://myafflinkhere.to/" vh_btnlabel="Play Now"]
 //    [vh_table_line vh_img="http://url" vh_link="http://myafflinkhere.to/" vh_btnlabel="Play Now"]
 // [/vh_table]
