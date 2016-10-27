@@ -16,7 +16,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($operators)): ?>
   <select data-taxonomy="<?=$operator_query_var?>">
-    <option selected disabled><?php echo get_option('vh_lobby_filterstext_op'); ?></option>
+    <option selected disabled><?php if (get_option('vh_lobby_filterstext_op')=="") echo 'Filter by operator'; else { echo get_option('vh_lobby_filterstext_op'); } ?></option>
     <?php foreach($operators as $operator): ?>
     <option value="<?=$operator->slug?>"><?=$operator->name?> (<?=$operator->count?>)</option>
     <?php endforeach; ?>
@@ -25,7 +25,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($categories)): ?>
   <select data-taxonomy="<?=$category_query_var?>">
-    <option selected disabled><?php echo get_option('vh_lobby_filterstext_cat'); ?></option>
+    <option selected disabled><?php if (get_option('vh_lobby_filterstext_cat')=="") echo 'Filter by category'; else { echo get_option('vh_lobby_filterstext_cat'); } ?></option>
     <?php foreach($categories as $category): ?>
     <option value="<?=$category->slug?>"><?=$category->name?> (<?=$category->count?>)</option>
     <?php endforeach; ?>
@@ -34,7 +34,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($providers)): ?>
   <select data-taxonomy="<?=$provider_query_var?>">
-    <option selected disabled><?php echo get_option('vh_lobby_filterstext_prov'); ?></option>
+    <option selected disabled><?php if (get_option('vh_lobby_filterstext_prov')=="") echo 'Filter by provider'; else { echo get_option('vh_lobby_filterstext_prov'); } ?></option>
     <?php foreach($providers as $provider): ?>
     <option value="<?=$provider->slug?>"><?=$provider->name?> (<?=$provider->count?>)</option>
     <?php endforeach; ?>
