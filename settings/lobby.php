@@ -42,7 +42,7 @@ class Vegashero_Settings_Lobby
     }
 
     public function DescriptionLobbyFilters() {
-        ?><p class='description'>You can change the default name of the lobby filters. Text entered here will show as default in the lobby filter dropdowns.</p><?php
+        ?><p class='description'>You can change the default name of the lobby filters dropdowns. Change the button text on the lobby thumbnails. Change the name of VegasHero posts displayed in your theme's breadcrumb. Text strings entered here will replace the default values.</p><?php
     }
     public function inputLobbyFiltersOp() {
         $args = func_get_args();
@@ -58,6 +58,12 @@ class Vegashero_Settings_Lobby
         $args = func_get_args();
         $id_prov = $args[0]['id_prov'];
         ?><input name="<?=$id_prov?>" id="<?=$id_prov?>" type='text' value='<?=get_option($id_prov)?get_option($id_prov):'Filter by provider'?>' /><?php
+    }
+
+    public function inputCustomPostTypeName() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'VegasHero Games'?>' /><?php
     }
 
     public function tickboxLobbyLink() { 
@@ -121,7 +127,7 @@ class Vegashero_Settings_Lobby
         // lobby filters custom text
         add_settings_section(
             $id = 'vh-lobbyfilters-section', 
-            $title = 'Lobby Filters Custom Text', 
+            $title = 'Lobby Custom Text', 
             $callback = array($this, 'DescriptionLobbyFilters'), 
             $page = 'vh-lobby-page'
         );
@@ -134,7 +140,7 @@ class Vegashero_Settings_Lobby
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_op' => 'vh_lobby_filterstext_op',
-                'vh_lobby_filterstext_op' => 'Filter by operator',
+                'vh_lobby_filterstext_op' => 'Filter by operator'
             )
         );
         
@@ -151,7 +157,7 @@ class Vegashero_Settings_Lobby
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_cat' => 'vh_lobby_filterstext_cat',
-                'vh_lobby_filterstext_cat' => 'Filter by category',
+                'vh_lobby_filterstext_cat' => 'Filter by category'
             )
         );
 
@@ -168,13 +174,38 @@ class Vegashero_Settings_Lobby
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_prov' => 'vh_lobby_filterstext_prov',
-                'vh_lobby_filterstext_prov' => 'Filter by provider',
+                'vh_lobby_filterstext_prov' => 'Filter by provider'
             )
         );
 
         register_setting(
             $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_lobby_filterstext_prov' 
+        );
+
+        // Custom post type name text for breadcrumbs - Overwrites "VegasHero Games"
+        add_settings_section(
+            $id = 'vh-cptname-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = 'vh-lobby-page'
+        );
+
+        add_settings_field(
+            $id = 'vh_cptname',
+            $title = 'VegasHero Games Custom Text (shows in breadcrumbs)',
+            $callback = array($this, 'inputCustomPostTypeName'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-cptname-section',
+            $args = array(
+                'id' => 'vh_cptname',
+                'vh_cptname' => 'VegasHero Games'
+            )
+        );
+        
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_cptname' 
         );
 
         // lobby link love

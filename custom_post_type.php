@@ -132,16 +132,26 @@ class Vegashero_Custom_Post_Type
     }
 
     public function registerCustomPosttype() {
+
+        $cptnamevalue = get_option('vh_cptname');
+
+        if ($cptnamevalue == "") {
+            $cptnamevalue = 'VegasHero Games';
+        } else { 
+            $cptnamevalue = get_option('vh_cptname'); 
+        }
+        
         $options = array(
             'labels' => array(
-                'name' => 'VegasHero Games',
+                'name' => $cptnamevalue,
                 'singular_name' => 'VegasHero Game',
                 'search_items'  => 'Search Game',
                 'all_items'     => 'All Games',
                 'edit_item'     => 'Edit Game',
                 'update_item'   => 'Update Game',
                 'add_new_item'  => 'Add New Game',
-                'new_item_name' => 'New Game'
+                'new_item_name' => 'New Game',
+                'menu_name' => 'VegasHero Games'
             ),
             'public' => true,
             'exclude_from_search' => false,
