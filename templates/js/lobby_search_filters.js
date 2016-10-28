@@ -1,3 +1,10 @@
+//thumb error handling - fallback img
+function imgError(image) {
+    image.onerror = '';
+    image.src = 'https://cdn.vegasgod.com/undefined/cover.jpg';
+    return true;
+}
+
 jQuery(document).ready(function($) {
 
     var Lobby = function() {
@@ -28,9 +35,9 @@ jQuery(document).ready(function($) {
             markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">';
             markup += '<div class="vh-overlay">';
             if(post.thumbnail) {
-                markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+                markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
             } else if(post.imgpath) {
-                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.imgpath + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
+                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.imgpath + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
             }
             markup += '<span class="play-now">' + data.playnow_btn_value + '</span>';
             markup += '</div>';

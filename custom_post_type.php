@@ -176,7 +176,7 @@ class Vegashero_Custom_Post_Type
             //    'with_front' => true
             ),
             'show_in_rest' => false,
-            'supports' => array('title', 'editor', 'thumbnail', 'custom-fields')
+            'supports' => array('title', 'editor', 'thumbnail', 'custom-fields', 'revisions')
         );
         register_post_type($this->_config->customPostType, $options);
         flush_rewrite_rules();
