@@ -60,6 +60,12 @@ class Vegashero_Settings_Lobby
         ?><input name="<?=$id_prov?>" id="<?=$id_prov?>" type='text' value='<?=get_option($id_prov)?get_option($id_prov):'Filter by provider'?>' /><?php
     }
 
+    public function inputPlayNowBtn() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'Play Now'?>' /><?php
+    }
+
     public function inputCustomPostTypeName() {
         $args = func_get_args();
         $id = $args[0]['id'];
@@ -206,6 +212,31 @@ class Vegashero_Settings_Lobby
         register_setting(
             $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_cptname' 
+        );
+
+        // Custom text for Play Now button on game thumbs - Overwrites "Play Now"
+        add_settings_section(
+            $id = 'vh-playnow-btn-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = 'vh-lobby-page'
+        );
+
+        add_settings_field(
+            $id = 'vh_playnow_btn',
+            $title = 'Play Now Button Custom Text (shows on game thumbnails)',
+            $callback = array($this, 'inputPlayNowBtn'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-playnow-btn-section',
+            $args = array(
+                'id' => 'vh_playnow_btn',
+                'vh_playnow_btn' => 'Play Now'
+            )
+        );
+        
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_playnow_btn' 
         );
 
         // lobby link love

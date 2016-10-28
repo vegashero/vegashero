@@ -12,7 +12,8 @@ jQuery(document).ready(function($) {
                 'taxonomy': options.taxonomy ? options.taxonomy : '',
                 'filterBy': options.filterBy ? options.filterBy : '',
                 'site_url': ajax_object.site_url,
-                'image_url': ajax_object.image_url
+                'image_url': ajax_object.image_url,
+                'playnow_btn_value': ajax_object.playnow_btn_value
             };
         };
 
@@ -31,7 +32,7 @@ jQuery(document).ready(function($) {
             } else if(post.imgpath) {
                 markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.imgpath + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" />';
             }
-            markup += '<span class="play-now">Play now</span>';
+            markup += '<span class="play-now">' + data.playnow_btn_value + '</span>';
             markup += '</div>';
             markup += '</a>';
             markup += '<div class="vh-game-title">' + post.post_title + '</div>';

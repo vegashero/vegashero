@@ -15,12 +15,19 @@ class Vegashero_Ajax
 
     public function lobby_filters() {
         $script_src = sprintf('%stemplates/js/lobby_search_filters.js', plugin_dir_url( __FILE__ ));
+        $playnow_btn_value = get_option('vh_playnow_btn');
+        if ($playnow_btn_value == '') {
+            $playnow_btn_value = 'Play Now';
+        } else { 
+            $playnow_btn_value = get_option('vh_playnow_btn'); 
+        }
         wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery'), null, true);
         wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
             array(
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'site_url' => site_url(),
-                'image_url' => $this->_config->gameImageUrl
+                'image_url' => $this->_config->gameImageUrl,
+                'playnow_btn_value' => $playnow_btn_value
             )
         );
     }
