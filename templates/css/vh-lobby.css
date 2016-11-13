@@ -144,6 +144,7 @@ ul#vh-lobby-posts {
   display: block;
   overflow: hidden;
   z-index: 120;
+  min-height: 198px;
   background: #F1F1F1;
   outline: none;
   line-height: 0;
