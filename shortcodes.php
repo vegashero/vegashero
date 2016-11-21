@@ -221,7 +221,8 @@ public function form( $instance ) {
          'orderby' => $orderbynew,
          'order'    => $sort,
          'post_type' => 'vegashero_games',
-         'post_status' => 'publish'
+         'post_status' => 'publish',
+         'posts_per_page' => $maxgames
         );
         $items = get_posts( $args );
 
@@ -230,14 +231,11 @@ public function form( $instance ) {
             return;
         }
 
-        $max=$maxgames;
         $out='';
         global $wp_query;
         $thePostID = $wp_query->post->ID;
 
         foreach ($items as $post) {
-            $max--;
-            if ($max<0) break;
             $post_title=$post->post_title;
             $ID=$post->ID;
             $cpi='';
