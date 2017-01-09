@@ -122,8 +122,7 @@ class Vegashero_Ajax
             if($thumbnail) {
                 $post->thumbnail = $thumbnail[0];
             } else {
-                $game_title = get_post_meta( $post->ID, 'game_title', true );
-                $post->imgpath = $game_title;
+                $post->imgpath = get_post_meta( $post->ID, $this->_config->postMetaGameImg, true );
             }
         }
 
