@@ -356,7 +356,7 @@ function vh_grid_shortcode( $atts ) {
                 $thumbnail_new = $thumbnail[0];
             } else {
                 if( ! $thumbnail_new = get_post_meta( get_the_ID(), 'game_img', true )) {
-                    $thumbnail_new = 'https://cdn.vegasgod.com/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+                    $thumbnail_new = 'https://cdn.vegasgod.com/' . $providerz[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
                 }
             }
             ?>            
