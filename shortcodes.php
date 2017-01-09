@@ -242,12 +242,15 @@ public function form( $instance ) {
             if ($thePostID==$ID) {
                $cpi=' current_page_item';
             }
-            //$providers = wp_get_post_terms($post->ID, 'game_provider', array("fields" => "all"));            
+            $providers = wp_get_post_terms($post->ID, 'game_provider', array("fields" => "all"));            
             $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'thumbnail_size');
+            $mypostslug = get_post_meta( $post->ID, 'game_title', true );
             if($thumbnail) {
                 $thumbnail_new = $thumbnail[0];
             } else {
-                $thumbnail_new = get_post_meta( $post->ID, 'game_img', true );
+                if( ! $thumbnail_new = get_post_meta( $post->ID, 'game_img', true )) {
+                    $thumbnail_new = $this->_config->gameImageUrl . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+                }
             }
             $post_link=get_permalink($ID);
             $out.= "\r\n<li class=\"vh-games-widget-item vh_recent_games_$cpi\"><a href=\"$post_link\" title=\"$post_title\" class=\"vh_recent_games_item_$cpi\" ><img alt=\"$post_title\" src=\"$thumbnail_new\"/><h3>$post_title</h3></a></li>";
@@ -344,11 +347,15 @@ function vh_grid_shortcode( $atts ) {
     <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); // run the loop ?>
         
             <?php 
+            $providerz = wp_get_post_terms(get_the_ID(), 'game_provider', array('fields' => 'all'));
             $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
+            $mypostslug = get_post_meta( get_the_ID(), 'game_title', true );
             if($thumbnail) {
                 $thumbnail_new = $thumbnail[0];
             } else {
-                $thumbnail_new = get_post_meta( $post->ID, 'game_img', true );
+                if( ! $thumbnail_new = get_post_meta( $post->ID, 'game_img', true )) {
+                    $thumbnail_new = $this->_config->gameImageUrl . $providerz[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+                }
             }
             ?>            
 
