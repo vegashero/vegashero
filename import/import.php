@@ -76,6 +76,7 @@ abstract class Vegashero_Import
         $game_id = get_post_meta($existing->ID, $this->_config->postMetaGameId, true);
         $game_src = get_post_meta($existing->ID, $this->_config->postMetaGameSrc, true);
         $game_title = get_post_meta($existing->ID, $this->_config->postMetaGameTitle, true);
+        $game_img = get_post_meta($existing->ID, $this->_config->postMetaGameImg, true);
 
         $providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy);
 

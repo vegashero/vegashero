@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
             if(post.thumbnail) {
                 markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
             } else if(post.imgpath) {
-                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.imgpath + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
+                markup += '<img src="' + post.imgpath + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
             }
             markup += '<span class="play-now">' + data.playnow_btn_value + '</span>';
             markup += '</div>';
