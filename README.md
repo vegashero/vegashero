@@ -2,17 +2,31 @@
 
 This plugin will be installed by users and depends on the remote Vegas God plugin to populate with data
 
-## Install
+## Quickstart
+```bash
+$ docker-compose up --build
+```
 
-### After install manually run the cron. 
+Now navigate to [http://localhost:8080](http://localhost:8080)
 
-We make use of cron here so the inital game import can take place in the background. 
+## Snippets
 
-    wget -qO- http://vegashero.co/wp-cron.php?doing_wp_cron &> /dev/null
+
+### Manually run Wordpress cron
+```bash
+$ wget -qO- http://vegashero.co/wp-cron.php?doing_wp_cron &> /dev/null
+```
 
 ### MySQL Query to see pending cron operations
+```sql
+> SELECT * FROM `wp_options` WHERE `option_name` LIKE '%cron%'
+```
+
+## References
+* [Unit Testing PHP](https://phpunit.de/)
+* [Cucumber PHP](http://behat.org/en/latest/)
+* [Selenium Web Driver PHP](https://github.com/facebook/php-webdriver)
     
-    SELECT * FROM `wp_options` WHERE `option_name` LIKE '%cron%'
 
 
 

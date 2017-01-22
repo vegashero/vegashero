@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+SetEnv DB_NAME wordpress
+SetEnv DB_USER wordpress
+SetEnv DB_PASSWORD secret
+SetEnv DB_HOST mysql
+SetEnv AUTH_KEY ''
+SetEnv SECURE_AUTH_KEY ''
+SetEnv LOGGED_IN_KEY ''
+SetEnv NONCE_KEY ''
+SetEnv AUTH_SALT ''
+SetEnv SECURE_AUTH_SALT ''
+SetEnv LOGGED_IN_SALT ''
+SetEnv NONCE_SALT ''
+SetEnv WP_DEBUG true
