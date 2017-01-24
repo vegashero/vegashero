@@ -4,13 +4,12 @@ This plugin will be installed by users and depends on the remote Vegas God plugi
 
 ## Quickstart
 ```bash
-$ docker-compose up --build
+$ USER_NAME=$USER USER_ID=$(id -u) docker-compose up --build
 ```
 
 Now navigate to [http://localhost:8080](http://localhost:8080)
 
 ## Snippets
-
 
 ### Manually run Wordpress cron
 ```bash
