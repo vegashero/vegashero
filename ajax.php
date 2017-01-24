@@ -27,7 +27,8 @@ class Vegashero_Ajax
                 'ajax_url' => admin_url('admin-ajax.php'),
                 'site_url' => site_url(),
                 'image_url' => $this->_config->gameImageUrl,
-                'playnow_btn_value' => $playnow_btn_value
+                'playnow_btn_value' => $playnow_btn_value,
+                'vh_custom_post_type_url_slug' => get_option('vh_custom_post_type_url_slug')
             )
         );
     }

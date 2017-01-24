@@ -2,11 +2,17 @@ version: "2"
 services:
 
     wordpress:
-        build: .
+        build: 
+            context: .
+            args: 
+                - USER_NAME
+                - USER_ID
         ports:
             - "8080:80"
         links:
             - mysql
+        volumes:
+            - .:/var/www/html/wp-content/plugins/vegashero
         environment:
             - TERM=xterm
             - DB_NAME=wordpress
