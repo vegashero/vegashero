@@ -17,10 +17,10 @@ USER $USER_NAME
 RUN wp core download 
 ADD .htaccess /var/www/html/.htaccess
 ADD wp-config.php /var/www/html/wp-config.php
-RUN mkdir -p /var/www/html/wp-content/plugins/vegashero
+#RUN mkdir -p /var/www/html/wp-content/plugins/vegashero
 #ADD . /var/www/html/wp-content/plugins/vegashero/
-RUN mkdir -p /var/www/html/wp-content/themes/newspaper
-ADD tests/themes/newspaper /var/www/html/wp-content/themes/newspaper
+#RUN mkdir -p /var/www/html/wp-content/themes/newspaper
+#ADD tests/themes/newspaper /var/www/html/wp-content/themes/newspaper
 USER root
 RUN chown -R $USER_NAME:www-data /var/www/html
 VOLUME /var/www/html/wp-content/plugins/vegashero

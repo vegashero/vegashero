@@ -39,6 +39,9 @@ $import_operator = new Vegashero_Import_Operator();
 require_once( dirname( __FILE__ ) . '/import/provider.php' );
 $import_provider = new Vegashero_Import_Provider();
 
+require_once( dirname( __FILE__ ) . '/featured_image.php' );
+$featured_image = new Vegashero\FeaturedImage();
+
 require_once( dirname( __FILE__ ) . '/template.php' );
 $template = new Vegashero_Template();
 
@@ -47,7 +50,6 @@ $stylesheet = new Vegashero_Stylesheet();
 
 require_once( dirname( __FILE__ ) . '/shortcodes.php' );
 $shortcode = new Vegashero_Shortcodes();
-
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
