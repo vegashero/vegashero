@@ -5,6 +5,7 @@ This plugin will be installed by users and depends on the remote Vegas God plugi
 ```bash
 $ sudo apt install php-xml php-json php-mbstring
 $ composer install
+$ vendor/bin/phpunit --debug  tests
 ```
 
 ## Quickstart
