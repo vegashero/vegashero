@@ -14,7 +14,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 WORKDIR /var/www/html
 #RUN chmod g+s /var/www/html
-RUN chmod 2775 -R /var/www/html
+RUN chmod 2774 /var/www/html
 #RUN chown -R $USER_NAME:www-data /var/www/html
 
 USER $USER_NAME
@@ -22,10 +22,15 @@ RUN newgrp www-data
 RUN wp core download 
 ADD .htaccess /var/www/html/.htaccess
 ADD wp-config.php /var/www/html/wp-config.php
+RUN mkdir /var/www/html/wp-content/themes/vegashero
+
 #ADD composer.json /var/www/html/composer.json
 #RUN composer install 
+VOLUME /var/www/html/wp-content/plugins/vegashero
+VOLUME /var/www/html/wp-content/themes/vegashero
 
-#USER root
-#RUN chown $USER_NAME:www-data .htaccess wp-config.php composer.json
+USER root
+RUN chown -R $USER_NAME:www-data /var/www/html
+RUN chmod -R 774 /var/www/html
 
 

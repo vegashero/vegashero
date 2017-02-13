@@ -40,7 +40,8 @@ require_once( dirname( __FILE__ ) . '/import/provider.php' );
 $import_provider = new Vegashero_Import_Provider();
 
 require_once( dirname( __FILE__ ) . '/featured_image.php' );
-$featured_image = new Vegashero\FeaturedImage();
+add_filter('post_thumbnail_html', array('Vegashero\FeaturedImage', 'post_thumbnail_html'), $priority=10, $accepted_args=5);
+add_action('the_post', array('Vegashero\FeaturedImage', 'the_post'));
 
 require_once( dirname( __FILE__ ) . '/template.php' );
 $template = new Vegashero_Template();
