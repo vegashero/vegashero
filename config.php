@@ -6,11 +6,18 @@ class Vegashero_Config
 
     private static $instance;
 
-    public static function getInstance() {
-        if (null === static::$instance) {
-            static::$instance = new static();
+	 public static function getInstance() {
+        if (version_compare(PHP_VERSION, '5.3.0') >= 0) {
+            if (null === static::$instance) {
+                static::$instance = new static();
+            }
+            return static::$instance;
+        } else {
+            if (null === self::$_instance) {
+                self::$_instance = new self();
+            }
+            return self::$_instance;
         }
-        return static::$instance;
     }
 
     protected function __construct() {
