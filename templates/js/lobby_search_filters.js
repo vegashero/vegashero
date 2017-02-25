@@ -20,7 +20,8 @@ jQuery(document).ready(function($) {
                 'filterBy': options.filterBy ? options.filterBy : '',
                 'site_url': ajax_object.site_url,
                 'image_url': ajax_object.image_url,
-                'playnow_btn_value': ajax_object.playnow_btn_value
+                'playnow_btn_value': ajax_object.playnow_btn_value,
+                'vh_custom_post_type_url_slug': ajax_object.vh_custom_post_type_url_slug
             };
         };
 
@@ -32,7 +33,7 @@ jQuery(document).ready(function($) {
 
         this.getGameMarkup = function(data, post) {
             var markup = '<li class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
-            markup += '<a href="' + data.site_url + '/' + post.post_name + '" class="vh-thumb-link">';
+            markup += '<a href="' + data.site_url + '/' + data.vh_custom_post_type_url_slug + '/' + post.post_name + '" class="vh-thumb-link">';
             markup += '<div class="vh-overlay">';
             if(post.thumbnail) {
                 markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';

@@ -20,6 +20,7 @@ get_header(); ?>
         // Start the loop
         while ( have_posts() ) : the_post();
             get_the_title();
+            get_the_post_thumbnail();
             // Include the page content template.
             get_template_part( 'content', 'page' );
 

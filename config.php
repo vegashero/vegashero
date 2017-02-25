@@ -1,6 +1,5 @@
 <?php
 
-// TODO: make this class a singleton
 class Vegashero_Config
 {
 

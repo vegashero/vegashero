@@ -1,0 +1,10 @@
+{
+    "name": "vegashero/vegashero",
+    "description": "Wordpress plugin for casino affiliates.",
+    "minimum-stability": "stable",
+    "require": {},
+    "require-dev": {
+        "10up/wp_mock": "dev-master",
+        "phpunit/phpunit": "^6.0"
+    }
+}
