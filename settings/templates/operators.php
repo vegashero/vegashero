@@ -24,7 +24,7 @@
                   </span>
                   <div class="desc">
                   <h2 class="operatorname"><?=$operator['operator']?></h2>
-                  <div class="provider-img"><img src="https://cdn.vegasgod.com/operators/<?=$operator['operator']?>.png" /></div>
+                  <div class="provider-img"><img src="<?=$this->_config->gameImageUrl?>/operators/<?=$operator['operator']?>.png" /></div>
                   <div class="btn-area">
                   <?= $this->_getUpdateBtn($operator['operator']);?>
                   </div>

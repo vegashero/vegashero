@@ -19,7 +19,7 @@
         <?php foreach($this->_providers as $provider): ?>
               <li>
               <div class="desc">
-              <div class="provider-img"><img src="https://cdn.vegasgod.com/providers/<?=$provider['provider']?>.png" /></div>
+              <div class="provider-img"><img src="<?=$this->_config->gameImageUrl?>/providers/<?=$provider['provider']?>.png" /></div>
               <form method="post" action="options.php">
               <?= settings_fields($this->_getOptionGroup($provider['provider'])); 
               $page = $this->_getPageName($provider['provider']);

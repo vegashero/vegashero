@@ -1,7 +1,7 @@
 //thumb error handling - fallback img
 function imgError(image) {
     image.onerror = '';
-    image.src = 'https://cdn.vegasgod.com/undefined/cover.jpg';
+    image.src = '//cdn.vegasgod.com/undefined/cover.jpg';
     return true;
 }
 
