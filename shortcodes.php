@@ -251,7 +251,7 @@ public function form( $instance ) {
                 $thumbnail_new = $thumbnail[0];
             } else {
                 if( ! $thumbnail_new = get_post_meta( $post->ID, 'game_img', true )) {
-                    $thumbnail_new = 'https://cdn.vegasgod.com/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+                    $thumbnail_new = $this->_config->gameImageUrl . '/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
                 }
             }
             $post_link=get_permalink($ID);
@@ -356,7 +356,7 @@ function vh_grid_shortcode( $atts ) {
                 $thumbnail_new = $thumbnail[0];
             } else {
                 if( ! $thumbnail_new = get_post_meta( get_the_ID(), 'game_img', true )) {
-                    $thumbnail_new = 'https://cdn.vegasgod.com/' . $providerz[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+                    $thumbnail_new = $this->_config->gameImageUrl . '/' . $providerz[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
                 }
             }
             ?>            

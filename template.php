@@ -151,7 +151,7 @@ class Vegashero_Template
 
             foreach($operators as $operator) {
                 $affiliate_url = get_option(sprintf('%s%s', $this->_config->settingsNamePrefix, $operator->name));
-                $tablebody_template .= sprintf($tablebody_string, $images, $operator->slug, $operator->name, $affiliate_url);
+                $tablebody_template .= sprintf($tablebody_string, $this->_config->gameImageUrl, $operator->slug, $operator->name, $affiliate_url);
             }
 
             $table_template = sprintf($table_string, $tablebody_template);
