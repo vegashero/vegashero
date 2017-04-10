@@ -13,9 +13,7 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 #RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 WORKDIR /var/www/html
-#RUN chmod g+s /var/www/html
-RUN chmod 2774 /var/www/html
-#RUN chown -R $USER_NAME:www-data /var/www/html
+RUN chmod 2775 /var/www/html
 
 USER $USER_NAME
 RUN newgrp www-data
@@ -30,7 +28,9 @@ VOLUME /var/www/html/wp-content/plugins/vegashero
 VOLUME /var/www/html/wp-content/themes/vegashero
 
 USER root
-RUN chown -R $USER_NAME:www-data /var/www/html
-RUN chmod -R 774 /var/www/html
+RUN chown $USER_NAME:www-data .htaccess wp-config.php
+RUN find . -type f -exec chmod 664 {} +
+RUN find . -type d -exec chmod 775 {} +
+RUN chmod 660 wp-config.php
 
 
