@@ -45,11 +45,11 @@ jQuery(document).ready(function($) {
             markup += '<a href="' + data.site_url + '/' + data.vh_custom_post_type_url_slug + '/' + post.post_name + '/' + '" class="vh-thumb-link">';
             markup += '<div class="vh-overlay">';
             if(post.thumbnail) {
-                markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" data-context="post_thumbnail"/>';
+                markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
             } else if(post.imgpath) {
-                markup += '<img src="' + post.imgpath + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" data-context="post_imgpath" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
+                markup += '<img src="' + post.imgpath + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
             } else {
-                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" data-context="else" />';
+                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
             }
             markup += '<span class="play-now">' + data.playnow_btn_value + '</span>';
             markup += '</div>';
