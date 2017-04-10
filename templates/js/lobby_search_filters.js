@@ -5,10 +5,19 @@ function imgError(image) {
     return true;
 }
 
+
+var vhLobbyImage = {
+    imageLoaded: function(postId) {
+        document.querySelector('li#img'+postId).style.display = 'block'
+    }
+};
+
+
 jQuery(document).ready(function($) {
 
     var Lobby = function() {
         var self = this;
+
 
         this.getQueryData = function(options) {
             return {
@@ -32,15 +41,15 @@ jQuery(document).ready(function($) {
         };
 
         this.getGameMarkup = function(data, post) {
-            var markup = '<li class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
+            var markup = '<li id="img' + post.ID + '" style="display:none" class="vh-item ' + post.category + ' ' + post.provider + ' ' +post.operator + '">';
             markup += '<a href="' + data.site_url + '/' + data.vh_custom_post_type_url_slug + '/' + post.post_name + '/' + '" class="vh-thumb-link">';
             markup += '<div class="vh-overlay">';
             if(post.thumbnail) {
-                markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
+                markup += '<img src="' + post.thumbnail + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" data-context="post_thumbnail"/>';
             } else if(post.imgpath) {
-                markup += '<img src="' + post.imgpath + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
+                markup += '<img src="' + post.imgpath + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" data-context="post_imgpath" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
             } else {
-                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" />';
+                markup += '<img src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" data-context="else" />';
             }
             markup += '<span class="play-now">' + data.playnow_btn_value + '</span>';
             markup += '</div>';

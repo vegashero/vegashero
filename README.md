@@ -1,6 +1,12 @@
 # Vegas Hero 
 This plugin will be installed by users and depends on the remote Vegas God plugin to populate with data
 
+Localhost license key
+
+```
+adc88446b4e3476a04091835fec15e08
+```
+
 ## Unit Tests NB!!!
 ```bash
 $ sudo apt install php-xml php-json php-mbstring
