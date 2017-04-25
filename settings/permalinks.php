@@ -22,6 +22,10 @@ class Vegashero_Settings_Permalinks
         add_action('admin_init', array($this, 'registerSettings'));
     }
 
+    public function sanitize($input) {
+        return strtolower(sanitize_title(sanitize_text_field($input)));
+    }
+
     public function addSettingsMenu() {
 
         add_submenu_page(
@@ -60,42 +64,58 @@ class Vegashero_Settings_Permalinks
         return get_option('category_base');
     }
 
-    public function inputForCustomPostTypeUrl() {
-        $args = func_get_args();
-        $id = $args[0]['id'];
+    public function updateCustomPostTypeUrl() {
         if( ! $option = get_option('vh_custom_post_type_url_slug')) {
             update_option('vh_custom_post_type_url_slug', static::$_config->customPostTypeUrlSlug);
         }
+    }
+
+    public function inputForCustomPostTypeUrl() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        $this->updateCustomPostTypeUrl();
         $option = get_option('vh_custom_post_type_url_slug');
         include_once( dirname( __FILE__ ) . '/templates/permalinks/custom-post-type-url-input.php' );
+    }
+
+    public function updateGameCategoryUrl() {
+        if( ! $option = get_option('vh_game_category_url_slug')) {
+            update_option('vh_game_category_url_slug', static::$_config->gameCategoryUrlSlug);
+        }
     }
 
     public function inputForGameCategoryUrl() {
         $args = func_get_args();
         $id = $args[0]['id'];
-        if( ! $option = get_option('vh_game_category_url_slug')) {
-            update_option('vh_game_category_url_slug', static::$_config->gameCategoryUrlSlug);
-        }
+        $this->updateGameCategoryUrl();
         $option = get_option('vh_game_category_url_slug');
         include_once( dirname( __FILE__ ) . '/templates/permalinks/game-category-url-input.php' );
+    }
+
+    public function updateGameOperatorUrl() {
+        if( ! $option = get_option('vh_game_operator_url_slug')) {
+            update_option('vh_game_operator_url_slug', static::$_config->gameOperatorUrlSlug);
+        }
     }
 
     public function inputForGameOperatorUrl() {
         $args = func_get_args();
         $id = $args[0]['id'];
-        if( ! $option = get_option('vh_game_operator_url_slug')) {
-            update_option('vh_game_operator_url_slug', static::$_config->gameOperatorUrlSlug);
-        }
+        $this->updateGameOperatorUrl();
         $option = get_option('vh_game_operator_url_slug');
         include_once( dirname( __FILE__ ) . '/templates/permalinks/game-operator-url-input.php' );
+    }
+
+    public function updateGameProviderUrl() {
+        if( ! $option = get_option('vh_game_provider_url_slug')) {
+            update_option('vh_game_provider_url_slug', static::$_config->gameProviderUrlSlug);
+        }
     }
 
     public function inputForGameProviderUrl() {
         $args = func_get_args();
         $id = $args[0]['id'];
-        if( ! $option = get_option('vh_game_provider_url_slug')) {
-            update_option('vh_game_provider_url_slug', static::$_config->gameProviderUrlSlug);
-        }
+        $this->updateGameProviderUrl();
         $option = get_option('vh_game_provider_url_slug');
         include_once( dirname( __FILE__ ) . '/templates/permalinks/game-provider-url-input.php' );
     }
@@ -122,7 +142,8 @@ class Vegashero_Settings_Permalinks
 
         register_setting(
             $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
-            $option_name = 'vh_custom_post_type_url_slug'
+            $option_name = 'vh_custom_post_type_url_slug',
+            array($this, 'sanitize')
         );
 
         add_settings_field( 
@@ -138,7 +159,8 @@ class Vegashero_Settings_Permalinks
 
         register_setting(
             $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
-            $option_name = 'vh_game_category_url_slug'
+            $option_name = 'vh_game_category_url_slug',
+            array($this, 'sanitize')
         );
 
         add_settings_field( 
@@ -154,7 +176,8 @@ class Vegashero_Settings_Permalinks
 
         register_setting(
             $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
-            $option_name = 'vh_game_operator_url_slug'
+            $option_name = 'vh_game_operator_url_slug',
+            array($this, 'sanitize')
         );
 
         add_settings_field( 
@@ -170,7 +193,8 @@ class Vegashero_Settings_Permalinks
 
         register_setting(
             $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
-            $option_name = 'vh_game_provider_url_slug'
+            $option_name = 'vh_game_provider_url_slug',
+            array($this, 'sanitize')
         );
 
     }
