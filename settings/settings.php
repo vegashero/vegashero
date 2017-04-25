@@ -8,6 +8,10 @@ $lobby = Vegashero_Settings_Lobby::getInstance();
 
 require_once( dirname( __FILE__ ) . '/permalinks.php' );
 $lobby = Vegashero_Settings_Permalinks::getInstance();
+$lobby->updateCustomPostTypeUrl();
+$lobby->updateGameCategoryUrl();
+$lobby->updateGameOperatorUrl();
+$lobby->updateGameProviderUrl();
 
 require_once( dirname( __FILE__ ) . '/operators.php' );
 $operators = new Vegashero_Settings_Operators();
