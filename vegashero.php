@@ -48,6 +48,9 @@ $stylesheet = new Vegashero_Stylesheet();
 require_once( dirname( __FILE__ ) . '/shortcodes.php' );
 $shortcode = new Vegashero_Shortcodes();
 
+require_once( dirname( __FILE__ ) . '/widgets.php' );
+$shortcode = new Vegashero_Widgets();
+
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
 
