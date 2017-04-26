@@ -11,7 +11,9 @@ $providers = get_terms($config->gameProviderTaxonomy);
 $provider_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug');
 $operator_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug');
 $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug');
+
 ?>
+
 <div class="vh-filter">
 
 <?php if(count($operators)): ?>
