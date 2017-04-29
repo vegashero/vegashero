@@ -423,7 +423,7 @@ class VH_EDD_SL_Plugin_Updater {
 			return false; // Cache is expired
 		}
 
-		return json_decode( $cache['value'] );
+		return unserialize( $cache['value'] );
 
 	}
 
@@ -435,7 +435,7 @@ class VH_EDD_SL_Plugin_Updater {
 
 		$data = array(
 			'timeout' => strtotime( '+3 hours', current_time( 'timestamp' ) ),
-			'value'   => json_encode( $value )
+			'value'   => serialize( $value )
 		);
 
 		update_option( $cache_key, $data );
