@@ -19,14 +19,14 @@ $operators = new Vegashero_Custom_Post_Type();
 
 require_once(dirname(__FILE__) . '/settings/settings.php');
 
-require_once( dirname(__FILE__) . '/updater.php' );
-$updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
+require_once( dirname(__FILE__) . '/EDD_SL_Plugin_Updater.php' );
+$updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
     array(
         'version'   => '1.4.5',       // current version number
         'license'   => $dashboard->getLicense(),    // license key (used get_option above to retrieve from DB)
-        'item_name'     => $config->eddDownloadName,    // name of this plugin
+        'item_name' => $config->eddDownloadName,    // name of this plugin
         'author'    => 'VegasHero', // author of this plugin
-        'url'           => home_url()
+        'url'       => home_url()
     ) 
 );
 

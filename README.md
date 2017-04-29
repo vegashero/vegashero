@@ -7,6 +7,46 @@ Localhost license key
 adc88446b4e3476a04091835fec15e08
 ```
 
+## EDD Plugin Updater
+
+### Clearing the cache
+To clear the cache add the following to the EDD_SL_Plugin_Updater.php file.
+
+At the top add
+```php
+set_site_transient( 'update_plugins', null ); //added this
+```
+
+Towards the end at line 446 look for a function called *get_cached_verion_info()* and add *return false*
+```php
+public function get_cached_version_info( $cache_key = '' ) {
+
+    return false; //added this
+
+    if( empty( $cache_key ) ) {
+        $cache_key = $this->cache_key;
+    }
+
+    $cache = get_option( $cache_key );
+
+    if( empty( $cache['timeout'] ) || current_time( 'timestamp' ) > $cache['timeout'] ) {
+        return false; // Cache is expired
+    }
+
+    return json_decode( $cache['value'] );
+
+}
+```
+
+Remember to remove before commiting.
+
+### Updating the class
+When updating the class remember to *sslverify* to *true* on lines 354 and 416.
+
+```php
+$request = wp_remote_post( $this->api_url, array( 'timeout' => 15, 'sslverify' => true, 'body' => $api_params ) );
+```
+
 ## Unit Tests NB!!!
 ```bash
 $ sudo apt install php-xml php-json php-mbstring
@@ -25,7 +65,7 @@ Now navigate to [http://localhost:8080](http://localhost:8080)
 
 ### Manually run Wordpress cron
 ```bash
-$ wget -qO- http://localhost:8080/wp-cron.php?doing_wp_cron &> /dev/null
+$ firefox http://localhost:8080/wp-cron.php?doing_wp_cron
 ```
 
 ### MySQL Query to see pending cron operations
