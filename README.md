@@ -42,6 +42,7 @@ Remember to remove before commiting.
 
 ### Updating the class
 When updating the class remember to *sslverify* to *true* on lines 354 and 416.
+Also make sure the class name is renamed from the default *EDD_SL_Plugin_Updater* to *VH_EDD_SL_Plugin_Updater*
 
 ```php
 $request = wp_remote_post( $this->api_url, array( 'timeout' => 15, 'sslverify' => true, 'body' => $api_params ) );
