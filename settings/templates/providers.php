@@ -24,7 +24,7 @@
               $page = $this->_getPageName($provider['provider']);
               do_settings_sections($page); ?>
               <div class="btn-area">
-              <?= $this->_getUpdateBtn($provider['provider']); ?>
+              <?= $this->_getAjaxUpdateBtn($provider['provider']); ?>
               </div>
               <div class="btn-area">
               <?= $this->_getGameCount($provider['count']); ?>

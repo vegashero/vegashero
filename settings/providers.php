@@ -14,8 +14,13 @@ class Vegashero_Settings_Providers
             add_action( 'admin_notices', array($this, 'importNotice'));
         }
         if(@$_GET['page'] === 'vegashero-provider-import') {
+            add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
             add_action('admin_init', array($this, 'registerSettings'));
         }
+    }
+
+    public function enqueueAjaxScripts() {
+        wp_enqueue_script('vegashero_games_provider_importer', plugins_url( '/js/import_by_provider.js', __FILE__ ), array('jquery'), null, true);
     }
 
     public function importNotice() {
@@ -95,7 +100,15 @@ class Vegashero_Settings_Providers
         }
     }
 
-    private function _getUpdateBtn($provider) {
+    private function _getAjaxUpdateBtn($provider) {
+        $markup = "<a href='#'";
+        $markup .= " class='button vh-provider-import'";
+        $markup .= sprintf(" data-provider='%s'>Import games", sanitize_title($provider));
+        $markup .= "</a>";
+        return $markup;
+    }
+
+    private function _getCronUpdateBtn($provider) {
         $markup = "<a href='";
         $update_url = plugins_url('queue.php', __FILE__);
         $markup .= "$update_url?provider=$provider'";
