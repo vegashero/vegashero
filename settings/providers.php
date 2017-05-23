@@ -103,7 +103,7 @@ class Vegashero_Settings_Providers
     private function _getAjaxUpdateBtn($provider) {
         $markup = "<a href='#'";
         $markup .= " class='button vh-provider-import'";
-        $markup .= sprintf(" data-provider='%s'>Import games", sanitize_title($provider));
+        $markup .= sprintf(" data-api='%s/wp-json/%s%s%s'>Import games", site_url(), Vegashero_Import_Provider::getApiNamespace($this->_config), Vegashero_Import_Provider::getApiRoute(), $provider);
         $markup .= "</a>";
         return $markup;
     }
