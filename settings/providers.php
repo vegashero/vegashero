@@ -20,7 +20,7 @@ class Vegashero_Settings_Providers
     }
 
     public function enqueueAjaxScripts() {
-        wp_enqueue_script('vegashero_games_provider_importer', plugins_url( '/js/import_by_provider.js', __FILE__ ), array('jquery'), null, true);
+        wp_enqueue_script('vegashero-import', plugins_url( '/js/vegashero-import.js', __FILE__ ), array('jquery'), null, true);
     }
 
     public function importNotice() {
@@ -101,10 +101,10 @@ class Vegashero_Settings_Providers
     }
 
     private function _getAjaxUpdateBtn($provider) {
-        $markup = "<a href='#'";
-        $markup .= " class='button vh-provider-import'";
+        $markup = "<button";
+        $markup .= " class='button button-primary vh-import'";
         $markup .= sprintf(" data-api='%s/wp-json/%s%s%s'>Import games", site_url(), Vegashero_Import_Provider::getApiNamespace($this->_config), Vegashero_Import_Provider::getApiRoute(), $provider);
-        $markup .= "</a>";
+        $markup .= "</button>";
         return $markup;
     }
 

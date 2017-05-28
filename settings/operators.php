@@ -22,9 +22,14 @@ class Vegashero_Settings_Operators
             add_action( 'admin_notices', array($this, 'importNotice'));
         }
         if(@$_GET['page'] === 'vegashero-operator-import') {
+            add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
             add_action('admin_init', array($this, 'registerSettings'));
         }
 
+    }
+
+    public function enqueueAjaxScripts() {
+        wp_enqueue_script('vegashero-import', plugins_url( '/js/vegashero-import.js', __FILE__ ), array('jquery'), null, true);
     }
 
     public function loadOperatorStyles() {
@@ -54,7 +59,15 @@ class Vegashero_Settings_Operators
         );
     }
 
-    private function _getUpdateBtn($operator) {
+    private function _getAjaxUpdateBtn($operator) {
+        $markup = "<button";
+        $markup .= " class='button button-primary vh-import'";
+        $markup .= sprintf(" data-api='%s/wp-json/%s%s%s'>Import games", site_url(), Vegashero_Import_Operator::getApiNamespace($this->_config), Vegashero_Import_Operator::getApiRoute(), $operator);
+        $markup .= "</button>";
+        return $markup;
+    }
+
+    private function _getCronUpdateBtn($operator) {
         $markup = "<a href='";
         $update_url = plugins_url('queue.php', __FILE__);
         $markup .= "$update_url?operator=$operator'";

@@ -128,13 +128,6 @@ class Vegashero_Import_Provider extends Vegashero_Import
     }
      */
 
-    ##
-    # @return Boolean
-    ##
-    private function _noGamesToImport($games) {
-        return (property_exists($games, 'code') && $games->code == 'vegasgod_no_games');
-    }
-
     public function importGamesForProvider($provider) {
         // $this->registerTaxonomies();
 
@@ -203,6 +196,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
                     "code" => "success",
                     "message" => "Import completed successfully",
                     "data" => array(
+                        "game_source" => $provider,
                         "successful_imports" => $successful_imports,
                         "new_games_imported" => $newly_imported,
                         "existing_games_updated" => $games_updated

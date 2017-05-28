@@ -20,6 +20,13 @@ abstract class Vegashero_Import
         ini_set('display_errors', $this->_display_errors);
     }
 
+    ##
+    # @return Boolean
+    ##
+    protected function _noGamesToImport($games) {
+        return (property_exists($games, 'code') && $games->code == 'vegasgod_no_games');
+    }
+
     protected function _getOperatorId($operator) {
         if( ! $operator_id = term_exists($operator, $this->_config->gameOperatorTaxonomy)){
             $operator_id = wp_insert_category(
