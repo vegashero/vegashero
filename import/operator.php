@@ -11,6 +11,9 @@ class Vegashero_Import_Operator extends Vegashero_Import
         $license = Vegashero_Settings_License::getInstance();
         $this->_license = $license->getLicense();
 
+        // increase curl timeout
+        add_action('http_api_curl', array('Vegashero_Import', 'increaseCurlTimeout'), 100, 1);
+
         // this action is scheduled in queue.php
         add_action('vegashero_import_operator', array($this, 'importGamesForOperator'));
 
@@ -27,7 +30,7 @@ class Vegashero_Import_Operator extends Vegashero_Import
     }
 
     public function __destruct() {
-        parent::_destruct();
+        parent::__destruct();
     }
 
     static public function getApiNamespace($config) {
@@ -150,32 +153,45 @@ class Vegashero_Import_Operator extends Vegashero_Import
         // [modified] => 2015-03-20 11:36:22
 
         # first time importing games for this operator
-        if( ! term_exists($operator, $this->_config->gameOperatorTaxonomy)){ 
-            $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
-        } else {
-            # get all games so we can remove operators
-            $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
-        }
-        if($this->_haveLicense()) {
-            $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
-        }
+        try {
+            error_log(sprintf("starting import for operator: %s", $operator));
+            if( ! term_exists($operator, $this->_config->gameOperatorTaxonomy)){ 
+                $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
+            } else {
+                # get all games so we can remove operators
+                $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
+            }
+            if($this->_haveLicense()) {
+                error_log(sprintf("license specified as: %s", $this->_license));
+                $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
+            } else {
+                error_log("no license specified");
+            }
 
-        $response = wp_remote_get($endpoint);
-        $body = wp_remote_retrieve_body($response);
-        $games = json_decode($body);
+            error_log(sprintf("using the following endpoint for operator import: %s", $endpoint));
 
-        if($this->_noGamesToImport($games)) {
-            return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
-        } else {
-            $games = json_decode($games);
-        }
+            $response = wp_remote_get($endpoint);
+            if(is_wp_error($response)) {
+                error_log(sprintf("error: %s", $response->get_error_message()));
+                return $response;
+            }
 
-        $successful_imports = 0;
-        $newly_imported = 0;
-        $games_updated = 0;
+            $body = wp_remote_retrieve_body($response);
+            $games = json_decode($body);
 
-        if(count($games) > 0) {
-            try {
+            if($this->_noGamesToImport($games)) {
+                error_log("warning: no games to import");
+                return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+            } else {
+                error_log("decoding games");
+                $games = json_decode($games);
+            }
+
+            $successful_imports = 0;
+            $newly_imported = 0;
+            $games_updated = 0;
+
+            if(count($games) > 0) {
                 foreach($games as $game) {
                     // check if post exists for this game
                     $posts = $this->_getPostsForGame($game);
@@ -206,11 +222,13 @@ class Vegashero_Import_Operator extends Vegashero_Import
                         "existing_games_updated" => $games_updated
                     )
                 );
-            } catch(Exception $e) {
-                return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
+            } else {
+                error_log("warning: no games to import");
+                return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
             }
-        } else {
-            return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+        } catch(Exception $e) {
+            error_log(sprintf("error: %s", $e->getMessage()));
+            return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
         }
     }
 

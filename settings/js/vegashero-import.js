@@ -6,18 +6,38 @@ jQuery(document).ready(function($) {
 
     function disableButtons(buttonArray) {
         $.each(buttonArray, function(buttonIndex, button) {
+            button.className = 'button vh-import';
+            button.textContent = 'Please wait';
             button.setAttribute('disabled', true);
         });
     }
 
     function enableButtons(buttonArray) {
         $.each(buttonArray, function(buttonIndex, button) {
+            button.className = 'button button-primary vh-import';
+            button.textContent = 'Import games';
             button.removeAttribute('disabled');
         });
     }
 
     function removeAdminNotices() {
         $('div.vh-admin-notice').remove();
+    }
+
+    function triggerLoadingAdminNotice(message, type='success') {
+        removeAdminNotices();
+        let div = document.createElement('div');
+        div.className = 'vh-admin-notice notice notice-' + type + ' is-dismissible';
+        let p = document.createElement('p');
+        p.textContent = message;
+        let spinner = document.createElement('div');
+        spinner.className = 'spinner is-active';
+        spinner.style.margin = 0;
+        p.appendChild(spinner);
+        div.appendChild(p);
+        $('#wpbody-content').prepend(div);
+
+        $("html, body").animate({ scrollTop: 0 }, "slow");
     }
 
     function triggerAdminNotice(message, type='success') {
@@ -33,14 +53,18 @@ jQuery(document).ready(function($) {
         div.appendChild(p);
         $('#wpbody-content').prepend(div);
 
-        div.addEventListener('click', function(event) {
-            $(this).remove();
+        $("html, body").animate({ scrollTop: 0 }, "slow");
+        button.addEventListener('click', function(event) {
+            div.remove();
         });
     }
 
     function createAdminNotice(code, data, message) {
         if(code !== 'success') {
-            triggerAdminNotice("Unable to import games, please try again", "error");
+            console.error(code);
+            console.error(data);
+            console.error(message);
+            triggerAdminNotice(code + ": " + message, "error");
         } else {
             let gameProvider = decodeURIComponent(data.game_source).replace(/\b\w/g, function(l){ return l.toUpperCase() });
             let importCount = data.successful_imports;
@@ -81,26 +105,38 @@ jQuery(document).ready(function($) {
 
     importButtons.click(function(event) {
         event.preventDefault();
-        triggerAdminNotice("Import started. Please do not leave this page during the import.", "warning");
+        triggerLoadingAdminNotice("Import started. Please wait. Do not leave this page while the import is in progress.", "warning");
         let self = $(this)[0];
+        let button = this;
+        let buttonWrapper = button.parentElement;
+        let spinner = document.createElement('span');
+        spinner.className = 'spinner is-active';
+        spinner.style.float = 'left';
+        spinner.style.margin = '0 0 0 38px';
+        //buttonWrapper.removeChild(button);
+        button.style.visibility = 'hidden';
+        buttonWrapper.appendChild(spinner);
+        //button.replaceWith(spinner);
+
         disableButtons(importButtons);
-        let btnText = self.textContent;
-        self.textContent = 'importing';
+        //let btnText = self.textContent;
+        //self.textContent = 'importing';
         $.getJSON(self.dataset.api)
-            .done(function(data, status, xhr) {
-                let response = data;
-                createAdminNotice(response.code, response.data, response.message); 
+            .done(function(json) {
+                createAdminNotice(json.code, json.data, json.message); 
             })
-            .fail(function(data, status, xhr) {
-                if( ! data.responseJSON) {
+            .fail(function(xhr, status, error) {
+                if( ! xhr.responseJSON) {
                     triggerAdminNotice("Networking error. Please try again later.", "error");
                 } else {
-                    let response = data.responseJSON;
+                    let response = xhr.responseJSON;
                     createAdminNotice(response.code, response.data, response.message);
                 }
             })
             .always(function() {
-                self.textContent = btnText;
+                //self.textContent = btnText;
+                spinner.remove();
+                button.style.visibility = 'visible';
                 enableButtons(importButtons);
             });
 

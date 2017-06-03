@@ -27,7 +27,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
     }
 
     public function __destruct() {
-        parent::_destruct();
+        parent::__destruct();
     }
 
     static public function getApiNamespace($config) {
@@ -156,6 +156,8 @@ class Vegashero_Import_Provider extends Vegashero_Import
         if($this->_haveLicense()) {
             $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
         }
+
+        error_log(sprintf("endpoint for provider import: %s", $endpoint));
 
         $response = wp_remote_get($endpoint);
         $body = wp_remote_retrieve_body($response);
