@@ -105,7 +105,7 @@ jQuery(document).ready(function($) {
 
     importButtons.click(function(event) {
         event.preventDefault();
-        triggerLoadingAdminNotice("Import started. Please wait. Do not leave this page while the import is in progress.", "warning");
+        triggerLoadingAdminNotice("Please wait. Your import has started. Do not leave this page while your import is in progress.", "warning");
         let self = $(this)[0];
         let button = this;
         let buttonWrapper = button.parentElement;

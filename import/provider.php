@@ -11,6 +11,9 @@ class Vegashero_Import_Provider extends Vegashero_Import
         $license = Vegashero_Settings_License::getInstance();
         $this->_license = $license->getLicense();
 
+        // increase curl timeout
+        add_action('http_api_curl', array('Vegashero_Import', 'increaseCurlTimeout'), 100, 1);
+
         // this action is scheduled in queue.php
         add_action('vegashero_import_provider', array($this, 'importGamesForProvider'));
 
@@ -152,28 +155,34 @@ class Vegashero_Import_Provider extends Vegashero_Import
             $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
         }
          */
-        $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
-        if($this->_haveLicense()) {
-            $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
-        }
+        try {
+            $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
+            if($this->_haveLicense()) {
+                $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
+            }
 
-        error_log(sprintf("endpoint for provider import: %s", $endpoint));
+            error_log(sprintf("endpoint for provider import: %s", $endpoint));
 
-        $response = wp_remote_get($endpoint);
-        $body = wp_remote_retrieve_body($response);
-        $games = json_decode($body);
-        if($this->_noGamesToImport($games)) {
-            return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
-        } else {
-            $games = json_decode($games);
-        }
+            $response = wp_remote_get($endpoint);
+            if(is_wp_error($response)) {
+                error_log(sprintf("error: %s", $response->get_error_message()));
+                return $response;
+            }
+            $body = wp_remote_retrieve_body($response);
+            $games = json_decode($body);
+            if($this->_noGamesToImport($games)) {
+                error_log("warning: no games to import");
+                return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+            } else {
+                error_log("decoding games");
+                $games = json_decode($games);
+            }
 
-        $successful_imports = 0;
-        $newly_imported = 0;
-        $games_updated = 0;
+            $successful_imports = 0;
+            $newly_imported = 0;
+            $games_updated = 0;
 
-        if(count($games) > 0) {
-            try {
+            if(count($games) > 0) {
                 foreach($games as $game) {
                     // check if post exists for this game
                     $posts = $this->_getPostsForGame($game);
@@ -204,12 +213,14 @@ class Vegashero_Import_Provider extends Vegashero_Import
                         "existing_games_updated" => $games_updated
                     )
                 );
-            } catch(Exception $e) {
-                return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
-            }
 
-        } else {
-            return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+            } else {
+                error_log("warning: no games to import");
+                return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+            }
+        } catch(Exception $e) {
+            error_log(sprintf("error: %s", $e->getMessage()));
+            return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
         }
     }
 }
