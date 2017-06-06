@@ -126,6 +126,12 @@ jQuery(document).ready(function($) {
                 createAdminNotice(json.code, json.data, json.message); 
             })
             .fail(function(xhr, status, error) {
+                console.log('xhr object');
+                console.log(xhr);
+                console.log('status');
+                console.log(status);
+                console.log('error');
+                console.log(error);
                 if( ! xhr.responseJSON) {
                     triggerAdminNotice("Networking error. Please try again later.", "error");
                 } else {
