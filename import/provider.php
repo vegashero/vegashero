@@ -165,11 +165,19 @@ class Vegashero_Import_Provider extends Vegashero_Import
 
             $response = wp_remote_get($endpoint);
             if(is_wp_error($response)) {
-                error_log(sprintf("error: %s", $response->get_error_message()));
+                error_log(sprintf("wp_remote_get() error: %s", $response->get_error_message()));
                 return $response;
             }
             $body = wp_remote_retrieve_body($response);
+            if(is_wp_error($body)) {
+                error_log(sprintf("wp_remote_retrieve_body() error: %s", $body->get_error_message()));
+                return $body;
+            }
             $games = json_decode($body);
+            if(is_null($games)) {
+                error_log("json_decode() returned NULL");
+                return new WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
+            }
             if($this->_noGamesToImport($games)) {
                 error_log("warning: no games to import");
                 return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
