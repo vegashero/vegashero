@@ -10,14 +10,14 @@ abstract class Vegashero_Import
 
     protected function __construct() {
         //$this->_error_reporting = error_reporting();
-        //$this->_display_errors = ini_get('display_errors');
+        $this->_display_errors = ini_get('display_errors');
         //error_reporting(0);
-        //ini_set('display_errors', 0);
+        ini_set('display_errors', 0);
     }
 
     protected function __destruct() {
         //error_reporting($this->_errror_reporting);
-        //ini_set('display_errors', $this->_display_errors);
+        ini_set('display_errors', $this->_display_errors);
     }
 
     static public function increaseCurlTimeout($handle) {
