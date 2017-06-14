@@ -173,6 +173,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
                 error_log(sprintf("wp_remote_retrieve_body() error: %s", $body->get_error_message()));
                 return $body;
             }
+            //error_log(print_r($body, true));
             $games = json_decode($body);
             if(is_null($games)) {
                 error_log("json_decode() returned NULL");
@@ -184,6 +185,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
             } else {
                 error_log("decoding games");
                 $games = json_decode($games);
+                error_log(print_r($games, true));
             }
 
             $successful_imports = 0;
@@ -191,9 +193,12 @@ class Vegashero_Import_Provider extends Vegashero_Import
             $games_updated = 0;
 
             if(count($games) > 0) {
+                error_log(sprintf("Game count for provider %s is %s", $provider, count($games)));
                 foreach($games as $game) {
                     // check if post exists for this game
+                    error_log("Checking if posts exists for game");
                     $posts = $this->_getPostsForGame($game);
+                    //error_log(sprintf("Posts count for game is %s", count($posts)));
 
                     $post_id = 0;
                     if(count($posts)) {
@@ -202,9 +207,14 @@ class Vegashero_Import_Provider extends Vegashero_Import
                     }
 
                     if( ! $post_id) { // no existing post
+                        error_log(sprintf("Post %s does not exist", $post->ID));
+                        error_log(sprintf("Inserting game '%s'", $post->name));
                         $this->_insertNewGame($game, $provider);
                         $newly_imported++;
                     } else { 
+                        //error_log(sprintf("Post %s exists", $post->ID));
+                        //error_log(sprintf("Updating game %s", $post->post_title);
+                        //error_log(print_r($post, true));
                         $this->_updateExistingGame($post, $game, $provider);
                         $this->_updateExistingPostMeta($post, $game);
                         $games_updated++;
@@ -221,7 +231,6 @@ class Vegashero_Import_Provider extends Vegashero_Import
                         "existing_games_updated" => $games_updated
                     )
                 );
-
             } else {
                 error_log("warning: no games to import");
                 return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );

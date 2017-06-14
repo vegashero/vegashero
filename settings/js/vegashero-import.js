@@ -123,6 +123,7 @@ jQuery(document).ready(function($) {
         //self.textContent = 'importing';
         $.getJSON(self.dataset.api)
             .done(function(json) {
+                console.log(json);
                 createAdminNotice(json.code, json.data, json.message); 
             })
             .fail(function(xhr, status, error) {
@@ -133,7 +134,11 @@ jQuery(document).ready(function($) {
                 console.log('error');
                 console.log(error);
                 if( ! xhr.responseJSON) {
-                    triggerAdminNotice("Networking error. Please try again later.", "error");
+                    if( ! xhr.responseText) {
+                        triggerAdminNotice("Networking error. Please try again later.", "error");
+                    } else {
+                        triggerAdminNotice("Error parsing response. Please ensure WP_DEBUG=false in your wp-config.php file", "error");
+                    }
                 } else {
                     let response = xhr.responseJSON;
                     createAdminNotice(response.code, response.data, response.message);

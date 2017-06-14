@@ -201,8 +201,10 @@ class Vegashero_Import_Operator extends Vegashero_Import
             $games_updated = 0;
 
             if(count($games) > 0) {
+                error_log(sprintf("Game count for operator %s is %s", $operator, count($games)));
                 foreach($games as $game) {
                     // check if post exists for this game
+                    error_log("Checking if posts exists for game");
                     $posts = $this->_getPostsForGame($game);
 
                     $post_id = 0;
@@ -212,9 +214,13 @@ class Vegashero_Import_Operator extends Vegashero_Import
                     }
 
                     if( ! $post_id) { // no existing post
+                        error_log(sprintf("Post %s does not exist", $post->ID));
+                        error_log(sprintf("Inserting game '%s'", $post->name));
                         $this->_insertNewGame($game, $operator);
                         $newly_imported++;
                     } else { 
+                        //error_log(print_r($post, true));
+                        //error_log($post->post_status);
                         $this->_updateExistingGame($post, $game, $operator);
                         $this->_updateExistingPostMeta($post, $game);
                         $games_updated++;
