@@ -21,7 +21,7 @@ abstract class Vegashero_Import
     }
 
     static public function increaseCurlTimeout($handle) {
-        error_log("increasing curl timeout");
+        //error_log("increasing curl timeout");
         curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT, 120 );
         curl_setopt( $handle, CURLOPT_TIMEOUT, 120 );
     }

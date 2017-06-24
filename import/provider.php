@@ -14,17 +14,16 @@ class Vegashero_Import_Provider extends Vegashero_Import
         // increase curl timeout
         add_action('http_api_curl', array('Vegashero_Import', 'increaseCurlTimeout'), 100, 1);
 
-        // this action is scheduled in queue.php
-        add_action('vegashero_import_provider', array($this, 'importGamesForProvider'));
-
         // custom wp api endpoint for importing providers via ajax
-        // TODO: Add permissions callback for creating custom permissions
         add_action( 'rest_api_init', function () {
             $namespace = self::getApiNamespace($this->_config);
-            $route = self::getApiRoute();
-            register_rest_route( $namespace, $route . '(?P<provider>.+)', array(
+            register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<provider>.+)', array(
                 'methods' => 'GET',
-                'callback' => array($this, 'ajaxImportGamesForProvider')
+                'callback' => array($this, 'fetchGames')
+            ));
+            register_rest_route( $namespace, self::getImportApiRoute(), array(
+                'methods' => 'POST',
+                'callback' => array($this, 'importGames')
             ));
         });
     }
@@ -33,21 +32,16 @@ class Vegashero_Import_Provider extends Vegashero_Import
         parent::__destruct();
     }
 
+    static public function getFetchApiRoute() {
+      return '/fetch/provider/';
+    }
+
+    static public function getImportApiRoute() {
+      return '/import/provider/';
+    }
+
     static public function getApiNamespace($config) {
         return sprintf('%s/%s', $config->apiNamespace, $config->apiVersion);
-    }
-
-    static public function getApiRoute() {
-        return '/import/provider/';
-    }
-
-    static public function getApiEndpoint($config) {
-        return self::getApiNamespace($config) . self::getApiRoute();
-    }
-
-    public function ajaxImportGamesForProvider(WP_REST_Request $request) {
-        $provider = $request['provider'];
-        return $this->importGamesForProvider($provider);
     }
 
     private function _haveLicense() {
@@ -101,143 +95,109 @@ class Vegashero_Import_Provider extends Vegashero_Import
         //$this->_updateProviders($existing, $new, $provider);
     }
 
-    /*
-    private function _getProviderIds($providers) {
-        $provider_ids = array();
-        foreach($providers as $provider) {
-            $provider_id = $this->_getProviderId(trim($provider));
-            array_push($provider_ids, $provider_id);
-        }
-        return $provider_ids;
-    }   
-
-    private function _updateProviders($existing, $new, $provider) {
-        $update = false;
-        $providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy, array('fields' => 'names'));
-        if( ! in_array($provider, $providers) && $new->{$provider}) {
-            array_push($providers, $provider);
-            $update = true;
-        }  elseif(! $new->{$provider}) {
-            if(($key = array_search($provider, $providers)) !== false) {
-                unset($providers[$key]);
-                $update = true;
-            }
-        }
-        if($update) {
-            $provider_ids = $this->_getProviderIds($providers);
-            $game_provider_term_id = wp_set_object_terms($existing->ID, $provider_ids, $this->_config->gameProviderTaxonomy); 
-            $this->_groupTerms($provider_ids, $this->_config->gameProviderTermGroupId, $this->_config->gameProviderTaxonomy);
-        }
-    }
+    /**
+     * @param string $provider Game provider name
+     * @return string Remote endpoint to import games from 
      */
+    private function _getEndpoint($provider) {
+      $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
+      if($this->_haveLicense()) {
+        $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
+      }
+      return $endpoint;
+    }
 
-    public function importGamesForProvider($provider) {
-        // $this->registerTaxonomies();
-
-        // [id] => 6
-        // [name] => wild witches
-        // [provider] => netent
-        // [category] => video slots
-        // [src] => http://www.affiliaterepublik.com/game/slots-million/1311/default/730/en/wildwitches.iframe
-        // [status] => 1
-        // [mrgreen] => 1
-        // [slotsmillion] => 1
-        // [europa] => 0
-        // [created] => 2015-03-20 11:36:22
-        // [modified] => 2015-03-20 11:36:22
-
-        # first time importing games for this provider
-        /*
-        if( ! term_exists($provider, $this->_config->gameProviderTaxonomy)){ 
-            $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
+    /*
+     * @param string $provider Game provider name
+     * @return Array|WP_Error of games or WP_Error object
+     *   WP Rest API converts the objects to JSON for us
+     */
+    public function fetchGames(WP_REST_Request $request) {
+      // [id] => 6
+      // [name] => wild witches
+      // [provider] => netent
+      // [category] => video slots
+      // [src] => http://www.affiliaterepublik.com/game/slots-million/1311/default/730/en/wildwitches.iframe
+      // [status] => 1
+      // [mrgreen] => 1
+      // [slotsmillion] => 1
+      // [europa] => 0
+      // [created] => 2015-03-20 11:36:22
+      // [modified] => 2015-03-20 11:36:22
+      try {
+        $provider = $request['provider'];
+        $endpoint = $this->_getEndpoint($provider);
+        $response = wp_remote_get($endpoint);
+        if(is_wp_error($response)) {
+          return $response;
+        }
+        $body = wp_remote_retrieve_body($response);
+        if(is_wp_error($body)) {
+          return $body;
+        }
+        $games = json_decode($body);
+        if(is_null($games)) {
+          return new WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
+        }
+        if($this->_noGamesToImport($games)) {
+          return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
         } else {
-            # get all games so we can remove providers
-            $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
+          return json_decode($games);
         }
-         */
-        try {
-            $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
-            if($this->_haveLicense()) {
-                $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
+
+      } catch(Exception $e) {
+        return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
+      }
+    }
+
+    /**
+     * @param string $games JSON string representing an array of games to import
+     * @return array<string, string|array>
+     */
+    public function importGames(WP_REST_Request $request) {
+      try {
+        $games = json_decode($request->get_body());
+        $successful_imports = 0;
+        $newly_imported = 0;
+        $games_updated = 0;
+
+        if(count($games) > 0) {
+          foreach($games as $game) {
+            //error_log(print_r($game, true));
+            // check if post exists for this game
+            $posts = $this->_getPostsForGame($game);
+
+            $post_id = 0;
+            if(count($posts)) {
+              $post = $posts[0];
+              $post_id = $post->ID;
             }
 
-            error_log(sprintf("endpoint for provider import: %s", $endpoint));
-
-            $response = wp_remote_get($endpoint);
-            if(is_wp_error($response)) {
-                error_log(sprintf("wp_remote_get() error: %s", $response->get_error_message()));
-                return $response;
+            if( ! $post_id) { // no existing post
+              $this->_insertNewGame($game, $provider);
+              $newly_imported++;
+            } else { 
+              $this->_updateExistingGame($post, $game, $provider);
+              $this->_updateExistingPostMeta($post, $game);
+              $games_updated++;
             }
-            $body = wp_remote_retrieve_body($response);
-            if(is_wp_error($body)) {
-                error_log(sprintf("wp_remote_retrieve_body() error: %s", $body->get_error_message()));
-                return $body;
-            }
-            //error_log(print_r($body, true));
-            $games = json_decode($body);
-            if(is_null($games)) {
-                error_log("json_decode() returned NULL");
-                return new WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
-            }
-            if($this->_noGamesToImport($games)) {
-                error_log("warning: no games to import");
-                return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
-            } else {
-                error_log("decoding games");
-                $games = json_decode($games);
-                error_log(print_r($games, true));
-            }
-
-            $successful_imports = 0;
-            $newly_imported = 0;
-            $games_updated = 0;
-
-            if(count($games) > 0) {
-                error_log(sprintf("Game count for provider %s is %s", $provider, count($games)));
-                foreach($games as $game) {
-                    // check if post exists for this game
-                    error_log("Checking if posts exists for game");
-                    $posts = $this->_getPostsForGame($game);
-                    //error_log(sprintf("Posts count for game is %s", count($posts)));
-
-                    $post_id = 0;
-                    if(count($posts)) {
-                        $post = $posts[0];
-                        $post_id = $post->ID;
-                    }
-
-                    if( ! $post_id) { // no existing post
-                        error_log(sprintf("Post %s does not exist", $post->ID));
-                        error_log(sprintf("Inserting game '%s'", $post->name));
-                        $this->_insertNewGame($game, $provider);
-                        $newly_imported++;
-                    } else { 
-                        //error_log(sprintf("Post %s exists", $post->ID));
-                        //error_log(sprintf("Updating game %s", $post->post_title);
-                        //error_log(print_r($post, true));
-                        $this->_updateExistingGame($post, $game, $provider);
-                        $this->_updateExistingPostMeta($post, $game);
-                        $games_updated++;
-                    }
-                    $successful_imports++;
-                }
-                return array(
-                    "code" => "success",
-                    "message" => "Import completed successfully",
-                    "data" => array(
-                        "game_source" => $provider,
-                        "successful_imports" => $successful_imports,
-                        "new_games_imported" => $newly_imported,
-                        "existing_games_updated" => $games_updated
-                    )
-                );
-            } else {
-                error_log("warning: no games to import");
-                return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
-            }
-        } catch(Exception $e) {
-            error_log(sprintf("error: %s", $e->getMessage()));
-            return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
+            $successful_imports++;
+          }
+          return array(
+            "code" => "success",
+            "message" => "Import completed successfully",
+            "data" => array(
+              "game_source" => $provider,
+              "successful_imports" => $successful_imports,
+              "new_games_imported" => $newly_imported,
+              "existing_games_updated" => $games_updated
+            )
+          );
+        } else {
+          return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
         }
+      } catch(Exception $e) {
+        return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
+      }
     }
 }

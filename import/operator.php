@@ -154,7 +154,6 @@ class Vegashero_Import_Operator extends Vegashero_Import
 
         # first time importing games for this operator
         try {
-            error_log(sprintf("starting import for operator: %s", $operator));
             if( ! term_exists($operator, $this->_config->gameOperatorTaxonomy)){ 
                 $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
             } else {
@@ -162,37 +161,27 @@ class Vegashero_Import_Operator extends Vegashero_Import
                 $endpoint = sprintf('%s/vegasgod/games/', $this->_config->apiUrl);
             }
             if($this->_haveLicense()) {
-                error_log(sprintf("license specified as: %s", $this->_license));
                 $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
-            } else {
-                error_log("no license specified");
             }
-
-            error_log(sprintf("using the following endpoint for operator import: %s", $endpoint));
 
             $response = wp_remote_get($endpoint);
             if(is_wp_error($response)) {
-                error_log(sprintf("error: %s", $response->get_error_message()));
                 return $response;
             }
 
             $body = wp_remote_retrieve_body($response);
             if(is_wp_error($body)) {
-                error_log(sprintf("wp_remote_retrieve_body() error: %s", $body->get_error_message()));
                 return $body;
             }
 
             $games = json_decode($body);
             if(is_null($games)) {
-                error_log("json_decode() returned NULL");
                 return new WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
             }
 
             if($this->_noGamesToImport($games)) {
-                error_log("warning: no games to import");
                 return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
             } else {
-                error_log("decoding games");
                 $games = json_decode($games);
             }
 
@@ -201,10 +190,8 @@ class Vegashero_Import_Operator extends Vegashero_Import
             $games_updated = 0;
 
             if(count($games) > 0) {
-                error_log(sprintf("Game count for operator %s is %s", $operator, count($games)));
                 foreach($games as $game) {
                     // check if post exists for this game
-                    //error_log("Checking if posts exists for game");
                     $posts = $this->_getPostsForGame($game);
 
                     $post_id = 0;
@@ -214,13 +201,9 @@ class Vegashero_Import_Operator extends Vegashero_Import
                     }
 
                     if( ! $post_id && $game->$operator) { // no existing post
-                        //error_log(sprintf("Post %s does not exist", $post->ID));
-                        //error_log(sprintf("Inserting game '%s'", $post->name));
                         $this->_insertNewGame($game, $operator);
                         $newly_imported++;
                     } else { 
-                        //error_log(print_r($post, true));
-                        //error_log($post->post_status);
                         $this->_updateExistingGame($post, $game, $operator);
                         $this->_updateExistingPostMeta($post, $game);
                         if($game->$operator) {
@@ -243,11 +226,9 @@ class Vegashero_Import_Operator extends Vegashero_Import
                     )
                 );
             } else {
-                error_log("warning: no games to import");
                 return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
             }
         } catch(Exception $e) {
-            error_log(sprintf("error: %s", $e->getMessage()));
             return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
         }
     }
