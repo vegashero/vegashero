@@ -223,8 +223,8 @@ jQuery(document).ready(function($) {
             })
             .fail(function(xhr, status, error) {
                 GameImporter.handleError(xhr, status, error)
-                this.hideSpinner();
-                this.enableButtons();
+                GameImporter.hideSpinner();
+                GameImporter.enableButtons();
             });
     });
 
