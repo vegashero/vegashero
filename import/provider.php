@@ -50,7 +50,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
         }
     }
 
-    private function _insertNewGame($game, $provider) {
+    private function _insertNewGame($game) {
         // [id] => 6
         // [name] => wild witches
         // [provider] => netent
@@ -72,14 +72,14 @@ class Vegashero_Import_Provider extends Vegashero_Import
         );
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
-        $provider_id = $this->_getProviderId(trim($provider));
+        $provider_id = $this->_getProviderId(trim($game->provider));
         //$operator_id = $this->_getOperatorId(trim($game->operator));
 
         $game_title = sanitize_title(strtolower(trim($game->name)));
         $post_meta_game_id = add_post_meta($post_id, $this->_config->postMetaGameId, $game->id, true); // add post meta data
         $post_meta_game_src_id = add_post_meta($post_id, $this->_config->postMetaGameSrc, $game->src, true); // add post meta data
         $post_meta_game_title = add_post_meta($post_id, $this->_config->postMetaGameTitle, $game_title, true); // add post meta data
-        $post_meta_game_img = add_post_meta($post_id, $this->_config->postMetaGameImg, sprintf("%s/%s/%s/cover.jpg", $this->_config->gameImageUrl, sanitize_title(strtolower(trim($provider))), $game_title), true); // add post meta data
+        $post_meta_game_img = add_post_meta($post_id, $this->_config->postMetaGameImg, sprintf("%s/%s/%s/cover.jpg", $this->_config->gameImageUrl, sanitize_title(strtolower(trim($game->provider))), $game_title), true); // add post meta data
 
         $game_category_term_id = wp_set_object_terms($post_id, $category_id, $this->_config->gameCategoryTaxonomy); // link category and post
         $game_provider_term_id = wp_set_object_terms($post_id, $provider_id, $this->_config->gameProviderTaxonomy); // link provider and post
@@ -90,7 +90,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
         //$this->_groupTerms(array($operator_id), $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
     }
 
-    private function _updateExistingGame($existing, $new, $provider) {
+    private function _updateExistingGame($existing, $new) {
         $this->_updateStatus($existing, $new);
         //$this->_updateProviders($existing, $new, $provider);
     }
@@ -196,10 +196,10 @@ class Vegashero_Import_Provider extends Vegashero_Import
             }
 
             if( ! $post_id) { // no existing post
-              $this->_insertNewGame($game, $provider);
+              $this->_insertNewGame($game);
               $newly_imported++;
             } else { 
-              $this->_updateExistingGame($post, $game, $provider);
+              $this->_updateExistingGame($post, $game);
               $this->_updateExistingPostMeta($post, $game);
               $games_updated++;
             }
@@ -209,7 +209,6 @@ class Vegashero_Import_Provider extends Vegashero_Import
             "code" => "success",
             "message" => "Import completed successfully",
             "data" => array(
-              "game_source" => $provider,
               "successful_imports" => $successful_imports,
               "new_games_imported" => $newly_imported,
               "existing_games_updated" => $games_updated
