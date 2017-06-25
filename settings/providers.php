@@ -86,7 +86,7 @@ class Vegashero_Settings_Providers
    * @return array|false Array of providers
    */
   private function _fetchListOfProviders($endpoint) {
-    $cache_id = 'vegashero_list_of_providers';
+    $cache_id = 'vegashero_cached_list_of_providers';
     $providers = $this->_getCachedListOfProviders($cache_id);
     if(empty($providers)) {
       $response = wp_remote_get($endpoint);
@@ -106,7 +106,7 @@ class Vegashero_Settings_Providers
   public function registerSettings() {
     $endpoint = sprintf('%s/vegasgod/providers/v2', $this->_config->apiUrl);
     $this->_providers = $this->_fetchListOfProviders($endpoint);
-    //$this->_displayListOfProviders($this->_providers);
+    $this->_displayListOfProviders($this->_providers);
   }
 
   private function _getPageName($name) {
@@ -151,19 +151,8 @@ class Vegashero_Settings_Providers
     return $markup;
   }
 
-  private function _getCronUpdateBtn($provider) {
-    $markup = "<a href='";
-    $update_url = plugins_url('queue.php', __FILE__);
-    $markup .= "$update_url?provider=$provider'";
-    $markup .= " class='button";
-    $markup .= wp_next_scheduled('vegashero_import_provider', array($provider)) ? "' disabled>Import queued" : " button-primary'>Import games";
-    $markup .= "</a>";
-    return $markup;
-  }
-
   public function createSettingsPage() {
     include dirname(__FILE__) . '/templates/providers.php';
   }
-
 
 }

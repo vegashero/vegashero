@@ -107,7 +107,24 @@ class Vegashero_Import_Provider extends Vegashero_Import
       return $endpoint;
     }
 
+    private function _cacheListOfGames($cache_id, $games) {
+      set_transient( $cache_id, $games, HOUR_IN_SECONDS);
+    }
+
+    /**
+     * Fetch list of games from cache
+     * @param string $cache_id
+     * @return array Cached array of games
+     */
+    private function _getCachedListOfGames($cache_id) {
+      if($games = get_transient($cache_id)) {
+        return $games;
+      }
+      return Array();
+    }
+
     /*
+     * Fetch list of games from cache or remote server
      * @param string $provider Game provider name
      * @return Array|WP_Error of games or WP_Error object
      *   WP Rest API converts the objects to JSON for us
@@ -126,25 +143,30 @@ class Vegashero_Import_Provider extends Vegashero_Import
       // [modified] => 2015-03-20 11:36:22
       try {
         $provider = $request['provider'];
-        $endpoint = $this->_getEndpoint($provider);
-        $response = wp_remote_get($endpoint);
-        if(is_wp_error($response)) {
-          return $response;
+        $cache_id = sprintf("vegashero_cached_list_of_games_from_%s", $provider);
+        $games = $this->_getCachedListOfGames($cache_id);
+        if(empty($games)) { // fetch games from remote
+          $endpoint = $this->_getEndpoint($provider);
+          $response = wp_remote_get($endpoint);
+          if(is_wp_error($response)) {
+            return $response;
+          }
+          $body = wp_remote_retrieve_body($response);
+          if(is_wp_error($body)) {
+            return $body;
+          }
+          $games = json_decode($body);
+          if(is_null($games)) {
+            return new WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
+          }
+          if($this->_noGamesToImport($games)) {
+            return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+          } else {
+            $games = json_decode($games);
+            $this->_cacheListOfGames($cache_id, $games);
+          }
         }
-        $body = wp_remote_retrieve_body($response);
-        if(is_wp_error($body)) {
-          return $body;
-        }
-        $games = json_decode($body);
-        if(is_null($games)) {
-          return new WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
-        }
-        if($this->_noGamesToImport($games)) {
-          return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
-        } else {
-          return json_decode($games);
-        }
-
+        return $games;
       } catch(Exception $e) {
         return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
       }
