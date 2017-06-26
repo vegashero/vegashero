@@ -92,8 +92,15 @@ $ vendor/bin/phpunit --debug  tests
 ```
 
 ## Quickstart
+
 ```bash
-$ USER_NAME=$USER USER_ID=$(id -u) docker-compose up --build
+USER_NAME=$USER USER_ID=$(id -u) docker-compose up --build
+```
+
+## Update wordpress
+
+```sh
+docker exec -u $USER vegashero_wordpress_1 wp core update
 ```
 
 Now navigate to [http://localhost:8080](http://localhost:8080)
