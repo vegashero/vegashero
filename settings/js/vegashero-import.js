@@ -3,11 +3,11 @@
 jQuery(document).ready(function($) {
 
     let AdminNotice = {
-        removeAll: function() {
-            $('div.vh-admin-notice').remove();
+        removeAll: function(className) {
+            $('div.' + className).remove();
         },
         triggerLoading: function(message, type='success') {
-            this.removeAll();
+            this.removeAll('vh-admin-notice');
             let div = document.createElement('div');
             div.className = 'vh-admin-notice notice notice-' + type + ' is-dismissible';
             let p = document.createElement('p');
@@ -21,10 +21,10 @@ jQuery(document).ready(function($) {
 
             $("html, body").animate({ scrollTop: 0 }, "slow");
         },
-        trigger: function(message, type='success') {
-            this.removeAll();
+        trigger: function(message, type='success', className='vh-admin-notice') {
+            this.removeAll(className);
             let div = document.createElement('div');
-            div.className = 'vh-admin-notice notice notice-' + type + ' is-dismissible';
+            div.className = className + ' notice notice-' + type + ' is-dismissible';
             let p = document.createElement('p');
             p.textContent = message;
             let button = document.createElement('button');
@@ -123,7 +123,7 @@ jQuery(document).ready(function($) {
          * @param {Number} batchSize
          * @param {Promise<Object, Error>
          */
-        batchImport: function(totalGames, gamesToImport, importUrl, gamesImported=0, batchSize=10) {
+        batchImport: function(totalGames, gamesToImport, importUrl, gamesImported=0, batchSize=20) {
             let batch = gamesToImport.splice(0, batchSize);
             if(batch.length) {
                 this.import(batch, importUrl)
@@ -212,6 +212,7 @@ jQuery(document).ready(function($) {
         event.preventDefault();
         let self = $(this)[0];
         GameImporter.button = this;
+        AdminNotice.trigger("Please do not close this window while import is in progress", "warning", "vh-admin-alert");
         AdminNotice.triggerLoading("Fetching games. Please wait.", "info");
         GameImporter.showSpinner();
         GameImporter.disableButtons(GameImporter.importButtons);
