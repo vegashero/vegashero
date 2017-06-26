@@ -41,9 +41,6 @@ jQuery(document).ready(function($) {
         },
         create: function(code, data, message) {
             if(code !== 'success') {
-                console.error(code);
-                console.error(data);
-                console.error(message);
                 this.trigger(code + ": " + message, "error");
             } else {
                 let gameProvider = decodeURIComponent(data.game_source).replace(/\b\w/g, function(l){ return l.toUpperCase() });
@@ -138,12 +135,14 @@ jQuery(document).ready(function($) {
                             AdminNotice.trigger("Finished importing " + gamesImported + "/" + totalGames + " games", "success");
                             this.hideSpinner();
                             this.enableButtons();
+                            AdminNotice.removeAll('vh-admin-alert');
                         }
                     }.bind(this))
                     .fail(function(xhr, status, error) {
                         this.handleError(xhr, status, error);
                         this.hideSpinner();
                         this.enableButtons();
+                        AdminNotice.removeAll('vh-admin-alert');
                     }.bind(this));
             }
         },
@@ -204,6 +203,18 @@ jQuery(document).ready(function($) {
          *
          */
         updateImportProgress: function() {
+        },
+
+        getQueryParams: function(url) {
+            let parsedUrl = this.parseUrl(url);
+            console.log(parsedUrl);
+            console.log(parsedUrl.search);
+        },
+
+        parseUrl: function(url) {
+            let parser = document.createElement('a');
+            parser.href = url;
+            return parser;
         }
 
     }
@@ -216,6 +227,7 @@ jQuery(document).ready(function($) {
         AdminNotice.triggerLoading("Fetching games. Please wait.", "info");
         GameImporter.showSpinner();
         GameImporter.disableButtons(GameImporter.importButtons);
+        //GameImporter.getQueryParams(self.dataset.fetch);
         GameImporter.fetch(self.dataset.fetch)
             .done(function(games) {
                 let totalGames = games.length;
@@ -226,6 +238,7 @@ jQuery(document).ready(function($) {
                 GameImporter.handleError(xhr, status, error)
                 GameImporter.hideSpinner();
                 GameImporter.enableButtons();
+                AdminNotice.removeAll('vh-admin-alert');
             });
     });
 

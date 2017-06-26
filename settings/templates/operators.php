@@ -26,7 +26,7 @@
                   <h2 class="operatorname"><?=$operator['operator']?></h2>
                   <div class="provider-img"><img src="<?=$this->_config->gameImageUrl?>/operators/<?=$operator['operator']?>.png" /></div>
                   <div class="btn-area">
-                  <?= $this->_getAjaxUpdateBtn($operator['operator']); ?>
+                  <?= $this->_getAjaxUpdateBtn($operator['operator'], $operator['count']); ?>
                   </div>
                   <div class="btn-area">
                   <?= $this->_getGameCount($operator['count']); ?>

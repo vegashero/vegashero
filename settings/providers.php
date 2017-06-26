@@ -1,6 +1,6 @@
 <?php
 
-class Vegashero_Settings_Providers
+class Vegashero_Settings_Providers extends Vegashero_Settings
 {
 
   private $_providers;
@@ -14,15 +14,6 @@ class Vegashero_Settings_Providers
       add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
       add_action('admin_init', array($this, 'registerSettings'));
     }
-  }
-
-  public function enqueueAjaxScripts() {
-    wp_enqueue_script('vegashero-import', plugins_url( '/js/vegashero-import.js', __FILE__ ), array('jquery'), null, true);
-  }
-
-  public function importNotice() {
-    $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );
-    include_once dirname(__FILE__) . '/templates/import-notice.php';
   }
 
   private function _getOptionGroup($provider=null) {
@@ -46,67 +37,9 @@ class Vegashero_Settings_Providers
     return sprintf('%s-affiliate-code', $provider);
   }
 
-  private function _cacheListOfProviders($cache_id, $providers) {
-    set_transient( $cache_id, $providers, HOUR_IN_SECONDS);
-  }
-
-  /**
-   * Fetch list of providers from cache
-   * @param string $cache_id
-   * @return array Cached array of providers
-   */
-  private function _getCachedListOfProviders($cache_id) {
-    if($providers = get_transient($cache_id)) {
-      return $providers;
-    }
-    return Array();
-  }
-
-  /**
-   * Display the providers on screen
-   * @param array $providers Array of providers
-   * @return null
-   */
-  private function _displayListOfProviders($providers) {
-    foreach($providers as $provider) {
-      $this->_provider = $provider['provider'];
-      $this->_count = $provider['count'];
-      $section = $this->_getSectionName($provider['provider']);
-      $page = $this->_getPageName($provider['provider']);
-      add_settings_section($section, sprintf('%s', ucfirst($provider['provider'])), array($this, 'getProviderDescription'), $page);
-      $option_group = $this->_getOptionGroup($provider['provider']);
-      $option_name = $this->getOptionName($provider['provider']);
-      register_setting($option_group, $option_name);
-    }
-  }
-
-  /**
-   * Fetch list of providers from cache or remote server
-   * @param string $endpoint
-   * @return array|false Array of providers
-   */
-  private function _fetchListOfProviders($endpoint) {
-    $cache_id = 'vegashero_cached_list_of_providers';
-    $providers = $this->_getCachedListOfProviders($cache_id);
-    if(empty($providers)) {
-      $response = wp_remote_get($endpoint);
-      if( ! is_wp_error($response)) { //TODO: do something about error scenario
-        $body = wp_remote_retrieve_body($response);
-        if( ! is_wp_error($body)) { //TODO: do something about error scenario
-          $providers = json_decode(json_decode($body), true);
-          if(count($providers)) {
-            $this->_cacheListOfProviders($cache_id, $providers);
-          }
-        }
-      }
-    }
-    return $providers;
-  }
-
   public function registerSettings() {
     $endpoint = sprintf('%s/vegasgod/providers/v2', $this->_config->apiUrl);
-    $this->_providers = $this->_fetchListOfProviders($endpoint);
-    $this->_displayListOfProviders($this->_providers);
+    $this->_providers = $this->_fetchList($endpoint);
   }
 
   private function _getPageName($name) {

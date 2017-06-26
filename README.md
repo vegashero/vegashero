@@ -103,6 +103,10 @@ USER_NAME=$USER USER_ID=$(id -u) docker-compose up --build
 docker exec -u $USER vegashero_wordpress_1 wp core update
 ```
 
+## Installing plugins
+```sh
+$ docker exec --user $USER yogahomecapetown_wordpress_1 wp plugin install mailchimp-for-wp jetpack imsanity wp-instagram-widget wordpress-importer --activate
+
 Now navigate to [http://localhost:8080](http://localhost:8080)
 
 ## Snippets

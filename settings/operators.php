@@ -1,93 +1,73 @@
 <?php
 
-class Vegashero_Settings_Operators
+
+class Vegashero_Settings_Operators extends Vegashero_Settings
 {
 
-    private $_operators;
-    private $_operator;
-    private $_config;
+  private $_operators;
+  private $_operator;
+  private $_config;
 
-    public function __construct() {
+  public function __construct() {
 
-        $this->_config = Vegashero_Config::getInstance();
+    $this->_config = Vegashero_Config::getInstance();
 
-        if(array_key_exists('page', $_GET)) {
-            if($_GET['page'] === 'vegashero-operator-import' || 'vegashero-provider-import') {
-                add_action('admin_head', array($this, 'loadOperatorStyles'));
-            }
-        }
-        add_action('admin_menu', array($this, 'addSettingsMenu'));
-
-        if(@$_GET['page'] === 'vegashero-operator-import' && @$_GET['vegashero-import'] === 'queued') {
-            add_action( 'admin_notices', array($this, 'importNotice'));
-        }
-        if(@$_GET['page'] === 'vegashero-operator-import') {
-            add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
-            add_action('admin_init', array($this, 'registerSettings'));
-        }
-
+    if(array_key_exists('page', $_GET)) {
+      if($_GET['page'] === 'vegashero-operator-import' || 'vegashero-provider-import') {
+        add_action('admin_head', array($this, 'loadOperatorStyles'));
+      }
+    }
+    add_action('admin_menu', array($this, 'addSettingsMenu'));
+    if(@$_GET['page'] === 'vegashero-operator-import') {
+      add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
+      add_action('admin_init', array($this, 'registerSettings'));
     }
 
-    public function enqueueAjaxScripts() {
-        wp_enqueue_script('vegashero-import', plugins_url( '/js/vegashero-import.js', __FILE__ ), array('jquery'), null, true);
-    }
+  }
 
-    public function loadOperatorStyles() {
-        $url = plugin_dir_url( __FILE__ ) . 'templates/operators.css';
-        echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
-    }
+  public function loadOperatorStyles() {
+    $url = plugin_dir_url( __FILE__ ) . 'templates/operators.css';
+    echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
+  }
 
-    public function importNotice() {
-      $vegas_gameslist_page = admin_url( "edit.php?post_type=vegashero_games" );
-      include_once dirname(__FILE__) . '/templates/import-notice.php';
-    }
+  public function registerSettings() {
+    $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
+    $this->_operators = $this->_fetchList($endpoint);
+  }
 
-    public function registerSettings() {
-        $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
-        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
-        $this->_operators = json_decode(json_decode($response), true);
-    }
+  public function addSettingsMenu() {
+    add_submenu_page(
+      'vh-settings',         // Register this submenu with the menu defined above
+      'Import by Operator',          // The text to the display in the browser when this menu item is active
+      'Import by Operator',                  // The text for this menu item
+      'administrator',            // Which type of users can see this menu
+      'vegashero-operator-import',          // The unique ID - the slug - for this menu item
+      array($this, 'createSettingsPage')   // The function used to render this menu's page to the screen
+    );
+  }
 
-    public function addSettingsMenu() {
-        add_submenu_page(
-            'vh-settings',         // Register this submenu with the menu defined above
-            'Import by Operator',          // The text to the display in the browser when this menu item is active
-            'Import by Operator',                  // The text for this menu item
-            'administrator',            // Which type of users can see this menu
-            'vegashero-operator-import',          // The unique ID - the slug - for this menu item
-            array($this, 'createSettingsPage')   // The function used to render this menu's page to the screen
-        );
-    }
+  private function _getAjaxUpdateBtn($operator, $count) {
+    $markup = "<button";
+    $markup .= " class='button button-primary vh-import'";
+    $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s'", site_url(), Vegashero_Import_Operator::getApiNamespace($this->_config), Vegashero_Import_Operator::getFetchApiRoute(), $operator);
+    $markup .= sprintf(" data-import='%s/wp-json/%s%s%s?total=%d'", site_url(), Vegashero_Import_Operator::getApiNamespace($this->_config), Vegashero_Import_Operator::getImportApiRoute(), $operator, $count);
+    $markup .= ">Import games";
+    $markup .= "</button>";
+    return $markup;
+  }
 
-    private function _getAjaxUpdateBtn($operator) {
-        $markup = "<button";
-        $markup .= " class='button button-primary vh-import'";
-        $markup .= sprintf(" data-api='%s/wp-json/%s%s%s'>Import games", site_url(), Vegashero_Import_Operator::getApiNamespace($this->_config), Vegashero_Import_Operator::getApiRoute(), $operator);
-        $markup .= "</button>";
-        return $markup;
-    }
 
-    private function _getCronUpdateBtn($operator) {
-        $markup = "<a href='";
-        $update_url = plugins_url('queue.php', __FILE__);
-        $markup .= "$update_url?operator=$operator'";
-        $markup .= " class='button";
-        $markup .= wp_next_scheduled('vegashero_import_operator', array($operator)) ? "' disabled>Import queued" : " button-primary'>Import games";
-        $markup .= "</a>";
-        return $markup;
+  private function _getGameCount($count) {
+    if(get_option('vh_license_status') === 'valid') { 
+      return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
     }
+    else { 
+      return "<span class='right gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $count <span class='dashicons dashicons-lock'></span></span>";
+    }
+  }
 
-    private function _getGameCount($count) {
-        if(get_option('vh_license_status') === 'valid') { 
-            return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
-        }
-        else { 
-            return "<span class='right gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $count <span class='dashicons dashicons-lock'></span></span>";
-        }
-    }
-
-    public function createSettingsPage() {
-        include dirname(__FILE__) . '/templates/operators.php';
-    }
+  public function createSettingsPage() {
+    include dirname(__FILE__) . '/templates/operators.php';
+  }
 
 }
