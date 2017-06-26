@@ -123,6 +123,15 @@ class Vegashero_Import_Provider extends Vegashero_Import
       return Array();
     }
 
+    /**
+     * @param string $provider
+     * @return string
+     */
+    private function _getCacheId($provider) {
+      $cache_id = sprintf("vegashero_cached_list_of_games_from_%s", $provider);
+      return $this->_haveLicense() ? $cache_id : sprintf("%s_free", $cache_id);
+    }
+
     /*
      * Fetch list of games from cache or remote server
      * @param string $provider Game provider name
@@ -143,7 +152,7 @@ class Vegashero_Import_Provider extends Vegashero_Import
       // [modified] => 2015-03-20 11:36:22
       try {
         $provider = $request['provider'];
-        $cache_id = sprintf("vegashero_cached_list_of_games_from_%s", $provider);
+        $cache_id = $this->_getCacheId($provider);
         $games = $this->_getCachedListOfGames($cache_id);
         if(empty($games)) { // fetch games from remote
           $endpoint = $this->_getEndpoint($provider);
