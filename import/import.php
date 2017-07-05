@@ -135,34 +135,50 @@ abstract class Vegashero_Import
     return get_posts($args);
   }
 
-  protected function _updateExistingPostMeta($existing, $game) {
+  protected function _updateGameId($existing, $game) {
     $game_id = get_post_meta($existing->ID, $this->_config->postMetaGameId, true);
-    $game_src = get_post_meta($existing->ID, $this->_config->postMetaGameSrc, true);
-    $game_title = get_post_meta($existing->ID, $this->_config->postMetaGameTitle, true);
-    $game_img = get_post_meta($existing->ID, $this->_config->postMetaGameImg, true);
-
-    //$providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy);
-
     if($game_id != $game->id) {
       update_post_meta($existing->ID, $this->_config->postMetaGameId, $game->id, $game_id);
     }
+  }
+
+  private function _updateGameSrc($existing, $game) {
+    $game_src = get_post_meta($existing->ID, $this->_config->postMetaGameSrc, true);
     if($game_src != $game->src) {
       update_post_meta($existing->ID, $this->_config->postMetaGameSrc, $game->src, $game_src);
     }
+  }
+
+  private function _updateGameTitle($existing, $game) {
+    $game_title = get_post_meta($existing->ID, $this->_config->postMetaGameTitle, true);
     if($game_title != sanitize_title(strtolower(trim($game->name)))) {
       update_post_meta($existing->ID, $this->_config->postMetaGameTitle, sanitize_title(strtolower(trim($game->name))), $game_title);
     }
   }
 
+  protected function _updateExistingPostMeta($existing, $game) {
+    $this->_updateGameSrc($existing, $game);
+    $this->_updateGameTitle($existing, $game);
+    //$game_img = get_post_meta($existing->ID, $this->_config->postMetaGameImg, true);
+    //$providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy);
+  }
+
   /**
    * Set games to draft when status was 1, but changes to 0
+   * Never set games to publish when status was draft
+   *
+   * @param object $existing
+   * @param object $new Status property is 0 for draft and 1 for publish
+   * @return null
    */
   protected function _updateStatus($existing, $new) {
     $new->status = $new->status ? 'publish' : 'draft';
-    if($existing->post_status != $new->status) {
-      $existing->post_status = $new->status;
-      $existing->edit_date = true;
-      wp_update_post($existing, true);
+    if($existing->post_status != 'draft') {
+      if($existing->post_status != $new->status) {
+        $existing->post_status = $new->status;
+        $existing->edit_date = true;
+        wp_update_post($existing, true);
+      }
     }
   }
 

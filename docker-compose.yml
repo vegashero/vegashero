@@ -36,3 +36,4 @@ services:
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
 
 
+

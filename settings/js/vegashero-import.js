@@ -126,8 +126,8 @@ jQuery(document).ready(function($) {
                 this.import(batch, importUrl)
                     .done(function(response) {
                         gamesImported += parseInt(response['data']['successful_imports']);
-                        console.log("Imported " + gamesImported + "/" + totalGames + " games");
-                        console.log(response);
+                        //console.log("Imported " + gamesImported + "/" + totalGames + " games");
+                        //console.log(response);
                         AdminNotice.triggerLoading("Importing " + gamesImported + "/" + totalGames + " games. Please wait.", "info");
                         if(gamesToImport.length) {
                             this.batchImport(totalGames, gamesToImport, importUrl, gamesImported);
@@ -193,22 +193,10 @@ jQuery(document).ready(function($) {
             button.style.visibility = 'visible';
         },
 
-        /**
-         *
-         */
-        showImportProgress: function() {
-        },
-
-        /**
-         *
-         */
-        updateImportProgress: function() {
-        },
-
         getQueryParams: function(url) {
             let parsedUrl = this.parseUrl(url);
-            console.log(parsedUrl);
-            console.log(parsedUrl.search);
+            //console.log(parsedUrl);
+            //console.log(parsedUrl.search);
         },
 
         parseUrl: function(url) {

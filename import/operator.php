@@ -203,33 +203,59 @@ class Vegashero_Import_Operator extends Vegashero_Import
     if( ! in_array($operator, $operators) && $new->{$operator}) {
       array_push($operators, $operator);
       $update = true;
-    }  elseif(! $new->{$operator}) {
-      if(($key = array_search($operator, $operators)) !== false) {
-        unset($operators[$key]);
-        $update = true;
-      }
-    }
-    if($update) {
-      $operator_ids = $this->_getOperatorIds($operators);
-      $game_operator_term_id = wp_set_object_terms($existing->ID, $operator_ids, $this->_config->gameOperatorTaxonomy); 
-      $this->_groupTerms($operator_ids, $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
-    }
+    }  
   }
 
   /**
+   * @param string $operator
    * @param object $post
    * @return array 
    */
-  private function _getCurrentOperators($post) {
+  private function _getOperatorsForPost($post) {
     return wp_get_post_terms($post->ID, $this->_config->gameOperatorTaxonomy, array('fields' => 'names'));
   }
 
   /**
-   * TODO: ensure multiple operators can be added to a game
+   * Overwrite all terms for game post
+   * @param array $operators List of operators that offer the game
+   * @param object $post The existing game post
+   * @return null
    */
-  private function _operatorIsAssociated($operator) {
+  private function _reassociateOperatorsWithPost($operators, $post) {
+    $operator_ids = $this->_getOperatorIds($operators);
+    $game_operator_term_id = wp_set_object_terms($post->ID, $operator_ids, $this->_config->gameOperatorTaxonomy); 
+    $this->_groupTerms($operator_ids, $this->_config->gameOperatorTermGroupId, $this->_config->gameOperatorTaxonomy);
   }
 
+  /**
+   * Not being used at the moment, but potentially useful example code
+   */
+  private function _removePostTerms($operator, $operators) {
+    if(($key = array_search($operator, $operators)) !== false) {
+      unset($operators[$key]);
+    }
+    return $operators;
+  }
+
+
+  private function _addPostTerms($post, $operator) {
+    $operators = $this->_getOperatorsForPost($post);
+    if( ! in_array($operator, $operators)) {
+      array_push($operators, $operator);
+    }  
+    return $operators;
+  }
+
+  /**
+   * Add operator term to existing post
+   * @param object $post Existing game post
+   * @param string $operator Operator name
+   * @return null
+   */
+  private function _updatePostTerms($post, $operator) {
+    $operators = $this->_addPostTerms($post, $operator);
+    $this->_reassociateOperatorsWithPost($operators, $post);
+  }
 
   /**
    * @param string $games JSON string representing an array of games to import
@@ -245,13 +271,14 @@ class Vegashero_Import_Operator extends Vegashero_Import
 
       if(count($games) > 0) {
         foreach($games as $game) {
-          
+
           if($this->_operatorProvidesGame($game, $operator)) {
             if( ! $this->_gameExists($game)) {
               $this->_insertNewGame($game, $operator);
               $newly_imported++;
             } else {
               $post = $this->_getExistingPost($game);
+              $this->_updatePostTerms($post, $operator);
               $this->_updateStatus($post, $game);
               $this->_updateExistingPostMeta($post, $game);
               $games_updated++;
