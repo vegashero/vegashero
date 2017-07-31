@@ -64,6 +64,14 @@ Now navigate to [http://localhost:8080](http://localhost:8080)
 
 ## Snippets
 
+###
+
+Updating SSL certificates
+
+```sh
+certbot certonly --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,staging.vegashero.co,www.vegashero.co
+```
+
 ### Manually run Wordpress cron
 ```bash
 $ firefox http://localhost:8080/wp-cron.php?doing_wp_cron
