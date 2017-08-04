@@ -7,6 +7,14 @@ Localhost license key
 adc88446b4e3476a04091835fec15e08
 ```
 
+## Testing
+
+```sh
+composer install
+composer dump-autoload
+composer test
+```
+
 ## EDD Plugin Updater
 
 ### Clearing the cache
@@ -83,6 +91,7 @@ $ firefox http://localhost:8080/wp-cron.php?doing_wp_cron
 ```
 
 ## References
+* [PHP DocBlocks](https://phpdoc.org/docs/latest/guides/docblocks.html)
 * [wp_mock](https://github.com/10up/wp_mock)
 * [Unit Testing PHP](https://phpunit.de/)
 * [Cucumber PHP](http://behat.org/en/latest/)
