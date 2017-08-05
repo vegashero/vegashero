@@ -12,15 +12,16 @@
     ],
     "autoload": {
         "psr-4": { 
-            "VegasHero\\": "src/"
+            "VegasHero\\": "lib/"
         }
     },
     "require": {
-        "phpunit/phpunit": "^6.3",
-        "mockery/mockery": "^0.9.9"
     },
     "require-dev": {
         "phpunit/php-invoker": "^1.1",
-        "phpunit/dbunit": "^3.0"
+        "phpunit/dbunit": "^3.0",
+        "phpunit/phpunit": "^6.3",
+        "mockery/mockery": "^0.9.9",
+        "docker-php/docker-php": "^1.24"
     }
 }

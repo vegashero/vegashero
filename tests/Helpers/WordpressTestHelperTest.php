@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use \Mockery;
+use VegasHero\Helpers\WordpressTestHelper as WpHelper;
 
 /**
  * @covers Email
@@ -10,14 +10,48 @@ use \Mockery;
 final class WordpressTestHelperTest extends TestCase
 {
 
-  public function testInstallWordpress() {
-  }
+    // these could be set via environment variables
+    private $url = "http://localhost:8080";
+    private $title = "VegasHero";
+    private $admin_user = "vegashero";
+    private $admin_password = "secret";
+    private $admin_email = "support@vegashero.co";
+    private $import_file = "/var/www/html/wp-content/plugins/vegashero/fixtures/vegashero.wordpress.2017-08-05.xml";
 
-  public function testEnableVegasHeroPlugin() {
-  }
+    protected function setUp() 
+    {
+        WpHelper::resetDatabase();
+        WpHelper::installWordpress($this->url, $this->title, $this->admin_user, $this->admin_password, $this->admin_email);
+        WpHelper::enablePlugin('vegashero');
+    }
 
-  public function testImportGameFixtures() {
-  }
+    protected function tearDown() 
+    {
+    }
+
+    public function testIsWordpressInstalled() 
+    {
+        $this->assertEquals(
+            WpHelper::isWordpressInstalled(),
+            true
+        );
+    }
+
+    public function testEnableVegasHeroPlugin() 
+    {
+        $this->assertEquals(
+            WpHelper::isPluginInstalled('vegashero'),
+            true
+        );
+    }
+
+    public function testImportGameFixtures() 
+    {
+        $this->assertEquals(
+            WpHelper::importFixture($this->import_file),
+            true
+        );
+    }
 
 
 /*
