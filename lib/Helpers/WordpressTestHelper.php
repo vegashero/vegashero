@@ -74,7 +74,7 @@ final class WordpressTestHelper
         self::addPlugin('wordpress-importer');
         $command = sprintf("wp import %s --authors=create", $absolute_filepath);
         exec($command, $output, $exit_code);
-        //self::removePlugin('wordpress-importer');
+        self::removePlugin('wordpress-importer');
         return $exit_code ? false : true;
     }
 
