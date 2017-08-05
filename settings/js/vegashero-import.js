@@ -152,7 +152,7 @@ jQuery(document).ready(function($) {
                 if( ! xhr.responseText) {
                     AdminNotice.trigger("Networking error. Please try again later.", "error");
                 } else {
-                    AdminNotice.trigger("Error parsing response. Please ensure <a href='/wp-admin/options-permalink.php'>pretty permalinks</a> are enabled and WP_DEBUG=false in your wp-config.php file", "error");
+                    AdminNotice.trigger("Error parsing response. Please ensure pretty permalinks are enabled and WP_DEBUG=false in your wp-config.php file", "error");
                 }
             } else {
                 let response = xhr.responseJSON;
