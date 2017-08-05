@@ -9,7 +9,7 @@ use \Mockery;
  */
 final class SingleGameTest extends TestCase
 {
-
+/*
     public function testReturnsIframeSrcForGameId() 
     {
         $game_id = rand();
@@ -49,4 +49,5 @@ MARKUP;
             sprintf($template, $iframe_src)
         );
     }
+ */
 }
