@@ -7,6 +7,34 @@ Localhost license key
 adc88446b4e3476a04091835fec15e08
 ```
 
+## Development
+
+### Tab1
+
+Runs the required Docker containers
+
+```sh
+USER_NAME=$USER USER_ID=$(id -u) docker-compose up tests
+```
+
+### Tab2
+
+Edit code on your local machine
+
+```sh
+vim 
+```
+
+### Tab3
+
+Run tests from within the container
+
+```sh
+docker exec -ti -u $USER vegashero_tests_1 bash
+cd wp-content/plugins/vegashero
+vendor/bin/phpunit --bootstrap vendor/autoload.php tests
+```
+
 ## Testing
 
 ```sh
