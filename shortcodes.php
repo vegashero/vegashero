@@ -15,9 +15,14 @@ class Vegashero_Shortcodes
         add_shortcode( 'vh_table' , array($this, 'vh_table_func'));
         add_shortcode( 'vh_table_line' , array($this, 'vh_table_line_func'));
         add_shortcode( 'vh-grid', array($this, 'vh_grid_shortcode'));
-        add_shortcode('vh-game', array($this, 'renderSingleGame'));
+        add_shortcode('vh-game', array($this, 'renderSingleGame')); // tested
     }
 
+    /**
+     * Method called by vh-game shortcode
+     * @param array $atts
+     * @return string
+     */
     public function renderSingleGame($atts) {
         if(array_key_exists('id', $atts)) {
             $game_id = (int)$atts['id'];

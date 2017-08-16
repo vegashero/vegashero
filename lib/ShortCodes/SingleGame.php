@@ -16,10 +16,12 @@ final class SingleGame
     }
 
     /**
-     * @param int $game_id
-     * @return string
+     * Finds game by id and renders iframe markup
+     * @param int $game_id Game id set on post meta
+     * @param string $class Value for iframe class attribute 
+     * @return string 
      */
-    public function render($game_id, $class="singlegame-iframe")
+    public function render(int $game_id, string $class="singlegame-iframe")
     {
         $iframe_src = $this->_getIframeSrc($game_id);
         $template = <<<MARKUP
@@ -32,9 +34,9 @@ MARKUP;
     }
 
     /**
-     * Fetches iframe src 
-     * @param int $game_id
-     * @return string
+     * Finds iframe src post meta
+     * @param int $game_id Game id set on post meta
+     * @return string 
      */
     private function _getIframeSrc(int $game_id) 
     {
