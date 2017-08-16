@@ -54,3 +54,4 @@ $shortcode = new Vegashero_Widgets();
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
 
+
