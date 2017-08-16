@@ -55,7 +55,7 @@ MARKUP;
         if( ! count($posts)) {
             throw new \InvalidArgumentException(sprintf("Game with id %d not found", $game_id));
         }
-        return \get_post_meta($post->ID, 'game_src', true);
+        return \get_post_meta($posts[0]->ID, 'game_src', true);
     }
 
 }
