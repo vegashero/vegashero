@@ -15,9 +15,17 @@ final class SingleGameTest extends TestCase
 {
 
     public static $functions;
+    public static $wp_query;
+    public static $game_id;
+    public static $iframe_src;
+    public static $shortcode;
 
     public function setUp() {
         self::$functions = Mockery::mock();
+        self::$wp_query = Mockery::mock('WP_Query');
+        self::$game_id = rand();
+        self::$iframe_src = uniqid();
+        self::$shortcode = new VegasHero\ShortCodes\SingleGame(self::$wp_query);
     }
 
     public function tearDown() {
@@ -26,25 +34,21 @@ final class SingleGameTest extends TestCase
 
     public function testSingleGameShortCodeReturnsMarkup() 
     {
-        $game_id = rand();
-        $iframe_src = uniqid();
-        $wp_query = Mockery::mock('WP_Query');
-        $wp_query->shouldReceive('query')
+        self::$wp_query->shouldReceive('query')
             ->with(
                 array(
                     'post_type' => 'vegashero_games',
                     'meta_query' => array(
                         array(
                             'key' => 'game_id',
-                            'value' => $game_id,
+                            'value' => self::$game_id,
                         )
                     )
                 )
             );
-        $wp_query->shouldReceive('get_posts');
-        self::$functions->shouldReceive('get_post_meta')->andReturn($iframe_src);
+        self::$wp_query->shouldReceive('get_posts')->andReturn(array(new stdClass()));
+        self::$functions->shouldReceive('get_post_meta')->andReturn(self::$iframe_src);
 
-        $single_game = new VegasHero\ShortCodes\SingleGame($wp_query);
         $template = <<<MARKUP
 <div class="iframe_kh_wrapper">
     <div class="kh-no-close"></div>
@@ -53,8 +57,15 @@ final class SingleGameTest extends TestCase
 MARKUP;
 
         $this->assertEquals(
-            $single_game->render($game_id),
-            sprintf($template, $iframe_src)
+            self::$shortcode->render(self::$game_id),
+            sprintf($template, self::$iframe_src)
         );
+    }
+
+    public function testSingleGameShortCodeReturnsHelpfulException() {
+        self::$wp_query->shouldReceive('query');
+        self::$wp_query->shouldReceive('get_posts')->andReturn(null);
+        $this->expectException(InvalidArgumentException::class);
+        self::$shortcode->render(rand());
     }
 }

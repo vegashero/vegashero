@@ -51,7 +51,10 @@ MARKUP;
                 )
             )
         );
-        $post = $this->wp_query->get_posts()[0];
+        $posts = (array)$this->wp_query->get_posts();
+        if( ! count($posts)) {
+            throw new \InvalidArgumentException(sprintf("Game with id %d not found", $game_id));
+        }
         return \get_post_meta($post->ID, 'game_src', true);
     }
 
