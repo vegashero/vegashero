@@ -6,7 +6,7 @@
 	position:absolute;
 	z-index:1000;
 	right:0;
-	top:0px;
+	top:0;
 	height:30px;
 	width:30px;
 }
@@ -14,17 +14,40 @@
 .game_provider-nyx .kh-no-close {
 	height: 58px;
     width: 100%;
-    background:#000;
+    background:transparent;
+}
+
+.game_provider-playtech .kh-no-close {
+	height: 60px;
+    width: 86%;
+    bottom:0;
+    left:0;
+    top: auto;
+    right: auto;
+    background:transparent;
 }
 
 .iframe_kh_wrapper iframe {
 	position:relative;
-	min-width:730px;
 	width:100%;
+	/*min-width:730px;*/
+	min-width:auto;
 	max-width:100%;
+	min-height:560px;
 	max-height:100%;
-	min-height:633px;
 	overflow: hidden;
+}
+
+.widget .iframe_kh_wrapper iframe {
+	min-height:400px;
+}
+
+.home-top-sidebar .widget .iframe_kh_wrapper iframe {
+	min-height:500px;
+}
+
+#sidebar1.sidebar-wrapper .widget .iframe_kh_wrapper iframe {
+	min-height:auto;
 }
 
 .iframe_kh_wrapper iframe iframe {
