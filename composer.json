@@ -1,10 +1,27 @@
 {
     "name": "vegashero/vegashero",
-    "description": "Wordpress plugin for casino affiliates.",
-    "minimum-stability": "stable",
-    "require": {},
+    "description": "Wordpress casino affiliate plugin",
+    "scripts": {
+      "tests": "vendor/bin/phpunit --bootstrap vendor/autoload.php tests"
+    },
+    "authors": [
+        {
+            "name": "Vegashero",
+            "email": "support@vegashero.co"
+        }
+    ],
+    "autoload": {
+        "psr-4": { 
+            "VegasHero\\": "lib/"
+        }
+    },
+    "require": {
+    },
     "require-dev": {
-        "10up/wp_mock": "dev-master",
-        "phpunit/phpunit": "^6.0"
+        "phpunit/php-invoker": "^1.1",
+        "phpunit/dbunit": "^3.0",
+        "phpunit/phpunit": "^6.3",
+        "mockery/mockery": "^0.9.9",
+        "docker-php/docker-php": "^1.24"
     }
 }

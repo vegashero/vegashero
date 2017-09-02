@@ -1,35 +1,21 @@
 version: "2"
 services:
 
-    wordpress:
-        build: 
-            context: .
-            args: 
-                - USER_NAME
-                - USER_ID
-        ports:
-            - "8080:80"
+    dev:
+        extends: 
+            file: common.yml
+            service: wordpress
         links:
             - mysql
-        volumes:
-            - .:/var/www/html/wp-content/plugins/vegashero
-            - ../vegas-casino-theme:/var/www/html/wp-content/themes/vegas-casino-theme
-        environment:
-            - TERM=xterm
-            - DB_NAME=wordpress
-            - DB_USER=wordpress
-            - DB_PASSWORD=secret
-            - DB_HOST=mysql
-            - AUTH_KEY=''
-            - SECURE_AUTH_KEY=''
-            - LOGGED_IN_KEY=''
-            - NONCE_KEY=''
-            - AUTH_SALT=''
-            - SECURE_AUTH_SALT=''
-            - LOGGED_IN_SALT=''
-            - NONCE_SALT=''
-            - WP_DEBUG=true
-            - FS_METHOD=direct
+    tests:
+        extends: 
+            file: common.yml
+            service: wordpress
+        build: 
+            context: .
+            dockerfile: Dockerfile.test
+        links:
+            - mysql
 
     mysql:
         image: mysql:5.5

@@ -1,4 +1,3 @@
-
       <div class="wrap about-wrap">
         <?php if(get_option('vh_license_status') === 'valid'): ?>
         <div><!-- display this if valid license key entered --></div>
