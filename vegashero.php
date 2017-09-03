@@ -26,7 +26,7 @@ $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
         'license'   => $dashboard->getLicense(),    // license key (used get_option above to retrieve from DB)
         'item_name' => $config->eddDownloadName,    // name of this plugin
         'author'    => 'VegasHero', // author of this plugin
-        'url'       => home_url()
+        'url'       => site_url()
     ) 
 );
 
