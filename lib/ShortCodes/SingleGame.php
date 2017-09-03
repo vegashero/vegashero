@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+//declare(strict_types=1);
 
 namespace VegasHero\ShortCodes;
 
@@ -21,7 +21,7 @@ final class SingleGame
      * @param string $class Value for iframe class attribute 
      * @return string 
      */
-    public function render(int $game_id, string $class="singlegame-iframe")
+    public function render($game_id, $class="singlegame-iframe")
     {
         $iframe_src = $this->_getIframeSrc($game_id);
         $template = <<<MARKUP
