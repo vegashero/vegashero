@@ -38,7 +38,7 @@ MARKUP;
      * @param int $game_id Game id set on post meta
      * @return string 
      */
-    private function _getIframeSrc(int $game_id) 
+    private function _getIframeSrc($game_id) 
     {
         $this->wp_query->query(
             array(
