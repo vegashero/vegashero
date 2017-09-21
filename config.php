@@ -21,10 +21,8 @@ class Vegashero_Config
 
     protected function __construct() {
         $config = $this->parseIniFileExtended('config.ini');
-        if( ! getenv('VEGASHERO_ENV')) {
-            putenv('VEGASHERO_ENV=production');
-        }
-        foreach($config[getenv('VEGASHERO_ENV')] as $key => $value) {
+        $environment = getenv('VEGASHERO_ENV') ? getenv('VEGASHERO_ENV') : 'production';
+        foreach($config[$environment] as $key => $value) {
             $this->$key = $value;
         }
     }   
