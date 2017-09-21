@@ -128,11 +128,11 @@ jQuery(document).ready(function($) {
                         gamesImported += parseInt(response['data']['successful_imports']);
                         //console.log("Imported " + gamesImported + "/" + totalGames + " games");
                         //console.log(response);
-                        AdminNotice.triggerLoading("Importing " + gamesImported + "/" + totalGames + " games. Please wait.", "info");
+                        AdminNotice.triggerLoading("Importing " + gamesImported + "/" + totalGames + " games. Please wait...", "info");
                         if(gamesToImport.length) {
                             this.batchImport(totalGames, gamesToImport, importUrl, gamesImported);
                         } else {
-                            AdminNotice.trigger("Finished importing " + gamesImported + "/" + totalGames + " games", "success");
+                            AdminNotice.trigger("SUCCESS: Finished importing " + gamesImported + "/" + totalGames + " games", "success");
                             this.hideSpinner();
                             this.enableButtons();
                             AdminNotice.removeAll('vh-admin-alert');
@@ -182,7 +182,7 @@ jQuery(document).ready(function($) {
             this.spinner = document.createElement('span');
             this.spinner.className = 'spinner is-active';
             this.spinner.style.float = 'left';
-            this.spinner.style.margin = '0 0 0 38px';
+            this.spinner.style.margin = '3px 0 0 0';
             button.style.visibility = 'hidden';
             buttonWrapper.appendChild(this.spinner);
         },
@@ -211,8 +211,8 @@ jQuery(document).ready(function($) {
         event.preventDefault();
         let self = $(this)[0];
         GameImporter.button = this;
-        AdminNotice.trigger("Please do not close this window while import is in progress", "warning", "vh-admin-alert");
-        AdminNotice.triggerLoading("Fetching games. Please wait.", "info");
+        AdminNotice.trigger("IMPORTANT: Please do not close this window while import is in progress", "warning", "vh-admin-alert");
+        AdminNotice.triggerLoading("Fetching games. Please wait...", "info");
         GameImporter.showSpinner();
         GameImporter.disableButtons(GameImporter.importButtons);
         //GameImporter.getQueryParams(self.dataset.fetch);
