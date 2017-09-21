@@ -7,6 +7,7 @@ services:
             service: wordpress
         links:
             - mysql
+
     tests:
         extends: 
             file: common.yml
@@ -14,15 +15,25 @@ services:
         build: 
             context: .
             dockerfile: Dockerfile.test
+            args: 
+                - USER_NAME
+                - USER_ID
+        #cpuset: "0"
+        #cpu_quota: 10000
+        #mem_limit: 128m
         links:
             - mysql
 
     mysql:
+        #cpuset: "0"
+        #cpu_quota: 10000
+        #mem_limit: 128m
         image: mysql:5.5
         environment:
             - MYSQL_DATABASE=wordpress
             - MYSQL_USER=wordpress
             - MYSQL_PASSWORD=secret
             - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
 
 
