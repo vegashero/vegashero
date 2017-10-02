@@ -29,8 +29,9 @@ vim
 
 Run tests from within the container
 
-* https://make.wordpress.org/cli/handbook/plugin-unit-tests
-* https://codesymphony.co/writing-wordpress-plugin-unit-tests/
+* [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
+* [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
+* [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
 
 ```sh
 docker exec -ti -u $USER vegashero_tests_1 wp scaffold plugin-tests vegashero
