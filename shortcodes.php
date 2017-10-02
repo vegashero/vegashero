@@ -28,7 +28,7 @@ class Vegashero_Shortcodes
     public function renderSingleGame($atts) {
         if(array_key_exists('id', $atts)) {
             $game_id = (int)$atts['id'];
-            $game = new VegasHero\ShortCodes\SingleGame(new WP_Query());
+            $game = new VegasHero\ShortCodes\SingleGame();
             return $game->render($game_id);
         }
     }

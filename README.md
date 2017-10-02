@@ -29,10 +29,15 @@ vim
 
 Run tests from within the container
 
+* https://make.wordpress.org/cli/handbook/plugin-unit-tests
+* https://codesymphony.co/writing-wordpress-plugin-unit-tests/
+
 ```sh
+docker exec -ti -u $USER vegashero_tests_1 wp scaffold plugin-tests vegashero
+docker exec -ti -u $USER vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' mysql latest
 docker exec -ti -u $USER vegashero_tests_1 bash
 cd wp-content/plugins/vegashero
-vendor/bin/phpunit --bootstrap vendor/autoload.php tests
+vendor/bin/phpunit 
 ```
 
 ## Testing
