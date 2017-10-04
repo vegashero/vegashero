@@ -2,7 +2,7 @@
     "name": "vegashero/vegashero",
     "description": "Wordpress casino affiliate plugin",
     "scripts": {
-      "tests": "vendor/bin/phpunit --bootstrap vendor/autoload.php tests"
+      "tests": "vendor/bin/phpunit"
     },
     "authors": [
         {
