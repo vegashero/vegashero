@@ -32,6 +32,7 @@ Edit code on your local machine
 
 ### Setup
 
+* [Factories for Wordpress unit testing](https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes/factory)
 * [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
 * [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
 * [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
