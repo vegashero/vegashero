@@ -5,12 +5,22 @@ final class GamesGrid
 {
 
     /**
-     * @param array $attributes 
      * @param Vegashero_Config $config
      */
-    public function __construct($attributes, $config) {
+    public function __construct($config) {
         $this->config = $config;
-        $this->attributes = (object)shortcode_atts( 
+    }
+
+    public function render() {
+        return $this->getTemplate();
+    }
+
+    /**
+     * @param array $attributes 
+     * @returns object
+     */
+    static private function _getAttributes($attributes = array()) {
+        return (object)shortcode_atts( 
             array(
                 'order' => 'ASC',
                 'orderby' => 'title',
@@ -26,58 +36,58 @@ final class GamesGrid
         );
     }
 
-    public function render() {
-        return $this->getTemplate();
-    }
-
-    public function getGames() {
-        // define query parameters based on attributes
+    /**
+     * @param array $attributes 
+     * @returns array
+     */
+    public function getGames($attributes = array()) {
+        $attributes = self::_getAttributes($attributes);
         $options = array(
             'post_type' => $this->config->customPostType,
-            'order' => $this->attributes->order,
-            'orderby' => $this->attributes->orderBy,
-            'posts_per_page' => $this->attributes->gamesPerPage,
-            'paged' => $this->attributes->page,
+            'order' => $attributes->order,
+            'orderby' => $attributes->orderby,
+            'posts_per_page' => $attributes->gamesperpage,
+            'paged' => $attributes->paged,
             'tax_query' => array(
                 'relation' => 'OR',
                 array(
                     'taxonomy' => $this->config->gameProviderTaxonomy,
                     'field'    => 'slug',
-                    'terms'    => $this->attributes->provider,
+                    'terms'    => $attributes->provider,
                 ),
                 array(
                     'taxonomy' => $this->config->gameOperatorTaxonomy,
                     'field'    => 'slug',
-                    'terms'    => $this->attributes->operator,
+                    'terms'    => $attributes->operator,
                 ),
                 array(
                     'taxonomy' => $this->config->gameCategoryTaxonomy,
                     'field'    => 'slug',
-                    'terms'    => $this->attributes->category,
+                    'terms'    => $attributes->category,
                 ),
                 array(
                     'taxonomy' => 'post_tag',
                     'field'    => 'slug',
-                    'terms'    => $this->attributes->tag,
+                    'terms'    => $attributes->tag,
                 ),
             ),
-            's' => $this->attributes->keyword
+            's' => $attributes->keyword
         );
         return get_posts($options);
     }
 
-    public function getThumbnail() {
-        $providerz = wp_get_post_terms(get_the_ID(), 'game_provider', array('fields' => 'all'));
-        $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
-        $mypostslug = get_post_meta( get_the_ID(), 'game_title', true );
-        if($thumbnail) {
-            $thumbnail_new = $thumbnail[0];
+    public function getThumbnail($post_id) {
+        $terms = wp_get_post_terms($post_id, $this->config->gameProviderTaxonomy, array('fields' => 'all'));
+        $featured_image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
+        if($featured_image_src) {
+            $thumbnail = $featured_image_src[0];
         } else {
-            if( ! $thumbnail_new = get_post_meta( get_the_ID(), 'game_img', true )) {
-                $thumbnail_new = $this->config->gameImageUrl . '/' . $providerz[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+            if( ! $thumbnail = get_post_meta($post_id, $this->config->postMetaGameImg, true )) {
+                $mypostslug = get_post_meta($post_id, $this->config->postMetaGameTitle, true );
+                $thumbnail = sprintf("%s/%s/cover.jpg", $this->config->gameImageUrl, $terms[0]->slug, sanitize_title($mypostslug));
             }
         }
-        return $thumbnail_new;
+        return $thumbnail;
     }
 
     static function getPage() {
@@ -85,14 +95,17 @@ final class GamesGrid
     }
 
     public function getTemplate() {
-        return <<<MARKUP
-        <ul id="vh-lobby-posts-grid" class="vh-row-sm">
-        </ul>
-        <div class="clear"></div>
-MARKUP;
+        $template = '<ul id="vh-lobby-posts-grid" class="vh-row-sm">';
+        $template .= $this->_getGameItemsMarkup();
+        $template .= '</ul>';
+        $template .= '<div class="clear"></div>';
+        return $template;
     }
 
-    private function getGameItemMarkup() {
+    private function _getGameItemsMarkup() {
+    }
+
+    private function getGameItemMarkup($thumbnail) {
         return <<<MARKUP
             <li class="vh-item" id="post-<?php the_ID(); ?>">
                 <a class="vh-thumb-link" href="<?php the_permalink(); ?>">
