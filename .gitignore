@@ -3,3 +3,4 @@ vendor
 *.swp
 composer.lock
 /vendor/
+.phplint-cache
