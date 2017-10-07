@@ -5,45 +5,144 @@ final class GamesGrid
 {
 
     /**
+     * @param array $attributes
      * @param Vegashero_Config $config
+     * @return string
      */
-    public function __construct($config) {
-        $this->config = $config;
+    static public function render($attributes, $config) {
+        $attributes = self::_getAttributes($attributes, self::_getPage());
+        $query_params = self::_getQueryParams($attributes, $config);
+        $query = new \WP_Query($query_params);
+        $games = $query->query($query_params);
+        $list_items = '';
+        foreach($games as $game) {
+            $thumbnail = self::_getThumbnail($game->ID, $config);
+            $list_items .= self::_getGameMarkup($game, $thumbnail);
+        }
+        $template = self::_getTemplate($list_items);
+        if($max_num_pages = self::_isPaginated($query, $attributes->pagination)) {
+            $template .= self::_getPaginationMarkup($max_num_pages);
+        }
+        return $template;
     }
 
-    public function render() {
-        return $this->getTemplate();
+    static private function _isFirstPage() {
+        return is_paged();
+    }
+
+    static private function _isLastPage($max_num_pages) {
+      return ($max_num_pages > get_query_var('paged'));
+    }
+
+    static private function _getPreviousLink($text) {
+        echo __METHOD__;
+        if(self::_isPage()) {
+            return self::_getPreviousPageLink($text);
+        }
+        return self::_getPreviousPostLink($text);
+    }
+
+    /**
+     * On pages it works
+     * http://localhost:8080/?page_id=2&paged=1
+     * On posts it doesn't, but if we manually add ?paged to the url it starts to work
+     */
+    static private function _getPreviousPostLink($text) {
+        $page = self::_getPage();
+        if($page > 1) {
+            return "<a href=''>$text</a>";
+        }
+    }
+
+    static private function _getPreviousPreviousPageLink($text) {
+        return get_previous_posts_link( $text );
+    }
+
+    static private function _getNextLink($text, $max_num_pages) {
+        echo __METHOD__;
+        if(self::_isPage()) {
+            return self::_getNextPageLink($text, $max_num_pages);
+        }
+        return self::_getNextPostLink($text);
+    }
+
+    static private function _getNextPageLink($text, $max_num_pages) {
+        return get_next_posts_link( $text, $max_num_pages );
+    }
+
+    /**
+     * when it is a post we need to make our own pagination by appending ?paged=1 to the url
+     * when it is a page it basically works
+     * for both scenarios we need to build our own previous and next link hrefs
+     */
+    static private function _getPaginationMarkup($max_num_pages) {
+        $markup = "<nav class='vh-pagination'>";
+        if( self::_isFirstPage() ) {
+            $previous = self::_getPreviousLink('<< Previous');
+            //$previous = get_previous_post_link('<< Previous');
+            $markup .= "<div class='prev page-numbers'>$previous</div>";
+        }
+        if( self::_isLastPage($max_num_pages)) {
+             $next = self::_getNextLink( 'Next >>', $max_num_pages );
+             $markup .= "<div class='next page-numbers'>$next</div>";
+        }
+        $markup .= "</nav>";
+        return $markup;
+    }
+
+    static private function _getGameMarkup($post, $thumbnail) {
+        $permalink = get_permalink($post);
+        return <<<MARKUP
+            <li class="vh-item" id="post-{$post->ID}">
+                <a class="vh-thumb-link" href="{$permalink}">
+                    <div class="vh-overlay">
+                        <img src="{$thumbnail}" title="{$post->post_title}" alt="{$post->post_title}" />
+                        <!-- <span class="play-now">Play now</span> -->
+                    </div>
+                </a>
+                <div class="vh-game-title">{$post->post_title}</div>
+            </li>
+MARKUP;
+    }
+
+    /**
+     * @param WP_Query $query
+     * @param string $pagination on | off
+     * @return int
+     */
+    static private function _isPaginated($query, $pagination) {
+        return (($pagination == "on") && ($query->max_num_pages > 1)) ? $query->max_num_pages : 0;
     }
 
     /**
      * @param array $attributes 
      * @returns object
      */
-    static private function _getAttributes($attributes = array()) {
+    static private function _getAttributes($attributes = array(), $paged=1) {
         return (object)shortcode_atts( 
             array(
                 'order' => 'ASC',
                 'orderby' => 'title',
                 'gamesperpage' => -1,
-                'pagination' => 'off',
+                'pagination' => 'on',
                 'provider' => '',
                 'operator' => '',
                 'category' => '',
                 'tag' => '',
                 'keyword' => '',
-                'paged' => self::getPage() 
+                'paged' => $paged 
             ), $attributes
         );
     }
 
     /**
-     * @param array $attributes 
-     * @returns array
+     * @param array @attributes
+     * @param Vegashero_Config $config
+     * @return array
      */
-    public function getGames($attributes = array()) {
-        $attributes = self::_getAttributes($attributes);
-        $options = array(
-            'post_type' => $this->config->customPostType,
+    static private function _getQueryParams($attributes, $config) {
+        return array(
+            'post_type' => $config->customPostType,
             'order' => $attributes->order,
             'orderby' => $attributes->orderby,
             'posts_per_page' => $attributes->gamesperpage,
@@ -51,17 +150,17 @@ final class GamesGrid
             'tax_query' => array(
                 'relation' => 'OR',
                 array(
-                    'taxonomy' => $this->config->gameProviderTaxonomy,
+                    'taxonomy' => $config->gameProviderTaxonomy,
                     'field'    => 'slug',
                     'terms'    => $attributes->provider,
                 ),
                 array(
-                    'taxonomy' => $this->config->gameOperatorTaxonomy,
+                    'taxonomy' => $config->gameOperatorTaxonomy,
                     'field'    => 'slug',
                     'terms'    => $attributes->operator,
                 ),
                 array(
-                    'taxonomy' => $this->config->gameCategoryTaxonomy,
+                    'taxonomy' => $config->gameCategoryTaxonomy,
                     'field'    => 'slug',
                     'terms'    => $attributes->category,
                 ),
@@ -73,71 +172,43 @@ final class GamesGrid
             ),
             's' => $attributes->keyword
         );
-        return get_posts($options);
     }
 
-    public function getThumbnail($post_id) {
-        $terms = wp_get_post_terms($post_id, $this->config->gameProviderTaxonomy, array('fields' => 'all'));
+    static private function _getThumbnail($post_id, $config) {
+        $terms = wp_get_post_terms($post_id, $config->gameProviderTaxonomy, array('fields' => 'all'));
         $featured_image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
         if($featured_image_src) {
             $thumbnail = $featured_image_src[0];
         } else {
-            if( ! $thumbnail = get_post_meta($post_id, $this->config->postMetaGameImg, true )) {
-                $mypostslug = get_post_meta($post_id, $this->config->postMetaGameTitle, true );
-                $thumbnail = sprintf("%s/%s/cover.jpg", $this->config->gameImageUrl, $terms[0]->slug, sanitize_title($mypostslug));
+            if( ! $thumbnail = get_post_meta($post_id, $config->postMetaGameImg, true )) {
+                $mypostslug = get_post_meta($post_id, $config->postMetaGameTitle, true );
+                $thumbnail = sprintf("%s/%s/cover.jpg", $config->gameImageUrl, $terms[0]->slug, sanitize_title($mypostslug));
             }
         }
         return $thumbnail;
     }
 
-    static function getPage() {
+    static private function _isPage() {
+        return !is_single();
+    }
+
+    static private function _getPage() {
         return ( get_query_var('paged') ) ? get_query_var('paged') : 1;
     }
 
-    public function getTemplate() {
-        $template = '<ul id="vh-lobby-posts-grid" class="vh-row-sm">';
-        $template .= $this->_getGameItemsMarkup();
-        $template .= '</ul>';
-        $template .= '<div class="clear"></div>';
-        return $template;
-    }
-
-    private function _getGameItemsMarkup() {
-    }
-
-    private function getGameItemMarkup($thumbnail) {
+    /**
+     * @param string $list_items Markup for <li> items
+     * @return string
+     */
+    static private function _getTemplate($list_items) {
         return <<<MARKUP
-            <li class="vh-item" id="post-<?php the_ID(); ?>">
-                <a class="vh-thumb-link" href="<?php the_permalink(); ?>">
-                    <div class="vh-overlay">
-                        <img src="<?php echo $thumbnail_new; ?>" title="<?php the_title(); ?>" alt="<?php the_title(); ?>" />
-                        <!-- <span class="play-now">Play now</span> -->
-                    </div>
-                </a>
-                <div class="vh-game-title"><?php the_title(); ?></div>
-            </li>
+            <!--vegashero games grid shortcode-->
+            <ul id="vh-lobby-posts-grid" class="vh-row-sm">
+              {$list_items}
+            </ul>
+            <!--/vegashero games grid shortcode-->
+            <div class="clear"></div>
 MARKUP;
     }
 
-    private function getPaginationMarkup() {
-        return <<<MARKUP
-            <?php if ($pagination == 'on') { ?>
-            <?php if ($the_query->max_num_pages > 1) { ?>
-              <nav class="vh-pagination">                
-                <?php if( is_paged() ) { //check if first page ?>
-                <div class="prev page-numbers">
-                  <?php echo get_previous_posts_link( '<< Previous' ); ?>
-                </div>
-                <?php } ?>
-                <?php if ( $the_query->max_num_pages > get_query_var('paged') ) { //check if last page ?>
-                <div class="next page-numbers">
-                  <?php echo get_next_posts_link( 'Next >>', $the_query->max_num_pages ); ?>
-                </div>
-                <?php } ?>
-              </nav>
-            <?php } ?>
-            <?php } ?>
-MARKUP;
-
-    }
 }

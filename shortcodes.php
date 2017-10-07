@@ -41,8 +41,7 @@ class Vegashero_Shortcodes
      */
     public function renderGamesGrid($atts) {
         if(array_key_exists('provider', $atts)) {
-            $grid = new Vegashero\ShortCodes\GamesGrid($atts, $this->_config);
-            return $grid->render();
+            return VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
         }
     }
 
