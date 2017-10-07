@@ -17,7 +17,7 @@ final class SingleGameTest extends WP_UnitTestCase
         $this->shortcode = new VegasHero\ShortCodes\SingleGame();
         $post = $this->factory->post->create_and_get(
             array(
-                'post_type'      => $this->config->customPostType
+                'post_type'=> $this->config->customPostType
             )
         );
         $this->iframe_src = uniqid(); 

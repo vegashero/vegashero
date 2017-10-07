@@ -6,6 +6,9 @@ namespace Vegashero\Helpers;
 final class WordpressTestHelper
 {
 
+    static public function importGames() {
+    }
+
     /**
      * Reset Wordpress database
      * @return boolean
