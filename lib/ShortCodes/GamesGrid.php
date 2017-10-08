@@ -5,6 +5,7 @@ final class GamesGrid
 {
 
     /**
+     * The output of the gamed grid shortcode
      * @param array $attributes
      * @param Vegashero_Config $config
      * @return string
@@ -21,82 +22,136 @@ final class GamesGrid
         }
         $template = self::_getTemplate($list_items);
         if($max_num_pages = self::_isPaginated($query, $attributes->pagination)) {
-            $template .= self::_getPaginationMarkup($max_num_pages);
+            $template .= self::_getPaginationMarkup(self::_getPage(), $max_num_pages);
         }
         return $template;
     }
 
-    static private function _isFirstPage() {
-        return is_paged();
-    }
-
-    static private function _isLastPage($max_num_pages) {
-      return ($max_num_pages > get_query_var('paged'));
-    }
-
-    static private function _getPreviousLink($text) {
-        echo __METHOD__;
+    /**
+     * Previous pagination link
+     * When it is a post we need to make our own pagination links by appending ?paged=1 to the url
+     * When it is a page we can use built in wp methods to build the urls
+     * @param string $text Text for next link
+     * @param int $current_page 
+     * @return string
+     */
+    static private function _getPreviousLink($text, $current_page) {
         if(self::_isPage()) {
             return self::_getPreviousPageLink($text);
         }
-        return self::_getPreviousPostLink($text);
+        return self::_getPreviousPostLink($text, $current_page);
     }
 
     /**
-     * On pages it works
-     * http://localhost:8080/?page_id=2&paged=1
-     * On posts it doesn't, but if we manually add ?paged to the url it starts to work
+     * Previous pagination link when grid embedded in a Wordpress post
+     * @param string $text Text for next link
+     * @param int $current_page
+     * @return string
      */
-    static private function _getPreviousPostLink($text) {
-        $page = self::_getPage();
-        if($page > 1) {
-            return "<a href=''>$text</a>";
-        }
+    static private function _getPreviousPostLink($text, $current_page) {
+        $url = add_query_arg(
+            array(
+                "paged" => (int)$current_page - 1
+            )
+        );
+        return "<a href='$url'>$text</a>";
     }
 
-    static private function _getPreviousPreviousPageLink($text) {
+    /**
+     * Previous pagination link when grid embedded in a Wordpress page
+     * @param string $text Text for next link
+     * @return string
+     */
+    static private function _getPreviousPageLink($text) {
         return get_previous_posts_link( $text );
     }
 
-    static private function _getNextLink($text, $max_num_pages) {
-        echo __METHOD__;
+    /**
+     * Next pagination link
+     * When it is a post we need to make our own pagination links by appending ?paged=1 to the url
+     * When it is a page we can use built in wp methods to build the urls
+     * @param string $text Text for next link
+     * @param int $current_page 
+     * @param int $max_num_pages Highest page in pagination
+     * @return string
+     */
+    static private function _getNextLink($text, $current_page, $max_num_pages) {
         if(self::_isPage()) {
             return self::_getNextPageLink($text, $max_num_pages);
         }
-        return self::_getNextPostLink($text);
+        return self::_getNextPostLink($text, $current_page);
     }
 
+    /**
+     * Next pagination link when grid embedded in a Wordpress post
+     * @param string $text Text for next link
+     * @param int $current_page 
+     * @return string
+     */
+    static private function _getNextPostLink($text, $current_page) {
+        $url = add_query_arg(
+            array(
+                "paged" => (int)$current_page + 1
+            )
+        );
+        return "<a href='$url'>$text</a>";
+    }
+
+    /**
+     * Next pagination link when grid embedded in a Wordpress page
+     * @param string $text Text for next link
+     * @param int $max_num_pages Highest page in pagination
+     * @return string
+     */
     static private function _getNextPageLink($text, $max_num_pages) {
         return get_next_posts_link( $text, $max_num_pages );
     }
 
     /**
-     * when it is a post we need to make our own pagination by appending ?paged=1 to the url
-     * when it is a page it basically works
-     * for both scenarios we need to build our own previous and next link hrefs
+     * @param int $current_page
+     * @param int $max_num_pages
+     * @return string
      */
-    static private function _getPaginationMarkup($max_num_pages) {
+    static private function _getPaginationMarkup($current_page, $max_num_pages) {
         $markup = "<nav class='vh-pagination'>";
-        if( self::_isFirstPage() ) {
-            $previous = self::_getPreviousLink('<< Previous');
-            //$previous = get_previous_post_link('<< Previous');
+        if( ! self::_isFirstPage() ) {
+            $previous = self::_getPreviousLink('<< Previous', $current_page);
             $markup .= "<div class='prev page-numbers'>$previous</div>";
         }
-        if( self::_isLastPage($max_num_pages)) {
-             $next = self::_getNextLink( 'Next >>', $max_num_pages );
-             $markup .= "<div class='next page-numbers'>$next</div>";
+        if( ! self::_isLastPage($max_num_pages)) {
+            $next = self::_getNextLink( 'Next >>', $current_page, $max_num_pages );
+            $markup .= "<div class='next page-numbers'>$next</div>";
         }
         $markup .= "</nav>";
         return $markup;
     }
 
-    static private function _getGameMarkup($post, $thumbnail) {
+    /**
+     * @return bool
+     */
+    static private function _isFirstPage() {
+        return ! is_paged();
+    }
+
+    /**
+     * @return bool
+     */
+    static private function _isLastPage($max_num_pages) {
+        return !($max_num_pages > get_query_var('paged'));
+    }
+
+    /**
+     * @param WP_Post $post
+     * @param string $thumbnail_url
+     * @return string
+     */
+    static private function _getGameMarkup($post, $thumbnail_url) {
         $permalink = get_permalink($post);
         return <<<MARKUP
             <li class="vh-item" id="post-{$post->ID}">
                 <a class="vh-thumb-link" href="{$permalink}">
                     <div class="vh-overlay">
-                        <img src="{$thumbnail}" title="{$post->post_title}" alt="{$post->post_title}" />
+                        <img src="{$thumbnail_url}" title="{$post->post_title}" alt="{$post->post_title}" />
                         <!-- <span class="play-now">Play now</span> -->
                     </div>
                 </a>
@@ -108,14 +163,15 @@ MARKUP;
     /**
      * @param WP_Query $query
      * @param string $pagination on | off
-     * @return int
+     * @return bool
      */
     static private function _isPaginated($query, $pagination) {
         return (($pagination == "on") && ($query->max_num_pages > 1)) ? $query->max_num_pages : 0;
     }
 
     /**
-     * @param array $attributes 
+     * @param array $attributes Shortcode attributes
+     * @param int $paged The current page number
      * @returns object
      */
     static private function _getAttributes($attributes = array(), $paged=1) {
@@ -174,6 +230,12 @@ MARKUP;
         );
     }
 
+    /**
+     * Calculates the thumbnail url for img src attribute
+     * @param int $post_id
+     * @param Vegashero_Config $config
+     * @return string 
+     */
     static private function _getThumbnail($post_id, $config) {
         $terms = wp_get_post_terms($post_id, $config->gameProviderTaxonomy, array('fields' => 'all'));
         $featured_image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
@@ -188,10 +250,18 @@ MARKUP;
         return $thumbnail;
     }
 
+    /**
+     * Is current url a page or a post?
+     * @return bool
+     */
     static private function _isPage() {
         return !is_single();
     }
 
+    /**
+     * The current page for pagination
+     * @return int
+     */
     static private function _getPage() {
         return ( get_query_var('paged') ) ? get_query_var('paged') : 1;
     }
