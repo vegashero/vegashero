@@ -22,7 +22,7 @@ final class GamesGrid
         }
         $template = self::_getTemplate($list_items);
         if($max_num_pages = self::_isPaginated($query, $attributes->pagination)) {
-            $template .= self::_getPaginationMarkup(self::_getPage(), $max_num_pages);
+            $template .= self::_getPaginationMarkup($attributes->paged, $max_num_pages);
         }
         return $template;
     }
@@ -36,10 +36,10 @@ final class GamesGrid
      * @return string
      */
     static private function _getPreviousLink($text, $current_page) {
-        if(self::_isPage()) {
-            return self::_getPreviousPageLink($text);
+        if( ! self::_isPage()) {
+            return self::_getPreviousPostLink($text, $current_page);
         }
-        return self::_getPreviousPostLink($text, $current_page);
+        return self::_getPreviousPageLink($text);
     }
 
     /**
@@ -114,7 +114,7 @@ final class GamesGrid
      */
     static private function _getPaginationMarkup($current_page, $max_num_pages) {
         $markup = "<nav class='vh-pagination'>";
-        if( ! self::_isFirstPage() ) {
+        if( ! self::_isFirstPage($current_page) ) {
             $previous = self::_getPreviousLink('<< Previous', $current_page);
             $markup .= "<div class='prev page-numbers'>$previous</div>";
         }
@@ -127,9 +127,11 @@ final class GamesGrid
     }
 
     /**
+     * @param int $current_page
      * @return bool
      */
-    static private function _isFirstPage() {
+    static private function _isFirstPage($current_page) {
+        return ($current_page == 1);
         return ! is_paged();
     }
 
@@ -255,7 +257,11 @@ MARKUP;
      * @return bool
      */
     static private function _isPage() {
-        return !is_single();
+        return is_page();
+    }
+
+    static private function _isPost() {
+        return is_single();
     }
 
     /**
