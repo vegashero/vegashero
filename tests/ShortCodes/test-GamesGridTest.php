@@ -15,7 +15,7 @@ final class GamesGridTest extends WP_UnitTestCase
         parent::setUp();
         $this->config = Vegashero_Config::getInstance();
         $this->shortcode = new VegasHero\ShortCodes\GamesGrid($this->config);
-        $json_fixture = VegasHero\Helpers\Test::getFixture("elk.json");
+        $json_fixture = VegasHero\Helpers\Test::getFixture("elk.json", sprintf("%s/../Fixtures", dirname(__FILE__)));
         $this->games = VegasHero\Helpers\Test::importGames($json_fixture, new VegasHero\Import\Provider(), $this->config);
     }
 
