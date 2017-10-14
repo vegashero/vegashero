@@ -59,7 +59,7 @@ final class GamesGridTest extends WP_UnitTestCase
         $expected = <<<HEREDOC
 <!--vegashero games grid shortcode-->
             <ul id="vh-lobby-posts-grid" class="vh-row-sm">
-                          <li class="vh-item" id="post-38">
+                          <li class="vh-item" id="post-51">
                 <a class="vh-thumb-link" href="http://example.org/?game=bloopers">
                     <div class="vh-overlay">
                         <img src="//cdn.vegasgod.com/elk/bloopers/cover.jpg" title="Bloopers" alt="Bloopers" />
