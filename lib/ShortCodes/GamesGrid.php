@@ -17,7 +17,7 @@ final class GamesGrid
         $games = $query->query($query_params);
         $list_items = '';
         foreach($games as $game) {
-            $thumbnail = self::_getThumbnail($game->ID, $config);
+            $thumbnail = self::_getThumbnail($game, $config);
             $list_items .= self::_getGameMarkup($game, $thumbnail);
         }
         $template = self::_getTemplate($list_items);
@@ -234,18 +234,20 @@ MARKUP;
 
     /**
      * Calculates the thumbnail url for img src attribute
-     * @param int $post_id
+     * @param WP_Post $post
      * @param Vegashero_Config $config
      * @return string 
      */
-    static private function _getThumbnail($post_id, $config) {
-        $terms = wp_get_post_terms($post_id, $config->gameProviderTaxonomy, array('fields' => 'all'));
+    static private function _getThumbnail($post, $config) {
+        $terms = wp_get_post_terms($post->ID, $config->gameProviderTaxonomy, array('fields' => 'all'));
         $featured_image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
         if($featured_image_src) {
             $thumbnail = $featured_image_src[0];
         } else {
-            if( ! $thumbnail = get_post_meta($post_id, $config->postMetaGameImg, true )) {
-                $mypostslug = get_post_meta($post_id, $config->postMetaGameTitle, true );
+            if( ! $thumbnail = get_post_meta($post->ID, $config->postMetaGameImg, true )) {
+                if( ! $mypostslug = get_post_meta($post->ID, $config->postMetaGameTitle, true )) {
+                    $mypostslug = $post->post_title;
+                }
                 $thumbnail = sprintf("%s/%s/cover.jpg", $config->gameImageUrl, $terms[0]->slug, sanitize_title($mypostslug));
             }
         }
