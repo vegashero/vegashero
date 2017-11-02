@@ -54,7 +54,7 @@ final class GamesGrid
                 "paged" => (int)$current_page - 1
             )
         );
-        return "<a href='$url'>$text</a>";
+        return "<a class='prev page-numbers' href='$url'>$text</a>";
     }
 
     /**
@@ -94,7 +94,7 @@ final class GamesGrid
                 "paged" => (int)$current_page + 1
             )
         );
-        return "<a href='$url'>$text</a>";
+        return "<a class='next page-numbers' href='$url'>$text</a>";
     }
 
     /**
@@ -103,6 +103,9 @@ final class GamesGrid
      * @param int $max_num_pages Highest page in pagination
      * @return string
      */
+
+
+
     static private function _getNextPageLink($text, $max_num_pages) {
         return get_next_posts_link( $text, $max_num_pages );
     }
@@ -115,12 +118,12 @@ final class GamesGrid
     static private function _getPaginationMarkup($current_page, $max_num_pages) {
         $markup = "<nav class='vh-pagination'>";
         if( ! self::_isFirstPage($current_page) ) {
-            $previous = self::_getPreviousLink('<< Previous', $current_page);
-            $markup .= "<div class='prev page-numbers'>$previous</div>";
+            $previous = self::_getPreviousLink('« Previous', $current_page);
+            $markup .= "$previous";
         }
         if( ! self::_isLastPage($max_num_pages)) {
-            $next = self::_getNextLink( 'Next >>', $current_page, $max_num_pages );
-            $markup .= "<div class='next page-numbers'>$next</div>";
+            $next = self::_getNextLink( 'Next »', $current_page, $max_num_pages );
+            $markup .= "$next";
         }
         $markup .= "</nav>";
         return $markup;

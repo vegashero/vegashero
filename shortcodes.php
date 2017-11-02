@@ -146,5 +146,15 @@ function vhLobby_body_class( $c ) {
 add_filter( 'body_class', 'vhLobby_body_class' );
 
 
+//setting next pagination link class
+add_filter("next_posts_link_attributes", "next_posts_link_class");
+function next_posts_link_class() {
+    return "class='next page-numbers'";
+}
+//setting prev pagination link class
+add_filter("previous_posts_link_attributes", "prev_posts_link_class");
+function prev_posts_link_class() {
+    return "class='prev page-numbers'";
+}
 
 
