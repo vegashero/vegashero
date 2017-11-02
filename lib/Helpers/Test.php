@@ -1,10 +1,36 @@
 <?php
 declare(strict_types=1);
 
-namespace Vegashero\Helpers;
+namespace VegasHero\Helpers;
 
-final class WordpressTestHelper
+final class Test 
 {
+
+    /**
+     * @param string $json_file
+     * @param string $absolute_path No trailing slash
+     * @return string A JSON array
+     */
+    static public function getFixture($json_file, $absolute_path = '') {
+        if( ! $absolute_path) {
+            $absolute_path = dirname(__FILE__);
+        }
+        return file_get_contents(sprintf("%s/%s", $absolute_path, $json_file));
+    }
+
+    /**
+     * @param string $games JSON array of games 
+     * @param array Imported games
+     */
+    static public function importGames($games, $importer, $config) {
+        $mock_request = \Mockery::mock('WP_REST_Request');
+        $mock_request->shouldReceive('get_body')->andReturn($games);
+        $importer->importGames($mock_request);
+        return get_posts(array(
+            'posts_per_page' => -1,
+            'post_type' => $config->customPostType
+        ));
+    }
 
     /**
      * Reset Wordpress database

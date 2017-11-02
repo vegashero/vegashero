@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
-use VegasHero\Helpers\WordpressTestHelper as WpHelper;
+use VegasHero\Helpers\Test as WpHelper;
 
 /**
  * @covers Email

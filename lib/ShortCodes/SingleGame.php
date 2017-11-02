@@ -1,5 +1,4 @@
 <?php
-//declare(strict_types=1);
 
 namespace VegasHero\ShortCodes;
 
@@ -8,11 +7,8 @@ final class SingleGame
 
     private $wp_query;
 
-    /**
-     * @param WP_Query $wp_query
-     */
-    public function __construct(\WP_Query $wp_query) {
-        $this->wp_query = $wp_query;
+    public function __construct() {
+        $this->wp_query = new \WP_Query();
     }
 
     /**
@@ -24,13 +20,17 @@ final class SingleGame
     public function render($game_id, $class="singlegame-iframe")
     {
         $iframe_src = $this->_getIframeSrc($game_id);
-        $template = <<<MARKUP
+        $template = $this->getTemplate();
+        return sprintf($template, $class, $iframe_src);
+    }
+
+    public function getTemplate() {
+        return <<<MARKUP
 <div class="iframe_kh_wrapper">
     <div class="kh-no-close"></div>
     <iframe class="%s" frameborder="0" scrolling="no" allowfullscreen="" src="%s"></iframe>
 </div>
 MARKUP;
-        return sprintf($template, $class, $iframe_src);
     }
 
     /**

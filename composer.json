@@ -2,7 +2,8 @@
     "name": "vegashero/vegashero",
     "description": "Wordpress casino affiliate plugin",
     "scripts": {
-      "tests": "vendor/bin/phpunit --bootstrap vendor/autoload.php tests"
+      "test": "composer lint && vendor/bin/phpunit",
+      "lint": "vendor/bin/phplint ./ --exclude=vendor"
     },
     "authors": [
         {
@@ -15,9 +16,8 @@
             "VegasHero\\": "lib/"
         }
     },
-    "require": {
-    },
     "require-dev": {
+        "overtrue/phplint": "^0.2.4",
         "phpunit/php-invoker": "^1.1",
         "phpunit/dbunit": "^3.0",
         "phpunit/phpunit": "^6.3",

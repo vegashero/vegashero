@@ -9,15 +9,22 @@ services:
             - mysql
 
     tests:
-        extends: 
-            file: common.yml
-            service: wordpress
         build: 
             context: .
             dockerfile: Dockerfile.test
             args: 
                 - USER_NAME
                 - USER_ID
+                - DB_NAME=wordpress
+                - DB_USER=wordpress
+                - DB_PASSWORD=secret
+                - DB_HOST=mysql
+        environment:
+            - TERM=xterm
+        ports:
+            - "8080:80"
+        volumes:
+            - .:/var/www/html/wp-content/plugins/vegashero
         #cpuset: "0"
         #cpu_quota: 10000
         #mem_limit: 128m

@@ -7,6 +7,13 @@ Localhost license key
 adc88446b4e3476a04091835fec15e08
 ```
 
+## Deps
+
+```sh
+composer install
+composer dump-autoload
+```
+
 ## Development
 
 ### Tab1
@@ -21,25 +28,25 @@ USER_NAME=$USER USER_ID=$(id -u) docker-compose up tests
 
 Edit code on your local machine
 
+## Testing
+
+### Setup
+
+* [Factories for Wordpress unit testing](https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes/factory)
+* [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
+* [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
+* [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
+
 ```sh
-vim 
+docker exec -ti -u $USER vegashero_tests_1 wp scaffold plugin-tests vegashero
+docker exec -ti -u $USER vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' mysql latest
 ```
 
-### Tab3
-
-Run tests from within the container
+### Run
 
 ```sh
 docker exec -ti -u $USER vegashero_tests_1 bash
 cd wp-content/plugins/vegashero
-vendor/bin/phpunit --bootstrap vendor/autoload.php tests
-```
-
-## Testing
-
-```sh
-composer install
-composer dump-autoload
 composer test
 ```
 

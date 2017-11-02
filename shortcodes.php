@@ -2,6 +2,7 @@
 
 // TODO: autoload using psr4
 require 'lib/ShortCodes/SingleGame.php';
+require 'lib/ShortCodes/GamesGrid.php';
 
 // VH Lobby shortcode
 class Vegashero_Shortcodes
@@ -14,8 +15,8 @@ class Vegashero_Shortcodes
         add_shortcode('vegashero-lobby', array($this, 'lobby'));
         add_shortcode( 'vh_table' , array($this, 'vh_table_func'));
         add_shortcode( 'vh_table_line' , array($this, 'vh_table_line_func'));
-        add_shortcode( 'vh-grid', array($this, 'vh_grid_shortcode'));
-        add_shortcode( 'vh_grid', array($this, 'vh_grid_shortcode'));
+        add_shortcode( 'vh-grid', array($this, 'renderGamesGrid'));
+        add_shortcode( 'vh_grid', array($this, 'renderGamesGrid'));
         add_shortcode('vh-game', array($this, 'renderSingleGame')); // tested
         add_shortcode('vh_game', array($this, 'renderSingleGame')); // tested
     }
@@ -28,8 +29,19 @@ class Vegashero_Shortcodes
     public function renderSingleGame($atts) {
         if(array_key_exists('id', $atts)) {
             $game_id = (int)$atts['id'];
-            $game = new VegasHero\ShortCodes\SingleGame(new WP_Query());
+            $game = new VegasHero\ShortCodes\SingleGame();
             return $game->render($game_id);
+        }
+    }
+
+    /**
+     * Method called by vh-grid showcode
+     * @param array $atts
+     * @return string
+     */
+    public function renderGamesGrid($atts) {
+        if(array_key_exists('provider', $atts)) {
+            return VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
         }
     }
 
@@ -121,117 +133,6 @@ class Vegashero_Shortcodes
         return $vhoutput;
     }
 
-    /** VegasHero Grid Shortcode with taxonomy filters with configurable game sorting and count and optional pagination */
-    public function vh_grid_shortcode( $atts ) {
-        ob_start();
-
-        // define attributes and their defaults
-        extract( shortcode_atts( array (
-            'order' => 'ASC',
-            'orderby' => 'title',
-            'gamesperpage' => -1,
-            'pagination' => 'off',
-            'provider' => '',
-            'operator' => '',
-            'category' => '',
-            'tag' => '',
-            'keyword' => '',
-        ), $atts ) );
-
-        // define query parameters based on attributes
-        $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
-        $options = array(
-            'post_type' => 'vegashero_games',
-            'order' => $order,
-            'orderby' => $orderby,
-            'posts_per_page' => $gamesperpage,
-            'paged' => $paged,
-            'tax_query' => array(
-                'relation' => 'OR',
-                array(
-                    'taxonomy' => 'game_provider',
-                    'field'    => 'slug',
-                    'terms'    => $provider,
-                ),
-                array(
-                    'taxonomy' => 'game_operator',
-                    'field'    => 'slug',
-                    'terms'    => $operator,
-                ),
-                array(
-                    'taxonomy' => 'game_category',
-                    'field'    => 'slug',
-                    'terms'    => $category,
-                ),
-                array(
-                    'taxonomy' => 'post_tag',
-                    'field'    => 'slug',
-                    'terms'    => $tag,
-                ),
-            ),
-            's' => $keyword,
-            // 'game_provider' => $provider,
-            // 'game_operator' => $operator,
-            // 'game_category' => $category,
-        );
-        $the_query = new WP_Query( $options ); ?>
-    <ul id="vh-lobby-posts-grid" class="vh-row-sm">
-    <?php if ( $the_query->have_posts() ) : while ( $the_query->have_posts() ) : $the_query->the_post(); // run the loop ?>
-
-<?php 
-        $providerz = wp_get_post_terms(get_the_ID(), 'game_provider', array('fields' => 'all'));
-        $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
-        $mypostslug = get_post_meta( get_the_ID(), 'game_title', true );
-        if($thumbnail) {
-            $thumbnail_new = $thumbnail[0];
-        } else {
-            if( ! $thumbnail_new = get_post_meta( get_the_ID(), 'game_img', true )) {
-                $thumbnail_new = $this->_config->gameImageUrl . '/' . $providerz[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
-            }
-        }
-?>            
-
-            <li class="vh-item" id="post-<?php the_ID(); ?>">
-                <a class="vh-thumb-link" href="<?php the_permalink(); ?>">
-                    <div class="vh-overlay">
-                        <img src="<?php echo $thumbnail_new; ?>" title="<?php the_title(); ?>" alt="<?php the_title(); ?>" />
-                        <!-- <span class="play-now">Play now</span> -->
-                    </div>
-                </a>
-                <div class="vh-game-title"><?php the_title(); ?></div>
-            </li>
-            <?php endwhile; ?>
-
-            <!-- grid pagination -->
-            <?php if ($pagination == 'on') { ?>
-            <?php if ($the_query->max_num_pages > 1) { ?>
-              <nav class="vh-pagination">                
-                <?php if( is_paged() ) { //check if first page ?>
-                <div class="prev page-numbers">
-                  <?php echo get_previous_posts_link( '<< Previous' ); ?>
-                </div>
-                <?php } ?>
-                <?php if ( $the_query->max_num_pages > get_query_var('paged') ) { //check if last page ?>
-                <div class="next page-numbers">
-                  <?php echo get_next_posts_link( 'Next >>', $the_query->max_num_pages ); ?>
-                </div>
-                <?php } ?>
-              </nav>
-            <?php } ?>
-            <?php } ?>
-
-            <?php else: ?>
-              <p><?php _e('Sorry, no games matched your criteria.'); ?></p>
-<?php endif; 
-wp_reset_postdata(); ?>
-        </ul>
-        <div class="clear"></div>
-
-<?php $myvariable = ob_get_clean();
-return $myvariable;
-    }   
-
-
 }
 
 // adds unique CSS class to lobby page for easy custom styling
@@ -245,5 +146,15 @@ function vhLobby_body_class( $c ) {
 add_filter( 'body_class', 'vhLobby_body_class' );
 
 
+//setting next pagination link class
+add_filter("next_posts_link_attributes", "next_posts_link_class");
+function next_posts_link_class() {
+    return "class='next page-numbers'";
+}
+//setting prev pagination link class
+add_filter("previous_posts_link_attributes", "prev_posts_link_class");
+function prev_posts_link_class() {
+    return "class='prev page-numbers'";
+}
 
 
