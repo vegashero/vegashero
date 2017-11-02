@@ -248,7 +248,7 @@ MARKUP;
                 if( ! $mypostslug = get_post_meta($post->ID, $config->postMetaGameTitle, true )) {
                     $mypostslug = $post->post_name;
                 }
-                $thumbnail = sprintf("%s/%s/cover.jpg", $config->gameImageUrl, $terms[0]->slug, sanitize_title($mypostslug));
+                $thumbnail = sprintf("%s/%s/%s/cover.jpg", $config->gameImageUrl, $terms[0]->slug, sanitize_title($mypostslug));
             }
         }
         return $thumbnail;
