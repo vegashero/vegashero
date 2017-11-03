@@ -116,13 +116,15 @@ final class GamesGrid
      * @return string
      */
     static private function _getPaginationMarkup($current_page, $max_num_pages) {
+        $prev_btn = get_option('vh_pagination_prev', '« Previous');
+        $next_btn = get_option('vh_pagination_next', 'Next »');
         $markup = "<nav class='vh-pagination'>";
         if( ! self::_isFirstPage($current_page) ) {
-            $previous = self::_getPreviousLink('« Previous', $current_page);
+            $previous = self::_getPreviousLink($prev_btn, $current_page);
             $markup .= "$previous";
         }
         if( ! self::_isLastPage($max_num_pages)) {
-            $next = self::_getNextLink( 'Next »', $current_page, $max_num_pages );
+            $next = self::_getNextLink($next_btn, $current_page, $max_num_pages );
             $markup .= "$next";
         }
         $markup .= "</nav>";

@@ -66,6 +66,18 @@ class Vegashero_Settings_Lobby
         ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'Play Now'?>' /><?php
     }
 
+    public function inputPaginationPrev() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'« Previous'?>' /><?php
+    }
+
+    public function inputPaginationNext() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'Next »'?>' /><?php
+    }
+
     public function inputCustomPostTypeName() {
         $args = func_get_args();
         $id = $args[0]['id'];
@@ -237,6 +249,56 @@ class Vegashero_Settings_Lobby
         register_setting(
             $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_playnow_btn' 
+        );
+
+        // Custom text paginaton previous button
+        add_settings_section(
+            $id = 'vh-pagination-prev-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = 'vh-lobby-page'
+        );
+
+        add_settings_field(
+            $id = 'vh_pagination_prev',
+            $title = 'Pagination Previous button Custom Text',
+            $callback = array($this, 'inputPaginationPrev'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-pagination-prev-section',
+            $args = array(
+                'id' => 'vh_pagination_prev',
+                'vh_pagination_prev' => '« Previous'
+            )
+        );
+        
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_pagination_prev' 
+        );
+
+        // Custom text paginaton next button
+        add_settings_section(
+            $id = 'vh-pagination-next-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = 'vh-lobby-page'
+        );
+
+        add_settings_field(
+            $id = 'vh_pagination_next',
+            $title = 'Pagination Next button Custom Text',
+            $callback = array($this, 'inputPaginationNext'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-pagination-next-section',
+            $args = array(
+                'id' => 'vh_pagination_next',
+                'vh_pagination_next' => 'Next »'
+            )
+        );
+        
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_pagination_next' 
         );
 
         // lobby link love
