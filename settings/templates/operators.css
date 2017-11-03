@@ -289,8 +289,13 @@ ul.products li.support-upsell ul.addon li .button-primary {
   left: 0;
   border-width: 0.8em 0 0 0.8em;
 }
-.op-energycasino .op-ribbon { 
+
+/*.op-energycasino .op-ribbon { 
   visibility: visible;
+}*/
+
+.prov-betsoft.mobile {
+  display: none;
 }
 
 .op-admin-iframe-bottom {
@@ -325,8 +330,9 @@ ul.products li.support-upsell ul.addon li .button-primary {
   width: 100%;
   height: 200px;
 }
-.vh-admin-alert.notice.is-dismissable, .vh-admin-notice.notice.is-dismissable {
-  padding-right:10px;
+.wp-core-ui .vh-admin-notice.notice-info.is-dismissible, 
+.wp-core-ui .vh-admin-notice.notice-success.is-dismissible {
+  padding-right:10px!important;
 }
 
 @media screen and (max-width: 500px) {

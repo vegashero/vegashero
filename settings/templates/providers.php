@@ -16,7 +16,7 @@
         <?php if(isset($this->_providers) && count($this->_providers)): ?>
         <ul class="operator-cards">
         <?php foreach($this->_providers as $provider): ?>
-              <li>
+              <li  class="prov-<?=$provider['provider']?>">
               <div class="desc">
               <div class="provider-img"><img src="<?=$this->_config->gameImageUrl?>/providers/<?=$provider['provider']?>.png" /></div>
               <form method="post" action="options.php">
