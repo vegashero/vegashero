@@ -325,6 +325,9 @@ ul.products li.support-upsell ul.addon li .button-primary {
   width: 100%;
   height: 200px;
 }
+.vh-admin-alert.notice.is-dismissable, .vh-admin-notice.notice.is-dismissable {
+  padding-right:10px;
+}
 
 @media screen and (max-width: 500px) {
   .vh-about-wrap h1 {

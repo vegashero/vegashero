@@ -170,6 +170,10 @@
 	font-family: inherit;
 }
 
+.nogames-mgs {
+	padding:10px 0;
+} 
+
 /* WMS left align fix */
 .single-vegashero_games .game_provider-wms .singlegame-iframe {
 	max-width: 960px;

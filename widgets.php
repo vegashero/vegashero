@@ -133,7 +133,11 @@ class Widget_vh_recent_games extends WP_Widget {
         $items = get_posts( $args );
 
         if (empty($items)) {
-            echo 'No games to display...';
+            echo $before_widget;
+            if ( $title) {
+                echo $before_title . $title . $after_title;
+            }
+            echo '<span class="nogames-mgs">No games to display...</span>';
             return;
         }
 
@@ -167,8 +171,8 @@ class Widget_vh_recent_games extends WP_Widget {
             if ( $title) {
                 echo $before_title . $title . $after_title;
             }
-
-            echo $out; 
+            echo "<ul>"; 
+            echo $out;
             echo "</ul>";
             echo $after_widget;
         }

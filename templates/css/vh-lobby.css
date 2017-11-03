@@ -1,3 +1,4 @@
+/* VegasHero 1.5.0 */
 
 .app-content {
   height: 100%;
@@ -126,10 +127,11 @@ ul#vh-lobby-posts {
 .vh-item {
   float: left;
   position: relative;
-  padding: 0 10px;
+  padding: 0 10px!important;
   box-sizing:border-box;
   margin:0 0 15px 0 !important;
-  list-style-type: none;
+  list-style-type: none!important;
+  background: none!important;
 }
 .vh-item img {
   width: 100%;
@@ -177,6 +179,7 @@ ul#vh-lobby-posts {
   -moz-border-radius: 0;
   -webkit-border-radius: 0;
   margin:0;
+  display: block;
 }
 .vh-item:hover .vh-overlay {
   background: #000;
@@ -377,10 +380,15 @@ input[type="text"].vh-search {
 }
 
 ul#vh-lobby-posts-grid {
-    margin: 20px 0;
-    padding: 0;
-    float: left;
-    width: 100%;
+  margin: 20px 0;
+  padding: 0;
+  float: left;
+  width: 100%;
+}
+
+.loading-icon {
+  color: #999999;
+  padding: 15px;
 }
 
 @media (min-width: 992px) {
