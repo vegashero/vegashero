@@ -10,15 +10,14 @@ final class ProviderImportTest extends WP_UnitTestCase
         parent::setUp();
         $this->config = Vegashero_Config::getInstance();
         $this->provider_importer = new VegasHero\Import\Provider();
+        $this->faker = \Faker\Factory::create();
     }
 
     public function testImportsNewGames() 
     {
-        $fixture = sprintf("%s/../Fixtures/elk.json", dirname(__FILE__));
-        $json_string = file_get_contents($fixture);
-        $games = json_decode($json_string, true);
+        $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1));
         $mock_request = \Mockery::mock('WP_REST_Request');
-        $mock_request->shouldReceive('get_body')->andReturn($json_string);
+        $mock_request->shouldReceive('get_body')->andReturn(json_encode($games));
         $result = $this->provider_importer->importGames($mock_request);
         $posts = get_posts(array(
             'posts_per_page' => -1,
