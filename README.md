@@ -46,6 +46,7 @@ docker exec -ti -u $USER vegashero_tests_1 wp-content/plugins/vegashero/bin/inst
 
 ```sh
 docker exec -ti -u $USER vegashero_tests_1 bash
+stty rows 41 columns 141
 cd wp-content/plugins/vegashero
 composer test
 ```
