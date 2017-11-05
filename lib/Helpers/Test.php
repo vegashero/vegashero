@@ -19,8 +19,55 @@ final class Test
     }
 
     /**
+     * @param object $faker
+     * @param integer $how_many
+     * @param array $overwrite Game attributes to overwrite
+     * @return array A list of games
+     */
+    static public function generateRandomGames($faker, $overwrite, $how_many=10) {
+        $games = array();
+        for($i=0; $i<$how_many; $i++) {
+            array_push($games, self::generateRandomGame($faker, $overwrite));
+        }
+        return $games;
+    }
+
+    /**
+     * Generates a random single game 
+     * @param object $faker 
+     * @param array $overwrite Game attributes to overwrite
+     * @return array A single game 
+     */
+    static public function generateRandomGame($faker, $overwrite=array()) {
+        return (object)array_merge(
+            array(
+                "id" => (string)$faker->numberBetween(),
+                "name" => $faker->firstname,
+                "provider" => $faker->firstname,
+                "category" => $faker->words(2, true),
+                "src" => $faker->url,
+                "status" => (string)$faker->numberBetween(0, 1),
+                "energycasino" => (string)$faker->numberBetween(0, 1),
+                "mrgreen" => (string)$faker->numberBetween(0, 1),
+                "slotsmillion" => (string)$faker->numberBetween(0, 1),
+                "europa" => (string)$faker->numberBetween(0, 1),
+                "slotslv" => (string)$faker->numberBetween(0, 1),
+                "winner" => (string)$faker->numberBetween(0, 1),
+                "bet365" => (string)$faker->numberBetween(0, 1),
+                "williamhill" => (string)$faker->numberBetween(0, 1),
+                "intercasino" => (string)$faker->numberBetween(0, 1),
+                "videoslots" => (string)$faker->numberBetween(0, 1),
+                "bellfruit" => (string)$faker->numberBetween(0, 1),
+                "created" => $faker->iso8601($max = 'now'),
+                "modified" => $faker->iso8601($max = 'now')
+            ),
+            $overwrite
+        );
+    }
+
+    /**
      * @param string $games JSON array of games 
-     * @param array Imported games
+     * @return array Imported games
      */
     static public function importGames($games, $importer, $config) {
         $mock_request = \Mockery::mock('WP_REST_Request');
