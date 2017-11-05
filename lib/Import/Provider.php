@@ -111,7 +111,7 @@ class Provider extends Import
      * @return Array|WP_Error of games or WP_Error object
      *   WP Rest API converts the objects to JSON for us
      */
-    public function fetchGames(WP_REST_Request $request) {
+    public function fetchGames(\WP_REST_Request $request) {
         // [id] => 6
         // [name] => wild witches
         // [provider] => netent
@@ -139,10 +139,10 @@ class Provider extends Import
                 }
                 $games = json_decode($body);
                 if(is_null($games)) {
-                    return new WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
+                    return new \WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
                 }
                 if($this->_noGamesToImport($games)) {
-                    return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+                    return new \WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
                 } else {
                     $games = json_decode($games);
                     $this->_cacheListOfGames($cache_id, $games);
@@ -150,7 +150,7 @@ class Provider extends Import
             }
             return $games;
         } catch(Exception $e) {
-            return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
+            return new \WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
         }
     }
 
@@ -197,10 +197,10 @@ class Provider extends Import
                     )
                 );
             } else {
-                return new WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+                return new \WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
             }
         } catch(Exception $e) {
-            return new WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
+            return new \WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );
         }
     }
 }
