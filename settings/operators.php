@@ -10,7 +10,7 @@ class Vegashero_Settings_Operators extends Vegashero_Settings
 
     public function __construct() {
 
-        $this->_config = Vegashero_Config::getInstance();
+        $this->_config = \Vegashero_Config::getInstance();
 
         if(array_key_exists('page', $_GET)) {
             if($_GET['page'] === 'vegashero-operator-import' || 'vegashero-provider-import') {
@@ -49,8 +49,8 @@ class Vegashero_Settings_Operators extends Vegashero_Settings
     private function _getAjaxUpdateBtn($operator, $count) {
         $markup = "<button";
         $markup .= " class='button button-primary vh-import'";
-        $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s'", site_url(), Vegashero_Import_Operator::getApiNamespace($this->_config), Vegashero_Import_Operator::getFetchApiRoute(), $operator);
-        $markup .= sprintf(" data-import='%s/wp-json/%s%s%s?total=%d'", site_url(), Vegashero_Import_Operator::getApiNamespace($this->_config), Vegashero_Import_Operator::getImportApiRoute(), $operator, $count);
+        $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s'", site_url(), \Vegashero\Import\Operator::getApiNamespace($this->_config), \Vegashero\Import\Operator::getFetchApiRoute(), $operator);
+        $markup .= sprintf(" data-import='%s/wp-json/%s%s%s?total=%d'", site_url(), \Vegashero\Import\Operator::getApiNamespace($this->_config), \Vegashero\Import\Operator::getImportApiRoute(), $operator, $count);
         $markup .= ">Import games";
         $markup .= "</button>";
         return $markup;

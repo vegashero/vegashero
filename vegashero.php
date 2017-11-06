@@ -30,14 +30,12 @@ $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
     ) 
 );
 
-//require_once( dirname( __FILE__ ) . '/settings.php' );
-//$dashboard = new Vegashero_Settings();
-
-require_once( dirname( __FILE__ ) . '/import/import.php' );
-require_once( dirname( __FILE__ ) . '/import/operator.php' );
-$import_operator = new Vegashero_Import_Operator();
-require_once( dirname( __FILE__ ) . '/import/provider.php' );
-$import_provider = new Vegashero_Import_Provider();
+// TODO: load via psr4
+require_once('lib/Import/Import.php');
+require_once('lib/Import/Operator.php');
+$import_operator = new Vegashero\Import\Operator();
+require_once('lib/Import/Provider.php');
+$import_provider = new Vegashero\Import\Provider();
 
 require_once( dirname( __FILE__ ) . '/template.php' );
 $template = new Vegashero_Template();

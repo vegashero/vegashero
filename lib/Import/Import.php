@@ -18,6 +18,10 @@ abstract class Import
         ini_set('display_errors', 0);
     }
 
+    static public function getApiNamespace($config) {
+        return sprintf('%s/%s', $config->apiNamespace, $config->apiVersion);
+    }
+
     protected function __destruct() {
         //error_reporting($this->_errror_reporting);
         ini_set('display_errors', $this->_display_errors);

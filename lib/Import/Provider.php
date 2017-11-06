@@ -40,10 +40,6 @@ class Provider extends Import
         return '/import/provider/';
     }
 
-    static public function getApiNamespace($config) {
-        return sprintf('%s/%s', $config->apiNamespace, $config->apiVersion);
-    }
-
     /**
      * @param object $game 
      * @return null
