@@ -55,10 +55,12 @@ final class GamesGridTest extends WP_UnitTestCase
                 "provider" => $this->provider,
                 'gamesperpage' => 1,
                 'pagination' => 'off',
+                'orderby' => 'ID'
             ), 
             $this->config
         );
-        $game = $this->games[0];
+
+        $game = reset($this->games);
         $post = end($this->posts);
         $provider = strtolower($game->provider);
         $expected = <<<HEREDOC
