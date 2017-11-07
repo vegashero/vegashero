@@ -40,9 +40,7 @@ class Vegashero_Shortcodes
      * @return string
      */
     public function renderGamesGrid($atts) {
-        if(array_key_exists('provider', $atts)) {
-            return VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
-        }
+        return VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
     }
 
     public function lobby() {

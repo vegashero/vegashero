@@ -21,7 +21,8 @@
         "phpunit/php-invoker": "^1.1",
         "phpunit/dbunit": "^3.0",
         "phpunit/phpunit": "^6.3",
-        "mockery/mockery": "^0.9.9",
-        "docker-php/docker-php": "^1.24"
+        "docker-php/docker-php": "^1.24",
+        "fzaninotto/faker": "^1.7",
+        "mockery/mockery": "0.9.9"
     }
 }

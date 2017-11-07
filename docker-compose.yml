@@ -21,6 +21,8 @@ services:
                 - DB_HOST=mysql
         environment:
             - TERM=xterm
+            - COLUMNS=141
+            - LINES=41
         ports:
             - "8080:80"
         volumes:

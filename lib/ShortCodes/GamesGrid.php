@@ -187,7 +187,7 @@ MARKUP;
                 'order' => 'ASC',
                 'orderby' => 'title',
                 'gamesperpage' => -1,
-                'pagination' => 'on',
+                'pagination' => 'off',
                 'provider' => '',
                 'operator' => '',
                 'category' => '',
