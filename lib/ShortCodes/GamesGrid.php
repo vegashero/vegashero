@@ -245,7 +245,7 @@ MARKUP;
      */
     static private function _getThumbnail($post, $config) {
         $terms = wp_get_post_terms($post->ID, $config->gameProviderTaxonomy, array('fields' => 'all'));
-        $featured_image_src = wp_get_attachment_image_src(get_post_thumbnail_id(), 'vegashero-thumb');
+        $featured_image_src = wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), 'vegashero-thumb');
         if($featured_image_src) {
             $thumbnail = $featured_image_src[0];
         } else {
