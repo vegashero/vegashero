@@ -130,7 +130,7 @@ class Widget_vh_recent_games extends WP_Widget {
             'post_status' => 'publish',
             'posts_per_page' => $maxgames
         );
-        $items = get_posts( $args );
+        $items = query_posts( $args );
 
         if (empty($items)) {
             echo $before_widget;
@@ -152,13 +152,13 @@ class Widget_vh_recent_games extends WP_Widget {
             if ($thePostID==$ID) {
                 $cpi=' current_page_item';
             }
-            $providers = wp_get_post_terms($post->ID, 'game_provider', array("fields" => "all"));            
-            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $post->ID ), 'thumbnail_size');
-            $mypostslug = get_post_meta( $post->ID, 'game_title', true );
+            $providers = wp_get_post_terms($ID, 'game_provider', array("fields" => "all"));            
+            $thumbnail = wp_get_attachment_image_src(get_post_thumbnail_id( $ID ), 'vegashero-thumb');
+            $mypostslug = get_post_meta( $ID, 'game_title', true );
             if($thumbnail) {
                 $thumbnail_new = $thumbnail[0];
             } else {
-                if( ! $thumbnail_new = get_post_meta( $post->ID, 'game_img', true )) {
+                if( ! $thumbnail_new = get_post_meta( $ID, 'game_img', true )) {
                     $thumbnail_new = $this->_config->gameImageUrl . '/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
                 }
             }
