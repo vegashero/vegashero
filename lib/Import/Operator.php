@@ -11,8 +11,7 @@ class Operator extends Import
         $license = \Vegashero_Settings_License::getInstance();
         $this->_license = $license->getLicense();
 
-        // increase curl timeout
-        add_action('http_api_curl', array('Vegashero_Import', 'increaseCurlTimeout'), 100, 1);
+        add_action('http_api_curl', array($this, 'increaseCurlTimeout'), 100, 1);
 
         // custom wp api endpoint for importing providers via ajax
         add_action( 'rest_api_init', function () {
