@@ -1,4 +1,4 @@
-/* VegasHero 1.5.1 */
+/* VegasHero 1.5.2 */
 
 .app-content {
   height: 100%;
@@ -390,6 +390,14 @@ ul#vh-lobby-posts-grid {
   color: #999999;
   padding: 15px;
 }
+
+/*pokatheme compatibility*/
+.text-area>ul>li.vh-item:before {
+  content:'';
+  padding: 0;
+}
+
+
 
 @media (min-width: 992px) {
   .vh-filter select {

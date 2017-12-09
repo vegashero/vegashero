@@ -175,14 +175,14 @@
 } 
 
 /* WMS left align fix */
-.single-vegashero_games .game_provider-wms .singlegame-iframe {
+/*.single-vegashero_games .game_provider-wms .singlegame-iframe {
 	max-width: 960px;
 }
 
 .single-vegashero_games .game_provider-wms .iframe_kh_wrapper {
 	text-align: center;
 	background: #000;
-}
+}*/
 
 .single-vegashero_games .game_provider-betsoft-mobile .iframe_kh_wrapper {
 	min-width: auto;
