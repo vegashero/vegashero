@@ -124,7 +124,7 @@ Now navigate to [http://localhost:8080](http://localhost:8080)
 Updating SSL certificates
 
 ```sh
-certbot certonly --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,staging.vegashero.co,www.vegashero.co
+certbot certonly --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,staging.vegashero.co,www.vegashero.co,sports.vegashero.co
 ```
 
 ### Manually run Wordpress cron
