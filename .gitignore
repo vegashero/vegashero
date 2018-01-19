@@ -4,3 +4,4 @@ vendor
 composer.lock
 /vendor/
 .phplint-cache
+tests/test-sample.php

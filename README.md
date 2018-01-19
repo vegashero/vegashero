@@ -121,6 +121,11 @@ Now navigate to [http://localhost:8080](http://localhost:8080)
 
 ###
 
+Download games via CURL call
+```sh
+curl -lv -X GET "https://vegasgod.com/wp-json/vegasgod/games/provider/elk?license=adc88446b4e3476a04091835fec15e08&referer=http://localhost"
+```
+
 Updating SSL certificates
 
 ```sh
