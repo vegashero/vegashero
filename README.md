@@ -14,6 +14,25 @@ composer install
 composer dump-autoload
 ```
 
+## Quickstart
+
+```bash
+USER_NAME=$USER USER_ID=$(id -u) docker-compose up php5.4-apache 
+```
+
+## Update wordpress
+
+```sh
+docker exec -u $USER vegashero_wordpress_1 wp core update
+```
+
+## Installing plugins
+```sh
+$ docker exec --user $USER yogahomecapetown_wordpress_1 wp plugin install mailchimp-for-wp jetpack imsanity wp-instagram-widget wordpress-importer --activate
+
+Now navigate to [http://localhost:8080](http://localhost:8080)
+
+
 ## Development
 
 ### Tab1
@@ -91,31 +110,6 @@ Also make sure the class name is renamed from the default *EDD_SL_Plugin_Updater
 ```php
 $request = wp_remote_post( $this->api_url, array( 'timeout' => 15, 'sslverify' => true, 'body' => $api_params ) );
 ```
-
-## Unit Tests NB!!!
-```bash
-$ sudo apt install php-xml php-json php-mbstring
-$ composer install
-$ vendor/bin/phpunit --debug  tests
-```
-
-## Quickstart
-
-```bash
-USER_NAME=$USER USER_ID=$(id -u) docker-compose up --build
-```
-
-## Update wordpress
-
-```sh
-docker exec -u $USER vegashero_wordpress_1 wp core update
-```
-
-## Installing plugins
-```sh
-$ docker exec --user $USER yogahomecapetown_wordpress_1 wp plugin install mailchimp-for-wp jetpack imsanity wp-instagram-widget wordpress-importer --activate
-
-Now navigate to [http://localhost:8080](http://localhost:8080)
 
 ## Snippets
 

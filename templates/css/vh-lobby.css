@@ -288,17 +288,19 @@ ul#vh-lobby-posts {
 .vh-filter:after {
   clear: both;
 }
-.vh-filter select {
+
+.vh-filter select, .vh-filter input[type="text"] {
   text-align: left;
-	color: #999999;
-	height: auto;
-	font-size: 13px;
-	font-family: "Helvetica", Arial, sans-serif;
+  color: #999999;
+  height: auto;
+  font-size: 13px;
+  font-family: "Helvetica", Arial, sans-serif;
   margin-right:15px;
   border:1px solid #f4f4f4;
   outline: none;
   padding: 5px;
 }
+
 .vh-filter select:hover {
   background-color:#2e2e2e;
   color: #ffffff;
@@ -307,18 +309,6 @@ ul#vh-lobby-posts {
 
 .vh-filter:focus {
   outline: none;
-}
-
-.vh-filter input[type="text"].vh-search {
-  float: right;
-  width: 20%;
-  display: none;
-  height: 36px;
-  margin: 1px 10px 0 0;
-  padding: 10px 20px 8px 20px;
-  font-size: 16px;
-  border-radius:1000px;
-  -webkit-border-radius:1000px;
 }
 
 .vh-sorting {
@@ -333,16 +323,6 @@ ul#vh-lobby-posts {
   background: #2f2f2f;
   padding: 1em 1.5em;
   line-height: 21px;
-}
-
-input[type="text"].vh-search {
-  font-size: 20px;
-  padding: 3px 10px 4px 10px;
-  border: #bfbfbf 1px solid;
-  margin: 0;
-  width: 100%;
-  line-height: 27px;
-  margin:1em 0;
 }
 
 /* ---- isotope ---- */
@@ -397,12 +377,15 @@ ul#vh-lobby-posts-grid {
   padding: 0;
 }
 
-
-
 @media (min-width: 992px) {
-  .vh-filter select {
-    width: 24%;
+  .vh-filter select, .vh-filter input[type="text"] {
     float:left;
+  }
+  .vh-filter select {
+      width: 24%;
+  }
+  .vh-filter input[type="text"] {
+      width: 41%;
   }
   .vh-filter select:first-child {
     margin-left:10px;
@@ -420,16 +403,10 @@ ul#vh-lobby-posts-grid {
 }
 
 @media (max-width: 480px) {
-  .vh-filter select {
+  .vh-filter select, .vh-filter input[type="text"] {
+    width:100%;
     margin-right: 0;
     margin-top:7px;
-  }
-  .vh-filter input[type="text"].vh-search {
-    float: none;
-    margin: 7px auto;
-    width: 57%;
-    text-align: center;
-    display: none;
   }
 }
 
