@@ -1,0 +1,52 @@
+FROM php:5.6
+EXPOSE 8088
+EXPOSE 7080
+ARG USER_ID
+ARG USER_NAME
+ARG DB_NAME
+ARG DB_USER
+ARG DB_PASSWORD
+ARG DB_HOST
+RUN useradd -u $USER_ID $USER_NAME -m
+RUN usermod -a -G www-data $USER_NAME
+RUN apt -qq update && apt install -y vim wget libmysql++-dev
+RUN docker-php-ext-install pdo pdo_mysql mysql mysqli
+
+# path to extensions
+# /usr/local/lsws/lsphp56/lib/php/20131226
+# /usr/local/lsws/lsphp56/etc/php.ini
+# apt-get install build-essential libexpat1-dev libgeoip-dev libpng-dev libpcre3-dev libssl-dev libxml2-dev rcs zlib1g-dev libmcrypt-dev libcurl4-openssl-dev libjpeg-dev libpng-dev libwebp-dev pkg-config
+
+
+WORKDIR /tmp
+RUN wget -c http://rpms.litespeedtech.com/debian/enable_lst_debain_repo.sh
+RUN bash enable_lst_debain_repo.sh
+RUN apt install -y openlitespeed lsphp56 lsphp56 lsphp56-mysql lsphp56-dev lsphp56-curl lsphp56-dbg
+#RUN ln -s /usr/local/lsws/lsphp56/bin/lsphp /usr/local/lsws/lsphp56
+
+RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+
+WORKDIR /usr/local/lsws/Example/html
+RUN chmod 2775 /usr/local/lsws/Example/html
+
+# nobody nogroup
+RUN chown $USER_NAME:nogroup /usr/local/lsws/Example/html
+WORKDIR /usr/local/lsws/Example/html
+
+USER $USER_NAME
+RUN wp core download 
+RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check
+
+VOLUME /usr/local/lsws/Example/html/wp-content/plugins/vegashero
+
+USER root
+RUN chown $USER_NAME:nogroup wp-config.php
+RUN find . -type f -exec chmod 664 {} +
+RUN find . -type d -exec chmod 775 {} +
+RUN chmod 660 wp-config.php
+
+
+
+
+
+

@@ -1,32 +1,39 @@
 version: "2"
 services:
 
-    dev:
+    php5.4-apache:
         extends: 
             file: common.yml
             service: wordpress
+        build: 
+            context: .
+            dockerfile: Dockerfile
+        #cpuset: "0"
+        #cpu_quota: 10000
+        #mem_limit: 128m
+        links:
+            - mysql
+
+    php5.6-lsphp:
+        extends: 
+            file: common.yml
+            service: wordpress
+        build: 
+            context: .
+            dockerfile: Dockerfile.lsphp
+        ports:
+          - "8088:8088"
+          - "7080:7080"
         links:
             - mysql
 
     tests:
+        extends: 
+            file: common.yml
+            service: wordpress
         build: 
             context: .
             dockerfile: Dockerfile.test
-            args: 
-                - USER_NAME
-                - USER_ID
-                - DB_NAME=wordpress
-                - DB_USER=wordpress
-                - DB_PASSWORD=secret
-                - DB_HOST=mysql
-        environment:
-            - TERM=xterm
-            - COLUMNS=141
-            - LINES=41
-        ports:
-            - "8080:80"
-        volumes:
-            - .:/var/www/html/wp-content/plugins/vegashero
         #cpuset: "0"
         #cpu_quota: 10000
         #mem_limit: 128m
