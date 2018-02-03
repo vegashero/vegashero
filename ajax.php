@@ -102,6 +102,7 @@ class Vegashero_Ajax
             } else {
                 // it's a search
                 $post_args['s'] = $filterBy;
+                $post_args['sentence'] = true;
             }
         }
 
