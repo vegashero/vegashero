@@ -273,29 +273,20 @@ ul#vh-lobby-posts {
 /* ---- vh-filters ---- */
 
 
-.vh-filter {
-  border: none;
+.vh-filter, input#vh-search {
+  display: flex;
+  flex-wrap: nowrap;
   font-family: "Helvetica", Arial, sans-serif;
-  font-size: 14px;
-  color: #d3d3d3;
   width:100%;
-  box-sizing:border-box;
   margin-bottom: 15px;
   text-align: center;
-  display: inline-block;
 }
 
-.vh-filter:after {
-  clear: both;
-}
-
-.vh-filter select, .vh-filter input[type="text"] {
+.vh-filter select, input#vh-search {
   text-align: left;
   color: #999999;
   height: auto;
   font-size: 13px;
-  font-family: "Helvetica", Arial, sans-serif;
-  margin-right:15px;
   border:1px solid #f4f4f4;
   outline: none;
   padding: 5px;
@@ -378,17 +369,8 @@ ul#vh-lobby-posts-grid {
 }
 
 @media (min-width: 992px) {
-  .vh-filter select, .vh-filter input[type="text"] {
-    float:left;
-  }
   .vh-filter select {
-      width: 24%;
-  }
-  .vh-filter input[type="text"] {
-      width: 41%;
-  }
-  .vh-filter select:first-child {
-    margin-left:10px;
+    flex-grow: 1;
   }
 }
 @media (min-width: 1100px) {

@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
 
     var Lobby = function() {
         var self = this;
-        this.searchInput = $('div.vh-filter input#vh-search');
+        this.searchInput = $('input#vh-search');
         this.getQueryData = function(options) {
             //console.log('getting query data');
             return {
@@ -107,18 +107,27 @@ jQuery(document).ready(function($) {
             select.querySelector('option').setAttribute('selected', 'selected');
         };
 
-        this.resetOtherFilter = function(select) {
-            if(select.tagName.toLowerCase() === 'select') {
-                var otherElement = select.nextElementSibling;
-                if(otherElement.tagName.toLowerCase() === 'select') {
-                    lobby.resetFilter(otherElement);
-                } else {
-                    otherElement = select.previousElementSibling;
-                    if(otherElement.tagName.toLowerCase() === 'select') {
-                        lobby.resetFilter(otherElement);
-                    }
+        this.resetNextFilters = function(select) {
+            while(select.nextElementSibling) {
+                if(select.nextElementSibling.tagName.toLowerCase() === 'select') {
+                    lobby.resetFilter(select.nextElementSibling);
+                    select = select.nextElementSibling;
                 }
             }
+        };
+
+        this.resetPreviousFilters = function(select) {
+            while(select.previousElementSibling) {
+                if(select.previousElementSibling.tagName.toLowerCase() === 'select') {
+                    lobby.resetFilter(select.previousElementSibling);
+                    select = select.previousElementSibling;
+                }
+            }
+        };
+
+        this.resetOtherFilters = function(select) {
+            this.resetNextFilters(select);
+            this.resetPreviousFilters(select);
         };
 
         this.resetSearch = function() {
@@ -167,7 +176,7 @@ jQuery(document).ready(function($) {
     // filter games
     $('div.vh-filter select').bind("change", function(e) {
         //console.log('change event');
-        lobby.resetOtherFilter(e.target);
+        lobby.resetOtherFilters(e.target);
         lobby.resetSearch();
         lobby.loadGames({
             taxonomy: e.target.dataset.taxonomy,
@@ -176,7 +185,7 @@ jQuery(document).ready(function($) {
     });
 
     // search games
-    $('div.vh-filter input#vh-search').bind('input', $.throttle(250, function(e) {
+    $('input#vh-search').bind('input', $.debounce(500, function(e) {
         //console.log(quicksearch);
         lobby.resetFilters();
         lobby.loadGames({
