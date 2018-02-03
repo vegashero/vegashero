@@ -18,6 +18,7 @@ jQuery(document).ready(function($) {
 
     var Lobby = function() {
         var self = this;
+        this.searchInput = $('div.vh-filter input#vh-search');
         this.getQueryData = function(options) {
             //console.log('getting query data');
             return {
@@ -119,6 +120,10 @@ jQuery(document).ready(function($) {
                 }
             }
         };
+
+        this.resetSearch = function() {
+            this.searchInput.val('');
+        };
         
         this.loadGames = function(options, callback) {
             //console.log('loading games');
@@ -163,6 +168,7 @@ jQuery(document).ready(function($) {
     $('div.vh-filter select').bind("change", function(e) {
         //console.log('change event');
         lobby.resetOtherFilter(e.target);
+        lobby.resetSearch();
         lobby.loadGames({
             taxonomy: e.target.dataset.taxonomy,
             filterBy: e.target.value
@@ -170,13 +176,13 @@ jQuery(document).ready(function($) {
     });
 
     // search games
-    $('div.vh-filter input#vh-search').bind('input', function(e) {
+    $('div.vh-filter input#vh-search').bind('input', $.throttle(250, function(e) {
         //console.log(quicksearch);
         lobby.resetFilters();
         lobby.loadGames({
             taxonomy: '',
             filterBy: e.target.value
         });
-    });
+    }));
 
 });

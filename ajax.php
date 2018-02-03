@@ -21,7 +21,9 @@ class Vegashero_Ajax
         } else { 
             $playnow_btn_value = get_option('vh_playnow_btn'); 
         }
-        wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery'), null, true);
+        wp_register_script('jquery_debounce', sprintf("%stemplates/js/jquery.ba-throttle-debounce.min.js", plugin_dir_url(__FILE__)), null, true);
+        wp_enqueue_script('jquery_debounce', '', array('jquery'), null, true);
+        wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery_debounce'), null, true);
         wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
             array(
                 'ajax_url' => admin_url('admin-ajax.php'),
