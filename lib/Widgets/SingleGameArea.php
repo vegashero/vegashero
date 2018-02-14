@@ -4,7 +4,10 @@ namespace VegasHero\Widgets;
 
 class SingleGameArea {
 
+    public $id;
+
     public function __construct() {
+        $this->id = "single_game_widget_area";
         add_action( 'widgets_init', array($this, 'custom_sidebars'));
     }
 
@@ -14,7 +17,7 @@ class SingleGameArea {
     public function custom_sidebars() {
 
         $args = array(
-            'id'            => 'single_game_widget_area',
+            'id'            => $this->id,
             'class'         => 'single_game_widget_area',
             'name'          => __( 'Single Game Widget Area', 'text_domain' ),
             'description'   => __( 'Add widgets / shortcodes under VegasHero games', 'text_domain' ),
