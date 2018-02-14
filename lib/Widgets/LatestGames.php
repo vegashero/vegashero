@@ -1,84 +1,82 @@
-<?php
+<?php 
 
-class Vegashero_Widgets {
+namespace VegasHero\Widgets;
 
+class LatestGames extends \WP_Widget {
 
-    private $_config;
-
-    public function __construct() {
-        $this->_config = Vegashero_Config::getInstance();
-        add_action( 'widgets_init', array($this, 'custom_sidebars'));
-    }
-
-    /** Register sidebar widget area for single games page - widgets accepts shortcode, HTML banners codes etc */
-
-    public function custom_sidebars() {
-
-        $args = array(
-            'id'            => 'single_game_widget_area',
-            'class'         => 'single_game_widget_area',
-            'name'          => __( 'Single Game Widget Area', 'text_domain' ),
-            'description'   => __( 'Add widgets / shortcodes under VegasHero games', 'text_domain' ),
-            'before_title'  => '<h2 class="singlegame_widget_title">',
-            'after_title'   => '</h2>',
-            'before_widget' => '<div class="singlegame_widget"><style>.preset-providers{display:none!important;}</style>',
-            'after_widget'  => '</div>',
-        );
-        register_sidebar( $args );
-
-    }
-
-}
-
-/** VegasHero Games Widget, configurable game sorting and count */
-class Widget_vh_recent_games extends WP_Widget {
-
-    private $_config;
-
-    public function __construct() {
-        $this->_config = Vegashero_Config::getInstance();
-        $widget_ops = array( 
+	public function __construct() {
+        $this->_config = \Vegashero_Config::getInstance();
+        $widget_id = "vh_lastest_games_widget";
+        $widget_name = "VegasHero Games Widget";
+        $widget_options = array( 
             'classname' => 'Widget_vh_recent_games',
             'description' => 'Display games with thumbnails from the VegasHero Plugin.',
             'title' => 'Latest Casino Games',
             'maxgames' => 5,
             'orderby' => 'date',
         );
-        parent::__construct( 'Widget_vh_recent_games', 'VegasHero Games Widget', $widget_ops );
+        parent::__construct($widget_id, $widget_name, $widget_options);
     }
 
-
-    public function form( $instance ) {
-        $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Latest Games', 'text_domain' );
-        $post_type = 'vegashero_games';
+    public function form($instance) {
+        $title = ! empty($instance['title']) ? $instance['title'] : __( 'Latest Games', 'text_domain' );
+        $post_type = $this->_config->customPostType;
         $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : __( '5', 'text_domain' );
         $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : __( 'date', 'text_domain' );
-
-?>
-
+        $options = LatestGames::_getOptionsMarkup(
+            array(
+                array( "value" => "datenewest", "text" => "Date (Newest first)", "orderby" => $order_by),
+                array( "value" => "dateoldest", "text" => "Date (Oldest first)", "orderby" => $order_by),
+                array( "value" => "tileaz", "text" => "Alphabetical Title (A-Z)", "orderby" => $order_by),
+                array("value" => "tileza", "text" => "Alphabetical Title (Z-A)", "orderby" => $order_by),
+                array("value" => "random", "text" => "Random", "orderby" => $order_by)
+            ) 
+        );
+        echo <<<MARKUP
 <br/>
 <fieldset><legend>Widget Title:</legend>   
-    <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
+    <input class="widefat" id="$this->get_field_id('title')" name="$this->get_field_name('title')" type="text" value="$title" />
 </fieldset>
 <br/>
 
 <fieldset><legend>Game Count:</legend>  
-    <input id="<?php echo $this->get_field_id('maxgames'); ?>" type="number" placeholder="5" value="<?php echo $maxgames; ?>" name="<?php echo $this->get_field_name('maxgames'); ?>">
+    <input id="$this->get_field_id('maxgames')" type="number" placeholder="5" value="$maxgames" name="$this->get_field_name('maxgames')">
 </fieldset>
 <br/>
 
 <fieldset><legend>Sort Order:</legend> 
-    <select id="<?php echo $this->get_field_id('orderby'); ?>" name="<?php echo $this->get_field_name('orderby'); ?>">
-        <option value="datenewest"<?php if ($orderby=="datenewest") echo ' selected="true"';  ?>>Date (Newest first)</option>
-        <option value="dateoldest"<?php if ($orderby=="dateoldest") echo ' selected="true"';  ?>>Date (Oldest first)</option>
-        <option value="titleaz"<?php if ($orderby=="titleaz") echo ' selected="true"';  ?>>Alphabetical Title (A-Z)</option>
-        <option value="titleza"<?php if ($orderby=="titleza") echo ' selected="true"';  ?>>Alphabetical Title (Z-A)</option>
-        <option value="random"<?php if ($orderby=="random") echo ' selected="true"';  ?>>Random</option>
+    <select id="$this->get_field_id('orderby')" name="$this->get_field_name('orderby')">
+        ${options}
     </select>   
 </fieldset>
 <br/>
+MARKUP;
+    }
 
-<?php
+    /**
+     * @param array<array> $options
+     * @return string
+     */
+    static private function _getOptionsMarkup($options) {
+        $markup = "";
+        foreach($options as $option) {
+            $markup .= LatestGames::_getOptionMarkup($option['value'], $option['text'], $option['orderby']);
+        }
+        return $markup;
+    }
+
+    /**
+     * @param string $value
+     * @param string $text
+     * @param string $order_by
+     * @return string
+     */
+    static private function _getOptionMarkup($value, $text, $order_by) {
+        $markup = "<option value='$value'";
+        if($value == $order_by) 
+            $markup .= "selected='true' ";
+        $markup .= ">$text</option>";
+        return $markup;
     }
 
     public function update($new_instance, $old_instance) {
@@ -130,7 +128,7 @@ class Widget_vh_recent_games extends WP_Widget {
             'post_status' => 'publish',
             'posts_per_page' => $maxgames
         );
-        $items = query_posts( $args );
+        $items = get_posts( $args );
 
         if (empty($items)) {
             echo $before_widget;
@@ -182,9 +180,6 @@ class Widget_vh_recent_games extends WP_Widget {
 
 }
 
-add_action('widgets_init', create_function('', 'return register_widget("Widget_vh_recent_games");'));
-
-
-
-
-
+add_action( 'widgets_init', function() { 
+    register_widget( 'VegasHero\Widgets\LatestGames' ); 
+});
