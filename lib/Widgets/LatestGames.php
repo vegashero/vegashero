@@ -108,9 +108,6 @@ class LatestGames extends \WP_Widget {
     }
 
     static private function _getGamesMarkup($items, $args) {
-        echo "<pre>";
-        print_r($args);
-        echo "</pre>";
         extract( $args );
         $current_post_id = get_the_ID();
         $output = "";
