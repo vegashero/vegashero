@@ -5,21 +5,22 @@ function imgError(image) {
     return true;
 }
 
-
 var vhLobbyImage = {
     imageLoaded: function(postId) {
-        document.querySelector('li#img'+postId).style.display = 'block'
+        var element = document.querySelector('li#img'+postId);
+        if(element) {
+            element.style.display = 'block'
+        }
     }
 };
-
 
 jQuery(document).ready(function($) {
 
     var Lobby = function() {
         var self = this;
-
-
+        this.searchInput = $('input#vh-search');
         this.getQueryData = function(options) {
+            //console.log('getting query data');
             return {
                 'action': 'lobby_search_filter',
                 'page': options.paged ? options.paged : 1,
@@ -35,6 +36,7 @@ jQuery(document).ready(function($) {
         };
 
         this.getGames = function(data, callback) {
+            //console.log('getting games');
             jQuery.get(ajax_object.ajax_url, data, function(response) {
                 callback(jQuery.parseJSON(response));
             });
@@ -89,15 +91,59 @@ jQuery(document).ready(function($) {
             $('ul#vh-lobby-posts.vh-row-sm').html(loadingIndicator);
         };
 
+        this.resetFilters = function() {
+            $.each($('div.vh-filter select option'), function(i, option) {
+                option.removeAttribute('selected');
+            });
+            $.each($('div.vh-filter select'), function(i, select) {
+                select.querySelector('option').setAttribute('selected', 'selected');
+            });
+        };
+
+        this.resetFilter = function(select) {
+            select.querySelectorAll('option').forEach(function(option) {
+                option.removeAttribute('selected');
+            });
+            select.querySelector('option').setAttribute('selected', 'selected');
+        };
+
+        this.resetNextFilters = function(select) {
+            while(select.nextElementSibling) {
+                if(select.nextElementSibling.tagName.toLowerCase() === 'select') {
+                    lobby.resetFilter(select.nextElementSibling);
+                }
+                select = select.nextElementSibling;
+            }
+        };
+
+        this.resetPreviousFilters = function(select) {
+            while(select.previousElementSibling) {
+                if(select.previousElementSibling.tagName.toLowerCase() === 'select') {
+                    lobby.resetFilter(select.previousElementSibling);
+                }
+                select = select.previousElementSibling;
+            }
+        };
+
+        this.resetOtherFilters = function(select) {
+            this.resetNextFilters(select);
+            this.resetPreviousFilters(select);
+        };
+
+        this.resetSearch = function() {
+            this.searchInput.val('');
+        };
+        
         this.loadGames = function(options, callback) {
+            //console.log('loading games');
             self.showLoading();
             if( ! options) {
                 var options = {};
             }
             var data = this.getQueryData(options);
-            //console.log(data);
+            //console.log('query data', data);
             this.getGames(data, function(res) {
-                //console.log(res);
+                //console.log('response', res);
                 var markup = ''
                 jQuery.each(res.posts, function(key, post) {
                     markup += self.getGameMarkup(data, post);
@@ -107,49 +153,11 @@ jQuery(document).ready(function($) {
                 if(callback) {
                     callback();
                 }
-                // filter games
-                $('div.vh-filter select').change(function() {
-                    self.loadGames({
-                        taxonomy: $(this).attr('data-taxonomy'),
-                        filterBy: $(this).val()
-                    }, function() {
-                        this.prop('selectedIndex', 0);
-                    }.bind($(this)));
-                });
-
-                // search games
-                var quicksearch = $('.vh-filter #vh-search').keyup( debounce( function() {
-                    //qsRegex = new RegExp( quicksearch.val() );
-                    qsRegex = $('.vh-filter #vh-search').val();
-                    //console.log(quicksearch);
-                    self.loadGames({
-                        taxonomy: 'keyword',
-                        filterBy: qsRegex
-                    }, function() {
-                        this.prop('selectedIndex', 0);
-                    }.bind($(this)));
-                }, 200 ) );
-
-                // debounce so filtering doesn't happen every millisecond when typing search query
-                function debounce( fn, threshold ) {
-                  var timeout;
-                  return function debounced() {
-                    if ( timeout ) {
-                      clearTimeout( timeout );
-                    }
-                    function delayed() {
-                      fn();
-                      timeout = null;
-                    }
-                    timeout = setTimeout( delayed, threshold || 100 );
-                  }
-                }                  
-
 
                 // pagination
-                $('div.vh-pagination').on('click', 'a', function(event) {
+                $('div.vh-pagination a').bind('click', function(event) {
                     event.preventDefault();
-                    var url = $(this).attr('href');
+                    var url = event.target.getAttribute('href');
                     var queryString = url.substring( url.indexOf('?') + 1 );
                     var parsed = self.parseQueryString(queryString);
                     self.loadGames({
@@ -158,11 +166,32 @@ jQuery(document).ready(function($) {
                         filterBy: parsed['filterBy'] ? parsed['filterBy'] : ''
                     });
                 });
+
             });
         };
     };
 
     var lobby = new Lobby();
     lobby.loadGames();
+    // filter games
+    $('div.vh-filter select').bind("change", function(e) {
+        //console.log('change event');
+        lobby.resetOtherFilters(e.target);
+        lobby.resetSearch();
+        lobby.loadGames({
+            taxonomy: e.target.dataset.taxonomy,
+            filterBy: e.target.value
+        });
+    });
+
+    // search games
+    $('input#vh-search').bind('input', $.debounce(500, function(e) {
+        //console.log(quicksearch);
+        lobby.resetFilters();
+        lobby.loadGames({
+            taxonomy: '',
+            filterBy: e.target.value
+        });
+    }));
 
 });

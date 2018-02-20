@@ -43,7 +43,10 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
   </select>
 <?php endif ?>
 
-  <!-- <input type="text" id="vh-search" class="vh-search" placeholder="Search" /> -->
+<?php if(get_option('vh_lobbysearch') === 'on'): ?>
+  <input type="text" id="vh-search" class="vh-search" placeholder="search" />
+<?php endif ?>
+
 </div>
 
 <ul id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon">loading games...</span></ul>

@@ -84,6 +84,12 @@ class Vegashero_Settings_Lobby
         ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'VegasHero Games'?>' /><?php
     }
 
+    public function tickboxLobbySearch() { 
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        include_once( dirname( __FILE__ ) . '/templates/lobby/lobby-search-tickbox.php' );
+    }
+
     public function tickboxLobbyLink() { 
         $args = func_get_args();
         $id = $args[0]['id'];
@@ -299,6 +305,31 @@ class Vegashero_Settings_Lobby
         register_setting(
             $option_group = 'vh-lobby-settings', 
             $option_name = 'vh_pagination_next' 
+        );
+
+        // lobby search
+        add_settings_section(
+            $id = 'vh-lobbysearch-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = 'vh-lobby-page'
+        );
+
+        add_settings_field(
+            $id = 'vh_lobbysearch',
+            $title = 'Display Games Search?',
+            $callback = array($this, 'tickboxLobbySearch'),
+            $page = 'vh-lobby-page',
+            $section = 'vh-lobbysearch-section',
+            $args = array(
+                'id' => 'vh_lobbysearch',
+                'vh_lobbysearch' => 'off'
+            )
+        );
+
+        register_setting(
+            $option_group = 'vh-lobby-settings', 
+            $option_name = 'vh_lobbysearch' 
         );
 
         // lobby link love

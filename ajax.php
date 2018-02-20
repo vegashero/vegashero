@@ -21,7 +21,9 @@ class Vegashero_Ajax
         } else { 
             $playnow_btn_value = get_option('vh_playnow_btn'); 
         }
-        wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery'), null, true);
+        wp_register_script('jquery_debounce', sprintf("%stemplates/js/jquery.ba-throttle-debounce.min.js", plugin_dir_url(__FILE__)), null, true);
+        wp_enqueue_script('jquery_debounce', '', array('jquery'), null, true);
+        wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery_debounce'), null, true);
         wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
             array(
                 'ajax_url' => admin_url('admin-ajax.php'),
@@ -91,11 +93,16 @@ class Vegashero_Ajax
             'page' => $page
         );
 
-        if(array_key_exists('taxonomy', $_GET) && array_key_exists('filterBy', $_GET)) {
-            if( ! empty($_GET['taxonomy']) && ! empty($_GET['filterBy'])) {
+        if(array_key_exists('filterBy', $_GET) && ! empty($_GET['filterBy'])) {
+            $filterBy = $_GET['filterBy'];
+            if(array_key_exists('taxonomy', $_GET) && ! empty($_GET['taxonomy'])) {
+                // it's a filter
                 $taxonomy = $_GET['taxonomy'];
-                $filterBy = $_GET['filterBy'];
                 $post_args[$taxonomy] = $filterBy;
+            } else {
+                // it's a search
+                $post_args['s'] = $filterBy;
+                $post_args['sentence'] = true;
             }
         }
 
