@@ -23,7 +23,7 @@ class SingleGameArea {
             'description'   => __( 'Add widgets / shortcodes under VegasHero games', 'text_domain' ),
             'before_title'  => '<h2 class="singlegame_widget_title">',
             'after_title'   => '</h2>',
-            'before_widget' => '<div class="singlegame_widget">',
+            'before_widget' => '<div id="%1$s" class="widget singlegame_widget %2$s">',
             'after_widget'  => '</div>',
         );
         register_sidebar( $args );
