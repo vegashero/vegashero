@@ -150,6 +150,10 @@
     vertical-align: middle;    
 }
 
+li.vh-games-widget-item img {
+	margin:0;
+}
+
 .Widget_vh_recent_games .vh-games-widget-item h3 {
     text-align: center;
     padding: 10px 5px;
