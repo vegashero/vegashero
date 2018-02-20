@@ -111,8 +111,8 @@ jQuery(document).ready(function($) {
             while(select.nextElementSibling) {
                 if(select.nextElementSibling.tagName.toLowerCase() === 'select') {
                     lobby.resetFilter(select.nextElementSibling);
-                    select = select.nextElementSibling;
                 }
+                select = select.nextElementSibling;
             }
         };
 
@@ -120,8 +120,8 @@ jQuery(document).ready(function($) {
             while(select.previousElementSibling) {
                 if(select.previousElementSibling.tagName.toLowerCase() === 'select') {
                     lobby.resetFilter(select.previousElementSibling);
-                    select = select.previousElementSibling;
                 }
+                select = select.previousElementSibling;
             }
         };
 

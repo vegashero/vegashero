@@ -33,7 +33,23 @@ $ docker exec --user $USER yogahomecapetown_wordpress_1 wp plugin install mailch
 Now navigate to [http://localhost:8080](http://localhost:8080)
 
 
-## Development
+## Theme Development
+
+Create base image containing Wordpress and container
+
+```
+docker build --build-arg USER_NAME=$USER --build-arg USER_ID=$(id -u) -t vegashero_theme_base:latest . -f Dockerfile.theme
+```
+
+In your theme Dockerfile 
+
+```
+FROM vegashero_theme_base:latest
+```
+
+See crypto theme for example
+
+## Plugin Development
 
 ### Tab1
 
