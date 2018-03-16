@@ -45,7 +45,7 @@ class Vegashero_Shortcodes
 
     public function lobby() {
         ob_start();
-        $lobby_template_file = sprintf('%s/templates/lobby-%s.php', dirname(__FILE__), $this->_config->customPostType);
+        $lobby_template_file = sprintf('%s/templates/lobby.php', dirname(__FILE__));
         // return file_get_contents($lobby_template_file);
         include_once $lobby_template_file;
         $lobby_template_file = ob_get_clean();
