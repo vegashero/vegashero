@@ -136,10 +136,16 @@ Download games via CURL call
 curl -lv -X GET "https://vegasgod.com/wp-json/vegasgod/games/provider/elk?license=adc88446b4e3476a04091835fec15e08&referer=http://localhost"
 ```
 
-Updating SSL certificates
+Adding SSL certificates
 
 ```sh
 certbot certonly --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,staging.vegashero.co,www.vegashero.co,sports.vegashero.co
+```
+
+Renewing SSL certificates. *NB* Cloudlfare root and subdomains should be set to DNS only. 
+
+```sh
+certbot renew
 ```
 
 ### Manually run Wordpress cron
