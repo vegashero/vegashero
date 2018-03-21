@@ -139,10 +139,13 @@ curl -lv -X GET "https://vegasgod.com/wp-json/vegasgod/games/provider/elk?licens
 Adding SSL certificates
 
 ```sh
-certbot certonly --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,staging.vegashero.co,www.vegashero.co,sports.vegashero.co
+# production
+certbot certonly --webroot --webroot-path /var/www/vegashero.co/ --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,www.vegashero.co,sports.vegashero.co,crypto.vegashero.co 
+# staging
+certbot certonly --webroot --webroot-path /var/www/staging.vegashero.co/ --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name staging.vegashero.co -d staging.vegashero.co
 ```
 
-Renewing SSL certificates. *NB* Cloudlfare root and subdomains should be set to DNS only. 
+Renewing SSL certificates. 
 
 ```sh
 certbot renew
