@@ -63,7 +63,7 @@ class Vegashero_Shortcodes
 				'vh_custom_post_type_url_slug' => get_option('vh_custom_post_type_url_slug')
 			)
 		);
-		$lobby_template_file = sprintf('%s/templates/lobby-%s.php', dirname(__FILE__), $this->_config->customPostType);
+		$lobby_template_file = sprintf('%s/templates/lobby.php', dirname(__FILE__));
 		include_once $lobby_template_file;
 	}
 
