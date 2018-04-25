@@ -50,6 +50,7 @@ final class GamesGridTest extends WP_UnitTestCase
 
     public function testSingleGameWithoutPagintionShouldShowSingleGameOnly() 
     {
+
         $template = $this->shortcode->render(
             array(
                 "provider" => $this->provider,

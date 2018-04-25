@@ -178,8 +178,12 @@ abstract class Import
     }
 
     /**
-     * Set games to draft when status was 1, but changes to 0
-     * Never set games to publish when status was draft
+     * status 0 
+     * if doesn't exists on customer's site: game is not imported 
+     * if already exist on customer's site: status is left as is (do not change to draft), and post meta is updated if modify date is newer 
+     *
+     * status 1: (nothing changes for this case) 
+     * game is imported in all cases and post meta is updated
      *
      * @param object $existing
      * @param object $new Status property is 0 for draft and 1 for publish

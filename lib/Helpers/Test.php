@@ -75,7 +75,9 @@ final class Test
         $importer->importGames($mock_request);
         return get_posts(array(
             'posts_per_page' => -1,
-            'post_type' => $config->customPostType
+            'post_type' => $config->customPostType,
+            'post_status' => 'any',
+            'orderby' => 'ID'
         ));
     }
 
@@ -171,6 +173,19 @@ final class Test
         $output = exec($command, $output, $exit_code);
         return $exit_code ? false : true;
     }
+
+    static public function getDateYesterday() {
+        $date = new \DateTime();
+        $date->add(\DateInterval::createFromDateString('yesterday'));
+        return $date->format('Y-m-d\TH:i:s.uP');
+    }
+
+    static public function getDateToday() {
+        $date = new \DateTime();
+        $date->add(\DateInterval::createFromDateString('today'));
+        return $date->format('Y-m-d\TH:i:s.uP');
+    }
+
 
 }
 

@@ -60,7 +60,7 @@ class Provider extends Import
             'post_content'   => "",
             'post_name'      => sanitize_title($game->name),
             'post_title'     => ucfirst($game->name),
-            'post_status'    => $game->status ? 'publish' : 'draft',
+            'post_status'    => 'publish',
             'post_type'      => $this->_config->customPostType,
             'post_excerpt'   => ""
         );
@@ -158,6 +158,7 @@ class Provider extends Import
         try {
             $games = json_decode($request->get_body());
             $successful_imports = 0;
+            $games_skipped = 0;
             $newly_imported = 0;
             $games_updated = 0;
 
@@ -174,8 +175,12 @@ class Provider extends Import
                     }
 
                     if( ! $post_id) { // no existing post
-                        $this->_insertNewGame($game);
-                        $newly_imported++;
+                        if($game->status) { // game status is 1
+                            $this->_insertNewGame($game);
+                            $newly_imported++;
+                        } else {
+                            $games_skipped++;
+                        }
                     } else { 
                         $this->_updateExistingGame($post, $game);
                         $this->_updateExistingPostMeta($post, $game);
@@ -188,6 +193,7 @@ class Provider extends Import
                     "message" => "Import completed successfully",
                     "data" => array(
                         "successful_imports" => $successful_imports,
+                        "games_skipped" => $games_skipped,
                         "new_games_imported" => $newly_imported,
                         "existing_games_updated" => $games_updated
                     )
