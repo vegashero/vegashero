@@ -7,32 +7,8 @@ class Vegashero_Ajax
 
     public function __construct() {
         $this->_config = Vegashero_Config::getInstance();
-        // add_action( 'init', array($this, 'lobby_filters') );
-        add_action('wp_enqueue_scripts', array($this, 'lobby_filters'));
         add_action( 'wp_ajax_lobby_search_filter', array($this, 'filter_lobby'));
         add_action( 'wp_ajax_nopriv_lobby_search_filter', array($this, 'filter_lobby'));
-    }
-
-    public function lobby_filters() {
-        $script_src = sprintf('%stemplates/js/lobby_search_filters.js', plugin_dir_url( __FILE__ ));
-        $playnow_btn_value = get_option('vh_playnow_btn');
-        if ($playnow_btn_value == '') {
-            $playnow_btn_value = 'Play Now';
-        } else { 
-            $playnow_btn_value = get_option('vh_playnow_btn'); 
-        }
-        wp_register_script('jquery_debounce', sprintf("%stemplates/js/jquery.ba-throttle-debounce.min.js", plugin_dir_url(__FILE__)), null, true);
-        wp_enqueue_script('jquery_debounce', '', array('jquery'), null, true);
-        wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery_debounce'), null, true);
-        wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
-            array(
-                'ajax_url' => admin_url('admin-ajax.php'),
-                'site_url' => site_url(),
-                'image_url' => $this->_config->gameImageUrl,
-                'playnow_btn_value' => $playnow_btn_value,
-                'vh_custom_post_type_url_slug' => get_option('vh_custom_post_type_url_slug')
-            )
-        );
     }
 
     public function filter_lobby() {
