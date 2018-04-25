@@ -10,7 +10,7 @@ class Vegashero_Ajax
         $this->_config = Vegashero_Config::getInstance();
         add_action( 'wp_ajax_lobby_search_filter', array($this, 'filter_lobby'));
         add_action( 'wp_ajax_nopriv_lobby_search_filter', array($this, 'filter_lobby'));
-        $posts_per_page = get_option('vh_lobby_games_per_page');
+        $posts_per_page = (int)get_option('vh_lobby_games_per_page');
         $this->_posts_per_page = $posts_per_page ? $posts_per_page : 20;
     }
 
