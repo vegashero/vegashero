@@ -107,14 +107,15 @@ class Vegashero_Shortcodes
             'vh_tablet' => '',      //tablet compatible
             'vh_mobile' => '',      //mobile compatible
             'vh_link' => '',        //Affiliate link URL
-            'vh_btnlabel' => '',     //CTA button title
-            'vh_target' => ''     //open link in new window or not
+            'vh_btnlabel' => '',    //CTA button title
+            'vh_target' => ''       //open link in new window or not
         ), $atts ) );
 
         if ( $vh_pc == '1' ) { $vh_pc = '<div class="results-desktop">Desktop</div>'; }
         if ( $vh_tablet == '1' ) { $vh_tablet = '<div class="results-tablet">Tablet</div>'; }
         if ( $vh_mobile == '1' ) { $vh_mobile = '<div class="results-mobile">Mobile</div>'; }
         if ( $vh_target == 'new' ) { $vh_target = '_blank'; } else { $vh_target = '_self'; }
+        $vh_imgalt = basename($vh_img);
 
         $vhoutput = "<tr><td class=\"vh-casino\"><a target=\"";
         $vhoutput .= $vh_target;
@@ -122,6 +123,8 @@ class Vegashero_Shortcodes
         $vhoutput .= $vh_link;
         $vhoutput .= "\"><img src=\"";
         $vhoutput .= $vh_img;
+        $vhoutput .= "\" alt=\"";
+        $vhoutput .= $vh_imgalt;
         $vhoutput .= "\" width=\"180px\"></a></td>";
         $vhoutput .= "<td class=\"vh-bonus\">";
         $vhoutput .= $vh_bonus;

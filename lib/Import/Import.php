@@ -164,8 +164,17 @@ abstract class Import
     protected function _updateExistingPostMeta($existing, $game) {
         $this->_updateGameSrc($existing, $game);
         $this->_updateGameTitle($existing, $game);
-        //$game_img = get_post_meta($existing->ID, $this->_config->postMetaGameImg, true);
-        //$providers = wp_get_post_terms($existing->ID, $this->_config->gameProviderTaxonomy);
+        $this->_updateGameImage($existing, $game);
+    }
+
+    private function _updateGameImage($existing, $game) {
+        $current_game_img = get_post_meta($existing->ID, $this->_config->postMetaGameImg, true);
+        $provider = sanitize_title(strtolower(trim($game->provider)));
+        $game_title = sanitize_title(strtolower(trim($game->name)));
+        $new_game_img = sprintf("%s/%s/%s/cover.jpg", $this->_config->gameImageUrl, $provider, $game_title);
+        if( $current_game_img != $new_game_img ) {
+            update_post_meta($existing->ID, $this->_config->postMetaGameImg, $new_game_img);
+        }
     }
 
     /**
