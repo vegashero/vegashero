@@ -108,7 +108,14 @@ class Vegashero_Shortcodes
             'vh_mobile' => '',      //mobile compatible
             'vh_link' => '',        //Affiliate link URL
             'vh_btnlabel' => '',    //CTA button title
-            'vh_target' => ''       //open link in new window or not
+            'vh_target' => '',      //open link in new window or not
+            'vh_rel' => '',         //make aff link nofollow or noindex
+            'vh_tnctext' => '',     //text for tnc link
+            'vh_tnclink' => '',     //tnc external link url
+            'vh_tncinfo' => '',     //tnc more info for toggle
+            'vh_reviewtext' => '',  //text for full review link
+            'vh_reviewlink' => '',  //full review link url
+            'vh_rating' => ''       //rating stars shortcode
         ), $atts ) );
 
         if ( $vh_pc == '1' ) { $vh_pc = '<div class="results-desktop">Desktop</div>'; }
@@ -116,10 +123,19 @@ class Vegashero_Shortcodes
         if ( $vh_mobile == '1' ) { $vh_mobile = '<div class="results-mobile">Mobile</div>'; }
         if ( $vh_target == 'new' ) { $vh_target = '_blank'; } else { $vh_target = '_self'; }
         $vh_imgalt = basename($vh_img);
+        $vh_rating_output = do_shortcode("[wp-review-total id=$vh_rating]");
 
         $vhoutput = "<tr><td class=\"vh-casino\"><a target=\"";
         $vhoutput .= $vh_target;
-        $vhoutput .= "\" href=\"";
+        $vhoutput .= "\" ";
+
+        if ($vh_rel != '') {
+        $vhoutput .= "rel=\"";
+        $vhoutput .= $vh_rel;
+        $vhoutput .= "\" ";
+        }
+
+        $vhoutput .= "href=\"";
         $vhoutput .= $vh_link;
         $vhoutput .= "\"><img src=\"";
         $vhoutput .= $vh_img;
@@ -128,17 +144,52 @@ class Vegashero_Shortcodes
         $vhoutput .= "\" width=\"180px\"></a></td>";
         $vhoutput .= "<td class=\"vh-bonus\">";
         $vhoutput .= $vh_bonus;
+        
+        if ($vh_tnctext != '') {
+        $vhoutput .= "<span><a href=\"";
+        $vhoutput .= $vh_tnclink;
+        $vhoutput .= "\" target=\"_blank\">";
+        $vhoutput .= $vh_tnctext;
+        $vhoutput .= "</a><i class=\"terms-info\" title=\"";
+        $vhoutput .= $vh_tncinfo;
+        $vhoutput .= "\"></i></span>";
+        }
+        
         $vhoutput .= "</td>";
-        $vhoutput .= "<td class=\"vh-devices\">";
+        $vhoutput .= "<td class=\"vh-devices\"><span class=\"device-icons\">";
         $vhoutput .= $vh_pc . $vh_tablet . $vh_mobile;
+        $vhoutput .= "</span>";
+
+        if (($vh_rating != '') && ($vh_pc == '') && ($vh_tablet == '') && ($vh_mobile == '')) {
+        $vhoutput .= $vh_rating_output;
+        }
+
         $vhoutput .= "</td>";
         $vhoutput .= "<td class=\"vh-cta-buttons\"><a target=\"";
         $vhoutput .= $vh_target;
-        $vhoutput .= "\" href=\"";
+        $vhoutput .= "\" ";
+
+        if ($vh_rel != '') {
+        $vhoutput .= "rel=\"";
+        $vhoutput .= $vh_rel;
+        $vhoutput .= "\" ";
+        }
+
+        $vhoutput .= "href=\"";
         $vhoutput .= $vh_link;
         $vhoutput .= "\" class=\"vh-playnow\">";
         $vhoutput .= $vh_btnlabel;
-        $vhoutput .= "</a></td></tr>";
+        $vhoutput .= "</a>";
+
+        if ($vh_reviewtext != '') {
+        $vhoutput .= "<span><a class=\"reviewlink\" href=\"";
+        $vhoutput .= $vh_reviewlink;
+        $vhoutput .= "\">";
+        $vhoutput .= $vh_reviewtext;
+        $vhoutput .= "</a></span>";
+        }
+
+        $vhoutput .= "</td></tr>";
 
         // ob_start();  
 
@@ -173,4 +224,8 @@ function prev_posts_link_class() {
     return "class='prev page-numbers'";
 }
 
-
+function add_terms_toggle() {
+    wp_register_script('vegashero_termstoggle', sprintf("%stemplates/js/terms_toggle.js", plugin_dir_url(__FILE__)), null, true);
+    wp_enqueue_script('vegashero_termstoggle', '', array('jquery'), null, true);
+};
+add_action( 'wp_enqueue_scripts', 'add_terms_toggle' );  
