@@ -129,7 +129,7 @@ abstract class Import
         return $category_id;
     }
 
-    protected function _getPostsForGame($game) {
+    protected function _getPostsByGameId($game) {
         $args = array(
             'post_type' => $this->_config->customPostType,
             'post_status' => 'any',
@@ -178,9 +178,11 @@ abstract class Import
     }
 
     /**
+     * DEPRECATED ON 2018-05-02
+     *
      * status 0 
      * if doesn't exists on customer's site: game is not imported 
-     * if already exist on customer's site: status is left as is (do not change to draft), and post meta is updated if modify date is newer 
+     * if already exist on customer's site: status is left as is (do not change to draft)
      *
      * status 1: (nothing changes for this case) 
      * game is imported in all cases and post meta is updated
@@ -190,6 +192,7 @@ abstract class Import
      * @return null
      */
     protected function _updateStatus($existing, $new) {
+        echo sprintf("%s has been deprecated!!!", __METHOD__);
         $new->status = $new->status ? 'publish' : 'draft';
         if($existing->post_status != 'draft') {
             if($existing->post_status != $new->status) {

@@ -85,7 +85,7 @@ class Provider extends Import
     }
 
     private function _updateExistingGame($existing, $new) {
-        $this->_updateStatus($existing, $new);
+        //$this->_updateStatus($existing, $new);
         //$this->_updateProviders($existing, $new, $provider);
     }
 
@@ -166,7 +166,7 @@ class Provider extends Import
                 foreach($games as $game) {
                     //error_log(print_r($game, true));
                     // check if post exists for this game
-                    $posts = $this->_getPostsForGame($game);
+                    $posts = $this->_getPostsByGameId($game);
 
                     $post_id = 0;
                     if(count($posts)) {
@@ -182,7 +182,6 @@ class Provider extends Import
                             $games_skipped++;
                         }
                     } else { 
-                        $this->_updateExistingGame($post, $game);
                         $this->_updateExistingPostMeta($post, $game);
                         $games_updated++;
                     }
