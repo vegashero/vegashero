@@ -73,17 +73,19 @@ final class Test
      * @return array Imported games
      */
     static public function importGames($games, $importer, $config, $operator=null) {
-        $mock_request = \Mockery::mock('WP_REST_Request');
-        if($operator)
-            $mock_request->shouldReceive('get_url_params')->andReturn(array("operator" => $operator));
-        $mock_request->shouldReceive('get_body')->andReturn($games);
-        $importer->importGames($mock_request);
-        $posts = get_posts(array(
+        $args = array(
             'posts_per_page' => -1,
             'post_type' => $config->customPostType,
             'post_status' => 'any',
             'orderby' => 'ID'
-        ));
+        );
+        $mock_request = \Mockery::mock('WP_REST_Request');
+        if($operator) {
+            $mock_request->shouldReceive('get_url_params')->andReturn(array("operator" => $operator));
+        }
+        $mock_request->shouldReceive('get_body')->andReturn($games);
+        $importer->importGames($mock_request);
+        $posts = get_posts($args);
         return array_map(function($post) {
             $post->meta = (object)get_post_meta($post->ID);
             return $post;
