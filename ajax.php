@@ -116,7 +116,7 @@ class Vegashero_Ajax
     private function _getPaginationLinks($paged, $total) {
         $pagination = array();
         if($pagination_links = paginate_links($this->_getPaginationOptions($paged, $total))) {
-            if($total >= get_option('vh_lobby_games_per_page')) {
+            if($total >= $this->_posts_per_page) {
                 if($next = $this->_getNext($pagination_links)) {
                     $pagination['next'] = $next;
                 }
@@ -147,7 +147,7 @@ class Vegashero_Ajax
         $prev_btn = get_option('vh_pagination_prev', '« Previous');
         $next_btn = get_option('vh_pagination_next', 'Next »');
         $total_posts = wp_count_posts($this->_config->customPostType)->publish;
-        $max_pages = ceil($total_posts/get_option('vh_lobby_games_per_page'));
+        $max_pages = ceil($total_posts/$this->_posts_per_page);
         $big = $paged+1;
         return array(
             'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
