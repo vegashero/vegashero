@@ -15,7 +15,7 @@ class Operator extends Import
 
         // custom wp api endpoint for importing providers via ajax
         add_action( 'rest_api_init', function () {
-            $namespace = self::getApiNamespace($this->_config);
+            $namespace = \VegasHero\Import\Operator::getApiNamespace($this->_config);
             register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<operator>.+)', array(
                 'methods' => 'GET',
                 'callback' => array($this, 'fetchGames')
