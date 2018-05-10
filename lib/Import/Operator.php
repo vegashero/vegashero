@@ -15,7 +15,7 @@ class Operator extends Import
 
         // custom wp api endpoint for importing providers via ajax
         add_action( 'rest_api_init', function () {
-            $namespace = self::getApiNamespace($this->_config);
+            $namespace = \VegasHero\Import\Operator::getApiNamespace($this->_config);
             register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<operator>.+)', array(
                 'methods' => 'GET',
                 'callback' => array($this, 'fetchGames')
@@ -68,7 +68,7 @@ class Operator extends Import
             'post_content'   => '',
             'post_name'      => sanitize_title($game->name),
             'post_title'     => ucfirst($game->name),
-            'post_status'    => $game->status ? 'publish' : 'draft',
+            'post_status'    => 'publish',
             'post_type'      => $this->_config->customPostType,
             'post_excerpt'   => ''
         );
@@ -170,7 +170,7 @@ class Operator extends Import
      * @return boolean
      */
     private function _gameExists($game) {
-        $posts = $this->_getPostsForGame($game);
+        $posts = $this->_getPostsByGameId($game);
         return (boolean)count($posts);
     }
 
@@ -179,7 +179,7 @@ class Operator extends Import
      * @return object Existing post object
      */
     private function _getExistingPost($game) {
-        $posts = $this->_getPostsForGame($game);
+        $posts = $this->_getPostsByGameId($game);
         return $posts[0];
     }
 
@@ -265,18 +265,22 @@ class Operator extends Import
             $successful_imports = 0;
             $newly_imported = 0;
             $games_updated = 0;
+            $games_skipped = 0;
 
             if(count($games) > 0) {
                 foreach($games as $game) {
 
                     if($this->_operatorProvidesGame($game, $operator)) {
-                        if( ! $this->_gameExists($game)) {
-                            $this->_insertNewGame($game, $operator);
-                            $newly_imported++;
+                        if( ! $this->_gameExists($game)) { 
+                            if($game->status) { // game status is 1
+                                $this->_insertNewGame($game, $operator);
+                                $newly_imported++;
+                            } else {
+                                $games_skipped++;
+                            }
                         } else {
                             $post = $this->_getExistingPost($game);
                             $this->_updatePostTerms($post, $operator);
-                            $this->_updateStatus($post, $game);
                             $this->_updateExistingPostMeta($post, $game);
                             $games_updated++;
                         }
@@ -288,6 +292,7 @@ class Operator extends Import
                     "message" => "Import completed successfully",
                     "data" => array(
                         "successful_imports" => $successful_imports,
+                        "games_skipped" => $games_skipped,
                         "new_games_imported" => $newly_imported,
                         "existing_games_updated" => $games_updated
                     )

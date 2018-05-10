@@ -16,7 +16,7 @@ class Provider extends Import
 
         // custom wp api endpoint for importing providers via ajax
         add_action('rest_api_init', function () {
-            $namespace = self::getApiNamespace($this->_config);
+            $namespace = \VegasHero\Import\Provider::getApiNamespace($this->_config);
             register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<provider>.+)', array(
                 'methods' => 'GET',
                 'callback' => array($this, 'fetchGames')
@@ -60,7 +60,7 @@ class Provider extends Import
             'post_content'   => "",
             'post_name'      => sanitize_title($game->name),
             'post_title'     => ucfirst($game->name),
-            'post_status'    => $game->status ? 'publish' : 'draft',
+            'post_status'    => 'publish',
             'post_type'      => $this->_config->customPostType,
             'post_excerpt'   => ""
         );
@@ -85,7 +85,7 @@ class Provider extends Import
     }
 
     private function _updateExistingGame($existing, $new) {
-        $this->_updateStatus($existing, $new);
+        //$this->_updateStatus($existing, $new);
         //$this->_updateProviders($existing, $new, $provider);
     }
 
@@ -158,6 +158,7 @@ class Provider extends Import
         try {
             $games = json_decode($request->get_body());
             $successful_imports = 0;
+            $games_skipped = 0;
             $newly_imported = 0;
             $games_updated = 0;
 
@@ -165,7 +166,7 @@ class Provider extends Import
                 foreach($games as $game) {
                     //error_log(print_r($game, true));
                     // check if post exists for this game
-                    $posts = $this->_getPostsForGame($game);
+                    $posts = $this->_getPostsByGameId($game);
 
                     $post_id = 0;
                     if(count($posts)) {
@@ -174,10 +175,13 @@ class Provider extends Import
                     }
 
                     if( ! $post_id) { // no existing post
-                        $this->_insertNewGame($game);
-                        $newly_imported++;
+                        if($game->status) { // game status is 1
+                            $this->_insertNewGame($game);
+                            $newly_imported++;
+                        } else {
+                            $games_skipped++;
+                        }
                     } else { 
-                        $this->_updateExistingGame($post, $game);
                         $this->_updateExistingPostMeta($post, $game);
                         $games_updated++;
                     }
@@ -188,6 +192,7 @@ class Provider extends Import
                     "message" => "Import completed successfully",
                     "data" => array(
                         "successful_imports" => $successful_imports,
+                        "games_skipped" => $games_skipped,
                         "new_games_imported" => $newly_imported,
                         "existing_games_updated" => $games_updated
                     )
