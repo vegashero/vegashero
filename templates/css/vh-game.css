@@ -76,6 +76,7 @@
 	font-size:14px;
 	font-weight:bold;
 	text-transform:uppercase;
+	text-align: left;
 }
 .vh-casino-providers tbody tr {
 	border-bottom:1px solid #b7cbd7;
@@ -93,11 +94,13 @@
 	text-align:center;
 	text-decoration:none;
 	display: block;
-	float:left;
+	/*float:left;*/
+	box-shadow: none;
 }
 .vh-casino-providers .vh-playnow:hover {
 	opacity: 0.9;
 	color: #fff;
+	box-shadow: none;
 }
 
 .vh-casino-providers .vh-cta-buttons,
@@ -220,7 +223,7 @@ li.vh-games-widget-item img, .vh-casino-providers .vh-casino img {
 }
 .vh-cta-buttons a {
 	text-align: center;
-	width:100%;
+	/*width:100%;*/
 	display: block;
 }
 .terms-info {
@@ -246,9 +249,9 @@ li.vh-games-widget-item img, .vh-casino-providers .vh-casino img {
 
 
 @media (max-width: 480px) {
-  .vh-casino-providers .vh-playnow {
-    padding:18px;
-    font-size:14px;
+	.vh-casino-providers .vh-playnow {
+		padding:18px;
+		font-size:14px;
 	}
 }
 
@@ -299,7 +302,9 @@ li.vh-games-widget-item img, .vh-casino-providers .vh-casino img {
     	font-size: 11px;
 	}
 
-
+	.vh-casino-providers thead tr th.vh-devices {
+		display: none;
+	}
 	.vh-casino-providers .vh-cta-buttons,
 	.vh-casino-providers .vh-casino,
 	.vh-casino-providers .vh-bonus,
@@ -333,6 +338,9 @@ li.vh-games-widget-item img, .vh-casino-providers .vh-casino img {
 	}
 	.vh-casino-providers th.vh-cta-buttons, .vh-casino-providers th.vh-bonus {
 		display: none;
+	}
+	.vh-casino-providers .vh-cta-buttons .reviewlink {
+		margin-bottom: 5px;
 	}
 
 
