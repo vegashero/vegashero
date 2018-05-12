@@ -6,11 +6,17 @@
     <?php submit_button(); ?>
     </form>
 
+<div class="helpinfo">
+	<h3 style="margin-top:0;">Check out our WordPress Themes</h3>
+	<p>We also offer stylish and functional WP themes that integrate well with our games plugin. Choose from a <a target="_blank" href="https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">Casino Theme</a> or a <a target="_blank" href="https://vegashero.co/downloads/sports-betting-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">Sportsbook Theme</a>.<br/>
+	You can also get the <a target="_blank" href="https://vegashero.co/checkout?edd_action=add_to_cart&download_id=132994&edd_options[price_id]=1">plugin + theme in a bundle license</a> and save money.</p>
+</div>
 
 <div class="helpinfo">
-	<h3 style="margin-top:0;">Like this plugin?</h3>
+	<h3 style="margin-top:0;">Follow us for latest game release & feature updates!</h3>
 
-	<p>Check us out on <a target="_blank" href="https://www.facebook.com/VegasHeroPlugin/">Facebook</a> and follow our <a target="_blank" href="https://twitter.com/Vegas_Hero">Twitter</a> feed. Connect with us and share your journey of being/becoming an igaming affiliate. We woud love to hear your story and check out your website.</p>
+	<p>Check us out on <a target="_blank" href="https://www.facebook.com/VegasHeroPlugin/">Facebook</a> and follow our <a target="_blank" href="https://twitter.com/Vegas_Hero">Twitter</a> feed. We post about latest version updates, industry news and events and game release info.<br/>
+	Connect with us and share your journey of being/becoming an igaming affiliate. We woud love to hear your story and check out your website.</p>
 
 	<h3>Need support?</h3>
 	Email us: <a href="mailto:support@vegashero.co">support@vegashero.co</a></p>

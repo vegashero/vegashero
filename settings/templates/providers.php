@@ -3,8 +3,8 @@
         <div><!-- display this if valid license key entered --></div>
         <?php else: ?>
         <div class="purchase-banner">
-          <h3>Import 1700+ games</h3>
-          <a target="_blank" href="https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=providers%20import%20page">Purchase a license</a>
+          <h3>Import 1800+ games</h3>
+          <a target="_blank" href="https://vegashero.co/downloads/vegas-hero-plugin/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=providers%20import%20page">Purchase a license</a>
         </div>
         <?php endif ?>
         
