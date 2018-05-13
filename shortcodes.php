@@ -63,8 +63,11 @@ class Vegashero_Shortcodes
 				'vh_custom_post_type_url_slug' => get_option('vh_custom_post_type_url_slug')
 			)
 		);
+        ob_start();
 		$lobby_template_file = sprintf('%s/templates/lobby.php', dirname(__FILE__));
 		include_once $lobby_template_file;
+        $lobby_template_file = ob_get_clean();
+        return $lobby_template_file;
 	}
 
     // VH Operators Table shortcode
