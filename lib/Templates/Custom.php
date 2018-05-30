@@ -1,21 +1,32 @@
 <?php
 
+namespace VegasHero\Templates;
+
 if ( ! defined( 'WPINC' ) ) {
     exit();
 }
 
-class Vegashero_Template
+class Custom
 {
 
     private $_config;
 
     public function __construct() {
 
-        $this->_config = Vegashero_Config::getInstance();
+        $this->_config = \Vegashero_Config::getInstance();
 
-        add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent'));
+        if( ! $this->_singleTemplateExists()) {
+            add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent'));
+        }
         add_action( 'after_setup_theme', array($this, 'enableFeaturedImages' ));
         add_action( 'after_setup_theme', array($this, 'registerImageSize'));
+    }
+
+    /**
+     * https://developer.wordpress.org/themes/template-files-section/custom-post-type-template-files/
+     */
+    private function _singleTemplateExists() {
+        return file_exists(sprintf("%s/single-%s.php", get_stylesheet_directory(), $this->_config->customPostType));
     }
 
     public function enableFeaturedImages() {
@@ -38,12 +49,11 @@ class Vegashero_Template
 
     private function _getIframeTemplate() {
         $plugin_dir = plugin_dir_path(__FILE__);
-        return sprintf("%s/templates/iframe.php", $plugin_dir);
+        return sprintf("%s../../templates/iframe.php", $plugin_dir);
     }
 
     public function wrapSingleCustomPostContent($content) {
         $post_id = get_the_ID();
-
         if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
             $iframe_src = get_post_meta($post_id, 'game_src', true);
             $iframe_string = file_get_contents($this->_getIframeTemplate());

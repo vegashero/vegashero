@@ -31,19 +31,22 @@ $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
 );
 
 // TODO: load via psr4
+// game imports
 require_once('lib/Import/Import.php');
 require_once('lib/Import/Operator.php');
 $import_operator = new VegasHero\Import\Operator();
 require_once('lib/Import/Provider.php');
 $import_provider = new VegasHero\Import\Provider();
 
+// widgets
 require_once("lib/Widgets/SingleGameArea.php");
 $widget_area = new VegasHero\Widgets\SingleGameArea();
 require_once("lib/Widgets/LatestGames.php");
 $latest_games_widget = new VegasHero\Widgets\LatestGames();
 
-require_once( dirname( __FILE__ ) . '/template.php' );
-$template = new Vegashero_Template();
+// templates
+require_once('lib/Templates/Custom.php');
+$template = new VegasHero\Templates\Custom();
 
 require_once( dirname( __FILE__ ) . '/stylesheet.php' );
 $stylesheet = new Vegashero_Stylesheet();
@@ -53,5 +56,3 @@ $shortcode = new Vegashero_Shortcodes();
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
-
-
