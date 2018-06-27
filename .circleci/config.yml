@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  test:
+  build:
     docker:
       # specify the version you desire here
       - image: circleci/php:7.1.5-browsers
@@ -21,9 +21,6 @@ jobs:
     working_directory: ~/vegashero
 
     steps:
-
-      - checkout:
-          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
 
       # Download and cache dependencies
       - restore_cache:
@@ -55,6 +52,13 @@ jobs:
           # preinstalled in circleci/* docker image
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
 
+  test:
+
+    steps:
+
+      - checkout:
+          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
+
       - run:
           name: Scaffold Wordpress Plugin Tests
           command: |
@@ -71,6 +75,15 @@ jobs:
           paths:
             - ./vendor
           key: v1-dependencies-{{ checksum "composer.json" }}
-        
-      # run tests!
+
       - run: phpunit $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+        requires: 
+          - build
+
