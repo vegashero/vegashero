@@ -45,7 +45,7 @@ jobs:
           command: |
             wp core download 
             wp config create --dbname=wordpress --dbuser=root --dbpass= --dbhost=127.0.0.1:3306 --force --skip-check
-            wp core install
+            wp core install --url=example.com --title=Example --admin_user=admin --admin_password=secret --admin_email=test@example.com
 
       - run:
           name: Wait for DB
