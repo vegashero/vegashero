@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  test:
     docker:
       # specify the version you desire here
       - image: circleci/php:7.1.5-browsers
@@ -18,11 +18,12 @@ jobs:
           MYSQL_ROOT_PASSWORD: ''
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
 
-    working_directory: ~/wp-content/plugins/vegashero
+    working_directory: ~/vegashero
 
     steps:
 
-      - checkout
+      - checkout:
+          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
 
       # Download and cache dependencies
       - restore_cache:
@@ -62,7 +63,7 @@ jobs:
       - run:
           name: Install Wordpress Plugin Tests
           command: |
-            ~/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' tcp://127.0.0.1:3306
+            $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' tcp://127.0.0.1:3306
 
       - run: composer install -n --prefer-dist
 
@@ -72,4 +73,4 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
         
       # run tests!
-      - run: phpunit ~/wp-content/plugins/vegashero
+      - run: phpunit $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
