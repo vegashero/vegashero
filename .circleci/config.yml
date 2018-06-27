@@ -54,6 +54,21 @@ jobs:
 
   test:
 
+    docker:
+      # specify the version you desire here
+      - image: circleci/php:7.1.5-browsers
+      
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: tkuchiki/delayed-mysql
+        environment: 
+          MYSQL_DATABASE: wordpress
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+
+    working_directory: ~/vegashero
+
     steps:
 
       - checkout:
