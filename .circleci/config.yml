@@ -18,7 +18,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: ''
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
 
-    working_directory: ~/repo
+    working_directory: ~/wp-content/plugins/vegashero
 
     steps:
 
@@ -47,8 +47,7 @@ jobs:
             wp config create --dbname=wordpress --dbuser=root --dbpass= --dbhost=127.0.0.1:3306 --force --skip-check
             wp core install --url=example.com --title=Example --admin_user=admin --admin_password=secret --admin_email=test@example.com
 
-      - checkout:
-          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
+      - checkout
 
       - run:
           name: Wait for DB
@@ -63,7 +62,7 @@ jobs:
       - run:
           name: Install Wordpress Plugin Tests
           command: |
-            $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' tcp://127.0.0.1:3306
+            ~/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' tcp://127.0.0.1:3306
 
       - run: composer install -n --prefer-dist
 
@@ -73,4 +72,4 @@ jobs:
           key: v1-dependencies-{{ checksum "composer.json" }}
         
       # run tests!
-      - run: phpunit $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
+      - run: phpunit ~/wp-content/plugins/vegashero
