@@ -62,7 +62,8 @@ jobs:
           command: |
             $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' tcp://127.0.0.1:3306
 
-      - checkout $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
+      - checkout:
+          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
 
       - run: composer install -n --prefer-dist
 
