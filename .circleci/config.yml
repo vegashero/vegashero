@@ -22,6 +22,9 @@ jobs:
 
     steps:
 
+      - checkout:
+          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
+
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -61,9 +64,6 @@ jobs:
           name: Install Wordpress Plugin Tests
           command: |
             $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' tcp://127.0.0.1:3306
-
-      - checkout:
-          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
 
       - run: composer install -n --prefer-dist
 
