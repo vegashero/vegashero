@@ -22,9 +22,6 @@ jobs:
 
     steps:
 
-      - checkout:
-          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
-
       # Download and cache dependencies
       - restore_cache:
           keys:
@@ -49,6 +46,9 @@ jobs:
             wp core download 
             wp config create --dbname=wordpress --dbuser=root --dbpass= --dbhost=127.0.0.1:3306 --force --skip-check
             wp core install --url=example.com --title=Example --admin_user=admin --admin_password=secret --admin_email=test@example.com
+
+      - checkout:
+          path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
 
       - run:
           name: Wait for DB
