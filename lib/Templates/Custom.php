@@ -15,9 +15,7 @@ class Custom
 
         $this->_config = \Vegashero_Config::getInstance();
 
-        if( ! $this->_singleTemplateExists()) {
-            add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent'));
-        }
+        add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent'));
         add_action( 'after_setup_theme', array($this, 'enableFeaturedImages' ));
         add_action( 'after_setup_theme', array($this, 'registerImageSize'));
     }
