@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: circleci/php:7.1.5-browsers
+      - image: vegashero/tests:0.0.1
       
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -21,12 +21,6 @@ jobs:
     working_directory: ~/vegashero
 
     steps:
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "composer.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
       - run: 
           name: Install MySQL Client
           command: |
@@ -40,31 +34,12 @@ jobs:
           name: Install Wordpress
           command: |
             wp core download 
-            wp config create --dbname=wordpress --dbuser=root --dbpass= --dbhost=127.0.0.1:3306 --force --skip-check
+            wp config create --dbname=wordpress --dbuser=root --dbhost=127.0.0.1:3306 --force --skip-check
             wp core install --url=example.com --title=Example --admin_user=admin --admin_password=secret --admin_email=test@example.com
       - run:
           name: Wait for DB
           # preinstalled in circleci/* docker image
           command: dockerize -wait tcp://127.0.0.1:3306 -timeout 120s
-
-  test:
-
-    docker:
-      # specify the version you desire here
-      - image: circleci/php:7.1.5-browsers
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: tkuchiki/delayed-mysql
-        environment: 
-          MYSQL_DATABASE: wordpress
-          MYSQL_ROOT_PASSWORD: ''
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
-
-    working_directory: ~/vegashero
-
-    steps:
 
       - checkout:
           path: $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero
@@ -72,12 +47,12 @@ jobs:
       - run:
           name: Scaffold Wordpress Plugin Tests
           command: |
-            wp scaffold plugin-tests vegashero
+            wp scaffold plugin-tests vegashero 
 
       - run:
           name: Install Wordpress Plugin Tests
           command: |
-            $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' tcp://127.0.0.1:3306
+            $CIRCLE_WORKING_DIRECTORY/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root 
 
       - run: composer install -n --prefer-dist
 
