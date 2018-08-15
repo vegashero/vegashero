@@ -30,7 +30,20 @@ $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
     ) 
 );
 
-// TODO: load via psr4
+/**
+ * Autoloader for calling VegasHero\Functions from theme templates
+ */
+spl_autoload_register(function($class_name) {
+    if(strpos($class_name, 'VegasHero\Functions') !== false) {
+        $functions_file = sprintf("%slib/Functions.php", plugin_dir_path(__FILE__));
+        if ( ! file_exists($functions_file)) {
+            error_log(sprintf("File not found when attempting autoload %s", $function_file));
+            return;
+        }
+        require_once($functions_file);
+    }
+});
+
 // game imports
 require_once('lib/Import/Import.php');
 require_once('lib/Import/Operator.php');
