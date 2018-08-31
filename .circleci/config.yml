@@ -49,14 +49,8 @@ jobs:
       - run:
           name: Install Wordpress Plugin Tests
           command: |
-            /root/project/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress wordpress secret localhost latest true
+            /root/project/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' localhost latest true
 
       - run: composer install -n --prefer-dist --working-dir=/root/project/wp-content/plugins/vegashero
 
       - run: composer test --working-dir=/root/project/wp-content/plugins/vegashero
-
-workflows:
-  version: 2
-  build_and_test:
-    jobs:
-      - build
