@@ -7,27 +7,26 @@ jobs:
   build:
     docker:
       #- image: circleci/php:7.1-node-browsers # ...with this image as the primary container; this is where all `steps` will run
-      - image: php:7.1-apache
-      
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
+      - image: circleci/php:7.1-apache
       - image: mysql:5.5
         environment: 
-          MYSQL_DATABASE: wordpress
-          MYSQL_USER: wordpress
-          MYSQL_PASSWORD: secret
-          MYSQL_ALLOW_EMPTY_PASSWORD: yes
           #MYSQL_DATABASE: wordpress
-          #MYSQL_ROOT_PASSWORD: ''
+          #MYSQL_USER: wordpress
+          #MYSQL_PASSWORD: secret
           #MYSQL_ALLOW_EMPTY_PASSWORD: yes
-          
+          MYSQL_DATABASE: wordpress
+          MYSQL_ROOT_PASSWORD: secret
+
     steps:
+      - run:
+          name: Chown
+          command: |
+            sudo chgrp -R circleci /usr/local/bin
       - run: 
           name: Install MySQL Client
           command: |
-            apt -qq update && apt install -y unzip zlib1g-dev mysql-client wget subversion git
-            docker-php-ext-install mysqli mbstring pcntl zip
+            sudo apt -qq update && sudo apt install -y unzip zlib1g-dev mysql-client wget subversion git 
+            sudo docker-php-ext-install mysqli mbstring pcntl zip
       - run:
           name: Install Composer
           command: |
@@ -39,18 +38,26 @@ jobs:
       - run:
           name: Install Wordpress
           command: |
-            wp core download  --path=/root/project/ --allow-root
-            wp config create --dbname=wordpress --dbuser=root --dbhost=127.0.0.1:3306 --force --skip-check --allow-root
-            wp core install --url=example.com --title=Example --admin_user=admin --admin_password=secret --admin_email=test@example.com --allow-root
+            wp core download --path=/home/circleci/project/
+            wp config create --dbname=wordpress --dbuser=root --dbpass=secret --dbhost=127.0.0.1 --force --skip-check --path=/home/circleci/project/
+            wp core install --url=example.com --title=Example --admin_user=admin --admin_password=secret --admin_email=test@example.com --path=/home/circleci/project/
 
       - checkout:
-          path: /root/project/wp-content/plugins/vegashero
+          path: /home/circleci/project/wp-content/plugins/vegashero/
 
       - run:
           name: Install Wordpress Plugin Tests
           command: |
-            /root/project/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root '' localhost latest true
+            /home/circleci/project/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root secret 127.0.0.1 latest true
 
-      - run: composer install -n --prefer-dist --working-dir=/root/project/wp-content/plugins/vegashero
+      - run: 
+          name: Install composer packages
+          command: |
+            composer install -n --prefer-dist --working-dir=/home/circleci/project/wp-content/plugins/vegashero/
+      - run:
+          name: WP Config
+          command: |
+            ls -l /home/circleci/project
+            cat /home/circleci/project/wp-config.php
 
-      - run: composer test --working-dir=/root/project/wp-content/plugins/vegashero
+      - run: composer test --working-dir=/home/circleci/project/wp-content/plugins/vegashero/
