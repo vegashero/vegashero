@@ -65,7 +65,6 @@ class Custom
      * @todo remove
      */
     public function wrapSingleCustomPostContent($content) {
-        error_log('Deprecated in favour of \VegasHero\Functions::renderGameFrame() and \VegasHero\Functions::renderGameWidget()');
         $post_id = get_the_ID();
         if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
             $iframe_src = get_post_meta($post_id, 'game_src', true);
