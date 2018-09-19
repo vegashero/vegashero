@@ -59,7 +59,6 @@ $latest_games_widget = new VegasHero\Widgets\LatestGames();
 
 // templates
 require_once('lib/Templates/Custom.php');
-$template = new VegasHero\Templates\Custom();
 
 require_once( dirname( __FILE__ ) . '/stylesheet.php' );
 $stylesheet = new Vegashero_Stylesheet();
