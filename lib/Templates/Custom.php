@@ -6,44 +6,36 @@ if ( ! defined( 'WPINC' ) ) {
     exit();
 }
 
+/**
+ * Please see filters and hooks at bottom of file
+ */
 class Custom
 {
 
-    private $_config;
-
-    public function __construct() {
-
-        $this->_config = \Vegashero_Config::getInstance();
-
-        //add_filter( 'the_content', array($this, 'wrapSingleCustomPostContent')); 
-        add_action( 'after_setup_theme', array($this, 'enableFeaturedImages' ));
-        add_action( 'after_setup_theme', array($this, 'registerImageSize'));
-    }
-
     /**
-     * @deprecated
-     * @todo remove
+     * @param string $custom_post_type 
+     * @return boolean
      * https://developer.wordpress.org/themes/template-files-section/custom-post-type-template-files/
      */
-    private function _singleTemplateExists() {
-        return file_exists(sprintf("%s/single-%s.php", get_stylesheet_directory(), $this->_config->customPostType));
+    static function singleTemplateExists($custom_post_type) {
+        $config = \Vegashero_Config::getInstance();
+        return file_exists(sprintf("%s/single-%s.php", get_stylesheet_directory(), $custom_post_type));
     }
 
-    public function enableFeaturedImages() {
+    static function enableFeaturedImages() {
         add_theme_support('post-thumbnails');
     }
 
-    public function registerImageSize() {
+    static function registerImageSize() {
         if ( function_exists( 'add_image_size' ) ) { 
             add_image_size( 'vegashero-thumb', 376, 250, true );
         }
     }
 
     /**
-     * @deprecated
-     * @todo remove
+     * @return string
      */
-    public function getSingleGameWidgetArea() {
+    static function getSingleGameWidgetArea() {
         ob_start();
         dynamic_sidebar( 'single_game_widget_area' );
         $single_game_widget = ob_get_contents();
@@ -52,28 +44,35 @@ class Custom
     }
 
     /**
-     * @deprecated
-     * @todo remove
+     * @return string
      */
-    private function _getIframeTemplate() {
+    static function getIframeTemplate() {
         $plugin_dir = plugin_dir_path(__FILE__);
         return sprintf("%s../../templates/iframe.php", $plugin_dir);
     }
 
     /**
-     * @deprecated
-     * @todo remove
+     * @param string $content
+     * @param string $custom_post_type
+     * @return string
      */
-    public function wrapSingleCustomPostContent($content) {
+    static function wrapSingleCustomPostContent($content) {
         $post_id = get_the_ID();
-        if ( get_post_type( $post_id ) == $this->_config->customPostType ) {
+        $config = \Vegashero_Config::getInstance();
+        if ( get_post_type( $post_id ) == $config->customPostType) {
             $iframe_src = get_post_meta($post_id, 'game_src', true);
-            $iframe_string = file_get_contents($this->_getIframeTemplate());
+            $iframe_string = file_get_contents(\VegasHero\Templates\Custom::getIframeTemplate());
             $iframe_template = sprintf($iframe_string, $iframe_src);
-            $single_game_widget_area = $this->getSingleGameWidgetArea();
+            $single_game_widget_area = \VegasHero\Templates\Custom::getSingleGameWidgetArea();
             $content = sprintf("%s %s %s", $iframe_template, $content, $single_game_widget_area);
         }
         return $content;
     }
 
 }
+
+if( ! has_filter('the_content', array('\VegasHero\Templates\Custom', 'wrapSingleCustomPostContent'))) {
+    add_filter( 'the_content', array('\VegasHero\Templates\Custom', 'wrapSingleCustomPostContent')); 
+}
+add_action( 'after_setup_theme', array($this, 'enableFeaturedImages' ));
+add_action( 'after_setup_theme', array($this, 'registerImageSize'));

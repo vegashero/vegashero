@@ -3,7 +3,15 @@
 namespace VegasHero;
 
 class Functions {
+
+    static function removeContentFilter() {
+        if(has_filter('the_content', array('\VegasHero\Templates\Custom', 'wrapSingleCustomPostContent'))) {
+            remove_filter( 'the_content', array('\VegasHero\Templates\Custom', 'wrapSingleCustomPostContent')); 
+        }
+    }
+
     static function renderGameFrame() {
+        \VegasHero\Functions::removeContentFilter();
         $iframe_file = sprintf("%s../templates/iframe.php", plugin_dir_path(__FILE__));
         if( ! file_exists($iframe_file)) {
             error_log(sprintf("File not found %s", $iframe_file));
@@ -24,6 +32,7 @@ class Functions {
     }
 
     static function renderGameWidget() {
+        \VegasHero\Functions::removeContentFilter();
         ob_start();
         dynamic_sidebar( 'single_game_widget_area' );
         $single_game_widget = ob_get_contents();
