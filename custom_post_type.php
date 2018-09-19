@@ -265,14 +265,3 @@ function add_game_provider_taxonomy_filters() {
 
 add_action('restrict_manage_posts', 'add_game_provider_taxonomy_filters');
 
-
-/* if active theme doesn't support custom post type tags add archive template compatibility */
-function vh_tag_theme_support( $query ) {
-  if( is_category() || is_tag() && empty( $query->query_vars['suppress_filters'] ) ) {
-    $query->set( 'post_type', array(
-     'post', 'nav_menu_item', 'vegashero_games'
-        ));
-      return $query;
-    }
-}
-add_filter( 'pre_get_posts', 'vh_tag_theme_support' );
