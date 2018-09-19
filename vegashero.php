@@ -30,20 +30,35 @@ $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
     ) 
 );
 
-// TODO: load via psr4
+/**
+ * Autoloader for calling VegasHero\Functions from theme templates
+ */
+spl_autoload_register(function($class_name) {
+    if(strpos($class_name, 'VegasHero\Functions') !== false) {
+        $functions_file = sprintf("%slib/Functions.php", plugin_dir_path(__FILE__));
+        if ( ! file_exists($functions_file)) {
+            error_log(sprintf("File not found when attempting autoload %s", $function_file));
+            return;
+        }
+        require_once($functions_file);
+    }
+});
+
+// game imports
 require_once('lib/Import/Import.php');
 require_once('lib/Import/Operator.php');
 $import_operator = new VegasHero\Import\Operator();
 require_once('lib/Import/Provider.php');
 $import_provider = new VegasHero\Import\Provider();
 
+// widgets
 require_once("lib/Widgets/SingleGameArea.php");
 $widget_area = new VegasHero\Widgets\SingleGameArea();
 require_once("lib/Widgets/LatestGames.php");
 $latest_games_widget = new VegasHero\Widgets\LatestGames();
 
-require_once( dirname( __FILE__ ) . '/template.php' );
-$template = new Vegashero_Template();
+// templates
+require_once('lib/Templates/Custom.php');
 
 require_once( dirname( __FILE__ ) . '/stylesheet.php' );
 $stylesheet = new Vegashero_Stylesheet();
@@ -53,5 +68,3 @@ $shortcode = new Vegashero_Shortcodes();
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
-
-
