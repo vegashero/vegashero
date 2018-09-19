@@ -19,18 +19,17 @@ composer dump-autoload
 ## Quickstart
 
 ```bash
+# run the container
 USER_NAME=$USER USER_ID=$(id -u) docker-compose up php5.4-apache 
+# install wordpress
+docker exec -u $USER vegashero_php5.4-apache_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
+# update password
+docker exec -u $USER vegashero_php5.4-apache_1 wp user update vegashero --user_pass="secret"
+# update wordpress
+docker exec -u $USER vegashero_php5.4-apache_1 wp core update
+# install plugins
+docker exec -u $USER vegashero_php5.4-apache_1 wp plugin install wordpress-importer --activate
 ```
-
-## Update wordpress
-
-```sh
-docker exec -u $USER vegashero_wordpress_1 wp core update
-```
-
-## Installing plugins
-```sh
-$ docker exec --user $USER yogahomecapetown_wordpress_1 wp plugin install mailchimp-for-wp jetpack imsanity wp-instagram-widget wordpress-importer --activate
 
 Now navigate to [http://localhost:8080](http://localhost:8080)
 
