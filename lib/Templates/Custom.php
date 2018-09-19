@@ -74,5 +74,5 @@ class Custom
 if( ! has_filter('the_content', array('\VegasHero\Templates\Custom', 'wrapSingleCustomPostContent'))) {
     add_filter( 'the_content', array('\VegasHero\Templates\Custom', 'wrapSingleCustomPostContent')); 
 }
-add_action( 'after_setup_theme', array($this, 'enableFeaturedImages' ));
-add_action( 'after_setup_theme', array($this, 'registerImageSize'));
+add_action( 'after_setup_theme', array('\VegasHero\Templates\Custom', 'enableFeaturedImages' ));
+add_action( 'after_setup_theme', array('\VegasHero\Templates\Custom', 'registerImageSize'));
