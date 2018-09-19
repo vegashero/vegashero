@@ -218,9 +218,10 @@ jQuery(document).ready(function($) {
         //GameImporter.getQueryParams(self.dataset.fetch);
         GameImporter.fetch(self.dataset.fetch)
             .done(function(games) {
-                let totalGames = games.length;
-                AdminNotice.triggerLoading("Finished fetching " +totalGames+ " games.", "success");
-                GameImporter.batchImport(totalGames, games, self.dataset.import, 0);
+                let activeGames = games.filter(game => parseInt(game.status)); 
+                let totalGames = activeGames.length;
+                AdminNotice.triggerLoading(`Finished fetching ${totalGames} games.`, "success");
+                GameImporter.batchImport(totalGames, activeGames, self.dataset.import, 0);
             })
             .fail(function(xhr, status, error) {
                 GameImporter.handleError(xhr, status, error)
