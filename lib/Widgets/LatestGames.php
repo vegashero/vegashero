@@ -107,7 +107,7 @@ class LatestGames extends \WP_Widget {
         return $markup;
     }
 
-    static private function _getGamesMarkup($items, $args) {
+    static private function _getGamesMarkup($items, $args, $image_url) {
         extract( $args );
         $current_post_id = get_the_ID();
         $output = "";
@@ -130,7 +130,7 @@ class LatestGames extends \WP_Widget {
                 $thumbnail_new = $thumbnail[0];
             } else {
                 if( ! $thumbnail_new = get_post_meta( $post_id, 'game_img', true )) {
-                    $thumbnail_new = $this->_config->gameImageUrl . '/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+                    $thumbnail_new = $image_url . '/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
                 }
             }
             $output .= "\r\n<li class=\"vh-games-widget-item vh_recent_games_$post_id $cpi\"><a href=\"$post_link\" title=\"$post_title\" class=\"vh_recent_games_item_$post_id $cpi\" ><img alt=\"$post_title\" src=\"$thumbnail_new\"/><h3>$post_title</h3></a></li>";
@@ -158,7 +158,7 @@ class LatestGames extends \WP_Widget {
         if ( ! $items = get_posts( $options )) {
             echo LatestGames::_getEmptyMarkup($args);
         }
-        echo LatestGames::_getGamesMarkup($items, $args);
+        echo LatestGames::_getGamesMarkup($items, $args, $this->_config->gameImageUrl);
     }
 }
 
