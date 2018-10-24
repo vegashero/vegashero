@@ -12,7 +12,7 @@ class LatestGames extends \WP_Widget {
             'classname' => 'Widget_vh_recent_games',
             'description' => 'Display games with thumbnails from the VegasHero Plugin.',
             'title' => 'Latest Casino Games',
-            'maxgames' => 5,
+            'maxgames' => 6,
             'orderby' => 'date',
         );
         parent::__construct($widget_id, $widget_name, $widget_options);
@@ -21,7 +21,7 @@ class LatestGames extends \WP_Widget {
     public function form($instance) {
         $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Latest Games', 'text_domain' );
         $post_type = 'vegashero_games';
-        $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : __( '5', 'text_domain' );
+        $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : __( '6', 'text_domain' );
         $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : __( 'date', 'text_domain' );
         include("LatestGamesFormTemplate.php");
     }

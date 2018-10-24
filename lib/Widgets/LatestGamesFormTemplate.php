@@ -5,7 +5,7 @@
 <br/>
 
 <fieldset><legend>Game Count:</legend>  
-    <input id="<?php echo $this->get_field_id('maxgames'); ?>" type="number" placeholder="5" value="<?php echo $maxgames; ?>" name="<?php echo $this->get_field_name('maxgames'); ?>">
+    <input id="<?php echo $this->get_field_id('maxgames'); ?>" type="number" placeholder="6" value="<?php echo $maxgames; ?>" name="<?php echo $this->get_field_name('maxgames'); ?>">
 </fieldset>
 <br/>
 
