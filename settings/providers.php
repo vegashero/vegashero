@@ -77,8 +77,8 @@ class Vegashero_Settings_Providers extends Vegashero_Settings
     private function _getAjaxUpdateBtn($provider) {
         $markup = "<button";
         $markup .= " class='button button-primary vh-import'";
-        $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getFetchApiRoute(), $provider);
-        $markup .= sprintf(" data-import='%s/wp-json/%s%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getImportApiRoute());
+        $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s?_wpnonce=%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getFetchApiRoute(), $provider, wp_create_nonce('wp_rest'));
+        $markup .= sprintf(" data-import='%s/wp-json/%s%s?_wpnonce=%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getImportApiRoute(), wp_create_nonce('wp_rest'));
         $markup .= ">Import games";
         $markup .= "</button>";
         return $markup;

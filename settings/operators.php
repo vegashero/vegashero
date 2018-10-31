@@ -49,8 +49,8 @@ class Vegashero_Settings_Operators extends Vegashero_Settings
     private function _getAjaxUpdateBtn($operator, $count) {
         $markup = "<button";
         $markup .= " class='button button-primary vh-import'";
-        $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s'", site_url(), \Vegashero\Import\Operator::getApiNamespace($this->_config), \Vegashero\Import\Operator::getFetchApiRoute(), $operator);
-        $markup .= sprintf(" data-import='%s/wp-json/%s%s%s?total=%d'", site_url(), \Vegashero\Import\Operator::getApiNamespace($this->_config), \Vegashero\Import\Operator::getImportApiRoute(), $operator, $count);
+        $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s?_wpnonce=%s'", site_url(), \Vegashero\Import\Operator::getApiNamespace($this->_config), \Vegashero\Import\Operator::getFetchApiRoute(), $operator, wp_create_nonce('wp_rest'));
+        $markup .= sprintf(" data-import='%s/wp-json/%s%s%s?total=%d&_wpnonce=%s'", site_url(), \Vegashero\Import\Operator::getApiNamespace($this->_config), \Vegashero\Import\Operator::getImportApiRoute(), $operator, $count, wp_create_nonce('wp_rest'));
         $markup .= ">Import games";
         $markup .= "</button>";
         return $markup;
