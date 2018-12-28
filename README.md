@@ -130,6 +130,19 @@ $request = wp_remote_post( $this->api_url, array( 'timeout' => 15, 'sslverify' =
 
 ## Snippets
 
+### Optimize MySQL
+
+```bash
+apt install mysqltuner
+mysqltuner
+```
+
+#### Optimize Tables
+
+```bash
+mysqlcheck -o --all-databases
+```
+
 ###
 
 Download games via CURL call
