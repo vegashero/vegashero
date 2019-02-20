@@ -1,6 +1,8 @@
 <?php
 
-class Vegashero_Settings_License
+namespace VegasHero\Settings;
+
+class License
 {
 
     private static $_config;
@@ -17,10 +19,9 @@ class Vegashero_Settings_License
     }
 
     protected function __construct() {
-        static::$_config = Vegashero_Config::getInstance();
+        static::$_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
-        //add_action('admin_init', array($this, 'activateLicense'));
     }
 
     public function activateLicense($license) {
@@ -61,7 +62,7 @@ class Vegashero_Settings_License
 
     }
 
-    public function getLicense() {
+    static public function getLicense() {
         return get_option('vh_license');
     }
 

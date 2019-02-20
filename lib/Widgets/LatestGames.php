@@ -5,7 +5,7 @@ namespace VegasHero\Widgets;
 class LatestGames extends \WP_Widget {
 
 	public function __construct() {
-        $this->_config = \Vegashero_Config::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
         $widget_id = "vh_lastest_games_widget";
         $widget_name = "VegasHero Games Widget";
         $widget_options = array( 

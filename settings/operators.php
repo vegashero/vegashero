@@ -1,7 +1,9 @@
 <?php
 
+namespace VegasHero\Settings;
 
-class Vegashero_Settings_Operators extends Vegashero_Settings
+
+class Operators extends \VegasHero\Settings
 {
 
     private $_operators;
@@ -10,7 +12,7 @@ class Vegashero_Settings_Operators extends Vegashero_Settings
 
     public function __construct() {
 
-        $this->_config = \Vegashero_Config::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
 
         if(array_key_exists('page', $_GET)) {
             if($_GET['page'] === 'vegashero-operator-import' || 'vegashero-provider-import') {

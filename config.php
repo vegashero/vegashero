@@ -1,6 +1,8 @@
 <?php
 
-class Vegashero_Config
+namespace VegasHero;
+
+class Config
 {
 
     private static $instance;

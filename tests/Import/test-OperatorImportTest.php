@@ -5,7 +5,7 @@ final class OperatorImportTest extends WP_UnitTestCase
 
     public function setUp() {
         parent::setUp();
-        $this->config = Vegashero_Config::getInstance();
+        $this->config = \VegasHero\Config::getInstance();
         $this->operator_importer = new VegasHero\Import\Operator();
         $this->faker = \Faker\Factory::create();
         $this->operator = 'energycasino';

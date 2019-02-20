@@ -1,6 +1,8 @@
 <?php
 
-class Vegashero_Settings_Permalinks
+namespace VegasHero\Settings;
+
+class Permalinks extends \VegasHero\Settings
 {
 
     private static $_config;
@@ -17,7 +19,8 @@ class Vegashero_Settings_Permalinks
     }
 
     protected function __construct() {
-        static::$_config = Vegashero_Config::getInstance();
+        parent::__construct();
+        static::$_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
     }
@@ -27,14 +30,13 @@ class Vegashero_Settings_Permalinks
     }
 
     public function addSettingsMenu() {
-
         add_submenu_page(
-            'vh-settings', // The title to be displayed on this menu's corresponding page
-            'Permalinks', // The text to be displayed for this actual menu item
-            'Permalinks', // The text to be displayed for this actual menu item
-            'manage_options', // Which type of users can see this menu
-            'vh-permalinks', // The unique ID - that is, the slug - for this menu item
-            array($this, 'createPermalinksPage') // The name of the function to call when rendering this menu's page
+            $parent_slug = 'vh-settings', // The title to be displayed on this menu's corresponding page
+            $page_title = 'Permalinks', // The text to be displayed for this actual menu item
+            $menu_title = 'Permalinks', // The text to be displayed for this actual menu item
+            $capability = 'manage_options', // Which type of users can see this menu
+            $menu_slug = 'vh-permalinks', // The unique ID - that is, the slug - for this menu item
+            $callback = array($this, 'createPermalinksPage') // The name of the function to call when rendering this menu's page
         );
         //add_menu_page('My Page Title', 'My Menu Title', 'manage_options', 'my-menu', 'my_menu_output' );
         //add_submenu_page('my-menu', 'Submenu Page Title', 'Whatever You Want', 'manage_options', 'my-menu' );
@@ -42,7 +44,7 @@ class Vegashero_Settings_Permalinks
     }
 
     public function createPermalinksPage() { 
-        include dirname(__FILE__) . '/templates/permalinks.php';
+        include_once(dirname(__FILE__) . '/templates/permalinks.php');
     }
 
     public function sectionHeading() {
@@ -123,18 +125,18 @@ class Vegashero_Settings_Permalinks
     public function registerSettings() {
 
         add_settings_section(
-            $id = 'vegashero-permalink-section',
+            $id = 'vh-permalinks-section',
             $title = 'Permalink Settings',
             $callback = array($this, 'sectionHeading'),
-            $page = 'vh-permalinks'
+            $page = 'vh-permalinks-page'
         );
 
         add_settings_field( 
             $id = 'vh_custom_post_type_url_slug', 
             $title = 'Game base', 
             $callback = array($this, 'inputForCustomPostTypeUrl'), 
-            $page = 'vh-permalinks', 
-            $section = 'vegashero-permalink-section',
+            $page = 'vh-permalinks-page', 
+            $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_custom_post_type_url_slug'
             )
@@ -150,8 +152,8 @@ class Vegashero_Settings_Permalinks
             $id = 'vh_game_category_url_slug', 
             $title = 'Category base', 
             $callback = array($this, 'inputForGameCategoryUrl'), 
-            $page = 'vh-permalinks', 
-            $section = 'vegashero-permalink-section',
+            $page = 'vh-permalinks-page', 
+            $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_game_category_url_slug'
             )
@@ -167,8 +169,8 @@ class Vegashero_Settings_Permalinks
             $id = 'vh_game_operator_url_slug', 
             $title = 'Operator base', 
             $callback = array($this, 'inputForGameOperatorUrl'), 
-            $page = 'vh-permalinks', 
-            $section = 'vegashero-permalink-section',
+            $page = 'vh-permalinks-page', 
+            $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_game_operator_url_slug'
             )
@@ -184,8 +186,8 @@ class Vegashero_Settings_Permalinks
             $id = 'vh_game_provider_url_slug', 
             $title = 'Provider base', 
             $callback = array($this, 'inputForGameProviderUrl'), 
-            $page = 'vh-permalinks', 
-            $section = 'vegashero-permalink-section',
+            $page = 'vh-permalinks-page', 
+            $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_game_provider_url_slug'
             )

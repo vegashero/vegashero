@@ -1,6 +1,8 @@
 <?php
 
-class Vegashero_Settings_Lobby
+namespace VegasHero\Settings;
+
+class Lobby extends \VegasHero\Settings
 {
 
     private static $_config;
@@ -17,7 +19,8 @@ class Vegashero_Settings_Lobby
     }
 
     protected function __construct() {
-        static::$_config = Vegashero_Config::getInstance();
+        parent::__construct();
+        static::$_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
     }
@@ -119,16 +122,8 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_lobby_games_per_page' 
-        );
-
-        // lobby default sorting settings
-        add_settings_section(
-            $id = 'vh-lobbysort-section', 
-            $title = '', 
-            $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
         );
 
         add_settings_field(
@@ -136,7 +131,7 @@ class Vegashero_Settings_Lobby
             $title = 'Sort lobby games by',
             $callback = array($this, 'selectLobbySorting'),
             $page = 'vh-lobby-page',
-            $section = 'vh-lobbysort-section',
+            $section = 'vh-lobby-section',
             $args = array(
                 'id' => 'vh_lobby_games_sort',
                 'vh_lobby_games_sort' => 'DESC'
@@ -144,7 +139,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_lobby_games_sort' 
         );
 
@@ -169,7 +164,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_lobby_filterstext_op' 
         );
 
@@ -186,7 +181,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_lobby_filterstext_cat' 
         );
 
@@ -203,7 +198,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_lobby_filterstext_prov' 
         );
 
@@ -228,7 +223,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_cptname' 
         );
 
@@ -253,7 +248,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_playnow_btn' 
         );
 
@@ -278,7 +273,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_pagination_prev' 
         );
 
@@ -303,7 +298,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_pagination_next' 
         );
 
@@ -328,7 +323,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_lobbysearch' 
         );
 
@@ -353,7 +348,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = 'vh-lobby', 
             $option_name = 'vh_lobbylink' 
         );
     }

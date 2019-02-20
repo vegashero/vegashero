@@ -1,6 +1,16 @@
 <?php
 
-abstract class Vegashero_Settings {
+namespace VegasHero;
+
+require_once(ABSPATH . 'wp-content/plugins/vegashero/lib/Helpers/Notice/Admin.php');
+
+abstract class Settings {
+
+    protected function __construct() {
+        if(array_key_exists('settings-updated', $_GET) && $_GET['settings-updated'] == 'true'){
+            \VegasHero\Helpers\Notice\Admin::success("Settings have been updated.");
+        }
+    }
 
     public function enqueueAjaxScripts() {
         wp_enqueue_script('vegashero-import', plugins_url( '/js/vegashero-import.js', __FILE__ ), array('jquery'), null, true);
@@ -60,27 +70,7 @@ abstract class Vegashero_Settings {
 
 }
 
-require_once( dirname( __FILE__ ) . '/license.php' );
-$dashboard = Vegashero_Settings_License::getInstance();
 
-require_once( dirname( __FILE__ ) . '/lobby.php' );
-$lobby = Vegashero_Settings_Lobby::getInstance();
-
-require_once( dirname( __FILE__ ) . '/permalinks.php' );
-$lobby = Vegashero_Settings_Permalinks::getInstance();
-$lobby->updateCustomPostTypeUrl();
-$lobby->updateGameCategoryUrl();
-$lobby->updateGameOperatorUrl();
-$lobby->updateGameProviderUrl();
-
-require_once( dirname( __FILE__ ) . '/operators.php' );
-$operators = new Vegashero_Settings_Operators();
-
-require_once( dirname( __FILE__ ) . '/providers.php' );
-$providers = new Vegashero_Settings_Providers();
-
-//require_once( dirname( __FILE__ ) . '/settings/affiliates.php' );
-//$affiliates = new Vegashero_Settings_Affiliates();
 
 
 

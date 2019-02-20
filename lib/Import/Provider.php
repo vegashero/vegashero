@@ -7,8 +7,8 @@ class Provider extends Import
 
     public function __construct() {
         parent::__construct();
-        $this->_config = \Vegashero_Config::getInstance();
-        $license = \Vegashero_Settings_License::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
+        $license = \VegasHero\Settings\License::getInstance();
         $this->_license = $license->getLicense();
 
         // increase curl timeout

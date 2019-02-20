@@ -1,16 +1,17 @@
 <?php
 
-class Vegashero_Settings_Providers extends Vegashero_Settings
-{
+namespace VegasHero\Settings;
 
+class Providers extends \VegasHero\Settings
+{
     private $_providers;
     private $_provider;
     private $_config;
 
     public function __construct() {
-        $this->_config = \Vegashero_Config::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        if(@$_GET['page'] === 'vegashero-provider-import') {
+        if(array_key_exists('page', $_GET) && $_GET['page'] === 'vegashero-provider-import') {
             add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
             add_action('admin_init', array($this, 'registerSettings'));
         }

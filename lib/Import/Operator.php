@@ -2,13 +2,15 @@
 
 namespace VegasHero\Import;
 
+require_once(sprintf("%s/wp-content/plugins/vegashero/settings/license.php", ABSPATH));
+
 class Operator extends Import
 {
 
     public function __construct() {
         parent::__construct();
-        $this->_config = \Vegashero_Config::getInstance();
-        $license = \Vegashero_Settings_License::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
+        $license = \VegasHero\Settings\License::getInstance();
         $this->_license = $license->getLicense();
 
         add_action('http_api_curl', array($this, 'increaseCurlTimeout'), 100, 1);

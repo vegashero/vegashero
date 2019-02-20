@@ -12,23 +12,47 @@
 
 
 require_once( dirname( __FILE__ ) . '/config.php' );
-$config = Vegashero_Config::getInstance();
+$config = \VegasHero\Config::getInstance();
 
 require_once( dirname( __FILE__ ) . '/custom_post_type.php' );
 $operators = new Vegashero_Custom_Post_Type();
 
 require_once(dirname(__FILE__) . '/settings/settings.php');
 
-require_once( dirname(__FILE__) . '/EDD_SL_Plugin_Updater.php' );
-$updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
-    array(
-        'version'   => '1.6.2',       // current version number
-        'license'   => $dashboard->getLicense(),    // license key (used get_option above to retrieve from DB)
-        'item_name' => $config->eddDownloadName,    // name of this plugin
-        'author'    => 'VegasHero', // author of this plugin
-        'url'       => site_url()
-    ) 
-);
+if(is_admin()) {
+
+    require_once( dirname( __FILE__ ) . '/settings/license.php' );
+    $license = \VegasHero\Settings\License::getInstance();
+
+    require_once(dirname(__FILE__) . '/settings/lobby.php');
+    $lobby = \VegasHero\Settings\Lobby::getInstance();
+
+    require_once( dirname( __FILE__ ) . '/settings/permalinks.php' );
+    $permalinks = \VegasHero\Settings\Permalinks::getInstance();
+    $permalinks->updateCustomPostTypeUrl();
+    $permalinks->updateGameCategoryUrl();
+    $permalinks->updateGameOperatorUrl();
+    $permalinks->updateGameProviderUrl();
+
+    require_once( dirname( __FILE__ ) . '/settings/operators.php' );
+    $operators = new \VegasHero\Settings\Operators();
+
+    require_once( dirname( __FILE__ ) . '/settings/providers.php' );
+    $providers = new \VegasHero\Settings\Providers();
+
+    require_once( dirname(__FILE__) . '/EDD_SL_Plugin_Updater.php' );
+    $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
+        array(
+            'version'   => '1.6.2',       // current version number
+            'license'   => \VegasHero\Settings\License::getLicense(),    // license key (used get_option above to retrieve from DB)
+            'item_name' => $config->eddDownloadName,    // name of this plugin
+            'author'    => 'VegasHero', // author of this plugin
+            'url'       => site_url()
+        ) 
+    );
+
+}
+
 
 /**
  * Autoloader for calling VegasHero\Functions from theme templates

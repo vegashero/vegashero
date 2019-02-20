@@ -1,4 +1,4 @@
-<div class="wrap about-wrap">
+<div class="wrap vh-about-wrap">
 
     <form method="post" action="options.php">
     <?php settings_fields('vh-license-page'); //outputs boilerplate hidden fields ?> 

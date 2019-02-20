@@ -18,7 +18,7 @@ class Custom
      * https://developer.wordpress.org/themes/template-files-section/custom-post-type-template-files/
      */
     static function singleTemplateExists($custom_post_type) {
-        $config = \Vegashero_Config::getInstance();
+        $config = \VegasHero\Config::getInstance();
         return file_exists(sprintf("%s/single-%s.php", get_stylesheet_directory(), $custom_post_type));
     }
 
@@ -58,7 +58,7 @@ class Custom
      */
     static function wrapSingleCustomPostContent($content) {
         $post_id = get_the_ID();
-        $config = \Vegashero_Config::getInstance();
+        $config = \VegasHero\Config::getInstance();
         if ( get_post_type( $post_id ) == $config->customPostType) {
             $iframe_src = get_post_meta($post_id, 'game_src', true);
             $iframe_string = file_get_contents(\VegasHero\Templates\Custom::getIframeTemplate());

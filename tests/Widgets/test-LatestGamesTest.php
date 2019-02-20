@@ -7,7 +7,7 @@ final class LatestGamesTest extends WP_UnitTestCase
 
     public function setUp() {
         parent::setUp();
-        $this->config = Vegashero_Config::getInstance();
+        $this->config = \VegasHero\Config::getInstance();
         $this->args = array(
             'before_title'  => '<h2>',
             'after_title'   => "</h2>\n",

@@ -1,4 +1,4 @@
-<div class="wrap about-wrap">
+<div class="wrap vh-about-wrap">
 	<?php if(get_option('vh_license_status') === 'valid'): ?>
 	<div><!-- display this if valid license key entered --></div>
 	<?php else: ?>
@@ -10,7 +10,7 @@
 
     <form method="post" action="options.php">
     <?php settings_fields('vh-permalinks'); //outputs boilerplate hidden fields ?> 
-    <?php do_settings_sections( 'vh-permalinks' ); //pass slug name of page ?>
+    <?php do_settings_sections( 'vh-permalinks-page' ); //pass slug name of page ?>
     <?php submit_button(); ?>
     </form>
 

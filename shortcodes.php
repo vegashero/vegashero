@@ -11,8 +11,10 @@ class Vegashero_Shortcodes
     private $_config;
 
     public function __construct() {
-        $this->_config = Vegashero_Config::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
         add_shortcode('vegashero-lobby', array($this, 'lobby'));
+        add_shortcode('vh-lobby', array($this, 'lobby'));
+        add_shortcode('vh_lobby', array($this, 'lobby'));
         add_shortcode( 'vh_table' , array($this, 'vh_table_func'));
         add_shortcode( 'vh_table_line' , array($this, 'vh_table_line_func'));
         add_shortcode( 'vh-grid', array($this, 'renderGamesGrid'));
@@ -51,6 +53,9 @@ class Vegashero_Shortcodes
 			$playnow_btn_value = get_option('vh_playnow_btn');
 		}
 		$script_src = sprintf('%stemplates/js/lobby_search_filters.js', plugin_dir_url( __FILE__ ));
+        wp_enqueue_script(array('jquery'));
+        wp_register_script('vegashero_termstoggle', sprintf("%stemplates/js/terms_toggle.js", plugin_dir_url(__FILE__)), null, true);
+        wp_enqueue_script('vegashero_termstoggle', '', array('jquery'), null, true);
 		wp_register_script('jquery_debounce', sprintf("%stemplates/js/jquery.ba-throttle-debounce.min.js", plugin_dir_url(__FILE__)), null, true);
 		wp_enqueue_script('jquery_debounce', '', array('jquery'), null, true);
 		wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery_debounce'), null, true);
@@ -227,8 +232,3 @@ function prev_posts_link_class() {
     return "class='prev page-numbers'";
 }
 
-function add_terms_toggle() {
-    wp_register_script('vegashero_termstoggle', sprintf("%stemplates/js/terms_toggle.js", plugin_dir_url(__FILE__)), null, true);
-    wp_enqueue_script('vegashero_termstoggle', '', array('jquery'), null, true);
-};
-add_action( 'wp_enqueue_scripts', 'add_terms_toggle' );  
