@@ -10,7 +10,6 @@
  * License: GPL2
  */
 
-
 // NB: the order is important
 
 require_once( dirname( __FILE__ ) . '/config.php' );

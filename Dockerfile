@@ -23,7 +23,6 @@ USER $USER_NAME
 RUN newgrp www-data
 RUN wp core download 
 ADD .htaccess /var/www/html/.htaccess
-#ADD wp-config.php /var/www/html/wp-config.php
 RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check
 RUN mkdir /var/www/html/wp-content/themes/vegashero
 
