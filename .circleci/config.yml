@@ -63,6 +63,6 @@ jobs:
       - run:
           name: Symlink
           command: |
-            ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero
+            ln -s /home/circleci/project/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero
 
       - run: composer test --working-dir=/home/circleci/project/wp-content/plugins/vegashero/
