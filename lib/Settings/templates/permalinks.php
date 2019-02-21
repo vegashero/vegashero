@@ -9,8 +9,8 @@
 	<?php endif ?>
 
     <form method="post" action="options.php">
-    <?php settings_fields('vh-permalinks'); //outputs boilerplate hidden fields ?> 
-    <?php do_settings_sections( 'vh-permalinks-page' ); //pass slug name of page ?>
+    <?php settings_fields(\VegasHero\Settings\Permalinks::MENU_SLUG); //outputs boilerplate hidden fields ?> 
+    <?php do_settings_sections(\VegasHero\Settings\Permalinks::PAGE_SLUG); //pass slug name of page ?>
     <?php submit_button(); ?>
     </form>
 

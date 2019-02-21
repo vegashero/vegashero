@@ -2,6 +2,8 @@
 
 namespace VegasHero\Import;
 
+require_once(sprintf("%s/wp-content/plugins/vegashero/lib/Settings/License.php", ABSPATH));
+
 class Provider extends Import
 {
 

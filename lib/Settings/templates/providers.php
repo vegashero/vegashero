@@ -8,11 +8,15 @@
         </div>
         <?php endif ?>
         
-        <h1 class="prov-pagetitle">Import by Game Provider</h1>
+        <h1>Import by Game Provider</h1>
 
+        <h2 class="vh-title">Import game selections the following providers:</h2>
+        <p class="description">Games will be grouped by provider and game type.</p>
+
+        <!-- sponsored add -->
         <iframe class="prov-admin-iframe-top" frameborder="0" scrolling="no" src="https://vegasgod.com/iframes/providers-admin-top.php"></iframe>
+        <!-- /sponsored add -->
 
-        <h3>Import 1 at a time</h3>
         <?php if(isset($this->_providers) && count($this->_providers)): ?>
         <ul class="operator-cards">
         <?php foreach($this->_providers as $provider): ?>

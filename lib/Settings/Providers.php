@@ -2,7 +2,7 @@
 
 namespace VegasHero\Settings;
 
-class Providers extends \VegasHero\Settings
+class Providers extends \VegasHero\Settings\Import
 {
     private $_providers;
     private $_provider;

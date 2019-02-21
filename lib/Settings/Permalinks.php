@@ -2,24 +2,19 @@
 
 namespace VegasHero\Settings;
 
+require_once("Settings.php");
+
 class Permalinks extends \VegasHero\Settings
 {
+
+    const MENU_SLUG = 'vh-permalinks';
+    const PAGE_SLUG = 'vh-permalinks-page';
 
     private static $_config;
     private static $_instance;
 
-    public static function getInstance() {
-        if (null === static::$_instance) {
-            static::$_instance = new static();
-        }
-        return static::$_instance;
-    }
-
-    private function __clone() {
-    }
-
-    protected function __construct() {
-        parent::__construct();
+    public function __construct() {
+        $this->_showUpdateNotification(self::MENU_SLUG);
         static::$_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
@@ -31,11 +26,11 @@ class Permalinks extends \VegasHero\Settings
 
     public function addSettingsMenu() {
         add_submenu_page(
-            $parent_slug = 'vh-settings', // The title to be displayed on this menu's corresponding page
+            $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, // The title to be displayed on this menu's corresponding page
             $page_title = 'Permalinks', // The text to be displayed for this actual menu item
             $menu_title = 'Permalinks', // The text to be displayed for this actual menu item
             $capability = 'manage_options', // Which type of users can see this menu
-            $menu_slug = 'vh-permalinks', // The unique ID - that is, the slug - for this menu item
+            $menu_slug = self::MENU_SLUG, // The unique ID - that is, the slug - for this menu item
             $callback = array($this, 'createPermalinksPage') // The name of the function to call when rendering this menu's page
         );
         //add_menu_page('My Page Title', 'My Menu Title', 'manage_options', 'my-menu', 'my_menu_output' );
@@ -128,14 +123,14 @@ class Permalinks extends \VegasHero\Settings
             $id = 'vh-permalinks-section',
             $title = 'Permalink Settings',
             $callback = array($this, 'sectionHeading'),
-            $page = 'vh-permalinks-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field( 
             $id = 'vh_custom_post_type_url_slug', 
             $title = 'Game base', 
             $callback = array($this, 'inputForCustomPostTypeUrl'), 
-            $page = 'vh-permalinks-page', 
+            $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_custom_post_type_url_slug'
@@ -143,7 +138,7 @@ class Permalinks extends \VegasHero\Settings
         );
 
         register_setting(
-            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
+            $option_group = self::MENU_SLUG, // must match page slug name from add_settings_field
             $option_name = 'vh_custom_post_type_url_slug',
             array($this, 'sanitize')
         );
@@ -152,7 +147,7 @@ class Permalinks extends \VegasHero\Settings
             $id = 'vh_game_category_url_slug', 
             $title = 'Category base', 
             $callback = array($this, 'inputForGameCategoryUrl'), 
-            $page = 'vh-permalinks-page', 
+            $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_game_category_url_slug'
@@ -160,7 +155,7 @@ class Permalinks extends \VegasHero\Settings
         );
 
         register_setting(
-            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
+            $option_group = self::MENU_SLUG, // must match page slug name from add_settings_field
             $option_name = 'vh_game_category_url_slug',
             array($this, 'sanitize')
         );
@@ -169,7 +164,7 @@ class Permalinks extends \VegasHero\Settings
             $id = 'vh_game_operator_url_slug', 
             $title = 'Operator base', 
             $callback = array($this, 'inputForGameOperatorUrl'), 
-            $page = 'vh-permalinks-page', 
+            $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_game_operator_url_slug'
@@ -177,7 +172,7 @@ class Permalinks extends \VegasHero\Settings
         );
 
         register_setting(
-            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
+            $option_group = self::MENU_SLUG, // must match page slug name from add_settings_field
             $option_name = 'vh_game_operator_url_slug',
             array($this, 'sanitize')
         );
@@ -186,7 +181,7 @@ class Permalinks extends \VegasHero\Settings
             $id = 'vh_game_provider_url_slug', 
             $title = 'Provider base', 
             $callback = array($this, 'inputForGameProviderUrl'), 
-            $page = 'vh-permalinks-page', 
+            $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',
             $args = array(
                 'id' => 'vh_game_provider_url_slug'
@@ -194,7 +189,7 @@ class Permalinks extends \VegasHero\Settings
         );
 
         register_setting(
-            $option_group = 'vh-permalinks', // must match page slug name from add_settings_field
+            $option_group = self::MENU_SLUG, // must match page slug name from add_settings_field
             $option_name = 'vh_game_provider_url_slug',
             array($this, 'sanitize')
         );

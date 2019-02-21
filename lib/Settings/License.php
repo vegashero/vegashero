@@ -1,9 +1,15 @@
-<?php
+<?php 
 
 namespace VegasHero\Settings;
 
-class License
+require_once("Settings.php");
+require_once("Menu.php");
+
+class License extends \VegasHero\Settings
 {
+
+    const MENU_SLUG = 'vh-license';
+    const PAGE_SLUG = 'vh-license-page';
 
     private static $_config;
     private static $_instance;
@@ -19,10 +25,68 @@ class License
     }
 
     protected function __construct() {
+        $this->_showUpdateNotification(\VegasHero\Settings\Menu::MENU_SLUG);
         static::$_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
     }
+
+    public function addSettingsMenu() {
+
+        add_submenu_page(
+            $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
+            $page_title = 'License & Support', 
+            $menu_title = 'License & Support', 
+            $capability = 'manage_options', 
+            $menu_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
+            $callback = array($this, 'createLicensePage') 
+        );
+    }
+
+    public function createLicensePage() { 
+        include dirname(__FILE__) . '/templates/license.php';
+    }
+
+    public function registerSettings() {
+        add_settings_section(
+            $id = 'vh-license-section',
+            $title = 'License & Support',
+            $callback = array($this, 'sectionHeading'),
+            $page = self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            $id = 'vh_license', 
+            $title = 'License', 
+            $callback = array($this, 'inputForLicense'), 
+            $page = self::PAGE_SLUG, 
+            $section = 'vh-license-section',
+            $args = array(
+                'id' => 'vh_license'
+            )
+        );
+
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_license', 
+            $sanitize_callback = array($this, 'activateLicense')
+        );
+
+        add_settings_field(
+            $id = 'vh_license_status', 
+            $title = 'Status', 
+            $callback = array($this, 'licenseStatus'), 
+            $page = self::PAGE_SLUG, 
+            $section = 'vh-license-section',
+            $args = array(
+                'id' => 'vh_license_status'
+            )
+        );
+
+        // do not register_setting!
+
+    }
+
 
     public function activateLicense($license) {
 
@@ -86,46 +150,6 @@ class License
         include_once( dirname( __FILE__ ) . '/templates/license/license-status.php' );
     }
 
-    public function registerSettings() {
-        add_settings_section(
-            $id = 'vh-license-section',
-            $title = 'License & Support',
-            $callback = array($this, 'sectionHeading'),
-            $page = 'vh-license-page'
-        );
-
-        add_settings_field(
-            $id = 'vh_license', 
-            $title = 'License', 
-            $callback = array($this, 'inputForLicense'), 
-            $page = 'vh-license-page', 
-            $section = 'vh-license-section',
-            $args = array(
-                'id' => 'vh_license'
-            )
-        );
-
-        register_setting(
-            $option_group = 'vh-license-page', 
-            $option_name = 'vh_license', 
-            $sanitize_callback = array($this, 'activateLicense')
-        );
-
-        add_settings_field(
-            $id = 'vh_license_status', 
-            $title = 'Status', 
-            $callback = array($this, 'licenseStatus'), 
-            $page = 'vh-license-page', 
-            $section = 'vh-license-section',
-            $args = array(
-                'id' => 'vh_license_status'
-            )
-        );
-
-        // do not register_setting!
-
-    }
-
     private function _createLicenseNonce() {
         return wp_nonce_field('vh_license_nonce', 'vh_license_nonce');
     }
@@ -141,34 +165,6 @@ class License
      */
     public function validateLicenseKey($license_key) {
         return $license_key;
-    }
-
-    public function addSettingsMenu() {
-        add_menu_page(
-            $page_title = 'VegasHero Settings',
-            $menu_title = 'VegasHero',
-            $capability = 'manage_options',
-            $menu_slug = 'vh-settings',
-            $callback = '',
-            $icon_url = '',
-            $position = null
-        );
-
-        add_submenu_page(
-            $parent_slug = 'vh-settings', 
-            $page_title = 'License & Support', 
-            $menu_title = 'License & Support', 
-            $capability = 'manage_options', 
-            $menu_slug = 'vh-settings', 
-            $callback = array($this, 'createLicensePage') 
-        );
-        //add_menu_page('My Page Title', 'My Menu Title', 'manage_options', 'my-menu', 'my_menu_output' );
-        //add_submenu_page('my-menu', 'Submenu Page Title', 'Whatever You Want', 'manage_options', 'my-menu' );
-        //add_submenu_page('my-menu', 'Submenu Page Title2', 'Whatever You Want2', 'manage_options', 'my-menu2' );
-    }
-
-    public function createLicensePage() { 
-        include dirname(__FILE__) . '/templates/license.php';
     }
 
 }

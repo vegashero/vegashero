@@ -2,7 +2,7 @@
 
 namespace VegasHero\Import;
 
-require_once(sprintf("%s/wp-content/plugins/vegashero/settings/license.php", ABSPATH));
+require_once(sprintf("%s/wp-content/plugins/vegashero/lib/Settings/License.php", ABSPATH));
 
 class Operator extends Import
 {

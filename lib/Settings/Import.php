@@ -1,17 +1,12 @@
 <?php
 
-namespace VegasHero;
+namespace VegasHero\Settings;
 
-require_once(ABSPATH . 'wp-content/plugins/vegashero/lib/Helpers/Notice/Admin.php');
+abstract class Import {
 
-abstract class Settings {
-
-    protected function __construct() {
-        if(array_key_exists('settings-updated', $_GET) && $_GET['settings-updated'] == 'true'){
-            \VegasHero\Helpers\Notice\Admin::success("Settings have been updated.");
-        }
-    }
-
+    /**
+     * TODO: improve
+     */
     public function enqueueAjaxScripts() {
         wp_enqueue_script('vegashero-import', plugins_url( '/js/vegashero-import.js', __FILE__ ), array('jquery'), null, true);
     }
@@ -67,10 +62,4 @@ abstract class Settings {
         return $items;
     }
 
-
 }
-
-
-
-
-

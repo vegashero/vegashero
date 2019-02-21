@@ -1,4 +1,3 @@
-
       <div class="wrap vh-about-wrap">
         <?php if(get_option('vh_license_status') === 'valid'): ?>
         <div><!-- display this if valid license key entered --></div>
@@ -9,12 +8,15 @@
         </div>
         <?php endif ?>
 
-        <h1 class="op-pagetitle">Import by Casino Operator</h1>
+        <h1>Import by Casino Operator</h1>
 
-        <iframe class="op-admin-iframe-top" frameborder="0" scrolling="no" src="https://vegasgod.com/iframes/operators-admin-top.php"></iframe>
 
-        <h3>Import game selections from the following operators:</h3>
+        <h2 class="vh-title">Import game selections from the following operators:</h2>
         <p>Some operators may share the same game selection. Importing games from multiple operators won't duplicate games. It will result multiple operators assigned to a game that is featured those operators.</p>
+        <!-- sponsored add -->
+        <iframe class="op-admin-iframe-top" frameborder="0" scrolling="no" src="https://vegasgod.com/iframes/operators-admin-top.php"></iframe>
+        <!-- /sponsored add -->
+
         <?php if(isset($this->_operators) && count($this->_operators)): ?>
             <ul class="operator-cards">
             <?php foreach($this->_operators as $operator): ?>

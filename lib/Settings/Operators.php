@@ -2,8 +2,9 @@
 
 namespace VegasHero\Settings;
 
+require_once("Import.php");
 
-class Operators extends \VegasHero\Settings
+class Operators extends \VegasHero\Settings\Import
 {
 
     private $_operators;

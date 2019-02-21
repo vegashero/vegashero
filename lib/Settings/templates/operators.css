@@ -1,18 +1,38 @@
-.vh-about-wrap {
+.vh-about-wrap, 
+.about-wrap 
+{
   position: relative;
-  margin: 25px 40px 0 20px;
+  /*margin: 25px 40px 0 20px;*/
   max-width: 100%;
   font-size: 15px;
 }
-.vh-about-wrap h1, .vh-about-wrap form h2 {
-  margin: .2em 200px 0 0;
+
+.vh-about-wrap img {
+    margin: 0;
+    width: 100%;
+    height: auto;
+    vertical-align: middle;
+}
+
+h2.vh-title {
+    font-size: 1.1em;
+}
+
+.vh-about-wrap h1, .about-wrap h1,
+.vh-about-wrap form h2, .about-wrap form h2
+{
+  margin: 0;
+  padding: 9px 0 4px 0;
   color: #333;
   line-height: 1.2em;
-  font-size: 1.5em;
-  font-weight: 600;
+  font-size: 23px;
+  font-weight: 400;
   text-align: left;
 }
-.vh-about-wrap .about-text {
+
+.vh-about-wrap .about-text,
+.about-wrap .about-text,
+{
   margin: 1em 200px 1em 0;
   min-height: 35px;
   color: #777;
@@ -20,7 +40,10 @@
   line-height: 1.6em;
   font-size: 19px;
 }
-.vh-about-wrap .purchase-banner {
+
+.vh-about-wrap .purchase-banner,
+.about-wrap .purchase-banner 
+{
   width: 430px;
   float: right;
   position: absolute;
@@ -28,7 +51,10 @@
   top: 0;
   padding: 10px;
 }
-.vh-about-wrap .purchase-banner a {
+
+.vh-about-wrap .purchase-banner a, 
+.about-wrap .purchase-banner a 
+{
   background:#202325;
   color: white;
   padding: 15px 35px;
@@ -36,10 +62,14 @@
   text-decoration: none;
   margin-top: -10px;
 }
-.vh-about-wrap .purchase-banner h3 {
+
+.vh-about-wrap .purchase-banner h3,
+.about-wrap .purchase-banner h3 
+{
   float: left;
   margin-top: 0;
 }
+
 .vh-badge {
 	position: absolute;
   top: 0;
@@ -304,10 +334,7 @@ ul.products li.support-upsell ul.addon li .button-primary {
 }
 .op-admin-iframe-top {
   width: 728px;
-  height: 90px;
-  right: 0;
-  position: absolute;
-  top: -10px;
+  height: 92px;
 }
 .op-pagetitle {
   margin-bottom: 50px!important;
@@ -318,10 +345,7 @@ ul.products li.support-upsell ul.addon li .button-primary {
 }
 .prov-admin-iframe-top {
   width: 728px;
-  height: 90px;
-  right: 0;
-  position: absolute;
-  top: -10px;
+  height: 92px;
 }
 .prov-pagetitle {
   margin-bottom: 50px!important;
