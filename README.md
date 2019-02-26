@@ -20,7 +20,7 @@ composer dump-autoload
 
 ```bash
 # run the container
-USER_NAME=$USER USER_ID=$(id -u) docker-compose up php5.4-apache 
+VEGASHERO_ENV=development USER_NAME=$USER USER_ID=$(id -u) docker-compose up php5.4-apache 
 # install wordpress
 docker exec -u $USER vegashero_php5.4-apache_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
 # update password

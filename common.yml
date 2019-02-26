@@ -1,9 +1,10 @@
-version: "2"
+version: "2.2"
 services:
 
     wordpress:
         build: 
             context: .
+            network: host
             args: 
                 - USER_NAME
                 - USER_ID
@@ -16,6 +17,7 @@ services:
         volumes:
             - .:/var/www/html/wp-content/plugins/vegashero
         environment:
+            - VEGASHERO_ENV
             - TERM=xterm
             - COLUMNS=141
             - LINES=41

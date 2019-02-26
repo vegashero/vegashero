@@ -30,9 +30,7 @@
               <h2><?=$provider['provider']?></h2>
               <div class="btn-area">
               <?= $this->_getAjaxUpdateBtn($provider['provider']); ?>
-              </div>
-              <div class="btn-area">
-              <?= $this->_getGameCount($provider['count']); ?>
+              <?= $this->_getGameCount(sanitize_title($provider['provider']), $provider['html5'], $provider['flash']); ?>
               </div>
               </div>
               </form>

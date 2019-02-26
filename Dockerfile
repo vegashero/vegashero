@@ -6,6 +6,7 @@ ARG DB_NAME
 ARG DB_USER
 ARG DB_PASSWORD
 ARG DB_HOST
+ARG VEGASHERO_ENV
 RUN useradd -u $USER_ID $USER_NAME -m
 RUN usermod -a -G www-data $USER_NAME
 RUN a2enmod rewrite

@@ -39,7 +39,7 @@ class Providers extends \VegasHero\Settings\Import
     }
 
     public function registerSettings() {
-        $endpoint = sprintf('%s/vegasgod/providers/v2', $this->_config->apiUrl);
+        $endpoint = sprintf('%s/vegasgod/providers/v3', $this->_config->apiUrl);
         $this->_providers = $this->_fetchList($endpoint);
     }
 
@@ -66,9 +66,15 @@ class Providers extends \VegasHero\Settings\Import
         );
     }
 
-    private function _getGameCount($count) {
+    private function _getGameCount($provider_slug, $html5, $flash) {
         if(get_option('vh_license_status') === 'valid') { 
-            return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
+            $checkboxes = "";
+            $checkboxes .= "<br>";
+            $checkboxes .= "<input type='checkbox' checked><label for=''>Import HTML5 games ($html5)</label>";
+            $checkboxes .= "<br>";
+            $checkboxes .= "<input type='checkbox' checked><label for=''>Import Flash games ($flash)</label>";
+            return $checkboxes;
+            //return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
         }
         else { 
             return "<span class='right gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $count <span class='dashicons dashicons-lock'></span></span>";
