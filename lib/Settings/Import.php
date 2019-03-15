@@ -23,6 +23,18 @@ abstract class Import {
         return Array();
     }
 
+    protected function _getGameTypeCheckboxes($slug, $html5, $flash) {
+        $checkboxes = "";
+        $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">Import HTML5 games (%2$d)</label></div>', $slug, $html5);
+        $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash" checked><label for="%1$s_flash">Import Flash games (%2$d)</label></div>', $slug, $flash);
+        return $checkboxes;
+    }
+
+    protected function _getGameCount($slug, $total) {
+        return "<p class='description gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> /<span class='dashicons dashicons-lock'></span></p>";
+    }
+
+
     /**
      * @param string $cache_id
      * @param array $items Array of providers or operators
@@ -46,7 +58,7 @@ abstract class Import {
      * @return array|false Array of providers or operators
      */
     protected function _fetchList($endpoint) {
-        //$this->_clearCache($endpoint);
+        $this->_clearCache($endpoint);
         $items = $this->_getCachedList($endpoint);
         if(empty($items)) {
             $response = wp_remote_get($endpoint);

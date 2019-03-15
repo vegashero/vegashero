@@ -66,19 +66,6 @@ class Providers extends \VegasHero\Settings\Import
         );
     }
 
-    private function _getGameCount($provider_slug, $html5, $flash) {
-        if(get_option('vh_license_status') === 'valid') { 
-            $checkboxes = "";
-            $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">Import HTML5 games (%2$d)</label></div>', $provider_slug, $html5);
-            $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash" checked><label for="%1$s_flash">Import Flash games (%2$d)</label></div>', $provider_slug, $flash);
-            return $checkboxes;
-            //return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
-        }
-        else { 
-            return "<span class='right gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $count <span class='dashicons dashicons-lock'></span></span>";
-        }
-    }
-
     private function _getAjaxUpdateBtn($provider) {
         $markup = "<button";
         $markup .= " class='button button-primary vh-import'";

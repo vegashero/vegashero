@@ -60,15 +60,6 @@ class Operators extends \VegasHero\Settings\Import
     }
 
 
-    private function _getGameCount($count) {
-        if(get_option('vh_license_status') === 'valid') { 
-            return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
-        }
-        else { 
-            return "<span class='right gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $count <span class='dashicons dashicons-lock'></span></span>";
-        }
-    }
-
     public function createSettingsPage() {
         include dirname(__FILE__) . '/templates/operators.php';
     }

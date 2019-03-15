@@ -6,7 +6,6 @@ require_once(sprintf("%s/wp-content/plugins/vegashero/lib/Settings/License.php",
 
 class Provider extends Import
 {
-
     public function __construct() {
         parent::__construct();
         $this->_config = \VegasHero\Config::getInstance();

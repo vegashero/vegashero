@@ -1,1 +1,1 @@
-<p>Set games lobby display settings.</p>
+<p class="description">Use these settings to configure the game lobby displayed by the <a target="_blank" href="https://vegashero.co/lobby-permalink-customization-settings/">vh-lobby</a> shortcode.</p>
