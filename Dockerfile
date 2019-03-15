@@ -21,7 +21,7 @@ WORKDIR /var/www/html
 RUN chmod 2775 /var/www/html
 
 USER $USER_NAME
-RUN newgrp www-data
+#RUN newgrp www-data
 RUN wp core download 
 ADD .htaccess /var/www/html/.htaccess
 RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check

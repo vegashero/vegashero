@@ -95,12 +95,17 @@ class Provider extends Import
      * @param string $provider Game provider name
      * @return string Remote endpoint to import games from 
      */
-    private function _getEndpoint($provider) {
+    private function _getEndpoint($provider, $type) {
+        $params = array();
         $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
-        if($this->_haveLicense()) {
-            $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
+        if( ! is_null($type)) {
+            $params['type'] = $type;
         }
-        return $endpoint;
+        if($this->_haveLicense()) {
+            $params['license'] = $this->_license;
+            $params['referer'] = get_site_url();
+        }
+        return empty($params) ? $endpoint : $endpoint."?".http_build_query($params);
     }
 
     /*
@@ -122,11 +127,13 @@ class Provider extends Import
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
         try {
-            $provider = $request['provider'];
-            $cache_id = $this->_getCacheId($provider);
+            $provider = $request->get_param('provider');
+            $type = $request->get_param('type');
+            // TODO: continue from here
+            $cache_id = $this->_getCacheId(is_null($type) ? $provider : "$provider-$type");
             $games = $this->_getCachedListOfGames($cache_id);
             if(empty($games)) { // fetch games from remote
-                $endpoint = $this->_getEndpoint($provider);
+                $endpoint = $this->_getEndpoint($provider, $type);
                 $response = wp_remote_get($endpoint);
                 if(is_wp_error($response)) {
                     return $response;

@@ -14,6 +14,29 @@
     vertical-align: middle;
 }
 
+.vh-about-wrap .spinner {
+    float: left;
+    text-align: left;
+    width: 100%;
+    margin: 21px 0 0 0;
+    padding: 0 0 0 30px;
+    font-size: 11px;
+    font-style: italic;
+}
+
+.vh-about-wrap .vh_game_type_checkbox {
+    margin-top: 10px;
+}
+.vh-about-wrap .vh_game_type_checkbox:last-child {
+    margin-top: 0;
+}
+
+.vh-about-wrap input[type="checkbox"] + label {
+    font-style: italic;
+    font-size: 11px;
+    vertical-align: text-bottom;
+}
+
 h2.vh-title {
     font-size: 1.1em;
 }
@@ -110,12 +133,14 @@ ul.operator-cards li:first-child {
 }
 ul.operator-cards li {
   float:left;
-	background: #fff;
+  background: #fff;
   border: 1px solid #dedede;
   margin: 0 15px 16px 0px;
   min-width: 300px;
   width: 23%;
+  min-height: 165px;
 }
+
 ul.operator-cards li .provider-img {
   float: right;
   position: absolute;
@@ -166,6 +191,7 @@ ul.operator-cards li .btn-area {
   background-color: #fafafa;
   border-top: 1px solid #dedede;
   overflow: hidden;
+  min-height: 76px;
 }
 ul.products li, ul.instructions li, .helpinfo {
   background:white;

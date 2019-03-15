@@ -46,6 +46,7 @@ abstract class Import {
      * @return array|false Array of providers or operators
      */
     protected function _fetchList($endpoint) {
+        //$this->_clearCache($endpoint);
         $items = $this->_getCachedList($endpoint);
         if(empty($items)) {
             $response = wp_remote_get($endpoint);
