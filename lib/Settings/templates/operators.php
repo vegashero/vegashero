@@ -33,9 +33,9 @@
                           <div class="btn-area">
                               <?= $this->_getAjaxUpdateBtn($operator['operator']); ?>
                               <?php if(get_option('vh_license_status') === 'valid'): ?>
-                              <?= $this->_getGameTypeCheckboxes(sanitize_title($provider['provider']), $provider['html5'], $provider['flash']); ?>
+                              <?= $this->_getGameTypeCheckboxes(sanitize_title($operator['operator']), $operator['html5'], $operator['flash']); ?>
                               <?php else: ?>
-                              <?= $this->_getGameCount(sanitize_title($provider['provider']), $provider['total']); ?>
+                              <?= $this->_getGameCount(sanitize_title($operator['operator']), $operator['total']); ?>
                               <?php endif ?>
                           </div>
                       </div>

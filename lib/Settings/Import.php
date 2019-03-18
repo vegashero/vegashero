@@ -31,7 +31,7 @@ abstract class Import {
     }
 
     protected function _getGameCount($slug, $total) {
-        return "<p class='description gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> /<span class='dashicons dashicons-lock'></span></p>";
+        return "<p class='description gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $total<span class='dashicons dashicons-lock'></span></p>";
     }
 
 

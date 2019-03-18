@@ -42,12 +42,16 @@ class Operator extends Import
         return '/import/operator/';
     }
 
-    private function _setOperators() {
-        $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
-        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
-        $this->_operators = json_decode(json_decode($response), true);
-        // $this->_operators = array_slice(array_keys((array)$game), 6, -2);
-    }
+    /*
+     * This looks deprecated
+     * Commenting out for now
+     */
+//    private function _setOperators() {
+//        $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
+//        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
+//        $this->_operators = json_decode(json_decode($response), true);
+//        // $this->_operators = array_slice(array_keys((array)$game), 6, -2);
+//    }
 
     /**
      * Insert new game only when operator is true
@@ -108,12 +112,17 @@ class Operator extends Import
      * @param string $operator Game operator name
      * @return string Remote endpoint to import games from
      */
-    private function _getEndpoint($operator) {
-        $endpoint = sprintf('%s/vegasgod/games/%s', $this->_config->apiUrl, $operator);
-        if($this->_haveLicense()) {
-            $endpoint = sprintf('%s?license=%s&referer=%s', $endpoint, $this->_license, get_site_url());
+    private function _getEndpoint($operator, $type) {
+        $params = array();
+        $endpoint = sprintf('%s/vegasgod/games/operator/%s', $this->_config->apiUrl, $operator);
+        if( ! is_null($type)) {
+            $params['type'] = $type;
         }
-        return $endpoint;
+        if($this->_haveLicense()) {
+            $params['license'] = $this->_license;
+            $params['referer'] = get_site_url();
+        }
+        return empty($params) ? $endpoint : $endpoint."?".http_build_query($params);
     }
 
     /*
@@ -136,11 +145,12 @@ class Operator extends Import
         // [modified] => 2015-03-20 11:36:22
 
         try {
-            $operator = $request['operator'];
-            $cache_id = $this->_getCacheId($operator);
+            $operator = $request->get_param('operator');
+            $type = $request->get_param('type');
+            $cache_id = $this->_getCacheId(is_null($type) ? $operator : "$operator-$type");
             $games = $this->_getCachedListOfGames($cache_id);
             if(empty($games)) { // fetch games from remote
-                $endpoint = $this->_getEndpoint($operator);
+                $endpoint = $this->_getEndpoint($operator, $type);
                 $response = wp_remote_get($endpoint);
                 if(is_wp_error($response)) {
                     return $response;
@@ -260,8 +270,7 @@ class Operator extends Import
      * @return array<string, string|array>
      */
     public function importGames(\WP_REST_Request $request) {
-        $params = $request->get_url_params();
-        $operator = $params['operator'];
+        $operator = $request->get_param('operator');
         try {
             $games = json_decode($request->get_body());
             $successful_imports = 0;
