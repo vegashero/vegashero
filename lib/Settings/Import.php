@@ -24,9 +24,10 @@ abstract class Import {
     }
 
     protected function _getGameTypeCheckboxes($slug, $html5, $flash) {
-        $checkboxes = "";
+        $checkboxes = '<div class="vh_game_type_checkbox_wrapper">';
         $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">Import HTML5 games (%2$d)</label></div>', $slug, $html5);
         $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash" checked><label for="%1$s_flash">Import Flash games (%2$d)</label></div>', $slug, $flash);
+        $checkboxes .= '</div>';
         return $checkboxes;
     }
 

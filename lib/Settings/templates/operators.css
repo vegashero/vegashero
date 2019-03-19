@@ -15,20 +15,16 @@
 }
 
 .vh-about-wrap .spinner {
-    float: left;
+    margin: 9px 0 0 0;
+    float: unset;
     text-align: left;
     width: 100%;
-    margin: 21px 0 0 0;
-    padding: 0 0 0 30px;
     font-size: 11px;
     font-style: italic;
-}
-
-.vh-about-wrap .vh_game_type_checkbox {
-    margin-top: 10px;
-}
-.vh-about-wrap .vh_game_type_checkbox:last-child {
-    margin-top: 0;
+    padding-left: 25px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .vh-about-wrap input[type="checkbox"] + label {
@@ -157,9 +153,6 @@ ul.operator-cards li h3 {
     font-size: 18px;
     line-height: 1.3;
 }
-ul.operator-cards li p {
-    margin: 21px 0 0 0;
-}
 ul.operator-cards li .desc {
     position:relative;
 }
@@ -181,13 +174,27 @@ ul.operator-cards li .form-table th {
     padding:20px 0;
     width:100px;
 }
+ul.operator-cards li p {
+    margin: 0;
+}
+
+ul.operator-cards li p.gamecount {
+    margin-top: 9px;
+}
+
+ul.operator-cards li .footer-area {
+    min-height: 38px;
+    border-top: 1px solid #dedede;
+    padding: 12px 20px;
+}
+
 ul.operator-cards li .btn-area {
     clear: both;
     padding: 12px 20px;
     background-color: #fafafa;
     border-top: 1px solid #dedede;
     overflow: hidden;
-    min-height: 76px;
+    min-height: 30px;
 }
 ul.products li, ul.instructions li, .helpinfo {
     background:white;
@@ -381,6 +388,10 @@ visibility: visible;
 .wp-core-ui .vh-admin-notice.notice-info.is-dismissible, 
 .wp-core-ui .vh-admin-notice.notice-success.is-dismissible {
     padding-right:10px!important;
+}
+
+.vh-admin-notice .spinner {
+    margin: 0;
 }
 
 @media screen and (max-width: 500px) {

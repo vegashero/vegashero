@@ -30,6 +30,8 @@
                           <h2><?=$provider['provider']?></h2>
                           <div class="btn-area">
                               <?= $this->_getAjaxUpdateBtn(sanitize_title($provider['provider'])); ?>
+                          </div>
+                          <div class="footer-area">
                               <?php if(get_option('vh_license_status') === 'valid'): ?>
                               <?= $this->_getGameTypeCheckboxes(sanitize_title($provider['provider']), $provider['html5'], $provider['flash']); ?>
                               <?php else: ?>

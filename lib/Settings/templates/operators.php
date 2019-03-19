@@ -32,6 +32,8 @@
                           <div class="provider-img"><img src="<?=$this->_config->gameImageUrl?>/operators/<?=$operator['operator']?>.png" /></div>
                           <div class="btn-area">
                               <?= $this->_getAjaxUpdateBtn($operator['operator']); ?>
+                          </div>
+                          <div class="footer-area">
                               <?php if(get_option('vh_license_status') === 'valid'): ?>
                               <?= $this->_getGameTypeCheckboxes(sanitize_title($operator['operator']), $operator['html5'], $operator['flash']); ?>
                               <?php else: ?>
