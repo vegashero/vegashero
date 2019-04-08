@@ -16,6 +16,7 @@ services:
         volumes:
             - .:/var/www/html/wp-content/plugins/vegashero
         environment:
+            - VEGASHERO_ENV
             - TERM=xterm
             - COLUMNS=141
             - LINES=41
