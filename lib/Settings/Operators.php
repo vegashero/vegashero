@@ -16,15 +16,16 @@ class Operators extends \VegasHero\Settings\Import
         $this->_config = \VegasHero\Config::getInstance();
 
         if(array_key_exists('page', $_GET)) {
+            // TODO: why vegashero-provider-import?
             if($_GET['page'] === 'vegashero-operator-import' || 'vegashero-provider-import') {
                 add_action('admin_head', array($this, 'loadOperatorStyles'));
             }
+            if($_GET['page'] === 'vegashero-operator-import') {
+                add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
+                add_action('admin_init', array($this, 'registerSettings'));
+            }
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        if(@$_GET['page'] === 'vegashero-operator-import') {
-            add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
-            add_action('admin_init', array($this, 'registerSettings'));
-        }
 
     }
 

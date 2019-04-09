@@ -36,9 +36,13 @@ class Config
         $p_ini = parse_ini_file($filename, true);
         $config = array();
         foreach($p_ini as $namespace => $properties){
-            @list($name, $extends) = explode(':', $namespace);
-            $name = trim($name);
-            $extends = trim($extends);
+            $name = $namespace;
+            $extends = "";
+            if (strpos($namespace, ':') !== false) {
+                list($name, $extends) = explode(':', $namespace);
+                $name = trim($name);
+                $extends = trim($extends);
+            }
             // create namespace if necessary
             if(!isset($config[$name])) $config[$name] = array();
             // inherit base namespace
