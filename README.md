@@ -20,7 +20,7 @@ composer dump-autoload
 
 ```bash
 # run the container
-USER_NAME=$USER USER_ID=$(id -u) docker-compose up php5.4-apache 
+VEGASHERO_ENV=development USER_NAME=$USER USER_ID=$(id -u) docker-compose up php5.4-apache 
 # install wordpress
 docker exec -u $USER vegashero_php5.4-apache_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
 # update password
@@ -66,15 +66,15 @@ Edit code on your local machine
 
 ## Testing
 
+Can't install Wordpress in the Dockerfile as the db container isn't ready yet. For now I'm running the commands manually, but could also put them in a shell script file and add it to ENTRYPOINT.
+
 ### Setup
 
-* [Factories for Wordpress unit testing](https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes/factory)
-* [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
-* [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
-* [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
-
 ```sh
-docker exec -ti -u $USER vegashero_tests_1 wp scaffold plugin-tests vegashero
+USER_NAME=$USER USER_ID=$(id -u) docker-compose up tests
+docker exec -ti -u $USER vegashero_tests_1 wp core install --url=localhost:8080 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
+docker exec -ti -u $USER vegashero_tests_1 wp rewrite structure '/%postname%/'
+#docker exec -ti -u $USER vegashero_tests_1 wp scaffold plugin-tests vegashero
 docker exec -ti -u $USER vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' mysql latest
 ```
 
@@ -84,6 +84,7 @@ docker exec -ti -u $USER vegashero_tests_1 wp-content/plugins/vegashero/bin/inst
 docker exec -ti -u $USER vegashero_tests_1 bash
 stty rows 41 columns 141
 cd wp-content/plugins/vegashero
+ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero # NB!
 composer test
 ```
 
@@ -181,6 +182,11 @@ $ firefox http://localhost:8080/wp-cron.php?doing_wp_cron
 * [Unit Testing PHP](https://phpunit.de/)
 * [Cucumber PHP](http://behat.org/en/latest/)
 * [Selenium Web Driver PHP](https://github.com/facebook/php-webdriver)
+* [Factories for Wordpress unit testing](https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes/factory)
+* [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
+* [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
+* [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
+
     
 
 

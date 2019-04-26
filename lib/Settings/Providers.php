@@ -1,16 +1,17 @@
 <?php
 
-class Vegashero_Settings_Providers extends Vegashero_Settings
-{
+namespace VegasHero\Settings;
 
+class Providers extends \VegasHero\Settings\Import
+{
     private $_providers;
     private $_provider;
     private $_config;
 
     public function __construct() {
-        $this->_config = \Vegashero_Config::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        if(@$_GET['page'] === 'vegashero-provider-import') {
+        if(array_key_exists('page', $_GET) && $_GET['page'] === 'vegashero-provider-import') {
             add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
             add_action('admin_init', array($this, 'registerSettings'));
         }
@@ -38,7 +39,7 @@ class Vegashero_Settings_Providers extends Vegashero_Settings
     }
 
     public function registerSettings() {
-        $endpoint = sprintf('%s/vegasgod/providers/v2', $this->_config->apiUrl);
+        $endpoint = sprintf('%s/vegasgod/providers/v3', $this->_config->apiUrl);
         $this->_providers = $this->_fetchList($endpoint);
     }
 
@@ -63,15 +64,6 @@ class Vegashero_Settings_Providers extends Vegashero_Settings
             'vegashero-provider-import',          // The unique ID - the slug - for this menu item
             array($this, 'createSettingsPage')   // The function used to render this menu's page to the screen
         );
-    }
-
-    private function _getGameCount($count) {
-        if(get_option('vh_license_status') === 'valid') { 
-            return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
-        }
-        else { 
-            return "<span class='right gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $count <span class='dashicons dashicons-lock'></span></span>";
-        }
     }
 
     private function _getAjaxUpdateBtn($provider) {

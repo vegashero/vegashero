@@ -47,6 +47,7 @@ final class Test
                 "category" => $faker->words(2, true),
                 "src" => $faker->url,
                 "status" => (string)$faker->numberBetween(0, 1),
+                "type" => (string)$faker->numberBetween(0, 1),
                 "energycasino" => (string)$faker->numberBetween(0, 1),
                 "mrgreen" => (string)$faker->numberBetween(0, 1),
                 "slotsmillion" => (string)$faker->numberBetween(0, 1),
@@ -81,7 +82,7 @@ final class Test
         );
         $mock_request = \Mockery::mock('WP_REST_Request');
         if($operator) {
-            $mock_request->shouldReceive('get_url_params')->andReturn(array("operator" => $operator));
+            $mock_request->shouldReceive('get_param')->with('operator')->andReturn($operator);
         }
         $mock_request->shouldReceive('get_body')->andReturn($games);
         $importer->importGames($mock_request);

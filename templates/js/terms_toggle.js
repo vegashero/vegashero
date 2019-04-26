@@ -1,8 +1,11 @@
-jQuery(".terms-info").click(function () {
-    var $title = jQuery(this).next(".title");
-    if (!$title.length) {
-        jQuery(this).after("<span class='title'>" + jQuery(this).attr('title') + "</span>");
-    } else {
-        $title.remove();
-    }
+
+jQuery(document).ready(function($) {
+    $(".terms-info").click(function () {
+        var title = $(this).next(".title");
+        if (!$title.length) {
+            $(this).after("<span class='title'>" + $(this).attr('title') + "</span>");
+        } else {
+            title.remove();
+        }
+    });
 });

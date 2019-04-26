@@ -7,7 +7,7 @@ final class GamesGrid
     /**
      * The output of the gamed grid shortcode
      * @param array $attributes
-     * @param Vegashero_Config $config
+     * @param \VegasHero\Config $config
      * @return string
      */
     static public function render($attributes, $config) {
@@ -200,7 +200,7 @@ MARKUP;
 
     /**
      * @param array @attributes
-     * @param Vegashero_Config $config
+     * @param \VegasHero\Config $config
      * @return array
      */
     static private function _getQueryParams($attributes, $config) {
@@ -240,7 +240,7 @@ MARKUP;
     /**
      * Calculates the thumbnail url for img src attribute
      * @param WP_Post $post
-     * @param Vegashero_Config $config
+     * @param \VegasHero\Config $config
      * @return string 
      */
     static private function _getThumbnail($post, $config) {
