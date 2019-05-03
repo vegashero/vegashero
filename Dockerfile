@@ -1,4 +1,4 @@
-FROM php:5.4-apache
+FROM php:7.2-apache
 EXPOSE 80
 ARG USER_ID
 ARG USER_NAME
@@ -19,6 +19,10 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 
 WORKDIR /var/www/html
 RUN chmod 2775 /var/www/html
+
+# required for newgrp www-data to work
+RUN usermod -a -G www-data $USER_NAME
+RUN usermod -g www-data $USER_NAME
 
 USER $USER_NAME
 RUN newgrp www-data

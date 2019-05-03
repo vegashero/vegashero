@@ -1,7 +1,7 @@
 version: "2"
 services:
 
-    php5.4-apache:
+    php-apache:
         extends: 
             file: common.yml
             service: wordpress
