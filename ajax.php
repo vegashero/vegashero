@@ -102,6 +102,8 @@ class Vegashero_Ajax
             } else {
                 $post->imgpath = get_post_meta( $post->ID, $this->_config->postMetaGameImg, true );
             }
+            // remove post content
+            unset($post->post_content);
         }
 
         echo json_encode(array(
