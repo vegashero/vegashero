@@ -7,6 +7,7 @@ ARG VEGASHERO_ENV
 ARG DB_USER
 ARG DB_PASSWORD
 ARG DB_HOST
+ARG VEGASHERO_ENV
 RUN useradd -u $USER_ID $USER_NAME -m
 RUN usermod -a -G www-data $USER_NAME
 RUN a2enmod rewrite
@@ -25,10 +26,9 @@ RUN usermod -a -G www-data $USER_NAME
 RUN usermod -g www-data $USER_NAME
 
 USER $USER_NAME
-RUN newgrp www-data
+#RUN newgrp www-data
 RUN wp core download 
 ADD .htaccess /var/www/html/.htaccess
-#ADD wp-config.php /var/www/html/wp-config.php
 RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check
 RUN mkdir /var/www/html/wp-content/themes/vegashero
 

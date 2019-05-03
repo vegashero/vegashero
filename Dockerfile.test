@@ -20,13 +20,10 @@ WORKDIR /var/www/html
 RUN chmod 2775 /var/www/html
 
 USER $USER_NAME
-RUN newgrp www-data
+#RUN newgrp www-data
 RUN wp core download 
-RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check
 ADD .htaccess /var/www/html/.htaccess
-#ADD wp-config.php /var/www/html/wp-config.php
-RUN wp scaffold plugin-tests vegashero
-RUN wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' mysql latest
+RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check
 
 #RUN mkdir /var/www/html/wp-content/themes/vegashero
 

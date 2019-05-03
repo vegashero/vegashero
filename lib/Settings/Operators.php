@@ -1,7 +1,10 @@
 <?php
 
+namespace VegasHero\Settings;
 
-class Vegashero_Settings_Operators extends Vegashero_Settings
+require_once("Import.php");
+
+class Operators extends \VegasHero\Settings\Import
 {
 
     private $_operators;
@@ -10,18 +13,19 @@ class Vegashero_Settings_Operators extends Vegashero_Settings
 
     public function __construct() {
 
-        $this->_config = \Vegashero_Config::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
 
         if(array_key_exists('page', $_GET)) {
+            // TODO: why vegashero-provider-import?
             if($_GET['page'] === 'vegashero-operator-import' || 'vegashero-provider-import') {
                 add_action('admin_head', array($this, 'loadOperatorStyles'));
             }
+            if($_GET['page'] === 'vegashero-operator-import') {
+                add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
+                add_action('admin_init', array($this, 'registerSettings'));
+            }
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
-        if(@$_GET['page'] === 'vegashero-operator-import') {
-            add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
-            add_action('admin_init', array($this, 'registerSettings'));
-        }
 
     }
 
@@ -31,7 +35,7 @@ class Vegashero_Settings_Operators extends Vegashero_Settings
     }
 
     public function registerSettings() {
-        $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
+        $endpoint = sprintf('%s/vegasgod/operators/v3', $this->_config->apiUrl);
         $this->_operators = $this->_fetchList($endpoint);
     }
 
@@ -56,15 +60,6 @@ class Vegashero_Settings_Operators extends Vegashero_Settings
         return $markup;
     }
 
-
-    private function _getGameCount($count) {
-        if(get_option('vh_license_status') === 'valid') { 
-            return "<span class='right gamecount'>Games available: <strong>$count</strong></span>";
-        }
-        else { 
-            return "<span class='right gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $count <span class='dashicons dashicons-lock'></span></span>";
-        }
-    }
 
     public function createSettingsPage() {
         include dirname(__FILE__) . '/templates/operators.php';

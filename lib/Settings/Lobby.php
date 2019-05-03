@@ -1,23 +1,22 @@
 <?php
 
-class Vegashero_Settings_Lobby
+namespace VegasHero\Settings;
+
+require_once( "Settings.php" );
+require_once(sprintf("%swp-content/plugins/vegashero/lib/Helpers/Notice/Admin.php", ABSPATH));
+
+class Lobby extends \VegasHero\Settings
 {
+
+    const MENU_SLUG = 'vh-lobby';
+    const PAGE_SLUG = 'vh-lobby-page';
 
     private static $_config;
     private static $_instance;
 
-    public static function getInstance() {
-        if (null === static::$_instance) {
-            static::$_instance = new static();
-        }
-        return static::$_instance;
-    }
-
-    private function __clone() {
-    }
-
-    protected function __construct() {
-        static::$_config = Vegashero_Config::getInstance();
+    public function __construct() {
+        $this->_showUpdateNotification(self::MENU_SLUG);
+        static::$_config = \VegasHero\Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
     }
@@ -103,14 +102,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-lobby-section', 
             $title = 'Lobby Settings', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_lobby_games_per_page', 
             $title = 'Number of games to show', 
             $callback = array($this, 'inputForGamesPerPage'), 
-            $page = 'vh-lobby-page', 
+            $page = self::PAGE_SLUG, 
             $section = 'vh-lobby-section',
             $args = array(
                 'id' => 'vh_lobby_games_per_page',
@@ -119,24 +118,16 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobby_games_per_page' 
-        );
-
-        // lobby default sorting settings
-        add_settings_section(
-            $id = 'vh-lobbysort-section', 
-            $title = '', 
-            $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
         );
 
         add_settings_field(
             $id = 'vh_lobby_games_sort',
             $title = 'Sort lobby games by',
             $callback = array($this, 'selectLobbySorting'),
-            $page = 'vh-lobby-page',
-            $section = 'vh-lobbysort-section',
+            $page = self::PAGE_SLUG,
+            $section = 'vh-lobby-section',
             $args = array(
                 'id' => 'vh_lobby_games_sort',
                 'vh_lobby_games_sort' => 'DESC'
@@ -144,7 +135,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobby_games_sort' 
         );
 
@@ -153,14 +144,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-lobbyfilters-section', 
             $title = 'Lobby Custom Text', 
             $callback = array($this, 'DescriptionLobbyFilters'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id_op = 'vh_lobby_filterstext_op',
             $title = 'Operator Filter Text: ',
             $callback = array($this, 'inputLobbyFiltersOp'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_op' => 'vh_lobby_filterstext_op',
@@ -169,7 +160,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobby_filterstext_op' 
         );
 
@@ -177,7 +168,7 @@ class Vegashero_Settings_Lobby
             $id_cat = 'vh_lobby_filterstext_cat',
             $title = 'Category Filter Text: ',
             $callback = array($this, 'inputLobbyFiltersCat'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_cat' => 'vh_lobby_filterstext_cat',
@@ -186,7 +177,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobby_filterstext_cat' 
         );
 
@@ -194,7 +185,7 @@ class Vegashero_Settings_Lobby
             $id_prov = 'vh_lobby_filterstext_prov',
             $title = 'Provider Filter Text: ',
             $callback = array($this, 'inputLobbyFiltersProv'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_prov' => 'vh_lobby_filterstext_prov',
@@ -203,7 +194,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobby_filterstext_prov' 
         );
 
@@ -212,14 +203,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-cptname-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_cptname',
             $title = 'VegasHero Games Custom Text (shows in breadcrumbs)',
             $callback = array($this, 'inputCustomPostTypeName'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-cptname-section',
             $args = array(
                 'id' => 'vh_cptname',
@@ -228,7 +219,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_cptname' 
         );
 
@@ -237,14 +228,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-playnow-btn-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_playnow_btn',
             $title = 'Play Now Button Custom Text (shows on game thumbnails)',
             $callback = array($this, 'inputPlayNowBtn'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-playnow-btn-section',
             $args = array(
                 'id' => 'vh_playnow_btn',
@@ -253,7 +244,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_playnow_btn' 
         );
 
@@ -262,14 +253,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-pagination-prev-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_pagination_prev',
             $title = 'Pagination Previous button Custom Text',
             $callback = array($this, 'inputPaginationPrev'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-pagination-prev-section',
             $args = array(
                 'id' => 'vh_pagination_prev',
@@ -278,7 +269,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_pagination_prev' 
         );
 
@@ -287,14 +278,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-pagination-next-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_pagination_next',
             $title = 'Pagination Next button Custom Text',
             $callback = array($this, 'inputPaginationNext'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-pagination-next-section',
             $args = array(
                 'id' => 'vh_pagination_next',
@@ -303,7 +294,7 @@ class Vegashero_Settings_Lobby
         );
         
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_pagination_next' 
         );
 
@@ -312,14 +303,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-lobbysearch-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_lobbysearch',
             $title = 'Display Games Search?',
             $callback = array($this, 'tickboxLobbySearch'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-lobbysearch-section',
             $args = array(
                 'id' => 'vh_lobbysearch',
@@ -328,7 +319,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobbysearch' 
         );
 
@@ -337,14 +328,14 @@ class Vegashero_Settings_Lobby
             $id = 'vh-lobbylink-section', 
             $title = '', 
             $callback = array($this, 'sectionHeading'), 
-            $page = 'vh-lobby-page'
+            $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_lobbylink',
             $title = 'Display VegasHero link?',
             $callback = array($this, 'tickboxLobbyLink'),
-            $page = 'vh-lobby-page',
+            $page = self::PAGE_SLUG,
             $section = 'vh-lobbylink-section',
             $args = array(
                 'id' => 'vh_lobbylink',
@@ -353,7 +344,7 @@ class Vegashero_Settings_Lobby
         );
 
         register_setting(
-            $option_group = 'vh-lobby-settings', 
+            $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobbylink' 
         );
     }
@@ -364,11 +355,11 @@ class Vegashero_Settings_Lobby
 
     public function addSettingsMenu() {
         add_submenu_page(
-            $parent_slug = 'vh-settings', 
+            $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
             $page_title = 'Lobby', 
             $menu_title = 'Lobby', 
             $capability = 'manage_options', 
-            $menu_slug = 'vh-lobby', 
+            $menu_slug = self::MENU_SLUG, 
             $callback = array($this, 'createLobbyPage') 
         );
         //add_menu_page('My Page Title', 'My Menu Title', 'manage_options', 'my-menu', 'my_menu_output' );

@@ -1,8 +1,8 @@
-<div class="wrap about-wrap">
+<div class="wrap vh-about-wrap">
 
     <form method="post" action="options.php">
-    <?php settings_fields('vh-license-page'); //outputs boilerplate hidden fields ?> 
-    <?php do_settings_sections( 'vh-license-page' );?>
+    <?php settings_fields(\VegasHero\Settings\License::MENU_SLUG); //outputs boilerplate hidden fields ?> 
+    <?php do_settings_sections(\VegasHero\Settings\License::PAGE_SLUG);?>
     <?php submit_button(); ?>
     </form>
 

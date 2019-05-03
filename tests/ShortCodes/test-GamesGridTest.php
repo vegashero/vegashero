@@ -13,7 +13,7 @@ final class GamesGridTest extends WP_UnitTestCase
 
     public function setUp() {
         parent::setUp();
-        $this->config = Vegashero_Config::getInstance();
+        $this->config = \VegasHero\Config::getInstance();
         $this->shortcode = new VegasHero\ShortCodes\GamesGrid($this->config);
         $this->faker = \Faker\Factory::create();
         $this->provider = $this->faker->firstname;

@@ -6,7 +6,7 @@ class Vegashero_Custom_Post_Type
     private $_config;
 
     public function __construct() {
-        $this->_config = Vegashero_Config::getInstance();
+        $this->_config = \VegasHero\Config::getInstance();
 
         // add_action( 'init', array($this, 'setPermalinkStructure'));
         add_action('init', array($this, 'registerGameCategoryTaxonomy'));

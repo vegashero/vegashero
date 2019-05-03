@@ -13,7 +13,7 @@ final class SingleGameTest extends WP_UnitTestCase
 
     public function setUp() {
         parent::setUp();
-        $this->config = Vegashero_Config::getInstance();
+        $this->config = \VegasHero\Config::getInstance();
         $this->shortcode = new VegasHero\ShortCodes\SingleGame();
         $post = $this->factory->post->create_and_get(
             array(

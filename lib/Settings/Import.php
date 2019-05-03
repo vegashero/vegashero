@@ -1,7 +1,12 @@
 <?php
 
-abstract class Vegashero_Settings {
+namespace VegasHero\Settings;
 
+abstract class Import {
+
+    /**
+     * TODO: improve
+     */
     public function enqueueAjaxScripts() {
         wp_enqueue_script('vegashero-import', plugins_url( '/js/vegashero-import.js', __FILE__ ), array('jquery'), null, true);
     }
@@ -17,6 +22,19 @@ abstract class Vegashero_Settings {
         }
         return Array();
     }
+
+    protected function _getGameTypeCheckboxes($slug, $html5, $flash) {
+        $checkboxes = '<div class="vh_game_type_checkbox_wrapper">';
+        $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">Import HTML5 games (%2$d)</label></div>', $slug, $html5);
+        $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash" checked><label for="%1$s_flash">Import Flash games (%2$d)</label></div>', $slug, $flash);
+        $checkboxes .= '</div>';
+        return $checkboxes;
+    }
+
+    protected function _getGameCount($slug, $total) {
+        return "<p class='description gamecount' title='Purchase a license key to unlock access to all the games'>Games available: <strong>2</strong> / $total<span class='dashicons dashicons-lock'></span></p>";
+    }
+
 
     /**
      * @param string $cache_id
@@ -41,6 +59,7 @@ abstract class Vegashero_Settings {
      * @return array|false Array of providers or operators
      */
     protected function _fetchList($endpoint) {
+        $this->_clearCache($endpoint);
         $items = $this->_getCachedList($endpoint);
         if(empty($items)) {
             $response = wp_remote_get($endpoint);
@@ -57,30 +76,4 @@ abstract class Vegashero_Settings {
         return $items;
     }
 
-
 }
-
-require_once( dirname( __FILE__ ) . '/license.php' );
-$dashboard = Vegashero_Settings_License::getInstance();
-
-require_once( dirname( __FILE__ ) . '/lobby.php' );
-$lobby = Vegashero_Settings_Lobby::getInstance();
-
-require_once( dirname( __FILE__ ) . '/permalinks.php' );
-$lobby = Vegashero_Settings_Permalinks::getInstance();
-$lobby->updateCustomPostTypeUrl();
-$lobby->updateGameCategoryUrl();
-$lobby->updateGameOperatorUrl();
-$lobby->updateGameProviderUrl();
-
-require_once( dirname( __FILE__ ) . '/operators.php' );
-$operators = new Vegashero_Settings_Operators();
-
-require_once( dirname( __FILE__ ) . '/providers.php' );
-$providers = new Vegashero_Settings_Providers();
-
-//require_once( dirname( __FILE__ ) . '/settings/affiliates.php' );
-//$affiliates = new Vegashero_Settings_Affiliates();
-
-
-

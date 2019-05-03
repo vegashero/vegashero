@@ -10,25 +10,56 @@
  * License: GPL2
  */
 
+// NB: the order is important
 
 require_once( dirname( __FILE__ ) . '/config.php' );
-$config = Vegashero_Config::getInstance();
+$config = \VegasHero\Config::getInstance();
 
 require_once( dirname( __FILE__ ) . '/custom_post_type.php' );
 $operators = new Vegashero_Custom_Post_Type();
 
-require_once(dirname(__FILE__) . '/settings/settings.php');
+if(is_admin()) {
 
-require_once( dirname(__FILE__) . '/EDD_SL_Plugin_Updater.php' );
-$updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
-    array(
-        'version'   => '1.6.2',       // current version number
-        'license'   => $dashboard->getLicense(),    // license key (used get_option above to retrieve from DB)
-        'item_name' => $config->eddDownloadName,    // name of this plugin
-        'author'    => 'VegasHero', // author of this plugin
-        'url'       => site_url()
-    ) 
-);
+    require_once( sprintf("%slib/Settings/Menu.php", plugin_dir_path(__FILE__)));
+    $settings_menu = new \VegasHero\Settings\Menu();
+
+    require_once( sprintf("%slib/Settings/License.php", plugin_dir_path(__FILE__)));
+    $license = \VegasHero\Settings\License::getInstance();
+
+    require_once( sprintf("%slib/Settings/Lobby.php", plugin_dir_path(__FILE__)));
+    $lobby = new \VegasHero\Settings\Lobby();
+
+    require_once( sprintf("%slib/Settings/Permalinks.php", plugin_dir_path(__FILE__)));
+    $permalinks = new \VegasHero\Settings\Permalinks();
+    $permalinks->updateCustomPostTypeUrl();
+    $permalinks->updateGameCategoryUrl();
+    $permalinks->updateGameOperatorUrl();
+    $permalinks->updateGameProviderUrl();
+
+    require_once( sprintf("%slib/Settings/Operators.php", plugin_dir_path(__FILE__)));
+    $operators = new \VegasHero\Settings\Operators();
+
+    require_once( sprintf("%slib/Settings/Providers.php", plugin_dir_path(__FILE__)));
+    $providers = new \VegasHero\Settings\Providers();
+
+    require_once( dirname(__FILE__) . '/EDD_SL_Plugin_Updater.php' );
+    $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
+        array(
+            'version'   => '1.6.2',       // current version number
+            'license'   => \VegasHero\Settings\License::getLicense(),    // license key (used get_option above to retrieve from DB)
+            'item_name' => $config->eddDownloadName,    // name of this plugin
+            'author'    => 'VegasHero', // author of this plugin
+            'url'       => site_url()
+        ) 
+    );
+
+}
+
+require_once('lib/Import/Import.php');
+require_once('lib/Import/Operator.php');
+$import_operator = new VegasHero\Import\Operator();
+require_once('lib/Import/Provider.php');
+$import_provider = new VegasHero\Import\Provider();
 
 /**
  * Autoloader for calling VegasHero\Functions from theme templates
@@ -43,13 +74,6 @@ spl_autoload_register(function($class_name) {
         require_once($functions_file);
     }
 });
-
-// game imports
-require_once('lib/Import/Import.php');
-require_once('lib/Import/Operator.php');
-$import_operator = new VegasHero\Import\Operator();
-require_once('lib/Import/Provider.php');
-$import_provider = new VegasHero\Import\Provider();
 
 // widgets
 require_once("lib/Widgets/SingleGameArea.php");
