@@ -154,9 +154,9 @@ Adding SSL certificates
 
 ```sh
 # production
-certbot certonly --webroot --webroot-path /var/www/vegashero.co/ --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,www.vegashero.co,sports.vegashero.co,crypto.vegashero.co 
+certbot certonly --webroot --webroot-path /var/www/vegashero.co/public_html --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,www.vegashero.co,sports.vegashero.co,crypto.vegashero.co 
 # staging
-certbot certonly --webroot --webroot-path /var/www/staging.vegashero.co/ --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name staging.vegashero.co -d staging.vegashero.co
+certbot certonly --webroot --webroot-path /var/www/staging.vegashero.co/public_html --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name staging.vegashero.co -d staging.vegashero.co
 ```
 
 Renewing SSL certificates. 
