@@ -42,17 +42,6 @@ class Operator extends Import
         return '/import/operator/';
     }
 
-    /*
-     * This looks deprecated
-     * Commenting out for now
-     */
-//    private function _setOperators() {
-//        $endpoint = sprintf('%s/vegasgod/operators/v2', $this->_config->apiUrl);
-//        $response = wp_remote_retrieve_body(wp_remote_get($endpoint));
-//        $this->_operators = json_decode(json_decode($response), true);
-//        // $this->_operators = array_slice(array_keys((array)$game), 6, -2);
-//    }
-
     /**
      * Insert new game only when operator is true
      * @param object $game
@@ -164,7 +153,7 @@ class Operator extends Import
                     return new \WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
                 }
                 if($this->_noGamesToImport($games)) {
-                    return new \WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+                    return new \WP_Error( 'no_games', __('No games to import', 'vegashero'), array( 'status' => 404 ) );
                 } else {
                     $games = json_decode($games);
                     $this->_cacheListOfGames($cache_id, $games);
@@ -300,7 +289,7 @@ class Operator extends Import
                 }
                 return array(
                     "code" => "success",
-                    "message" => "Import completed successfully",
+                    "message" => __("Import completed successfully", 'vegashero'),
                     "data" => array(
                         "successful_imports" => $successful_imports,
                         "games_skipped" => $games_skipped,
@@ -309,7 +298,7 @@ class Operator extends Import
                     )
                 );
             } else {
-                return new \WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+                return new \WP_Error( 'no_games', __('No games to import', 'vegashero'), array( 'status' => 404 ) );
             }
 
         } catch(Exception $e) {

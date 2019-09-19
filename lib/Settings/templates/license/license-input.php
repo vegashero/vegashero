@@ -1,4 +1,4 @@
-<input id='<?=$id?>' name='<?=$id?>' size='30' type='text' class='regular-text' value='<?=get_option($id)?>' placeholder='enter your license key here' />
+<input id='<?=$id?>' name='<?=$id?>' size='30' type='text' class='regular-text' value='<?=get_option($id)?>' placeholder='<?=__("enter your license key here", "vegashero")?>' />
 <?php if(get_option('vh_license_status') === 'valid'): ?>
  <span class="dashicons dashicons-yes" style="font-size:x-large;color:#53a93f;"></span>
 <?php else: ?>

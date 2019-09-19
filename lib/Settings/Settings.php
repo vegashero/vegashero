@@ -19,7 +19,8 @@ abstract class Settings {
 
 	protected function _showUpdateNotification($menu_slug) {
         if($this->_isSettingsUpdated() && $this->_isSettingsPage($menu_slug)) {
-            \VegasHero\Helpers\Notice\Admin::success("<strong>Settings saved.</strong>");
+            $text = __('Settings saved', 'vegashero');
+            \VegasHero\Helpers\Notice\Admin::success("<strong>$text</strong>");
         }
     }
 

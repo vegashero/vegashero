@@ -1,1 +1,1 @@
-<p class="description">Use these settings to configure the game lobby displayed by the <a target="_blank" href="https://vegashero.co/lobby-permalink-customization-settings/">vh-lobby</a> shortcode.</p>
+<p class="description"><?= __("Use these settings to configure the game lobby displayed by the", "vegashero") ?> <a target="_blank" href="https://vegashero.co/lobby-permalink-customization-settings/">vh-lobby</a> <?= __("shortcode.", "vegashero") ?></p>

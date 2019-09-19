@@ -35,8 +35,8 @@ class License extends \VegasHero\Settings
 
         add_submenu_page(
             $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
-            $page_title = 'License & Support', 
-            $menu_title = 'License & Support', 
+            $page_title = __('License & Support', 'vegashero'),
+            $menu_title = __('License & Support', 'vegashero'),
             $capability = 'manage_options', 
             $menu_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
             $callback = array($this, 'createLicensePage') 
@@ -50,14 +50,14 @@ class License extends \VegasHero\Settings
     public function registerSettings() {
         add_settings_section(
             $id = 'vh-license-section',
-            $title = 'License & Support',
+            $title = __('License & Support', 'vegashero'),
             $callback = array($this, 'sectionHeading'),
             $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_license', 
-            $title = 'License', 
+            $title = __('License', 'vegashero'), 
             $callback = array($this, 'inputForLicense'), 
             $page = self::PAGE_SLUG, 
             $section = 'vh-license-section',
@@ -109,10 +109,7 @@ class License extends \VegasHero\Settings
 
             // make sure the response came back okay
             if (is_wp_error( $response )) {
-                echo '<h3>Error</h3>';
-                echo "<pre>";
-                print_r($response);
-                echo "</pre>";
+                error_log($response->get_error_message());
                 return false;
             }
 

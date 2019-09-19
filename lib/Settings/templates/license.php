@@ -7,7 +7,7 @@
     </form>
 
 <div class="helpinfo">
-	<h3 style="margin-top:0;">Check out our WordPress Themes</h3>
+<h3 style="margin-top:0;"><?= __('Check out our WordPress Themes', 'vegashero') ?></h3>
 	<p>We also offer stylish and functional WP themes that integrate well with our games plugin. Choose from a <a target="_blank" href="https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">Casino Theme</a> or a <a target="_blank" href="https://vegashero.co/downloads/sports-betting-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">Sportsbook Theme</a>.<br/>
 	You can also get the <a target="_blank" href="https://vegashero.co/checkout?edd_action=add_to_cart&download_id=132994&edd_options[price_id]=1">plugin + theme in a bundle license</a> and save money.</p>
 </div>

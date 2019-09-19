@@ -165,17 +165,8 @@ Renewing SSL certificates.
 certbot renew
 ```
 
-### Manually run Wordpress cron
-```bash
-$ firefox http://localhost:8080/wp-cron.php?doing_wp_cron
-```
-
-### MySQL Query to see pending cron operations
-```sql
-> SELECT * FROM `wp_options` WHERE `option_name` LIKE '%cron%'
-```
-
 ## References
+* [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)
 * [PHP DocBlocks](https://phpdoc.org/docs/latest/guides/docblocks.html)
 * [wp_mock](https://github.com/10up/wp_mock)
 * [Unit Testing PHP](https://phpunit.de/)

@@ -53,7 +53,6 @@ if(is_admin()) {
             'url'       => site_url()
         ) 
     );
-
 }
 
 require_once('lib/Import/Import.php');
@@ -79,6 +78,7 @@ spl_autoload_register(function($class_name) {
 // widgets
 require_once("lib/Widgets/SingleGameArea.php");
 $widget_area = new VegasHero\Widgets\SingleGameArea();
+
 require_once("lib/Widgets/LatestGames.php");
 $latest_games_widget = new VegasHero\Widgets\LatestGames();
 
@@ -93,3 +93,6 @@ $shortcode = new Vegashero_Shortcodes();
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();
+
+require_once( dirname( __FILE__ ) . '/lib/Translations.php');
+add_action( 'plugins_loaded', 'VegasHero\Translations\load_textdomain' );

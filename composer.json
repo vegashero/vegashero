@@ -2,7 +2,7 @@
     "name": "vegashero/vegashero",
     "description": "Wordpress casino affiliate plugin",
     "scripts": {
-      "test": "composer lint && vendor/bin/phpunit",
+      "test": "composer lint && vendor/bin/phpunit --testdox",
       "lint": "vendor/bin/phplint ./ --exclude=vendor"
     },
     "authors": [
