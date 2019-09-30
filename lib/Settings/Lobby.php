@@ -158,7 +158,7 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id_op = 'vh_lobby_filterstext_op',
-            $title = 'Operator Filter Text: ',
+            $title = __('Operator Filter Text', 'vegashero'),
             $callback = array($this, 'inputLobbyFiltersOp'),
             $page = self::PAGE_SLUG,
             $section = 'vh-lobbyfilters-section',
