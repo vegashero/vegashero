@@ -25,16 +25,16 @@ jobs:
       - run: 
           name: Install MySQL Client
           command: |
-            sudo apt -qq update && sudo apt install -y unzip zlib1g-dev mysql-client wget subversion git 
+            sudo apt -qq update && sudo apt install -y unzip zlib1g-dev default-mysql-client wget subversion git 
             sudo docker-php-ext-install mysqli mbstring pcntl zip
       - run:
           name: Install Composer
           command: |
-            curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+            curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer
       - run: 
           name: Install WP CLI
           command: | 
-            curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
+            curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && sudo mv wp-cli.phar /usr/local/bin/wp
       - run:
           name: Install Wordpress
           command: |
