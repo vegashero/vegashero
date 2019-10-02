@@ -166,6 +166,8 @@ certbot renew
 ```
 
 ## References
+* [How To Internationalize Your WordPress Website](https://www.smashingmagazine.com/2018/01/internationalize-your-wordpress-website/)
+* [Internationalization in WordPress 5.0](https://pascalbirchler.com/internationalization-in-wordpress-5-0/)
 * [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)
 * [PHP DocBlocks](https://phpdoc.org/docs/latest/guides/docblocks.html)
 * [wp_mock](https://github.com/10up/wp_mock)

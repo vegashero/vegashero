@@ -1,11 +1,13 @@
 <?php
 
+namespace VegasHero\ShortCodes;
+
 // TODO: autoload using psr4
-require 'lib/ShortCodes/SingleGame.php';
-require 'lib/ShortCodes/GamesGrid.php';
+require 'SingleGame.php';
+require 'GamesGrid.php';
 
 // VH Lobby shortcode
-class Vegashero_Shortcodes
+class ShortCodes
 {
 
     private $_config;
@@ -48,7 +50,7 @@ class Vegashero_Shortcodes
 	public function lobby() {
 		$playnow_btn_value = get_option('vh_playnow_btn');
 		if ($playnow_btn_value == '') {
-			$playnow_btn_value = 'Play Now';
+			$playnow_btn_value = __('Play Now', 'vegashero');
 		} else {
 			$playnow_btn_value = get_option('vh_playnow_btn');
 		}
@@ -89,8 +91,8 @@ class Vegashero_Shortcodes
             'vh_devicehead' => '', //device compatibility column title
         ), $atts ) );
 
-        if ( $vh_bonushead == '' ) { $vh_bonushead = 'Bonus'; }
-        if ( $vh_devicehead == '' ) { $vh_devicehead = 'Compatible Devices'; }
+        if ( $vh_bonushead == '' ) { $vh_bonushead = __('Bonus', 'vegashero'); }
+        if ( $vh_devicehead == '' ) { $vh_devicehead = __('Compatible Devices', 'vegashero'); }
 
         $vhoutput = "<table class=\"vh-casino-providers\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><th class=\"vh-casino\">";
         $vhoutput .= $vh_tname;
@@ -105,7 +107,6 @@ class Vegashero_Shortcodes
         $vhoutput .= "</table>";
         return $vhoutput;
     }
-
 
     public function vh_table_line_func($atts){
         extract( shortcode_atts( array(
@@ -211,14 +212,13 @@ class Vegashero_Shortcodes
 }
 
 // adds unique CSS class to lobby page for easy custom styling
-function vhLobby_body_class( $c ) {
+add_filter( 'body_class', function( $classes ) {
     global $post;
     if( isset($post->post_content) && has_shortcode( $post->post_content, 'vegashero-lobby' ) ) {
-        $c[] = 'vh-lobby-page';
+        $classes[] = 'vh-lobby-page';
     }
-    return $c;
-}
-add_filter( 'body_class', 'vhLobby_body_class' );
+    return $classes;
+});
 
 
 //setting next pagination link class

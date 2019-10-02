@@ -16,8 +16,8 @@
 require_once( dirname( __FILE__ ) . '/config.php' );
 $config = \VegasHero\Config::getInstance();
 
-require_once( dirname( __FILE__ ) . '/custom_post_type.php' );
-$operators = new Vegashero_Custom_Post_Type();
+require_once( sprintf("%slib/CustomPostType.php", plugin_dir_path(__FILE__)));
+$operators = new \Vegashero\CustomPostType();
 
 if(is_admin()) {
 
@@ -85,11 +85,11 @@ $latest_games_widget = new VegasHero\Widgets\LatestGames();
 // templates
 require_once('lib/Templates/Custom.php');
 
-require_once( dirname( __FILE__ ) . '/stylesheet.php' );
-$stylesheet = new Vegashero_Stylesheet();
+require_once( sprintf("%slib/Stylesheets.php", plugin_dir_path(__FILE__)));
+$stylesheet = new VegasHero\Stylesheets();
 
-require_once( dirname( __FILE__ ) . '/shortcodes.php' );
-$shortcode = new Vegashero_Shortcodes();
+require_once( sprintf("%slib/ShortCodes/ShortCodes.php", plugin_dir_path(__FILE__)));
+$shortcode = new VegasHero\ShortCodes\ShortCodes();
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();

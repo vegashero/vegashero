@@ -18,7 +18,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($operators)): ?>
   <select data-taxonomy="<?=$operator_query_var?>">
-    <option selected disabled><?php if (get_option('vh_lobby_filterstext_op')=='') echo 'Filter by operator'; else { echo get_option('vh_lobby_filterstext_op'); } ?></option>
+    <option selected disabled><?= ! empty(get_option('vh_lobby_filterstext_op')) ? __('Filter by operator', 'vegashero') : get_option('vh_lobby_filterstext_op'); ?></option>
     <?php foreach($operators as $operator): ?>
     <option value="<?=$operator->slug?>"><?=$operator->name?> (<?=$operator->count?>)</option>
     <?php endforeach; ?>
@@ -27,7 +27,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($categories)): ?>
   <select data-taxonomy="<?=$category_query_var?>">
-    <option selected disabled><?php if (get_option('vh_lobby_filterstext_cat')=='') echo 'Filter by category'; else { echo get_option('vh_lobby_filterstext_cat'); } ?></option>
+    <option selected disabled><?= ! empty(get_option('vh_lobby_filterstext_cat')) ? __('Filter by category', 'vegashero') : get_option('vh_lobby_filterstext_cat'); ?></option>
     <?php foreach($categories as $category): ?>
     <option value="<?=$category->slug?>"><?=$category->name?> (<?=$category->count?>)</option>
     <?php endforeach; ?>
@@ -36,7 +36,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($providers)): ?>
   <select data-taxonomy="<?=$provider_query_var?>">
-    <option selected disabled><?php if (get_option('vh_lobby_filterstext_prov')=='') echo 'Filter by provider'; else { echo get_option('vh_lobby_filterstext_prov'); } ?></option>
+    <option selected disabled><?= ! empty(get_option('vh_lobby_filterstext_prov')) ? __('Filter by provider', 'vegashero') : get_option('vh_lobby_filterstext_prov'); ?></option>
     <?php foreach($providers as $provider): ?>
     <option value="<?=$provider->slug?>"><?=$provider->name?> (<?=$provider->count?>)</option>
     <?php endforeach; ?>
@@ -44,13 +44,13 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 <?php endif ?>
 
 <?php if(get_option('vh_lobbysearch') === 'on'): ?>
-  <input type="text" id="vh-search" class="vh-search" placeholder="search" />
+<input type="text" id="vh-search" class="vh-search" placeholder="<?= __('search', 'vegashero') ?>" />
 <?php endif ?>
 
 </div>
 
-<ul id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon">loading games...</span></ul>
+<ul id="vh-lobby-posts" class="vh-row-sm"><span class="loading-icon"><?= __('loading games...', 'vegashero') ?></span></ul>
 <?php if(get_option('vh_lobbylink') === 'on'): ?>
-  <div class="vh-linklove">- <a target="_blank" href="https://vegashero.co">VegasHero Casino Affiliate Plugin</a> -</div>
+<div class="vh-linklove">- <a target="_blank" href="https://vegashero.co"><?= __('VegasHero Casino Affiliate Plugin', 'vegashero') ?></a> -</div>
 <?php else: ?>
 <?php endif ?>

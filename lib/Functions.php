@@ -14,17 +14,17 @@ class Functions {
         \VegasHero\Functions::removeContentFilter();
         $iframe_file = sprintf("%s../templates/iframe.php", plugin_dir_path(__FILE__));
         if( ! file_exists($iframe_file)) {
-            error_log(sprintf("File not found %s", $iframe_file));
+            error_log(sprintf(__('File not found %s', 'vegashero'), $iframe_file));
             return;
         }
         $post_id = get_the_ID();
         if( ! $post_id) {
-            echo "renderGameFrame method can only be called within Wordpress loop.";
+            echo __('renderGameFrame method can only be called within Wordpress loop.', 'vegashero');
             return;
         }
         $iframe_src = get_post_meta($post_id, 'game_src', true);
         if( ! $iframe_src) {
-            echo "Game source not found. Have you imported games?";
+            echo __('Game source not found. Have you imported games?', 'vegashero');
             return;
         }
         $iframe_string = file_get_contents($iframe_file, $iframe_src);
@@ -38,7 +38,7 @@ class Functions {
         $single_game_widget = ob_get_contents();
         ob_end_clean();
         if(empty($single_game_widget)) {
-            echo "<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>";
+            echo __('<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>', 'vegashero');
             return;
         }
         echo $single_game_widget;

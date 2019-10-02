@@ -11,7 +11,7 @@ class LatestGames extends \WP_Widget {
         $widget_options = array( 
             'classname' => 'Widget_vh_recent_games',
             'description' => __('Display games with thumbnails from the VegasHero Plugin.', 'vegashero'),
-            'title' => 'Latest Casino Games',
+            'title' => __('Latest Casino Games', 'vegashero'),
             'maxgames' => 6,
             'orderby' => 'date',
         );

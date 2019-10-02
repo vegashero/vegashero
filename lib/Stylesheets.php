@@ -1,6 +1,8 @@
 <?php
 
-class Vegashero_Stylesheet
+namespace VegasHero;
+
+class Stylesheets
 {
     public function __construct() {
         add_action( 'get_header', array($this, 'lobbyScripts'));
