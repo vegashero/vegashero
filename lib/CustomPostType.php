@@ -32,15 +32,15 @@ class CustomPostType
 
     public function registerGameOperatorTaxonomy() {
         $labels = array(
-            'name'              => __('Game Operators', 'vegashero'),
-            'singular_name'     => __('Game Operator', 'vegashero'),
-            'search_items'      => __('Search Game Operators', 'vegashero'),
-            'all_items'         => __('All Games Operators', 'vegashero'),
-            'edit_item'         => __('Edit Game Operator', 'vegashero'),
-            'update_item'       => __('Update Game Operator', 'vegashero'),
-            'add_new_item'      => __('Add New Game Operator', 'vegashero'),
-            'new_item_name'     => __('New Game Operator', 'vegashero'),
-            'menu_name'         => __('Game Operators', 'vegashero'),
+            'name'              => wp_strip_all_tags(__('Game Operators', 'vegashero')),
+            'singular_name'     => wp_strip_all_tags(__('Game Operator', 'vegashero')),
+            'search_items'      => wp_strip_all_tags(__('Search Game Operators', 'vegashero')),
+            'all_items'         => wp_strip_all_tags(__('All Games Operators', 'vegashero')),
+            'edit_item'         => wp_strip_all_tags(__('Edit Game Operator', 'vegashero')),
+            'update_item'       => wp_strip_all_tags(__('Update Game Operator', 'vegashero')),
+            'add_new_item'      => wp_strip_all_tags(__('Add New Game Operator', 'vegashero')),
+            'new_item_name'     => wp_strip_all_tags(__('New Game Operator', 'vegashero')),
+            'menu_name'         => wp_strip_all_tags(__('Game Operators', 'vegashero')),
         );
 
         $args = array(
@@ -66,15 +66,15 @@ class CustomPostType
     public function registerGameProviderTaxonomy() {
         //require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $labels = array(
-            'name'              => __('Game Providers', 'vegashero'),
-            'singular_name'     => __('Game Provider', 'vegashero'),
-            'search_items'      => __('Search Game Providers', 'vegashero'),
-            'all_items'         => __('All Games Providers', 'vegashero'),
-            'edit_item'         => __('Edit Game Provider', 'vegashero'),
-            'update_item'       => __('Update Game Provider', 'vegashero'),
-            'add_new_item'      => __('Add New Game Provider', 'vegashero'),
-            'new_item_name'     => __('New Game Provider', 'vegashero'),
-            'menu_name'         => __('Game Providers', 'vegashero'),
+            'name'              => wp_strip_all_tags(__('Game Providers', 'vegashero')),
+            'singular_name'     => wp_strip_all_tags(__('Game Provider', 'vegashero')),
+            'search_items'      => wp_strip_all_tags(__('Search Game Providers', 'vegashero')),
+            'all_items'         => wp_strip_all_tags(__('All Games Providers', 'vegashero')),
+            'edit_item'         => wp_strip_all_tags(__('Edit Game Provider', 'vegashero')),
+            'update_item'       => wp_strip_all_tags(__('Update Game Provider', 'vegashero')),
+            'add_new_item'      => wp_strip_all_tags(__('Add New Game Provider', 'vegashero')),
+            'new_item_name'     => wp_strip_all_tags(__('New Game Provider', 'vegashero')),
+            'menu_name'         => wp_strip_all_tags(__('Game Providers', 'vegashero')),
         );
 
         $args = array(
@@ -103,15 +103,15 @@ class CustomPostType
     public function registerGameCategoryTaxonomy() {
         //require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
         $labels = array(
-            'name'              => __('Game Categories', 'vegashero'),
-            'singular_name'     => __('Game Category', 'vegashero'),
-            'search_items'      => __('Search Game Category', 'vegashero'),
-            'all_items'         => __('All Game Categories', 'vegashero'),
-            'edit_item'         => __('Edit Category', 'vegashero'),
-            'update_item'       => __('Update Category', 'vegashero'),
-            'add_new_item'      => __('Add New Game Category', 'vegashero'),
-            'new_item_name'     => __('New Category', 'vegashero'),
-            'menu_name'         => __('Game Categories', 'vegashero'),
+            'name'              => wp_strip_all_tags(__('Game Categories', 'vegashero')),
+            'singular_name'     => wp_strip_all_tags(__('Game Category', 'vegashero')),
+            'search_items'      => wp_strip_all_tags(__('Search Game Category', 'vegashero')),
+            'all_items'         => wp_strip_all_tags(__('All Game Categories', 'vegashero')),
+            'edit_item'         => wp_strip_all_tags(__('Edit Category', 'vegashero')),
+            'update_item'       => wp_strip_all_tags(__('Update Category', 'vegashero')),
+            'add_new_item'      => wp_strip_all_tags(__('Add New Game Category', 'vegashero')),
+            'new_item_name'     => wp_strip_all_tags(__('New Category', 'vegashero')),
+            'menu_name'         => wp_strip_all_tags(__('Game Categories', 'vegashero')),
         );
 
         $args = array(
@@ -138,7 +138,7 @@ class CustomPostType
         $cptnamevalue = get_option('vh_cptname');
 
         if ($cptnamevalue == "") {
-            $cptnamevalue = __('VegasHero Games', 'vegashero');
+            $cptnamevalue = wp_strip_all_tags(__('VegasHero Games', 'vegashero'));
         } else { 
             $cptnamevalue = get_option('vh_cptname'); 
         }
@@ -146,14 +146,14 @@ class CustomPostType
         $options = array(
             'labels' => array(
                 'name' => $cptnamevalue,
-                'singular_name' => __('VegasHero Game', 'vegashero'),
-                'search_items'  => __('Search Game', 'vegashero'),
-                'all_items'     => __('All Games', 'vegashero'),
-                'edit_item'     => __('Edit Game', 'vegashero'),
-                'update_item'   => __('Update Game', 'vegashero'),
-                'add_new_item'  => __('Add New Game', 'vegashero'),
-                'new_item_name' => __('New Game', 'vegashero'),
-                'menu_name' => __('VegasHero Games', 'vegashero')
+                'singular_name' => wp_strip_all_tags(__('VegasHero Game', 'vegashero')),
+                'search_items'  => wp_strip_all_tags(__('Search Game', 'vegashero')),
+                'all_items'     => wp_strip_all_tags(__('All Games', 'vegashero')),
+                'edit_item'     => wp_strip_all_tags(__('Edit Game', 'vegashero')),
+                'update_item'   => wp_strip_all_tags(__('Update Game', 'vegashero')),
+                'add_new_item'  => wp_strip_all_tags(__('Add New Game', 'vegashero')),
+                'new_item_name' => wp_strip_all_tags(__('New Game', 'vegashero')),
+                'menu_name' => wp_strip_all_tags(__('VegasHero Games', 'vegashero'))
             ),
             'public' => true,
             'exclude_from_search' => false,
@@ -199,7 +199,7 @@ function add_game_category_taxonomy_filters() {
         $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
         $info_taxonomy = get_taxonomy($taxonomy);
         wp_dropdown_categories(array(
-            'show_option_all' => sprintf(__('All %s'), $info_taxonomy->label),
+            'show_option_all' => wp_strip_all_tags(sprintf(__('All %s'), $info_taxonomy->label)),
             'taxonomy' => $taxonomy,
             'name' => $taxonomy_permalink_slug,
             'orderby' => 'name',
@@ -225,7 +225,7 @@ function add_game_operator_taxonomy_filters() {
         $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
         $info_taxonomy = get_taxonomy($taxonomy);
         wp_dropdown_categories(array(
-            'show_option_all' => sprintf(__('All %s'), $info_taxonomy->label),
+            'show_option_all' => wp_strip_all_tags(sprintf(__('All %s'), $info_taxonomy->label)),
             'taxonomy' => $taxonomy,
             'name' => $taxonomy_permalink_slug,
             'orderby' => 'name',
@@ -251,7 +251,7 @@ function add_game_provider_taxonomy_filters() {
         $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
         $info_taxonomy = get_taxonomy($taxonomy);
         wp_dropdown_categories(array(
-            'show_option_all' => sprintf(__('All %s', 'vegashero'), $info_taxonomy->label),
+            'show_option_all' => wp_strip_all_tags(sprintf(__('All %s', 'vegashero'), $info_taxonomy->label)),
             'taxonomy' => $taxonomy,
             'name' => $taxonomy_permalink_slug,
             'orderby' => 'name',

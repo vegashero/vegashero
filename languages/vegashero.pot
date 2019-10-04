@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-10-02T19:07:43+00:00\n"
+"POT-Creation-Date: 2019-10-04T19:02:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: vegashero\n"
@@ -104,10 +104,6 @@ msgstr ""
 msgid "Unable to fetch a list of providers. Please try again by refreshing your page."
 msgstr ""
 
-#: lib/Settings/templates/import-notice.php:3
-msgid "Your import has been queued. Please head over to the <a href=\"%1$s\">VegasHero Games</a> area to view/edit the games"
-msgstr ""
-
 #: lib/Settings/templates/license/license-input.php:1
 msgid "enter your license key here"
 msgstr ""
@@ -172,7 +168,7 @@ msgid "url base path for game categories"
 msgstr ""
 
 #: lib/Settings/templates/permalinks/game-category-url-input.php:2
-msgid "Set URL slug for the game categories. For example setting this to \"gametype\" will display game page URLs as yoursite.com/slots/gametype/. Default is \"category\"."
+msgid "Sets the URL path prefix for listing games per category. The default prefix is \"category\".<br>For example, to replace %1$s/game/<u>category</u>/ with %1$s/game/<u>type</u>/ set this to \"type\"."
 msgstr ""
 
 #: lib/Settings/templates/permalinks/game-operator-url-input.php:1
@@ -181,7 +177,7 @@ msgid "permalink base path for vegashero games"
 msgstr ""
 
 #: lib/Settings/templates/permalinks/game-operator-url-input.php:2
-msgid "Set URL slug for the game operators. For example setting this to \"casinos\" will display game page URLs as yoursite.com/slots/casinos/. Default is \"operator\"."
+msgid "Sets the URL path prefix for listing games per operator. The default prefix is \"operator\".<br>For example, to replace %1$s/game/<u>operator</u>/ with %1$s/game/<u>casino</u>/ set this to \"casino\"."
 msgstr ""
 
 #: lib/Settings/templates/permalinks/custom-post-type-url-input.php:1
@@ -189,11 +185,11 @@ msgid "url base path for vegashero games"
 msgstr ""
 
 #: lib/Settings/templates/permalinks/custom-post-type-url-input.php:2
-msgid "Set URL slug for the games posts. For example setting this to \"slots\" will display game page URLs as yoursite.com/slots/game-name/. Default is \"game\"."
+msgid "Sets the URL path prefix for an individual game. The default prefix is \"game\".<br>For example, to replace %1$s/<u>game</u>/ with %1$s/<u>slots</u>/ set this to \"slots\"."
 msgstr ""
 
 #: lib/Settings/templates/permalinks/game-provider-url-input.php:2
-msgid "Set URL slug for the game providers. For example setting this to \"software\" will display game page URLs as yoursite.com/slots/software/. Default is \"provider\"."
+msgid "Sets the URL path prefix for listing games per provider. The default prefix is \"provider\".<br>For example, to replace %1$s/game/<u>provider</u>/ with %1$s/game/<u>studio</u>/ set this so \"studio\"."
 msgstr ""
 
 #: lib/Settings/templates/permalinks/section-heading.php:2
@@ -237,10 +233,6 @@ msgstr ""
 #: lib/Settings/templates/operator-table.php:20
 #: lib/Settings/templates/operator-table.php:59
 msgid "of"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:21
-msgid "0"
 msgstr ""
 
 #: lib/Settings/templates/operator-table.php:23
@@ -325,36 +317,27 @@ msgid "Providers associated with this operator"
 msgstr ""
 
 #: lib/Settings/templates/operator-form.php:25
-#: lib/Settings/templates/operator-form.php:26
-#: lib/Settings/templates/operator-form.php:27
-#: lib/Settings/templates/operator-form.php:28
-#: lib/Settings/templates/operator-form.php:29
-#: lib/Settings/templates/operator-form.php:30
-msgid "Provider"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:25
-msgid "1"
+msgid "Provider 1"
 msgstr ""
 
 #: lib/Settings/templates/operator-form.php:26
-msgid "2"
+msgid "Provider 2"
 msgstr ""
 
 #: lib/Settings/templates/operator-form.php:27
-msgid "3"
+msgid "Provider 3"
 msgstr ""
 
 #: lib/Settings/templates/operator-form.php:28
-msgid "4"
+msgid "Provider 4"
 msgstr ""
 
 #: lib/Settings/templates/operator-form.php:29
-msgid "5"
+msgid "Provider 5"
 msgstr ""
 
 #: lib/Settings/templates/operator-form.php:30
-msgid "6"
+msgid "Provider 6"
 msgstr ""
 
 #: lib/Settings/templates/operator-form.php:34
@@ -419,6 +402,10 @@ msgstr ""
 
 #: lib/Settings/templates/operators.php:17
 msgid "Casino <i>operators</i> may share some of the same games, but rest assured, games will <u>not</u> be duplicated and instead can be associated with multiple casino <u>operators</u>."
+msgstr ""
+
+#: lib/Settings/templates/operators.php:30
+msgid "Featured"
 msgstr ""
 
 #: lib/Settings/templates/operators.php:50

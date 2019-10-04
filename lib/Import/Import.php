@@ -79,7 +79,7 @@ abstract class Import
             $operator_id = wp_insert_category(
                 array(
                     'cat_name' => $operator,
-                    'category_description' => __('VegasHero Game Operators', 'vegashero'),
+                    'category_description' => wp_strip_all_tags(__('VegasHero Game Operators', 'vegashero')),
                     'category_nicename' => sanitize_title($operator),
                     'taxonomy' => $this->_config->gameOperatorTaxonomy
                 ),
@@ -97,7 +97,7 @@ abstract class Import
             $provider_id = wp_insert_category(
                 array(
                     'cat_name' => $provider,
-                    'category_description' => __('VegasHero Game Providers', 'vegashero'),
+                    'category_description' => wp_strip_all_tags(__('VegasHero Game Providers', 'vegashero')),
                     'category_nicename' => sanitize_title($provider),
                     'taxonomy' => $this->_config->gameProviderTaxonomy
                 ),
@@ -115,7 +115,7 @@ abstract class Import
             $category_id = wp_insert_category(
                 array(
                     'cat_name' => $category,
-                    'category_description' => __('VegasHero Game Categories', 'vegashero'),
+                    'category_description' => wp_strip_all_tags(__('VegasHero Game Categories', 'vegashero')),
                     'category_nicename' => sanitize_title($category),
                     // 'category_parent' => $parent_id,
                     'taxonomy' => $this->_config->gameCategoryTaxonomy

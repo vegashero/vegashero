@@ -27,8 +27,8 @@ class Permalinks extends \VegasHero\Settings
     public function addSettingsMenu() {
         add_submenu_page(
             $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, // The title to be displayed on this menu's corresponding page
-            $page_title = __('Permalinks', 'vegashero'), // The text to be displayed for this actual menu item
-            $menu_title = __('Permalinks', 'vegashero'), // The text to be displayed for this actual menu item
+            $page_title = wp_strip_all_tags(__('Permalinks', 'vegashero')), // The text to be displayed for this actual menu item
+            $menu_title = wp_strip_all_tags(__('Permalinks', 'vegashero')), // The text to be displayed for this actual menu item
             $capability = 'manage_options', // Which type of users can see this menu
             $menu_slug = self::MENU_SLUG, // The unique ID - that is, the slug - for this menu item
             $callback = array($this, 'createPermalinksPage') // The name of the function to call when rendering this menu's page
@@ -121,14 +121,14 @@ class Permalinks extends \VegasHero\Settings
 
         add_settings_section(
             $id = 'vh-permalinks-section',
-            $title = __('Permalink Settings', 'vegashero'),
+            $title = wp_strip_all_tags(__('Permalink Settings', 'vegashero')),
             $callback = array($this, 'sectionHeading'),
             $page = self::PAGE_SLUG
         );
 
         add_settings_field( 
             $id = 'vh_custom_post_type_url_slug', 
-            $title = __('Game base', 'vegashero'), 
+            $title = wp_strip_all_tags(__('Game base', 'vegashero')), 
             $callback = array($this, 'inputForCustomPostTypeUrl'), 
             $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',
@@ -145,7 +145,7 @@ class Permalinks extends \VegasHero\Settings
 
         add_settings_field( 
             $id = 'vh_game_category_url_slug', 
-            $title = __('Category base', 'vegashero'), 
+            $title = wp_strip_all_tags(__('Category base', 'vegashero')), 
             $callback = array($this, 'inputForGameCategoryUrl'), 
             $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',
@@ -162,7 +162,7 @@ class Permalinks extends \VegasHero\Settings
 
         add_settings_field( 
             $id = 'vh_game_operator_url_slug', 
-            $title = __('Operator base', 'vegashero'), 
+            $title = wp_strip_all_tags(__('Operator base', 'vegashero')), 
             $callback = array($this, 'inputForGameOperatorUrl'), 
             $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',
@@ -179,7 +179,7 @@ class Permalinks extends \VegasHero\Settings
 
         add_settings_field( 
             $id = 'vh_game_provider_url_slug', 
-            $title = __('Provider base', 'vegashero'), 
+            $title = wp_strip_all_tags(__('Provider base', 'vegashero')), 
             $callback = array($this, 'inputForGameProviderUrl'), 
             $page = self::PAGE_SLUG, 
             $section = 'vh-permalinks-section',

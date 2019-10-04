@@ -50,7 +50,7 @@ class ShortCodes
 	public function lobby() {
 		$playnow_btn_value = get_option('vh_playnow_btn');
 		if ($playnow_btn_value == '') {
-			$playnow_btn_value = __('Play Now', 'vegashero');
+			$playnow_btn_value = wp_strip_all_tags(__('Play Now', 'vegashero'));
 		} else {
 			$playnow_btn_value = get_option('vh_playnow_btn');
 		}
@@ -91,8 +91,8 @@ class ShortCodes
             'vh_devicehead' => '', //device compatibility column title
         ), $atts ) );
 
-        if ( $vh_bonushead == '' ) { $vh_bonushead = __('Bonus', 'vegashero'); }
-        if ( $vh_devicehead == '' ) { $vh_devicehead = __('Compatible Devices', 'vegashero'); }
+        if ( $vh_bonushead == '' ) { $vh_bonushead = wp_strip_all_tags(__('Bonus', 'vegashero')); }
+        if ( $vh_devicehead == '' ) { $vh_devicehead = wp_strip_all_tags(__('Compatible Devices', 'vegashero')); }
 
         $vhoutput = "<table class=\"vh-casino-providers\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><th class=\"vh-casino\">";
         $vhoutput .= $vh_tname;

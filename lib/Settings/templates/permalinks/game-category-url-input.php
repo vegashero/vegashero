@@ -1,2 +1,2 @@
-<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="<?= __('url base path for game categories', 'vegashero') ?>" value="<?=$option?>" />
-<p class="description"><?= __('Set URL slug for the game categories. For example setting this to "gametype" will display game page URLs as yoursite.com/slots/gametype/. Default is "category".', 'vegashero') ?></p>
+<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="<?= esc_attr__('url base path for game categories', 'vegashero') ?>" value="<?=esc_attr($option)?>" />
+<p class="description"><?= wp_kses(sprintf(__('Sets the URL path prefix for listing games per category. The default prefix is "category".<br>For example, to replace %1$s/game/<u>category</u>/ with %1$s/game/<u>type</u>/ set this to "type".', 'vegashero'), site_url()), ["br" => [], "u" => []]) ?></p>

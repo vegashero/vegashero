@@ -1,2 +1,2 @@
-<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="<?= __('permalink base path for vegashero games', 'vegashero') ?>" value="<?=$option?>"/>
-<p class="description"><?= __('Set URL slug for the game providers. For example setting this to "software" will display game page URLs as yoursite.com/slots/software/. Default is "provider".', 'vegashero') ?></p>
+<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="<?= esc_attr(__('permalink base path for vegashero games', 'vegashero')) ?>" value="<?=esc_attr($option)?>"/>
+<p class="description"><?= wp_kses(sprintf(__('Sets the URL path prefix for listing games per provider. The default prefix is "provider".<br>For example, to replace %1$s/game/<u>provider</u>/ with %1$s/game/<u>studio</u>/ set this so "studio".', 'vegashero'), site_url()), ["br" => [], "u" => []]) ?></p>

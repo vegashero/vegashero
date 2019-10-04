@@ -19,12 +19,12 @@ class Functions {
         }
         $post_id = get_the_ID();
         if( ! $post_id) {
-            echo __('renderGameFrame method can only be called within Wordpress loop.', 'vegashero');
+            echo wp_strip_all_tags(__('renderGameFrame method can only be called within Wordpress loop.', 'vegashero'));
             return;
         }
         $iframe_src = get_post_meta($post_id, 'game_src', true);
         if( ! $iframe_src) {
-            echo __('Game source not found. Have you imported games?', 'vegashero');
+            echo wp_strip_all_tags(__('Game source not found. Have you imported games?', 'vegashero'));
             return;
         }
         $iframe_string = file_get_contents($iframe_file, $iframe_src);
@@ -38,7 +38,7 @@ class Functions {
         $single_game_widget = ob_get_contents();
         ob_end_clean();
         if(empty($single_game_widget)) {
-            echo __('<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>', 'vegashero');
+            echo wp_kses(__('<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>', 'vegashero'), ["p" => [], "strong" => []]);
             return;
         }
         echo $single_game_widget;

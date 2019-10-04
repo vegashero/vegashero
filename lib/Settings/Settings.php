@@ -19,7 +19,7 @@ abstract class Settings {
 
 	protected function _showUpdateNotification($menu_slug) {
         if($this->_isSettingsUpdated() && $this->_isSettingsPage($menu_slug)) {
-            $text = __('Settings saved', 'vegashero');
+            $text = wp_strip_all_tags(__('Settings saved', 'vegashero'));
             \VegasHero\Helpers\Notice\Admin::success("<strong>$text</strong>");
         }
     }

@@ -19,8 +19,8 @@ class SingleGameArea {
         $args = array(
             'id'            => $this->id,
             'class'         => 'single_game_widget_area',
-            'name'          => __( 'Single Game Widget Area', 'vegashero' ),
-            'description'   => __( 'Add widgets / shortcodes under VegasHero games', 'vegashero' ),
+            'name'          => wp_strip_all_tags(__( 'Single Game Widget Area', 'vegashero' )),
+            'description'   => wp_strip_all_tags(__( 'Add widgets / shortcodes under VegasHero games', 'vegashero' )),
             'before_title'  => '<h2 class="singlegame_widget_title">',
             'after_title'   => '</h2>',
             'before_widget' => '<div id="%1$s" class="widget singlegame_widget %2$s">',

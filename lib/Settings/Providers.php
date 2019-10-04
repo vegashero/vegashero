@@ -58,8 +58,8 @@ class Providers extends \VegasHero\Settings\Import
     public function addSettingsMenu() {
         add_submenu_page(
             'vh-settings',         // Register this submenu with the menu defined above
-            __('Import by Provider', 'vegashero'),          // The text to the display in the browser when this menu item is active
-            __('Import by Provider', 'vegashero'),                  // The text for this menu item
+            wp_strip_all_tags(__('Import by Provider', 'vegashero')),          // The text to the display in the browser when this menu item is active
+            wp_strip_all_tags(__('Import by Provider', 'vegashero')),                  // The text for this menu item
             'administrator',            // Which type of users can see this menu
             'vegashero-provider-import',          // The unique ID - the slug - for this menu item
             array($this, 'createSettingsPage')   // The function used to render this menu's page to the screen
@@ -72,7 +72,7 @@ class Providers extends \VegasHero\Settings\Import
         $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s?_wpnonce=%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getFetchApiRoute(), $provider, wp_create_nonce('wp_rest'));
         $markup .= sprintf(" data-import='%s/wp-json/%s%s?_wpnonce=%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getImportApiRoute(), wp_create_nonce('wp_rest'));
         $makup .= ">";
-        $markup .= __("Import games", 'vegashero');
+        $markup .= wp_strip_all_tags(__("Import games", 'vegashero'));
         $markup .= "</button>";
         return $markup;
     }

@@ -1,2 +1,2 @@
-<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="<?= __('url base path for vegashero games', 'vegashero') ?>"  value="<?=$option?>"/>
-<p class="description"><?= __('Set URL slug for the games posts. For example setting this to "slots" will display game page URLs as yoursite.com/slots/game-name/. Default is "game".', 'vegashero') ?></p>
+<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="<?= esc_attr(__('url base path for vegashero games', 'vegashero')) ?>"  value="<?=esc_attr($option)?>"/>
+<p class="description"><?= wp_kses(sprintf(__('Sets the URL path prefix for an individual game. The default prefix is "game".<br>For example, to replace %1$s/<u>game</u>/ with %1$s/<u>slots</u>/ set this to "slots".', 'vegashero'), site_url()), ["br" => [], "u" => []]) ?></p>

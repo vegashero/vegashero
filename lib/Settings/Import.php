@@ -24,18 +24,18 @@ abstract class Import {
     }
 
     protected function _getGameTypeCheckboxes($slug, $html5_total, $flash_total) {
-        $html5_text = __('Import HTML5 games', 'vegashero');
-        $flash_text = __('Import Flash games', 'vegashero');
+        $html5_text = wp_strip_all_tags(__('Import HTML5 games', 'vegashero'));
+        $flash_text = wp_strip_all_tags(__('Import Flash games', 'vegashero'));
         $checkboxes = '<div class="vh_game_type_checkbox_wrapper">';
-        $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">%2$s (%3$d)</label></div>', $slug, $html5_text, $html5_total);
-        $checkboxes .= sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash" checked><label for="%1$s_flash">%2$s (%3$d)</label></div>', $slug, $flash_text, $flash_total);
+        $checkboxes .= wp_kses(sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">%2$s (%3$d)</label></div>', $slug, $html5_text, $html5_total), ["div" =>["class" => true], "input" => ["type" => true, "id" => true, "name" => true, "checked" => true], "label" => ["for" => true]]);
+        $checkboxes .= wp_kses(sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash" checked><label for="%1$s_flash">%2$s (%3$d)</label></div>', $slug, $flash_text, $flash_total), ["div" => ["class" => true], "input" => ["type" => true, "id" => true, "name" => true, "checked" => true], "label" => ["for" => true]]);
         $checkboxes .= '</div>';
         return $checkboxes;
     }
 
     protected function _getGameCount($slug, $total) {
-        $title = __('Purchase a license key to unlock access to all the games', 'vegashero');
-        $text = __('Games available', 'vegashero');
+        $title = esc_attr(__('Purchase a license key to unlock access to all the games', 'vegashero'));
+        $text = wp_strip_all_tags(__('Games available', 'vegashero'));
         return "<p class='description gamecount' title='$title'>$text: <strong>2</strong> / $total<span class='dashicons dashicons-lock'></span></p>";
     }
 
