@@ -15,7 +15,6 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 ?>
 
 <div class="vh-filter">
-
 <?php if(count($operators)): ?>
   <select data-taxonomy="<?=$operator_query_var?>">
     <option selected disabled><?= ! empty(get_option('vh_lobby_filterstext_op')) ? wp_strip_all_tags(__('Filter by operator', 'vegashero')) : get_option('vh_lobby_filterstext_op'); ?></option>

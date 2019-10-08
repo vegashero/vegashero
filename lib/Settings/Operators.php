@@ -29,7 +29,7 @@ class Operators extends \VegasHero\Settings\Import
     }
 
     public function loadOperatorStyles() {
-        $url = plugin_dir_url( __FILE__ ) . 'templates/operators.css';
+        $url = plugins_url('vegashero/lib/Settings/templates/operators.css';
         echo '<link rel="stylesheet" href="'.$url.'" type="text/css" media="screen">';
     }
 

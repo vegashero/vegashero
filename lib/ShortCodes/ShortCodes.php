@@ -54,13 +54,13 @@ class ShortCodes
 		} else {
 			$playnow_btn_value = get_option('vh_playnow_btn');
 		}
-		$script_src = sprintf('%stemplates/js/lobby_search_filters.js', plugin_dir_url( __FILE__ ));
+		
         wp_enqueue_script(array('jquery'));
-        wp_register_script('vegashero_termstoggle', sprintf("%stemplates/js/terms_toggle.js", plugin_dir_url(__FILE__)), null, true);
+        wp_register_script('vegashero_termstoggle', plugins_url("vegashero/templates/js/terms_toggle.js"), null, true);
         wp_enqueue_script('vegashero_termstoggle', '', array('jquery'), null, true);
-		wp_register_script('jquery_debounce', sprintf("%stemplates/js/jquery.ba-throttle-debounce.min.js", plugin_dir_url(__FILE__)), null, true);
+		wp_register_script('jquery_debounce', plugins_url("vegashero/templates/js/jquery.ba-throttle-debounce.min.js"), null, true);
 		wp_enqueue_script('jquery_debounce', '', array('jquery'), null, true);
-		wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery_debounce'), null, true);
+		wp_enqueue_script('vegashero_lobby_script', plugins_url('vegashero/templates/js/lobby_search_filters.js'), array('jquery_debounce'), null, true);
 		wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
 			array(
 				'ajax_url' => admin_url('admin-ajax.php'),
@@ -71,7 +71,7 @@ class ShortCodes
 			)
 		);
         ob_start();
-		$lobby_template_file = sprintf('%s/templates/lobby.php', dirname(__FILE__));
+		$lobby_template_file = sprintf('%s/vegashero/templates/lobby.php', WP_PLUGIN_DIR);
 		include_once $lobby_template_file;
         $lobby_template_file = ob_get_clean();
         return $lobby_template_file;
