@@ -29,6 +29,8 @@ docker exec -u $USER vegashero_php-apache_1 wp user update vegashero --user_pass
 docker exec -u $USER vegashero_php-apache_1 wp core update
 # install plugins
 docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer --activate
+# install languages
+docker exec -u $USER vegashero_php-apache_1 wp language core install af
 ```
 
 Now navigate to [http://localhost:8080](http://localhost:8080)
@@ -163,6 +165,64 @@ Renewing SSL certificates.
 
 ```sh
 certbot renew
+```
+
+## i18n
+
+Generate `.pot` files.
+
+```sh
+wp i18n make-pot path/to/your-theme-directory
+```
+
+Create `.po` file from `.pot` file.
+
+```sh
+cp vegashero.pot vegashero-af_ZA.po
+```
+
+Translate the `.po` file.
+
+```sh
+vim vegashero-af_ZA.po
+```
+
+Generate `.mo` files from `.po` files.
+
+```sh
+cd languages
+msgfmt -cv -o vegashero-af.mo vegashero-af.po
+```
+
+Validate `.mo` file
+
+```sh
+msgunfmt vegashero-af.mo
+```
+
+Update the `.po` 
+
+```sh
+wp i18n make-pot path/to/your-theme-directory
+msgmerge -vU vegashero-af_ZA.po vegashero.pot
+```
+
+Install languages
+
+```sh
+wp language core install af
+```
+
+List plugin languages
+
+```sh
+wp language plugin list vegashero
+```
+
+Switch language
+
+```sh
+wp site switch-language af
 ```
 
 ## References

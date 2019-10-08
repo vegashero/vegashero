@@ -21,7 +21,7 @@ class LatestGames extends \WP_Widget {
     public function form($instance) {
         $title = ! empty( $instance['title'] ) ? $instance['title'] : wp_strip_all_tags(__( 'Latest Games', 'text_domain' ));
         $post_type = 'vegashero_games';
-        $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : 6);
+        $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : 6;
         $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : wp_strip_all_tags(__( 'date', 'text_domain' ));
         include("LatestGamesFormTemplate.php");
     }

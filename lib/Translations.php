@@ -3,5 +3,5 @@
 namespace VegasHero\Translations;
 
 function load_textdomain() {
-    load_plugin_textdomain( 'vegashero', FALSE, sprintf("%s/vegashero/languages/", WP_PLUGIN_DIR) );
+    load_plugin_textdomain( 'vegashero', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 }

@@ -2,22 +2,24 @@
 # This file is distributed under the same license as the VegasHero plugin.
 msgid ""
 msgstr ""
+"Language: af\n"
+"Language-Team: Vegas Hero\n"
 "Project-Id-Version: VegasHero 1.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vegashero\n"
 "POT-Creation-Date: 2019-10-04T19:02:24+00:00\n"
-"PO-Revision-Date: 2019-10-04 14:30+0200\n"
+"PO-Revision-Date: 2019-10-08 21:42+0200\n"
 "Last-Translator: Charles Mulder <charliemulder@protonmail.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: WP-CLI 2.2.0\n"
+"X-Generator: Poedit 2.0.6\n"
 "X-Domain: vegashero\n"
 
 #. Plugin Name of the plugin
 #. Author of the plugin
 #: lib/Settings/Menu.php:16
 msgid "VegasHero"
-msgstr "VegashHero"
+msgstr "VegasHero"
 
 #. Plugin URI of the plugin
 #. Author URI of the plugin
@@ -26,26 +28,11 @@ msgstr "https://vegashero.co"
 
 #. Description of the plugin
 msgid ""
-"The VegasHero plugin adds powerful features to your igaming affiliate site. "
-"Bulk import free casino & slots games, flexible options to add your own "
-"games. Display games in a responsive lobby grid. Easily add and manage your "
-"affiliate links through an elegant editable table. Option to customize game "
-"titles and content to maximize your SEO. Check out our premium <a target="
-"\"_blank\" href=\"https://vegashero.co/downloads/vegashero-theme/?"
-"utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description"
-"%20link\">Casino Wordpress Theme</a> that is purpose built to showcase the "
-"games and your affiliate links."
+"The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino & slots games, flexible options to add your own games. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO. Check out our premium <a target=\"_blank\" href=\"https://vegashero.co/downloads/vegashero-theme/?"
+"utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description%20link\">Casino Wordpress Theme</a> that is purpose built to showcase the games and your affiliate links."
 msgstr ""
-"Die VegasHero plugin dra kragtige funksies by tot jou igaming affiliate "
-"website. Die grootmaat invoer van verniet dobbel speletjies en buigsame "
-"opsies om jou eie speletjies by te voeg. Vertoon speletjies in 'n reaktiewe "
-"tabel. 'n Elegante wysigbare tabel maak dit maklik om self affiliate links "
-"by te sit. Daar is ook opsies om die titels en inhoud van speletjies te "
-"verander om SEO te verbeter. Kyk gerus na ons premie <a target=\"_blank\" "
-"href=\"https://vegashero.co/downloads/vegashero-theme/?"
-"utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description"
-"%20link\">Casino Wordpress Tema</a> wat ons persoonlik gebou het om jou "
-"speletjies en affiliate links af te show."
+"Die VegasHero plugin dra kragtige funksies by tot jou igaming affiliate website. Die grootmaat invoer van vry dobbel speletjies en buigsame opsies om jou eie speletjies by te voeg. Vertoon speletjies in 'n reaktiewe tabel op jou ingangsportaal. 'n Elegante wysigbare tabel maak dit maklik om self affiliate links by te sit. Daar is ook opsies om die titels en inhoud van speletjies te verander om SEO te verbeter. Kyk gerus na ons premie <a target="
+"\"_blank\" href=\"https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description%20link\">Casino Wordpress Tema</a> wat ons persoonlik gebou het om jou speletjies en affiliate links af te show."
 
 #: templates/lobby.php:21 lib/Settings/Lobby.php:51
 msgid "Filter by operator"
@@ -88,73 +75,41 @@ msgstr "Koop 'n lisensie vir volle toegang tot al die speletjies"
 msgid "Games available"
 msgstr "Beskikbare speletjies "
 
-#: lib/Settings/templates/providers.php:6
-#: lib/Settings/templates/license/section-heading.php:5
-#: lib/Settings/templates/permalinks.php:6
-#: lib/Settings/templates/operators.php:6
+#: lib/Settings/templates/providers.php:6 lib/Settings/templates/license/section-heading.php:5 lib/Settings/templates/permalinks.php:6 lib/Settings/templates/operators.php:6
 msgid "Get a license key and add 1800+ games to your website!"
 msgstr "Koop 'n lisensie en voeg 1800+ speletjies by jou website!"
 
-#: lib/Settings/templates/providers.php:7
-#: lib/Settings/templates/license/section-heading.php:7
-#: lib/Settings/templates/permalinks.php:7
-#: lib/Settings/templates/operators.php:7
-msgid ""
-"The free version of the plugin will let you import 2 games per software "
-"provider. To get full access to the game database: <strong><a target=\"_blank"
-"\" href=\"%1$s\">purchase a license key here.</a></strong>"
-msgstr ""
-"Die verniet weergawe van die plugin laat jou toe om 2 speletjies per "
-"voorsiener in te voer. Vir volle toegang tot al ons speletjies <strong><a "
-"target=\"_blank\" href=\"%1$s\">koop asseblief 'n lisensie.</a></strong>"
+#: lib/Settings/templates/providers.php:7 lib/Settings/templates/license/section-heading.php:7 lib/Settings/templates/permalinks.php:7 lib/Settings/templates/operators.php:7
+msgid "The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target=\"_blank\" href=\"%1$s\">purchase a license key here.</a></strong>"
+msgstr "Die verniet weergawe van die plugin laat jou toe om 2 speletjies per voorsiener in te voer. Vir volle toegang tot al ons speletjies <strong><a target=\"_blank\" href=\"%1$s\">koop asseblief 'n lisensie.</a></strong>"
 
 #: lib/Settings/templates/providers.php:11
 msgid "Import by Game Provider"
 msgstr "Voer in per speletjie voorsiener"
 
 #: lib/Settings/templates/providers.php:14
-msgid ""
-"Imported games will be grouped by game <u>provider</u> and <u>category</u>."
-msgstr ""
-"Ingevoerde speletjies sal groepeer word per speletjie <u>voorsiener</u> en "
-"<u>kategorie</u>"
+msgid "Imported games will be grouped by game <u>provider</u> and <u>category</u>."
+msgstr "Ingevoerde speletjies sal groepeer word per speletjie <u>voorsiener</u> en <u>kategorie</u>"
 
-#: lib/Settings/templates/providers.php:16
-#: lib/Settings/templates/license/section-heading.php:15
-#: lib/Settings/templates/operators.php:19
-msgid ""
-"Please see our <a target=\"_blank\" href=\"%1$s\">quick start guide</a> for "
-"detailed instructions."
-msgstr ""
-"Sien asseblief ons <a target=\"_blank\" href=\"%1$s\">eenvoudige beginners "
-"handleiding</a> vir meer instruksies."
+#: lib/Settings/templates/providers.php:16 lib/Settings/templates/license/section-heading.php:15 lib/Settings/templates/operators.php:19
+msgid "Please see our <a target=\"_blank\" href=\"%1$s\">quick start guide</a> for detailed instructions."
+msgstr "Sien asseblief ons <a target=\"_blank\" href=\"%1$s\">eenvoudige beginners handleiding</a> vir meer instruksies."
 
 #: lib/Settings/templates/providers.php:49
-msgid ""
-"Unable to fetch a list of providers. Please try again by refreshing your "
-"page."
-msgstr ""
-"Kon nie 'n lys van voorsieners vind nie. Herlaai asseblief die bladsy om "
-"weer te probeer."
+msgid "Unable to fetch a list of providers. Please try again by refreshing your page."
+msgstr "Kon nie 'n lys van voorsieners vind nie. Herlaai asseblief die bladsy om weer te probeer."
 
 #: lib/Settings/templates/license/license-input.php:1
 msgid "enter your license key here"
 msgstr "tik asseblief jou lisensie kode hier in"
 
 #: lib/Settings/templates/license/section-heading.php:13
-msgid ""
-"Enter your license code to activate full import features and game updates."
-msgstr ""
-"Voorsien asseblief jou lisensie kode om vol invoer funksies en speletjie "
-"opdatering in staat te stel."
+msgid "Enter your license code to activate full import features and game updates."
+msgstr "Voorsien asseblief jou lisensie kode om vol invoer funksies en speletjie opdatering in staat te stel."
 
 #: lib/Settings/templates/lobby/lobby-search-tickbox.php:4
-msgid ""
-"You can display a search field in the lobby for dynamic games search. "
-"Visitors can filter games by entering any keyword."
-msgstr ""
-"Jy kan 'n soek funksie bo die lys van speletjies wys. Besoekers sal in staat "
-"gestel word om speletjies te filtreer met 'n sleutel woord."
+msgid "You can display a search field in the lobby for dynamic games search. Visitors can filter games by entering any keyword."
+msgstr "Jy kan 'n soek funksie bo die lys van speletjies in jou ingangsportaal wys. Besoekers sal in staat gestel word om speletjies te filtreer met 'n sleutel woord."
 
 #: lib/Settings/templates/lobby/lobby-sorting-select.php:6
 msgid "Publish Date (Newest first)"
@@ -172,134 +127,79 @@ msgstr "Datum van verandering (Nuutste eerste)"
 msgid "Last Modified Date (Oldest first)"
 msgstr "Datum van verandering (Oudste eerste)"
 
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:10
-#: lib/Widgets/LatestGamesFormTemplate.php:16
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:10 lib/Widgets/LatestGamesFormTemplate.php:16
 msgid "Alphabetical Title (A-Z)"
 msgstr "Alfabeties per tietel (A-Z)"
 
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:11
-#: lib/Widgets/LatestGamesFormTemplate.php:17
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:11 lib/Widgets/LatestGamesFormTemplate.php:17
 msgid "Alphabetical Title (Z-A)"
 msgstr "Alfabeties per tietel (Z-A)"
 
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:12
-#: lib/Widgets/LatestGamesFormTemplate.php:18
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:12 lib/Widgets/LatestGamesFormTemplate.php:18
 msgid "Random"
 msgstr "Lukraak"
 
 #: lib/Settings/templates/lobby/lobby-sorting-select.php:15
 msgid "Set the default sorting method for games displayed in the Lobby."
-msgstr ""
-"Kies die standaard sorterings funksie vir speletjies wat in die lobby gelys "
-"word."
+msgstr "Kies die standaard sorterings funksie vir speletjies wat in die ingangsportaal gelys word."
 
 #: lib/Settings/templates/lobby/lobby-link-tickbox.php:4
-msgid ""
-"Support our work by displaying a subtle backlink at the bottom of the lobby. "
-"We are greatful if you show your appreciation by ticking this box."
-msgstr ""
-"Ondersteun ons werk deur 'n subtiele web skakel onder aan die lobby te wys. "
-"Ons sal dit baie waardeur as jy 'n regmerkie in hierdie boks maak. Met "
-"voorbaat dank."
+msgid "Support our work by displaying a subtle backlink at the bottom of the lobby. We are greatful if you show your appreciation by ticking this box."
+msgstr "Ondersteun ons werk deur 'n subtiele web skakel onder aan die ingangsportaal te wys. Ons sal dit baie waardeur as jy 'n regmerkie in hierdie boks maak. Met voorbaat dank."
 
 #: lib/Settings/templates/lobby/games-per-page-input.php:2
-msgid ""
-"If your lobby is showing in 4 columns set the number of games to show to be "
-"multiples of 4. For example to display a 4x4 grid of games set the number to "
-"16. Default value is 20."
-msgstr ""
-"Ons stel voor om, as jou lobby 4 kolomme wys, jy die hoeveelheid speletjies "
-"op veelvoude van 4 te stel. Byvoorbeeld om 'n 4x4 rooster van speletjies te "
-"wys, stel die hoeveelheid speletjies na 16. Die standaard hoeveelheid is 20."
+msgid "If your lobby is showing in 4 columns set the number of games to show to be multiples of 4. For example to display a 4x4 grid of games set the number to 16. Default value is 20."
+msgstr "Ons stel voor om, as jou ingangsportaal 4 kolomme wys, jy die hoeveelheid speletjies op veelvoude van 4 te stel. Byvoorbeeld om 'n 4x4 rooster van speletjies te wys, stel die hoeveelheid speletjies na 16. Die standaard hoeveelheid is 20."
 
 #: lib/Settings/templates/lobby/section-heading.php:2
-msgid ""
-"Use these settings to configure the game lobby displayed by the <a target="
-"\"_blank\" href=\"%1$s\">vh-lobby</a> shortcode."
-msgstr ""
-"Hier instelling bepaal hoe die lobby vertoon wat deur die <a target=\"_blank"
-"\" href=\"%1$s\">vh-lobby</a> kort kode genereer word."
+msgid "Use these settings to configure the game lobby displayed by the <a target=\"_blank\" href=\"%1$s\">vh-lobby</a> shortcode."
+msgstr "Hier instelling bepaal hoe die ingangsportaal vertoon wat deur die <a target=\"_blank\" href=\"%1$s\">vh-lobby</a> kort kode genereer word."
 
 #: lib/Settings/templates/permalinks/game-category-url-input.php:1
 msgid "url base path for game categories"
 msgstr "URL base path vir speletjie kategorieë"
 
 #: lib/Settings/templates/permalinks/game-category-url-input.php:2
-msgid ""
-"Sets the URL path prefix for listing games per category. The default prefix "
-"is \"category\".<br>For example, to replace %1$s/game/<u>category</u>/ with "
-"%1$s/game/<u>type</u>/ set this to \"type\"."
-msgstr ""
-"Kies die URL path voorvoegsel om speletjies per kategorie te lys. Die "
-"standarrd voorvoegsel is \"category\".<br>Byvoorbeeld om %1$s/game/"
-"<u>category</u>/ te vervang met %1$s/game/<u>kategorie</u>/ stel na "
-"\"kategorie\"."
+msgid "Sets the URL path prefix for listing games per category. The default prefix is \"category\".<br>For example, to replace %1$s/game/<u>category</u>/ with %1$s/game/<u>type</u>/ set this to \"type\"."
+msgstr "Kies die URL path voorvoegsel om speletjies per kategorie te lys. Die standarrd voorvoegsel is \"category\".<br>Byvoorbeeld om %1$s/game/<u>category</u>/ te vervang met %1$s/game/<u>kategorie</u>/ stel na \"kategorie\"."
 
-#: lib/Settings/templates/permalinks/game-operator-url-input.php:1
-#: lib/Settings/templates/permalinks/game-provider-url-input.php:1
+#: lib/Settings/templates/permalinks/game-operator-url-input.php:1 lib/Settings/templates/permalinks/game-provider-url-input.php:1
 msgid "permalink base path for vegashero games"
 msgstr "Permalink base path vir Vegas Hero speletjies"
 
 #: lib/Settings/templates/permalinks/game-operator-url-input.php:2
-msgid ""
-"Sets the URL path prefix for listing games per operator. The default prefix "
-"is \"operator\".<br>For example, to replace %1$s/game/<u>operator</u>/ with "
-"%1$s/game/<u>casino</u>/ set this to \"casino\"."
-msgstr ""
-"Kies die URL path voorvoegsel om die speletjies per operateur te lys. Die "
-"standaard voorvoegsel is \"operator\".<br>Byvoorbeeld om %1$s/game/"
-"<u>operator</u>/ te vervang met %1$s/game/<u>operateur</u>/ stel na "
-"\"operateur\"."
+msgid "Sets the URL path prefix for listing games per operator. The default prefix is \"operator\".<br>For example, to replace %1$s/game/<u>operator</u>/ with %1$s/game/<u>casino</u>/ set this to \"casino\"."
+msgstr "Kies die URL path voorvoegsel om die speletjies per operateur te lys. Die standaard voorvoegsel is \"operator\".<br>Byvoorbeeld om %1$s/game/<u>operator</u>/ te vervang met %1$s/game/<u>operateur</u>/ stel na \"operateur\"."
 
 #: lib/Settings/templates/permalinks/custom-post-type-url-input.php:1
 msgid "url base path for vegashero games"
 msgstr "URL base path vir Vegas Hero speletjies"
 
 #: lib/Settings/templates/permalinks/custom-post-type-url-input.php:2
-msgid ""
-"Sets the URL path prefix for an individual game. The default prefix is \"game"
-"\".<br>For example, to replace %1$s/<u>game</u>/ with %1$s/<u>slots</u>/ set "
-"this to \"slots\"."
-msgstr ""
-"Kies die URL path voorvoegsel vir 'n enkele speletjie. Die standaard "
-"voorvoegsel is \"game\".<br>Byvoorbeeld om %1$s/<u>game</u>/ te vervang met "
-"%1$s/<u>speletjie</u>/ stel na \"speletjie\"."
+msgid "Sets the URL path prefix for an individual game. The default prefix is \"game\".<br>For example, to replace %1$s/<u>game</u>/ with %1$s/<u>slots</u>/ set this to \"slots\"."
+msgstr "Kies die URL path voorvoegsel vir 'n enkele speletjie. Die standaard voorvoegsel is \"game\".<br>Byvoorbeeld om %1$s/<u>game</u>/ te vervang met %1$s/<u>speletjie</u>/ stel na \"speletjie\"."
 
 #: lib/Settings/templates/permalinks/game-provider-url-input.php:2
-msgid ""
-"Sets the URL path prefix for listing games per provider. The default prefix "
-"is \"provider\".<br>For example, to replace %1$s/game/<u>provider</u>/ with "
-"%1$s/game/<u>studio</u>/ set this so \"studio\"."
-msgstr ""
-"Kies die URL path voorvoegsel om die speletjies per verskaffer te lys. Die "
-"standaard voorvoegsel is \"provider\".<br>Byvoorbeeld om %1$s/game/"
-"<u>provider</u>/ te vervang met %1$s/<u>verskaffer</u>/ stel na \"verskaffer"
-"\"."
+msgid "Sets the URL path prefix for listing games per provider. The default prefix is \"provider\".<br>For example, to replace %1$s/game/<u>provider</u>/ with %1$s/game/<u>studio</u>/ set this so \"studio\"."
+msgstr "Kies die URL path voorvoegsel om die speletjies per verskaffer te lys. Die standaard voorvoegsel is \"provider\".<br>Byvoorbeeld om %1$s/game/<u>provider</u>/ te vervang met %1$s/<u>verskaffer</u>/ stel na \"verskaffer\"."
 
 #: lib/Settings/templates/permalinks/section-heading.php:2
-msgid ""
-"Changing these settings can break your existing game links. Use these "
-"options with care!"
-msgstr ""
-"Hierdie verstellings kan jou huidige speletjie links breek. Wees asseblief "
-"versigtig!"
+msgid "Changing these settings can break your existing game links. Use these options with care!"
+msgstr "Hierdie verstellings kan jou huidige speletjie links breek. Wees asseblief versigtig!"
 
 #: lib/Settings/templates/permalinks/section-heading.php:4
 msgid "Set URL path settings for the VegasHero games."
 msgstr "Kies die URL path verstellings vir VegasHero speletjies."
 
-#: lib/Settings/templates/operator-table.php:8
-#: lib/Settings/templates/operator-table.php:45
+#: lib/Settings/templates/operator-table.php:8 lib/Settings/templates/operator-table.php:45
 msgid "Select bulk action"
 msgstr "Kies grootmaatse aksie"
 
-#: lib/Settings/templates/operator-table.php:9
-#: lib/Settings/templates/operator-table.php:47
+#: lib/Settings/templates/operator-table.php:9 lib/Settings/templates/operator-table.php:47
 msgid "Bulk Actions"
 msgstr "Grootmaatse Aksies"
 
-#: lib/Settings/templates/operator-table.php:10
-#: lib/Settings/templates/operator-table.php:48
+#: lib/Settings/templates/operator-table.php:10 lib/Settings/templates/operator-table.php:48
 msgid "Delete"
 msgstr "Verwyder"
 
@@ -307,19 +207,16 @@ msgstr "Verwyder"
 msgid "Apply"
 msgstr "Doen dit"
 
-#: lib/Settings/templates/operator-table.php:14
-#: lib/Settings/templates/operator-table.php:54
+#: lib/Settings/templates/operator-table.php:14 lib/Settings/templates/operator-table.php:54
 msgid "0 items"
 msgstr "0 items"
 
-#: lib/Settings/templates/operator-table.php:18
-#: lib/Settings/templates/operator-table.php:57
+#: lib/Settings/templates/operator-table.php:18 lib/Settings/templates/operator-table.php:57
 msgid "Current Page"
 msgstr "Huidige Bladsy"
 
 #. translators: Example 1 of 10
-#: lib/Settings/templates/operator-table.php:20
-#: lib/Settings/templates/operator-table.php:59
+#: lib/Settings/templates/operator-table.php:20 lib/Settings/templates/operator-table.php:59
 msgid "of"
 msgstr "van"
 
@@ -335,29 +232,23 @@ msgstr "Laaste bladsy"
 msgid "Tags list"
 msgstr "Lys van etikette"
 
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
+#: lib/Settings/templates/operator-table.php:30 lib/Settings/templates/operator-table.php:38
 msgid "Select All"
 msgstr "Kies Almal"
 
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
-#: lib/Settings/templates/operator-form.php:13
+#: lib/Settings/templates/operator-table.php:30 lib/Settings/templates/operator-table.php:38 lib/Settings/templates/operator-form.php:13
 msgid "Name"
 msgstr "Naam"
 
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
+#: lib/Settings/templates/operator-table.php:30 lib/Settings/templates/operator-table.php:38
 msgid "Description"
 msgstr "Beskrywing"
 
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
+#: lib/Settings/templates/operator-table.php:30 lib/Settings/templates/operator-table.php:38
 msgid "Slug"
 msgstr "Slug"
 
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
+#: lib/Settings/templates/operator-table.php:30 lib/Settings/templates/operator-table.php:38
 msgid "Count"
 msgstr "Hoeveelheid"
 
@@ -367,7 +258,7 @@ msgstr "Geen etikette gevind"
 
 #: lib/Settings/templates/lobby.php:9
 msgid "How to display the lobby?"
-msgstr "How vertoon die lobby?"
+msgstr "Hoe vertoon die ingangsportaal?"
 
 #: lib/Settings/templates/lobby.php:13
 msgid "<b>1.</b> Create a new page*"
@@ -389,10 +280,7 @@ msgstr "Logo"
 msgid "Add operator logo"
 msgstr "Voeg operateur logo by"
 
-#: lib/Settings/templates/operator-form.php:10
-#: lib/Settings/templates/operator-form.php:15
-#: lib/Settings/templates/operator-form.php:20
-#: lib/Settings/templates/operator-form.php:32
+#: lib/Settings/templates/operator-form.php:10 lib/Settings/templates/operator-form.php:15 lib/Settings/templates/operator-form.php:20 lib/Settings/templates/operator-form.php:32
 msgid "The name is how it appears on your site."
 msgstr "Die naam is hoe dit op jou site verskyn."
 
@@ -437,8 +325,7 @@ msgid "Check out our WordPress Themes"
 msgstr "Kyk gerus na ons Wordpress tema"
 
 #: lib/Settings/templates/license.php:12
-msgid "We also offer stylish and functional WP themes that integrate well with our "
-"games plugin. Choose from a <a target=\"_blank\" href=\"%1$s\">Casino Theme</a> or a <a target=\"_blank\" href=\"%2$s\">Sportsbook Theme</a>."
+msgid "We also offer stylish and functional WP themes that integrate well with our games plugin. Choose from a <a target=\"_blank\" href=\"%1$s\">Casino Theme</a> or a <a target=\"_blank\" href=\"%2$s\">Sportsbook Theme</a>."
 msgstr "Ons bied ook stylvolle en funksionele WP temas wat goed integreer met ons speletjies plugin. Jy kan kies tussen <a target=\"_blank\" href=\"%1$s\">Casino Tema</a> of 'n <a target=\"_blank\" href=\"%2$s\">Sportsbook Tema</a>."
 
 #: lib/Settings/templates/license.php:14
@@ -450,10 +337,7 @@ msgid "Follow us for latest game release & feature updates!"
 msgstr "Volg ons vir nuus oor die nuutste speletjies en tegnologie."
 
 #: lib/Settings/templates/license.php:21
-msgid ""
-"Check us out on <a target=\"_blank\" href=\"%1$s\">Facebook</a> and follow "
-"our <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. We post about latest version "
-"updates, industry news and events and game release info."
+msgid "Check us out on <a target=\"_blank\" href=\"%1$s\">Facebook</a> and follow our <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. We post about latest version updates, industry news and events and game release info."
 msgstr "Volg on op <a target=\"_blank\" href=\"%1$s\">Facebook</a> of teken in op ons <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. Ons gesels oor die nuutste plugin weergawe, opdaterings, nuus in die bedryf asook gebeurtenisse en speletjie vrylatings."
 
 #: lib/Settings/templates/license.php:26
@@ -469,9 +353,7 @@ msgid "See the <a target=\"_blank\" href=\"%1$s\">FAQs</a>."
 msgstr "Lees gerus ons <a target=\"_blank\" href=\"%1$s\">FAQs</a>."
 
 #: lib/Settings/templates/license.php:36
-msgid ""
-"Browse the <a target=\"_blank\" href=\"%1$s\">support section</a> of our "
-"website."
+msgid "Browse the <a target=\"_blank\" href=\"%1$s\">support section</a> of our website."
 msgstr "Snuggel rond in die <a target=\"_blank\" href=\"%1$s\">hulp seksie</a> of op ons website."
 
 #: lib/Settings/templates/license.php:40
@@ -484,356 +366,335 @@ msgstr "Kennisgewing oor die speletjie bates"
 
 #: lib/Settings/templates/license.php:44
 msgid ""
-"The VegasHero Plugin sources games and game images from external sources. "
-"Although regular quality checks are carried out to safeguard the reliability "
-"of the games and image assets used by the plugin neither VegasHero.co nor "
-"its contracting partners can give any explicit or implicit assurance or "
-"warranty (including to third parties) in respect of the accuracy, "
-"reliability or completeness of the games and their assets. Casino games "
-"operated by third parties are provided \"as is\" without warranty of any "
-"kind. VegasHero accepts no responsibility and gives no guarantee to the "
-"effect that the functions of VegasHero Plugin will not be interrupted."
-msgstr "Die VegasHero plugin vind speletjies en speletjie beelde van externe bronne. Alhoewel ons gereelde kwaliteits beheer toepas."
+"The VegasHero Plugin sources games and game images from external sources. Although regular quality checks are carried out to safeguard the reliability of the games and image assets used by the plugin neither VegasHero.co nor its contracting partners can give any explicit or implicit assurance or warranty (including to third parties) in respect of the accuracy, reliability or completeness of the games and their assets. Casino games operated by "
+"third parties are provided \"as is\" without warranty of any kind. VegasHero accepts no responsibility and gives no guarantee to the effect that the functions of VegasHero Plugin will not be interrupted."
+msgstr "Die VegasHero plugin verkry speletjies en beelde van externe bronne. Alhoewel ons gereelde kwaliteits beheer toepas kan Vegas Hero of ons vennote geen waarborg offer rakende die akkuraatheid, betroubaadheid en volledigheid van speletjies of beelde nie. Casino speletjies wat deur derde partye verskaf word, word netso voorsien sonder enige waarborg. As gevolg kan Vegas Hero nie waarborg dat die funksies van die plugin ononderbroke sal bly nie."
 
 #: lib/Settings/templates/operators.php:11
 msgid "Import by Casino Operator"
-msgstr ""
+msgstr "Voer in per casino operateur"
 
 #: lib/Settings/templates/operators.php:15
-msgid ""
-"Imported games will be grouped by casino <u>operator</u> and game "
-"<u>category</u>."
-msgstr ""
+msgid "Imported games will be grouped by casino <u>operator</u> and game <u>category</u>."
+msgstr "Ingevoerde speletjies sal groepeer word per speletjie <u>operateur</u> en <u>kategorie</u>."
 
 #: lib/Settings/templates/operators.php:17
-msgid ""
-"Casino <i>operators</i> may share some of the same games, but rest assured, "
-"games will <u>not</u> be duplicated and instead can be associated with "
-"multiple casino <u>operators</u>."
-msgstr ""
+msgid "Casino <i>operators</i> may share some of the same games, but rest assured, games will <u>not</u> be duplicated and instead can be associated with multiple casino <u>operators</u>."
+msgstr "Casino <i>operateurs</i> mag van die speletjies deel, maar wees gerus dat speletjies nie gedupliseer sal word nie. 'n Enkele speletjie kan met veelvoudige operateurs en verskaffers geassosieer word."
 
 #: lib/Settings/templates/operators.php:30
 msgid "Featured"
-msgstr ""
+msgstr "Gewild"
 
 #: lib/Settings/templates/operators.php:50
-msgid ""
-"Unable to fetch a list of operators. Please try again by refreshing your "
-"page."
-msgstr ""
+msgid "Unable to fetch a list of operators. Please try again by refreshing your page."
+msgstr "Kon nie 'n lys van operateurs verkry nie. Herlaai asseblief die bladsy om weer te probeer."
 
 #: lib/Settings/Providers.php:61 lib/Settings/Providers.php:62
 msgid "Import by Provider"
-msgstr ""
+msgstr "Voer in per verskaffer"
 
 #: lib/Settings/Providers.php:75 lib/Settings/Operators.php:58
 msgid "Import games"
-msgstr ""
+msgstr "Voer speletjies in"
 
 #: lib/Settings/Permalinks.php:30 lib/Settings/Permalinks.php:31
 msgid "Permalinks"
-msgstr ""
+msgstr "Permalinks"
 
 #: lib/Settings/Permalinks.php:124
 msgid "Permalink Settings"
-msgstr ""
+msgstr "Permalink verstellings"
 
 #: lib/Settings/Permalinks.php:131
 msgid "Game base"
-msgstr ""
+msgstr "Speletjie basis"
 
 #: lib/Settings/Permalinks.php:148
 msgid "Category base"
-msgstr ""
+msgstr "Kategorie basis"
 
 #: lib/Settings/Permalinks.php:165
 msgid "Operator base"
-msgstr ""
+msgstr "Operateur basis"
 
 #: lib/Settings/Permalinks.php:182
 msgid "Provider base"
-msgstr ""
+msgstr "Verskaffer basis"
 
 #: lib/Settings/Operators.php:44 lib/Settings/Operators.php:45
 msgid "Import by Operator"
-msgstr ""
+msgstr "Voer in per operateur"
 
 #: lib/Settings/Lobby.php:44
-msgid ""
-"You can change the default name of the lobby filters dropdowns. Change the "
-"button text on the lobby thumbnails. Change the name of VegasHero posts "
-"displayed in your theme's breadcrumb. Text strings entered here will replace "
-"the default values."
-msgstr ""
+msgid "You can change the default name of the lobby filters dropdowns. Change the button text on the lobby thumbnails. Change the name of VegasHero posts displayed in your theme's breadcrumb. Text strings entered here will replace the default values."
+msgstr "Verander die naam van die ingangsportaal filter dropdowns. Verander die knoppie teks op die ingangsportaal se klein voorskou fotos. Verander die naam van die Vegas Hero artikels wat in die tema se broodkrummels verskyn. Teks wat hier ingevoer word sal die standaard waardes oorskryf."
 
 #: lib/Settings/Lobby.php:70 lib/ShortCodes/ShortCodes.php:53
 msgid "Play Now"
-msgstr ""
+msgstr "Speel Nou"
 
 #: lib/Settings/Lobby.php:77
 msgid "Previous"
-msgstr ""
+msgstr "Vorige"
 
 #: lib/Settings/Lobby.php:84
 msgid "Next"
-msgstr ""
+msgstr "Volgende"
 
-#: lib/Settings/Lobby.php:91 lib/CustomPostType.php:141
-#: lib/CustomPostType.php:156
+#: lib/Settings/Lobby.php:91 lib/CustomPostType.php:141 lib/CustomPostType.php:156
 msgid "VegasHero Games"
-msgstr ""
+msgstr "VegasHero speletjies"
 
 #: lib/Settings/Lobby.php:112
 msgid "Lobby Settings"
-msgstr ""
+msgstr "Lobby instellings"
 
 #: lib/Settings/Lobby.php:119
 msgid "Number of games to show"
-msgstr ""
+msgstr "Hoeveelheid speletjies wat gelys word"
 
 #: lib/Settings/Lobby.php:136
 msgid "Sort lobby games by"
-msgstr ""
+msgstr "Sorteer ingangsportaal speletjies met"
 
 #: lib/Settings/Lobby.php:154
 msgid "Lobby Custom Text"
-msgstr ""
+msgstr "Lobby eie teks"
 
 #: lib/Settings/Lobby.php:161
 msgid "Operator Filter Text"
-msgstr ""
+msgstr "Operateur filter teks"
 
 #: lib/Settings/Lobby.php:178
 msgid "Category Filter Text"
-msgstr ""
+msgstr "Kategorie filter teks"
 
 #: lib/Settings/Lobby.php:195
 msgid "Provider Filter Text"
-msgstr ""
+msgstr "Verskaffer filter teks"
 
 #: lib/Settings/Lobby.php:220
 msgid "VegasHero Games Custom Text (shows in breadcrumbs)"
-msgstr ""
+msgstr "VegasHero speletjies eie teks (wys in broodkrummels)"
 
 #: lib/Settings/Lobby.php:245
 msgid "Play Now Button Custom Text (shows on game thumbnails)"
-msgstr ""
+msgstr "Speel nou knoppie eie teks (wys op speletjie se klein voorskou fotos)"
 
 #: lib/Settings/Lobby.php:270
 msgid "Pagination Previous button Custom Text"
-msgstr ""
+msgstr "Eie teks vir vorige bladsy knoppie"
 
 #: lib/Settings/Lobby.php:295
 msgid "Pagination Next button Custom Text"
-msgstr ""
+msgstr "Eie teks vir volgende bladsy knoppie "
 
 #: lib/Settings/Lobby.php:320
 msgid "Display Games Search?"
-msgstr ""
+msgstr "Wys speletjie soek veld?"
 
 #: lib/Settings/Lobby.php:345
 msgid "Display VegasHero link?"
-msgstr ""
+msgstr "Wys VegasHero link?"
 
 #: lib/Settings/Lobby.php:368 lib/Settings/Lobby.php:369
 msgid "Lobby"
-msgstr ""
+msgstr "Ingangsportaal"
 
 #: lib/Settings/Menu.php:15
 msgid "VegasHero Settings"
-msgstr ""
+msgstr "VegasHero instellings"
 
-#: lib/Settings/License.php:38 lib/Settings/License.php:39
-#: lib/Settings/License.php:53
+#: lib/Settings/License.php:38 lib/Settings/License.php:39 lib/Settings/License.php:53
 msgid "License & Support"
-msgstr ""
+msgstr "Lisensie en hulp"
 
 #: lib/Settings/License.php:60
 msgid "License"
-msgstr ""
+msgstr "Lisensie"
 
 #: lib/Settings/Settings.php:22
 msgid "Settings saved"
-msgstr ""
+msgstr "Instellings behou"
 
 #: lib/Widgets/LatestGames.php:13
 msgid "Display games with thumbnails from the VegasHero Plugin."
-msgstr ""
+msgstr "Wys speletjies met klein voorskou fotos van die VegasHero plugin."
 
 #: lib/Widgets/LatestGames.php:14
 msgid "Latest Casino Games"
-msgstr ""
+msgstr "Nuuste casino speletjies"
 
 #: lib/Widgets/LatestGamesFormTemplate.php:2
 msgid "Widget Title"
-msgstr ""
+msgstr "Widget titel"
 
 #: lib/Widgets/LatestGamesFormTemplate.php:7
 msgid "Game Count"
-msgstr ""
+msgstr "Hoeveelheid speletjies"
 
 #: lib/Widgets/LatestGamesFormTemplate.php:12
 msgid "Sort Order"
-msgstr ""
+msgstr "Volgorde"
 
 #: lib/Widgets/LatestGamesFormTemplate.php:14
 msgid "Date (Newest first)"
-msgstr ""
+msgstr "Datum (Nuutste voor)"
 
 #: lib/Widgets/LatestGamesFormTemplate.php:15
 msgid "Date (Oldest first)"
-msgstr ""
+msgstr "Datum (Oudste voor)"
 
 #: lib/Widgets/SingleGameArea.php:22
 msgid "Single Game Widget Area"
-msgstr ""
+msgstr "Enkel speletjie widget area"
 
 #: lib/Widgets/SingleGameArea.php:23
 msgid "Add widgets / shortcodes under VegasHero games"
-msgstr ""
+msgstr "Voeg widgets of shortcodes onder speletjies by "
 
 #: lib/CustomPostType.php:35 lib/CustomPostType.php:43
 msgid "Game Operators"
-msgstr ""
+msgstr "Speletjie operateurs"
 
 #: lib/CustomPostType.php:36
 msgid "Game Operator"
-msgstr ""
+msgstr "Speletjie operateur"
 
 #: lib/CustomPostType.php:37
 msgid "Search Game Operators"
-msgstr ""
+msgstr "Soek deur speletjie operateurs"
 
 #: lib/CustomPostType.php:38
 msgid "All Games Operators"
-msgstr ""
+msgstr "Alle speletjie operateurs"
 
 #: lib/CustomPostType.php:39
 msgid "Edit Game Operator"
-msgstr ""
+msgstr "Verander die speletjie operateur"
 
 #: lib/CustomPostType.php:40
 msgid "Update Game Operator"
-msgstr ""
+msgstr "Opdateer die speletjie operateur"
 
 #: lib/CustomPostType.php:41
 msgid "Add New Game Operator"
-msgstr ""
+msgstr "Voeg nuwe speletjie operateur by"
 
 #: lib/CustomPostType.php:42
 msgid "New Game Operator"
-msgstr ""
+msgstr "Nuwe speletjie operateur"
 
 #: lib/CustomPostType.php:69 lib/CustomPostType.php:77
 msgid "Game Providers"
-msgstr ""
+msgstr "Speletjie verskaffers"
 
 #: lib/CustomPostType.php:70
 msgid "Game Provider"
-msgstr ""
+msgstr "Speletjie verskaffer"
 
 #: lib/CustomPostType.php:71
 msgid "Search Game Providers"
-msgstr ""
+msgstr "Soek deur peletjie verskaffers"
 
 #: lib/CustomPostType.php:72
 msgid "All Games Providers"
-msgstr ""
+msgstr "Alle speletjie verskaffers"
 
 #: lib/CustomPostType.php:73
 msgid "Edit Game Provider"
-msgstr ""
+msgstr "Verander die speletjie verskaffer"
 
 #: lib/CustomPostType.php:74
 msgid "Update Game Provider"
-msgstr ""
+msgstr "Opdateer die speletjie verskaffer"
 
 #: lib/CustomPostType.php:75
 msgid "Add New Game Provider"
-msgstr ""
+msgstr "Voeg nuwe speletjie verskaffer by"
 
 #: lib/CustomPostType.php:76
 msgid "New Game Provider"
-msgstr ""
+msgstr "Nuwe speletjie verskaffer"
 
 #: lib/CustomPostType.php:106 lib/CustomPostType.php:114
 msgid "Game Categories"
-msgstr ""
+msgstr "Speletjie kategorieë"
 
 #: lib/CustomPostType.php:107
 msgid "Game Category"
-msgstr ""
+msgstr "Speletjie kategorie"
 
 #: lib/CustomPostType.php:108
 msgid "Search Game Category"
-msgstr ""
+msgstr "Soek deur speletjie kategorieë"
 
 #: lib/CustomPostType.php:109
 msgid "All Game Categories"
-msgstr ""
+msgstr "Alle speletjie kategorieë"
 
 #: lib/CustomPostType.php:110
 msgid "Edit Category"
-msgstr ""
+msgstr "Verander speletjie kategorie"
 
 #: lib/CustomPostType.php:111
 msgid "Update Category"
-msgstr ""
+msgstr "Opdateeer kategorie"
 
 #: lib/CustomPostType.php:112
 msgid "Add New Game Category"
-msgstr ""
+msgstr "Voeg nuwe speletjie kategorie by"
 
 #: lib/CustomPostType.php:113
 msgid "New Category"
-msgstr ""
+msgstr "Nuwe kategorie"
 
 #: lib/CustomPostType.php:149
 msgid "VegasHero Game"
-msgstr ""
+msgstr "VegasHero speletjie"
 
 #: lib/CustomPostType.php:150
 msgid "Search Game"
-msgstr ""
+msgstr "Soek vir speletjie"
 
 #: lib/CustomPostType.php:151
 msgid "All Games"
-msgstr ""
+msgstr "Alle speletjies"
 
 #: lib/CustomPostType.php:152
 msgid "Edit Game"
-msgstr ""
+msgstr "Verander speletjie"
 
 #: lib/CustomPostType.php:153
 msgid "Update Game"
-msgstr ""
+msgstr "Opdateer speletjie"
 
 #: lib/CustomPostType.php:154
 msgid "Add New Game"
-msgstr ""
+msgstr "Voeg nuwe speletjie by"
 
 #: lib/CustomPostType.php:155
 msgid "New Game"
-msgstr ""
+msgstr "Nuwe speletjie"
 
 #: lib/CustomPostType.php:254
 msgid "All %s"
-msgstr ""
+msgstr "Alle %s"
 
 #: lib/Import/Import.php:82
 msgid "VegasHero Game Operators"
-msgstr ""
+msgstr "VegasHero speletjie operateurs"
 
 #: lib/Import/Import.php:100
 msgid "VegasHero Game Providers"
-msgstr ""
+msgstr "Vegashero speletjie verskaffers"
 
 #: lib/Import/Import.php:118
 msgid "VegasHero Game Categories"
-msgstr ""
+msgstr "VegasHero speletjie kategorieë"
 
-#: lib/Import/Operator.php:156 lib/Import/Operator.php:301
-#: lib/Import/Provider.php:149 lib/Import/Provider.php:209
+#: lib/Import/Operator.php:156 lib/Import/Operator.php:301 lib/Import/Provider.php:149 lib/Import/Provider.php:209
 msgid "No games to import"
 msgstr "Geen speletjies om in te voer nie"
 
@@ -855,18 +716,16 @@ msgstr "Speletjie met id %d word nie gevind nie"
 
 #: lib/Functions.php:17
 msgid "File not found %s"
-msgstr ""
+msgstr "Die lêer is nie gevind nie %s"
 
 #: lib/Functions.php:22
 msgid "renderGameFrame method can only be called within Wordpress loop."
-msgstr ""
+msgstr "rendeGameFrame metode kan slegs vanuit die Wordpress loop geroep word."
 
 #: lib/Functions.php:27
 msgid "Game source not found. Have you imported games?"
-msgstr ""
+msgstr "Kon nie speletjie bron vind nie. Het u al speletjies ingevoer?"
 
 #: lib/Functions.php:41
-msgid ""
-"<p><strong>Widget Area:</strong> Please add widgets via Appearance > "
-"Widgets</p>"
-msgstr ""
+msgid "<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>"
+msgstr "<p><strong>Widget Area:</strong> Voeg asb widgets by via Appearance > Widgets</p>"
