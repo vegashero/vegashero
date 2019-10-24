@@ -71,7 +71,7 @@ class Providers extends \VegasHero\Settings\Import
         $markup .= " class='button button-primary vh-import'";
         $markup .= sprintf(" data-fetch='%s/wp-json/%s%s%s?_wpnonce=%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getFetchApiRoute(), $provider, wp_create_nonce('wp_rest'));
         $markup .= sprintf(" data-import='%s/wp-json/%s%s?_wpnonce=%s'", site_url(), \Vegashero\Import\Provider::getApiNamespace($this->_config), \Vegashero\Import\Provider::getImportApiRoute(), wp_create_nonce('wp_rest'));
-        $makup .= ">";
+        $markup .= ">";
         $markup .= wp_strip_all_tags(__("Import games", 'vegashero'));
         $markup .= "</button>";
         return $markup;
