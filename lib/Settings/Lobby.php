@@ -75,14 +75,14 @@ class Lobby extends \VegasHero\Settings
         $args = func_get_args();
         $id = $args[0]['id'];
         $default = wp_strip_all_tags(__('Previous', 'vegashero'));
-        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "« $default" ?>' /><?php
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
     }
 
     public function inputPaginationNext() {
         $args = func_get_args();
         $id = $args[0]['id'];
         $default = wp_strip_all_tags(__('Next', 'vegashero'));
-        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default »" ?>' /><?php
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
     }
 
     public function inputCustomPostTypeName() {
@@ -273,7 +273,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-pagination-prev-section',
             $args = array(
                 'id' => 'vh_pagination_prev',
-                'vh_pagination_prev' => wp_strip_all_tags(__('« Previous', 'vegashero'))
+                'vh_pagination_prev' => wp_strip_all_tags(__('Previous', 'vegashero'))
             )
         );
         
@@ -298,7 +298,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-pagination-next-section',
             $args = array(
                 'id' => 'vh_pagination_next',
-                'vh_pagination_next' => wp_strip_all_tags(__('Next »', 'vegashero'))
+                'vh_pagination_next' => wp_strip_all_tags(__('Next', 'vegashero'))
             )
         );
         
@@ -323,7 +323,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-lobbysearch-section',
             $args = array(
                 'id' => 'vh_lobbysearch',
-                'vh_lobbysearch' => wp_strip_all_tags(__('off', 'vegashero'))
+                'vh_lobbysearch' => 'off'
             )
         );
 
@@ -348,7 +348,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-lobbylink-section',
             $args = array(
                 'id' => 'vh_lobbylink',
-                'vh_lobbylink' => wp_strip_all_tags(__('off', 'vegashero'))
+                'vh_lobbylink' => 'off'
             )
         );
 

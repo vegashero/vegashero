@@ -116,8 +116,8 @@ final class GamesGrid
      * @return string
      */
     static private function _getPaginationMarkup($current_page, $max_num_pages) {
-        $prev_btn = get_option('vh_pagination_prev', '« Previous');
-        $next_btn = get_option('vh_pagination_next', 'Next »');
+        $prev_btn = get_option('vh_pagination_prev', wp_strip_all_tags(__('Previous', 'vegashero')));
+        $next_btn = get_option('vh_pagination_next', wp_strip_all_tags(__('Next', 'vegashero')));
         $markup = "<nav class='vh-pagination'>";
         if( ! self::_isFirstPage($current_page) ) {
             $previous = self::_getPreviousLink($prev_btn, $current_page);

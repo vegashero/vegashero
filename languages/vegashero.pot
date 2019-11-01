@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-11-01T13:27:27+00:00\n"
+"POT-Creation-Date: 2019-11-01T18:51:43+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.2.0\n"
+"X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: vegashero\n"
 
 #. Plugin Name of the plugin
@@ -29,594 +29,18 @@ msgstr ""
 msgid "The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino & slots games, flexible options to add your own games. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO. Check out our premium <a target=\"_blank\" href=\"https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description%20link\">Casino Wordpress Theme</a> that is purpose built to showcase the games and your affiliate links."
 msgstr ""
 
-#: templates/lobby.php:20
-#: lib/Settings/Lobby.php:51
-#: lib/Settings/Lobby.php:167
-msgid "Filter by operator"
-msgstr ""
-
-#: templates/lobby.php:29
-#: lib/Settings/Lobby.php:57
-#: lib/Settings/Lobby.php:184
-msgid "Filter by category"
-msgstr ""
-
-#: templates/lobby.php:38
-#: lib/Settings/Lobby.php:63
-#: lib/Settings/Lobby.php:201
-msgid "Filter by provider"
-msgstr ""
-
-#: templates/lobby.php:46
-msgid "search"
-msgstr ""
-
-#: templates/lobby.php:51
-msgid "loading games..."
-msgstr ""
-
-#: templates/lobby.php:53
-msgid "VegasHero Casino Affiliate Plugin"
-msgstr ""
-
-#: lib/Settings/Import.php:27
-msgid "Import HTML5 games"
-msgstr ""
-
-#: lib/Settings/Import.php:28
-msgid "Import Flash games"
-msgstr ""
-
-#: lib/Settings/Import.php:37
-msgid "Purchase a license key to unlock access to all the games"
-msgstr ""
-
-#: lib/Settings/Import.php:38
-msgid "Games available"
-msgstr ""
-
-#: lib/Settings/templates/providers.php:6
-#: lib/Settings/templates/license/section-heading.php:5
-#: lib/Settings/templates/permalinks.php:6
-#: lib/Settings/templates/operators.php:6
-msgid "Get a license key and add 1800+ games to your website!"
-msgstr ""
-
-#. translators: %1$s will be replaced by a URL where a plugin license can be purchased
-#: lib/Settings/templates/providers.php:7
-#: lib/Settings/templates/license/section-heading.php:7
-#: lib/Settings/templates/permalinks.php:7
-#: lib/Settings/templates/operators.php:7
-msgid "The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target=\"_blank\" href=\"%1$s\">purchase a license key here.</a></strong>"
-msgstr ""
-
-#: lib/Settings/templates/providers.php:11
-msgid "Import by Game Provider"
-msgstr ""
-
-#: lib/Settings/templates/providers.php:14
-msgid "Imported games will be grouped by game <u>provider</u> and <u>category</u>."
-msgstr ""
-
-#. translators: %1$s will be replaced by a URL containing instructions to get your started
-#: lib/Settings/templates/providers.php:16
-#: lib/Settings/templates/license/section-heading.php:15
-#: lib/Settings/templates/operators.php:19
-msgid "Please see our <a target=\"_blank\" href=\"%1$s\">quick start guide</a> for detailed instructions."
-msgstr ""
-
-#: lib/Settings/templates/providers.php:49
-msgid "Unable to fetch a list of providers. Please try again by refreshing your page."
-msgstr ""
-
-#: lib/Settings/templates/license/license-input.php:1
-msgid "enter your license key here"
-msgstr ""
-
-#: lib/Settings/templates/license/section-heading.php:13
-msgid "Enter your license code to activate full import features and game updates."
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-search-tickbox.php:4
-msgid "You can display a search field in the lobby for dynamic games search. Visitors can filter games by entering any keyword."
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:6
-msgid "Publish Date (Newest first)"
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:7
-msgid "Publish Date (Oldest first)"
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:8
-msgid "Last Modified Date (Newest first)"
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:9
-msgid "Last Modified Date (Oldest first)"
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:10
-#: lib/Widgets/LatestGamesFormTemplate.php:16
-msgid "Alphabetical Title (A-Z)"
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:11
-#: lib/Widgets/LatestGamesFormTemplate.php:17
-msgid "Alphabetical Title (Z-A)"
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:12
-#: lib/Widgets/LatestGamesFormTemplate.php:18
-msgid "Random"
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-sorting-select.php:15
-msgid "Set the default sorting method for games displayed in the Lobby."
-msgstr ""
-
-#: lib/Settings/templates/lobby/lobby-link-tickbox.php:4
-msgid "Support our work by displaying a subtle backlink at the bottom of the lobby. We are greatful if you show your appreciation by ticking this box."
-msgstr ""
-
-#: lib/Settings/templates/lobby/games-per-page-input.php:2
-msgid "If your lobby is showing in 4 columns set the number of games to show to be multiples of 4. For example to display a 4x4 grid of games set the number to 16. Default value is 20."
-msgstr ""
-
-#. translators: %1$s will be replaced by a website URL
-#: lib/Settings/templates/lobby/section-heading.php:2
-msgid "Use these settings to configure the game lobby displayed by the <a target=\"_blank\" href=\"%1$s\">vh-lobby</a> shortcode."
-msgstr ""
-
-#: lib/Settings/templates/permalinks/game-category-url-input.php:1
-msgid "url base path for game categories"
-msgstr ""
-
-#. translators: %1$s will be replaced with the current website URL
-#: lib/Settings/templates/permalinks/game-category-url-input.php:2
-msgid "Sets the URL path prefix for listing games per category. The default prefix is \"category\".<br>For example, to replace %1$s/game/<u>category</u>/ with %1$s/game/<u>type</u>/ set this to \"type\"."
-msgstr ""
-
-#: lib/Settings/templates/permalinks/game-operator-url-input.php:1
-#: lib/Settings/templates/permalinks/game-provider-url-input.php:1
-msgid "permalink base path for vegashero games"
-msgstr ""
-
-#. translators: %1$s will be replaced with the current website URL
-#: lib/Settings/templates/permalinks/game-operator-url-input.php:2
-msgid "Sets the URL path prefix for listing games per operator. The default prefix is \"operator\".<br>For example, to replace %1$s/game/<u>operator</u>/ with %1$s/game/<u>casino</u>/ set this to \"casino\"."
-msgstr ""
-
-#: lib/Settings/templates/permalinks/custom-post-type-url-input.php:1
-msgid "url base path for vegashero games"
-msgstr ""
-
-#. translators: %1$s will be replaced by the current website URL
-#: lib/Settings/templates/permalinks/custom-post-type-url-input.php:2
-msgid "Sets the URL path prefix for an individual game. The default prefix is \"game\".<br>For example, to replace %1$s/<u>game</u>/ with %1$s/<u>slots</u>/ set this to \"slots\"."
-msgstr ""
-
-#. translators: %1$s will be replaced by the current website URL
-#: lib/Settings/templates/permalinks/game-provider-url-input.php:2
-msgid "Sets the URL path prefix for listing games per provider. The default prefix is \"provider\".<br>For example, to replace %1$s/game/<u>provider</u>/ with %1$s/game/<u>studio</u>/ set this so \"studio\"."
-msgstr ""
-
-#: lib/Settings/templates/permalinks/section-heading.php:2
-msgid "Changing these settings can break your existing game links. Use these options with care!"
-msgstr ""
-
-#: lib/Settings/templates/permalinks/section-heading.php:4
-msgid "Set URL path settings for the VegasHero games."
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:8
-#: lib/Settings/templates/operator-table.php:45
-msgid "Select bulk action"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:9
-#: lib/Settings/templates/operator-table.php:47
-msgid "Bulk Actions"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:10
-#: lib/Settings/templates/operator-table.php:48
-msgid "Delete"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:12
-msgid "Apply"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:14
-#: lib/Settings/templates/operator-table.php:54
-msgid "0 items"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:18
-#: lib/Settings/templates/operator-table.php:57
-msgid "Current Page"
-msgstr ""
-
-#. translators: Example 1 of 10
-#: lib/Settings/templates/operator-table.php:20
-#: lib/Settings/templates/operator-table.php:59
-msgid "of"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:23
-msgid "Next page"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:24
-msgid "Last page"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:27
-msgid "Tags list"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
-msgid "Select All"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
-#: lib/Settings/templates/operator-form.php:13
-msgid "Name"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
-msgid "Description"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
-msgid "Slug"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:30
-#: lib/Settings/templates/operator-table.php:38
-msgid "Count"
-msgstr ""
-
-#: lib/Settings/templates/operator-table.php:34
-msgid "No tags found."
-msgstr ""
-
-#: lib/Settings/templates/lobby.php:9
-msgid "How to display the lobby?"
-msgstr ""
-
-#: lib/Settings/templates/lobby.php:13
-msgid "<b>1.</b> Create a new page*"
-msgstr ""
-
-#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
-#: lib/Settings/templates/lobby.php:14
-msgid "<b>2.</b> Add in this shortcode %1$s[vegashero-lobby]%2$s"
-msgstr ""
-
-#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
-#: lib/Settings/templates/lobby.php:15
-msgid "<b>3.</b> You are all set!"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:8
-msgid "Logo"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:9
-msgid "Add operator logo"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:10
-#: lib/Settings/templates/operator-form.php:15
-#: lib/Settings/templates/operator-form.php:20
-#: lib/Settings/templates/operator-form.php:32
-msgid "The name is how it appears on your site."
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:18
-msgid "Affiliate link"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:23
-msgid "Providers associated with this operator"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:25
-msgid "Provider 1"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:26
-msgid "Provider 2"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:27
-msgid "Provider 3"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:28
-msgid "Provider 4"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:29
-msgid "Provider 5"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:30
-msgid "Provider 6"
-msgstr ""
-
-#: lib/Settings/templates/operator-form.php:34
-msgid "Add New Operator"
-msgstr ""
-
-#: lib/Settings/templates/license.php:10
-msgid "Check out our WordPress Themes"
-msgstr ""
-
-#. translators: %1$s will be replaced by URL where Casino Theme can be downloaded. %2$s will be replaced by URL where Sportsbook Theme can be downloaded.
-#: lib/Settings/templates/license.php:12
-msgid "We also offer stylish and functional WP themes that integrate well with our games plugin. Choose from a <a target=\"_blank\" href=\"%1$s\">Casino Theme</a> or a <a target=\"_blank\" href=\"%2$s\">Sportsbook Theme</a>."
-msgstr ""
-
-#. translators: %1$s will be replaced by URL where plugin and theme combo can be purchased
-#: lib/Settings/templates/license.php:14
-msgid "You can also get the <a target=\"_blank\" href=\"%1$s\">plugin + theme in a bundle license</a> and save money."
-msgstr ""
-
-#: lib/Settings/templates/license.php:19
-msgid "Follow us for latest game release & feature updates!"
-msgstr ""
-
-#. translators: %1$s will be replaced by URL of the Vegas Hero Facebook page. %2$s will be replaced by URL of the Vegas Hero Twitter feed.
-#: lib/Settings/templates/license.php:21
-msgid "Check us out on <a target=\"_blank\" href=\"%1$s\">Facebook</a> and follow our <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. We post about latest version updates, industry news and events and game release info."
-msgstr ""
-
-#: lib/Settings/templates/license.php:26
-msgid "Need support?"
-msgstr ""
-
-#. translators: %1$s will be replaced by an email link. %2$s will be replaced by the Vegas Hero support email address.
-#: lib/Settings/templates/license.php:28
-msgid "Email us: <a href=\"%1$s\">%2$s</a>"
-msgstr ""
-
-#. translators: %1$s will be replaced by URL of frequently asked questions about the Vegas Hero WordPress plugin
-#: lib/Settings/templates/license.php:32
-msgid "See the <a target=\"_blank\" href=\"%1$s\">FAQs</a>."
-msgstr ""
-
-#. translators: %1$s will be replaced by URL of Vegas Hero help and support page.
-#: lib/Settings/templates/license.php:36
-msgid "Browse the <a target=\"_blank\" href=\"%1$s\">support section</a> of our website."
-msgstr ""
-
-#: lib/Settings/templates/license.php:40
-msgid "Check the <a target=\"_blank\" href=\"\">latest game release</a> posts."
-msgstr ""
-
-#: lib/Settings/templates/license.php:43
-msgid "Notice about game assets"
-msgstr ""
-
-#: lib/Settings/templates/license.php:44
-msgid "The VegasHero Plugin sources games and game images from external sources. Although regular quality checks are carried out to safeguard the reliability of the games and image assets used by the plugin neither VegasHero.co nor its contracting partners can give any explicit or implicit assurance or warranty (including to third parties) in respect of the accuracy, reliability or completeness of the games and their assets. Casino games operated by third parties are provided \"as is\" without warranty of any kind. VegasHero accepts no responsibility and gives no guarantee to the effect that the functions of VegasHero Plugin will not be interrupted."
-msgstr ""
-
-#: lib/Settings/templates/operators.php:11
-msgid "Import by Casino Operator"
-msgstr ""
-
-#: lib/Settings/templates/operators.php:15
-msgid "Imported games will be grouped by casino <u>operator</u> and game <u>category</u>."
-msgstr ""
-
-#: lib/Settings/templates/operators.php:17
-msgid "Casino <i>operators</i> may share some of the same games, but rest assured, games will <u>not</u> be duplicated and instead can be associated with multiple casino <u>operators</u>."
-msgstr ""
-
-#: lib/Settings/templates/operators.php:30
-msgid "Featured"
-msgstr ""
-
-#: lib/Settings/templates/operators.php:50
-msgid "Unable to fetch a list of operators. Please try again by refreshing your page."
-msgstr ""
-
-#: lib/Settings/Providers.php:61
-#: lib/Settings/Providers.php:62
-msgid "Import by Provider"
-msgstr ""
-
-#: lib/Settings/Providers.php:75
-#: lib/Settings/Operators.php:58
-msgid "Import games"
-msgstr ""
-
-#: lib/Settings/Permalinks.php:30
-#: lib/Settings/Permalinks.php:31
-msgid "Permalinks"
-msgstr ""
-
-#: lib/Settings/Permalinks.php:124
-msgid "Permalink Settings"
-msgstr ""
-
-#: lib/Settings/Permalinks.php:131
-msgid "Game base"
-msgstr ""
-
-#: lib/Settings/Permalinks.php:148
-msgid "Category base"
-msgstr ""
-
-#: lib/Settings/Permalinks.php:165
-msgid "Operator base"
-msgstr ""
-
-#: lib/Settings/Permalinks.php:182
-msgid "Provider base"
-msgstr ""
-
-#: lib/Settings/Operators.php:44
-#: lib/Settings/Operators.php:45
-msgid "Import by Operator"
-msgstr ""
-
-#: lib/Settings/Lobby.php:44
-msgid "You can change the default name of the lobby filters dropdowns. Change the button text on the lobby thumbnails. Change the name of VegasHero posts displayed in your theme's breadcrumb. Text strings entered here will replace the default values."
-msgstr ""
-
-#: lib/Settings/Lobby.php:70
-#: lib/Settings/Lobby.php:251
-#: lib/ShortCodes/ShortCodes.php:53
-msgid "Play Now"
-msgstr ""
-
+#: ajax.php:149
 #: lib/Settings/Lobby.php:77
+#: lib/Settings/Lobby.php:276
+#: lib/ShortCodes/GamesGrid.php:119
 msgid "Previous"
 msgstr ""
 
+#: ajax.php:150
 #: lib/Settings/Lobby.php:84
-msgid "Next"
-msgstr ""
-
-#: lib/Settings/Lobby.php:91
-#: lib/Settings/Lobby.php:226
-#: lib/CustomPostType.php:141
-#: lib/CustomPostType.php:156
-msgid "VegasHero Games"
-msgstr ""
-
-#: lib/Settings/Lobby.php:112
-msgid "Lobby Settings"
-msgstr ""
-
-#: lib/Settings/Lobby.php:119
-msgid "Number of games to show"
-msgstr ""
-
-#: lib/Settings/Lobby.php:136
-msgid "Sort lobby games by"
-msgstr ""
-
-#: lib/Settings/Lobby.php:154
-msgid "Lobby Custom Text"
-msgstr ""
-
-#: lib/Settings/Lobby.php:161
-msgid "Operator Filter Text"
-msgstr ""
-
-#: lib/Settings/Lobby.php:178
-msgid "Category Filter Text"
-msgstr ""
-
-#: lib/Settings/Lobby.php:195
-msgid "Provider Filter Text"
-msgstr ""
-
-#: lib/Settings/Lobby.php:220
-msgid "VegasHero Games Custom Text (shows in breadcrumbs)"
-msgstr ""
-
-#: lib/Settings/Lobby.php:245
-msgid "Play Now Button Custom Text (shows on game thumbnails)"
-msgstr ""
-
-#: lib/Settings/Lobby.php:270
-msgid "Pagination Previous button Custom Text"
-msgstr ""
-
-#: lib/Settings/Lobby.php:276
-msgid "« Previous"
-msgstr ""
-
-#: lib/Settings/Lobby.php:295
-msgid "Pagination Next button Custom Text"
-msgstr ""
-
 #: lib/Settings/Lobby.php:301
-msgid "Next »"
-msgstr ""
-
-#: lib/Settings/Lobby.php:320
-msgid "Display Games Search?"
-msgstr ""
-
-#: lib/Settings/Lobby.php:326
-#: lib/Settings/Lobby.php:351
-msgid "off"
-msgstr ""
-
-#: lib/Settings/Lobby.php:345
-msgid "Display VegasHero link?"
-msgstr ""
-
-#: lib/Settings/Lobby.php:368
-#: lib/Settings/Lobby.php:369
-msgid "Lobby"
-msgstr ""
-
-#: lib/Settings/Menu.php:15
-msgid "VegasHero Settings"
-msgstr ""
-
-#: lib/Settings/License.php:38
-#: lib/Settings/License.php:39
-#: lib/Settings/License.php:53
-msgid "License & Support"
-msgstr ""
-
-#: lib/Settings/License.php:60
-msgid "License"
-msgstr ""
-
-#: lib/Settings/Settings.php:22
-msgid "Settings saved"
-msgstr ""
-
-#: lib/Widgets/LatestGames.php:13
-msgid "Display games with thumbnails from the VegasHero Plugin."
-msgstr ""
-
-#: lib/Widgets/LatestGames.php:14
-msgid "Latest Casino Games"
-msgstr ""
-
-#: lib/Widgets/LatestGamesFormTemplate.php:2
-msgid "Widget Title"
-msgstr ""
-
-#: lib/Widgets/LatestGamesFormTemplate.php:7
-msgid "Game Count"
-msgstr ""
-
-#: lib/Widgets/LatestGamesFormTemplate.php:12
-msgid "Sort Order"
-msgstr ""
-
-#: lib/Widgets/LatestGamesFormTemplate.php:14
-msgid "Date (Newest first)"
-msgstr ""
-
-#: lib/Widgets/LatestGamesFormTemplate.php:15
-msgid "Date (Oldest first)"
-msgstr ""
-
-#: lib/Widgets/SingleGameArea.php:22
-msgid "Single Game Widget Area"
-msgstr ""
-
-#: lib/Widgets/SingleGameArea.php:23
-msgid "Add widgets / shortcodes under VegasHero games"
+#: lib/ShortCodes/GamesGrid.php:120
+msgid "Next"
 msgstr ""
 
 #: lib/CustomPostType.php:35
@@ -718,6 +142,13 @@ msgstr ""
 msgid "New Category"
 msgstr ""
 
+#: lib/CustomPostType.php:141
+#: lib/CustomPostType.php:156
+#: lib/Settings/Lobby.php:91
+#: lib/Settings/Lobby.php:226
+msgid "VegasHero Games"
+msgstr ""
+
 #: lib/CustomPostType.php:149
 msgid "VegasHero Game"
 msgstr ""
@@ -751,6 +182,23 @@ msgstr ""
 msgid "All %s"
 msgstr ""
 
+#. translators:  %s will be replaced by the iframe file name containing the game
+#: lib/Functions.php:18
+msgid "File not found %s"
+msgstr ""
+
+#: lib/Functions.php:23
+msgid "renderGameFrame method can only be called within Wordpress loop."
+msgstr ""
+
+#: lib/Functions.php:28
+msgid "Game source not found. Have you imported games?"
+msgstr ""
+
+#: lib/Functions.php:42
+msgid "<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>"
+msgstr ""
+
 #: lib/Import/Import.php:82
 msgid "VegasHero Game Operators"
 msgstr ""
@@ -775,6 +223,520 @@ msgstr ""
 msgid "Import completed successfully"
 msgstr ""
 
+#: lib/Settings/Import.php:27
+msgid "Import HTML5 games"
+msgstr ""
+
+#: lib/Settings/Import.php:28
+msgid "Import Flash games"
+msgstr ""
+
+#: lib/Settings/Import.php:37
+msgid "Purchase a license key to unlock access to all the games"
+msgstr ""
+
+#: lib/Settings/Import.php:38
+msgid "Games available"
+msgstr ""
+
+#: lib/Settings/License.php:38
+#: lib/Settings/License.php:39
+#: lib/Settings/License.php:53
+msgid "License & Support"
+msgstr ""
+
+#: lib/Settings/License.php:60
+msgid "License"
+msgstr ""
+
+#: lib/Settings/Lobby.php:44
+msgid "You can change the default name of the lobby filters dropdowns. Change the button text on the lobby thumbnails. Change the name of VegasHero posts displayed in your theme's breadcrumb. Text strings entered here will replace the default values."
+msgstr ""
+
+#: lib/Settings/Lobby.php:51
+#: lib/Settings/Lobby.php:167
+#: templates/lobby.php:20
+msgid "Filter by operator"
+msgstr ""
+
+#: lib/Settings/Lobby.php:57
+#: lib/Settings/Lobby.php:184
+#: templates/lobby.php:29
+msgid "Filter by category"
+msgstr ""
+
+#: lib/Settings/Lobby.php:63
+#: lib/Settings/Lobby.php:201
+#: templates/lobby.php:38
+msgid "Filter by provider"
+msgstr ""
+
+#: lib/Settings/Lobby.php:70
+#: lib/Settings/Lobby.php:251
+#: lib/ShortCodes/ShortCodes.php:53
+msgid "Play Now"
+msgstr ""
+
+#: lib/Settings/Lobby.php:112
+msgid "Lobby Settings"
+msgstr ""
+
+#: lib/Settings/Lobby.php:119
+msgid "Number of games to show"
+msgstr ""
+
+#: lib/Settings/Lobby.php:136
+msgid "Sort lobby games by"
+msgstr ""
+
+#: lib/Settings/Lobby.php:154
+msgid "Lobby Custom Text"
+msgstr ""
+
+#: lib/Settings/Lobby.php:161
+msgid "Operator Filter Text"
+msgstr ""
+
+#: lib/Settings/Lobby.php:178
+msgid "Category Filter Text"
+msgstr ""
+
+#: lib/Settings/Lobby.php:195
+msgid "Provider Filter Text"
+msgstr ""
+
+#: lib/Settings/Lobby.php:220
+msgid "VegasHero Games Custom Text (shows in breadcrumbs)"
+msgstr ""
+
+#: lib/Settings/Lobby.php:245
+msgid "Play Now Button Custom Text (shows on game thumbnails)"
+msgstr ""
+
+#: lib/Settings/Lobby.php:270
+msgid "Pagination Previous button Custom Text"
+msgstr ""
+
+#: lib/Settings/Lobby.php:295
+msgid "Pagination Next button Custom Text"
+msgstr ""
+
+#: lib/Settings/Lobby.php:320
+msgid "Display Games Search?"
+msgstr ""
+
+#: lib/Settings/Lobby.php:345
+msgid "Display VegasHero link?"
+msgstr ""
+
+#: lib/Settings/Lobby.php:368
+#: lib/Settings/Lobby.php:369
+msgid "Lobby"
+msgstr ""
+
+#: lib/Settings/Menu.php:15
+msgid "VegasHero Settings"
+msgstr ""
+
+#: lib/Settings/Operators.php:44
+#: lib/Settings/Operators.php:45
+msgid "Import by Operator"
+msgstr ""
+
+#: lib/Settings/Operators.php:58
+#: lib/Settings/Providers.php:75
+msgid "Import games"
+msgstr ""
+
+#: lib/Settings/Permalinks.php:30
+#: lib/Settings/Permalinks.php:31
+msgid "Permalinks"
+msgstr ""
+
+#: lib/Settings/Permalinks.php:124
+msgid "Permalink Settings"
+msgstr ""
+
+#: lib/Settings/Permalinks.php:131
+msgid "Game base"
+msgstr ""
+
+#: lib/Settings/Permalinks.php:148
+msgid "Category base"
+msgstr ""
+
+#: lib/Settings/Permalinks.php:165
+msgid "Operator base"
+msgstr ""
+
+#: lib/Settings/Permalinks.php:182
+msgid "Provider base"
+msgstr ""
+
+#: lib/Settings/Providers.php:61
+#: lib/Settings/Providers.php:62
+msgid "Import by Provider"
+msgstr ""
+
+#: lib/Settings/Settings.php:22
+msgid "Settings saved"
+msgstr ""
+
+#: lib/Settings/templates/license.php:10
+msgid "Check out our WordPress Themes"
+msgstr ""
+
+#. translators: %1$s will be replaced by URL where Casino Theme can be downloaded. %2$s will be replaced by URL where Sportsbook Theme can be downloaded.
+#: lib/Settings/templates/license.php:12
+msgid "We also offer stylish and functional WP themes that integrate well with our games plugin. Choose from a <a target=\"_blank\" href=\"%1$s\">Casino Theme</a> or a <a target=\"_blank\" href=\"%2$s\">Sportsbook Theme</a>."
+msgstr ""
+
+#. translators: %1$s will be replaced by URL where plugin and theme combo can be purchased
+#: lib/Settings/templates/license.php:14
+msgid "You can also get the <a target=\"_blank\" href=\"%1$s\">plugin + theme in a bundle license</a> and save money."
+msgstr ""
+
+#: lib/Settings/templates/license.php:19
+msgid "Follow us for latest game release & feature updates!"
+msgstr ""
+
+#. translators: %1$s will be replaced by URL of the Vegas Hero Facebook page. %2$s will be replaced by URL of the Vegas Hero Twitter feed.
+#: lib/Settings/templates/license.php:21
+msgid "Check us out on <a target=\"_blank\" href=\"%1$s\">Facebook</a> and follow our <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. We post about latest version updates, industry news and events and game release info."
+msgstr ""
+
+#: lib/Settings/templates/license.php:26
+msgid "Need support?"
+msgstr ""
+
+#. translators: %1$s will be replaced by an email link. %2$s will be replaced by the Vegas Hero support email address.
+#: lib/Settings/templates/license.php:28
+msgid "Email us: <a href=\"%1$s\">%2$s</a>"
+msgstr ""
+
+#. translators: %1$s will be replaced by URL of frequently asked questions about the Vegas Hero WordPress plugin
+#: lib/Settings/templates/license.php:32
+msgid "See the <a target=\"_blank\" href=\"%1$s\">FAQs</a>."
+msgstr ""
+
+#. translators: %1$s will be replaced by URL of Vegas Hero help and support page.
+#: lib/Settings/templates/license.php:36
+msgid "Browse the <a target=\"_blank\" href=\"%1$s\">support section</a> of our website."
+msgstr ""
+
+#: lib/Settings/templates/license.php:40
+msgid "Check the <a target=\"_blank\" href=\"\">latest game release</a> posts."
+msgstr ""
+
+#: lib/Settings/templates/license.php:43
+msgid "Notice about game assets"
+msgstr ""
+
+#: lib/Settings/templates/license.php:44
+msgid "The VegasHero Plugin sources games and game images from external sources. Although regular quality checks are carried out to safeguard the reliability of the games and image assets used by the plugin neither VegasHero.co nor its contracting partners can give any explicit or implicit assurance or warranty (including to third parties) in respect of the accuracy, reliability or completeness of the games and their assets. Casino games operated by third parties are provided \"as is\" without warranty of any kind. VegasHero accepts no responsibility and gives no guarantee to the effect that the functions of VegasHero Plugin will not be interrupted."
+msgstr ""
+
+#: lib/Settings/templates/license/license-input.php:1
+msgid "enter your license key here"
+msgstr ""
+
+#: lib/Settings/templates/license/section-heading.php:5
+#: lib/Settings/templates/operators.php:6
+#: lib/Settings/templates/permalinks.php:6
+#: lib/Settings/templates/providers.php:6
+msgid "Get a license key and add 1800+ games to your website!"
+msgstr ""
+
+#. translators: %1$s will be replaced by a URL where a plugin license can be purchased
+#: lib/Settings/templates/license/section-heading.php:7
+#: lib/Settings/templates/operators.php:7
+#: lib/Settings/templates/permalinks.php:7
+#: lib/Settings/templates/providers.php:7
+msgid "The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target=\"_blank\" href=\"%1$s\">purchase a license key here.</a></strong>"
+msgstr ""
+
+#: lib/Settings/templates/license/section-heading.php:13
+msgid "Enter your license code to activate full import features and game updates."
+msgstr ""
+
+#. translators: %1$s will be replaced by a URL containing instructions to get your started
+#: lib/Settings/templates/license/section-heading.php:15
+#: lib/Settings/templates/operators.php:19
+#: lib/Settings/templates/providers.php:16
+msgid "Please see our <a target=\"_blank\" href=\"%1$s\">quick start guide</a> for detailed instructions."
+msgstr ""
+
+#: lib/Settings/templates/lobby.php:9
+msgid "How to display the lobby?"
+msgstr ""
+
+#: lib/Settings/templates/lobby.php:13
+msgid "<b>1.</b> Create a new page*"
+msgstr ""
+
+#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
+#: lib/Settings/templates/lobby.php:14
+msgid "<b>2.</b> Add in this shortcode %1$s[vegashero-lobby]%2$s"
+msgstr ""
+
+#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
+#: lib/Settings/templates/lobby.php:15
+msgid "<b>3.</b> You are all set!"
+msgstr ""
+
+#: lib/Settings/templates/lobby/games-per-page-input.php:2
+msgid "If your lobby is showing in 4 columns set the number of games to show to be multiples of 4. For example to display a 4x4 grid of games set the number to 16. Default value is 20."
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-link-tickbox.php:4
+msgid "Support our work by displaying a subtle backlink at the bottom of the lobby. We are greatful if you show your appreciation by ticking this box."
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-search-tickbox.php:4
+msgid "You can display a search field in the lobby for dynamic games search. Visitors can filter games by entering any keyword."
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:6
+msgid "Publish Date (Newest first)"
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:7
+msgid "Publish Date (Oldest first)"
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:8
+msgid "Last Modified Date (Newest first)"
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:9
+msgid "Last Modified Date (Oldest first)"
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:10
+#: lib/Widgets/LatestGamesFormTemplate.php:16
+msgid "Alphabetical Title (A-Z)"
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:11
+#: lib/Widgets/LatestGamesFormTemplate.php:17
+msgid "Alphabetical Title (Z-A)"
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:12
+#: lib/Widgets/LatestGamesFormTemplate.php:18
+msgid "Random"
+msgstr ""
+
+#: lib/Settings/templates/lobby/lobby-sorting-select.php:15
+msgid "Set the default sorting method for games displayed in the Lobby."
+msgstr ""
+
+#. translators: %1$s will be replaced by a website URL
+#: lib/Settings/templates/lobby/section-heading.php:2
+msgid "Use these settings to configure the game lobby displayed by the <a target=\"_blank\" href=\"%1$s\">vh-lobby</a> shortcode."
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:8
+msgid "Logo"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:9
+msgid "Add operator logo"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:10
+#: lib/Settings/templates/operator-form.php:15
+#: lib/Settings/templates/operator-form.php:20
+#: lib/Settings/templates/operator-form.php:32
+msgid "The name is how it appears on your site."
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:13
+#: lib/Settings/templates/operator-table.php:30
+#: lib/Settings/templates/operator-table.php:38
+msgid "Name"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:18
+msgid "Affiliate link"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:23
+msgid "Providers associated with this operator"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:25
+msgid "Provider 1"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:26
+msgid "Provider 2"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:27
+msgid "Provider 3"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:28
+msgid "Provider 4"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:29
+msgid "Provider 5"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:30
+msgid "Provider 6"
+msgstr ""
+
+#: lib/Settings/templates/operator-form.php:34
+msgid "Add New Operator"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:8
+#: lib/Settings/templates/operator-table.php:45
+msgid "Select bulk action"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:9
+#: lib/Settings/templates/operator-table.php:47
+msgid "Bulk Actions"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:10
+#: lib/Settings/templates/operator-table.php:48
+msgid "Delete"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:12
+msgid "Apply"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:14
+#: lib/Settings/templates/operator-table.php:54
+msgid "0 items"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:18
+#: lib/Settings/templates/operator-table.php:57
+msgid "Current Page"
+msgstr ""
+
+#. translators: Example 1 of 10
+#: lib/Settings/templates/operator-table.php:20
+#: lib/Settings/templates/operator-table.php:59
+msgid "of"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:23
+msgid "Next page"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:24
+msgid "Last page"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:27
+msgid "Tags list"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:30
+#: lib/Settings/templates/operator-table.php:38
+msgid "Select All"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:30
+#: lib/Settings/templates/operator-table.php:38
+msgid "Description"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:30
+#: lib/Settings/templates/operator-table.php:38
+msgid "Slug"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:30
+#: lib/Settings/templates/operator-table.php:38
+msgid "Count"
+msgstr ""
+
+#: lib/Settings/templates/operator-table.php:34
+msgid "No tags found."
+msgstr ""
+
+#: lib/Settings/templates/operators.php:11
+msgid "Import by Casino Operator"
+msgstr ""
+
+#: lib/Settings/templates/operators.php:15
+msgid "Imported games will be grouped by casino <u>operator</u> and game <u>category</u>."
+msgstr ""
+
+#: lib/Settings/templates/operators.php:17
+msgid "Casino <i>operators</i> may share some of the same games, but rest assured, games will <u>not</u> be duplicated and instead can be associated with multiple casino <u>operators</u>."
+msgstr ""
+
+#: lib/Settings/templates/operators.php:30
+msgid "Featured"
+msgstr ""
+
+#: lib/Settings/templates/operators.php:50
+msgid "Unable to fetch a list of operators. Please try again by refreshing your page."
+msgstr ""
+
+#: lib/Settings/templates/permalinks/custom-post-type-url-input.php:1
+msgid "url base path for vegashero games"
+msgstr ""
+
+#. translators: %1$s will be replaced by the current website URL
+#: lib/Settings/templates/permalinks/custom-post-type-url-input.php:2
+msgid "Sets the URL path prefix for an individual game. The default prefix is \"game\".<br>For example, to replace %1$s/<u>game</u>/ with %1$s/<u>slots</u>/ set this to \"slots\"."
+msgstr ""
+
+#: lib/Settings/templates/permalinks/game-category-url-input.php:1
+msgid "url base path for game categories"
+msgstr ""
+
+#. translators: %1$s will be replaced with the current website URL
+#: lib/Settings/templates/permalinks/game-category-url-input.php:2
+msgid "Sets the URL path prefix for listing games per category. The default prefix is \"category\".<br>For example, to replace %1$s/game/<u>category</u>/ with %1$s/game/<u>type</u>/ set this to \"type\"."
+msgstr ""
+
+#: lib/Settings/templates/permalinks/game-operator-url-input.php:1
+#: lib/Settings/templates/permalinks/game-provider-url-input.php:1
+msgid "permalink base path for vegashero games"
+msgstr ""
+
+#. translators: %1$s will be replaced with the current website URL
+#: lib/Settings/templates/permalinks/game-operator-url-input.php:2
+msgid "Sets the URL path prefix for listing games per operator. The default prefix is \"operator\".<br>For example, to replace %1$s/game/<u>operator</u>/ with %1$s/game/<u>casino</u>/ set this to \"casino\"."
+msgstr ""
+
+#. translators: %1$s will be replaced by the current website URL
+#: lib/Settings/templates/permalinks/game-provider-url-input.php:2
+msgid "Sets the URL path prefix for listing games per provider. The default prefix is \"provider\".<br>For example, to replace %1$s/game/<u>provider</u>/ with %1$s/game/<u>studio</u>/ set this so \"studio\"."
+msgstr ""
+
+#: lib/Settings/templates/permalinks/section-heading.php:2
+msgid "Changing these settings can break your existing game links. Use these options with care!"
+msgstr ""
+
+#: lib/Settings/templates/permalinks/section-heading.php:4
+msgid "Set URL path settings for the VegasHero games."
+msgstr ""
+
+#: lib/Settings/templates/providers.php:11
+msgid "Import by Game Provider"
+msgstr ""
+
+#: lib/Settings/templates/providers.php:14
+msgid "Imported games will be grouped by game <u>provider</u> and <u>category</u>."
+msgstr ""
+
+#: lib/Settings/templates/providers.php:49
+msgid "Unable to fetch a list of providers. Please try again by refreshing your page."
+msgstr ""
+
 #: lib/ShortCodes/ShortCodes.php:94
 msgid "Bonus"
 msgstr ""
@@ -788,19 +750,50 @@ msgstr ""
 msgid "Game with id %d not found"
 msgstr ""
 
-#. translators:  %s will be replaced by the iframe file name containing the game
-#: lib/Functions.php:18
-msgid "File not found %s"
+#: lib/Widgets/LatestGames.php:13
+msgid "Display games with thumbnails from the VegasHero Plugin."
 msgstr ""
 
-#: lib/Functions.php:23
-msgid "renderGameFrame method can only be called within Wordpress loop."
+#: lib/Widgets/LatestGames.php:14
+msgid "Latest Casino Games"
 msgstr ""
 
-#: lib/Functions.php:28
-msgid "Game source not found. Have you imported games?"
+#: lib/Widgets/LatestGamesFormTemplate.php:2
+msgid "Widget Title"
 msgstr ""
 
-#: lib/Functions.php:42
-msgid "<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>"
+#: lib/Widgets/LatestGamesFormTemplate.php:7
+msgid "Game Count"
+msgstr ""
+
+#: lib/Widgets/LatestGamesFormTemplate.php:12
+msgid "Sort Order"
+msgstr ""
+
+#: lib/Widgets/LatestGamesFormTemplate.php:14
+msgid "Date (Newest first)"
+msgstr ""
+
+#: lib/Widgets/LatestGamesFormTemplate.php:15
+msgid "Date (Oldest first)"
+msgstr ""
+
+#: lib/Widgets/SingleGameArea.php:22
+msgid "Single Game Widget Area"
+msgstr ""
+
+#: lib/Widgets/SingleGameArea.php:23
+msgid "Add widgets / shortcodes under VegasHero games"
+msgstr ""
+
+#: templates/lobby.php:46
+msgid "search"
+msgstr ""
+
+#: templates/lobby.php:51
+msgid "loading games..."
+msgstr ""
+
+#: templates/lobby.php:53
+msgid "VegasHero Casino Affiliate Plugin"
 msgstr ""

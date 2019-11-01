@@ -146,8 +146,8 @@ class Vegashero_Ajax
     }
 
     private function _getPaginationOptions($paged) {
-        $prev_btn = get_option('vh_pagination_prev', '« Previous');
-        $next_btn = get_option('vh_pagination_next', 'Next »');
+        $prev_btn = get_option('vh_pagination_prev', wp_strip_all_tags(__('Previous', 'vegashero')));
+        $next_btn = get_option('vh_pagination_next', wp_strip_all_tags(__('Next', 'vegashero')));
         $total_posts = wp_count_posts($this->_config->customPostType)->publish;
         $max_pages = ceil($total_posts/$this->_posts_per_page);
         $big = $paged+1;

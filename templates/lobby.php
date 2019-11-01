@@ -17,7 +17,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 <div class="vh-filter">
 <?php if(count($operators)): ?>
   <select data-taxonomy="<?=$operator_query_var?>">
-    <option selected disabled><?= ! empty(get_option('vh_lobby_filterstext_op')) ? wp_strip_all_tags(__('Filter by operator', 'vegashero')) : get_option('vh_lobby_filterstext_op'); ?></option>
+    <option selected disabled><?= ! get_option('vh_lobby_filterstext_op') ? wp_strip_all_tags(__('Filter by operator', 'vegashero')) : get_option('vh_lobby_filterstext_op'); ?></option>
     <?php foreach($operators as $operator): ?>
     <option value="<?=$operator->slug?>"><?=$operator->name?> (<?=$operator->count?>)</option>
     <?php endforeach; ?>
@@ -26,7 +26,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($categories)): ?>
   <select data-taxonomy="<?=$category_query_var?>">
-    <option selected disabled><?= ! empty(get_option('vh_lobby_filterstext_cat')) ? wp_strip_all_tags(__('Filter by category', 'vegashero')) : get_option('vh_lobby_filterstext_cat'); ?></option>
+    <option selected disabled><?= ! get_option('vh_lobby_filterstext_cat') ? wp_strip_all_tags(__('Filter by category', 'vegashero')) : get_option('vh_lobby_filterstext_cat'); ?></option>
     <?php foreach($categories as $category): ?>
     <option value="<?=$category->slug?>"><?=$category->name?> (<?=$category->count?>)</option>
     <?php endforeach; ?>
@@ -35,7 +35,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 <?php if(count($providers)): ?>
   <select data-taxonomy="<?=$provider_query_var?>">
-    <option selected disabled><?= ! empty(get_option('vh_lobby_filterstext_prov')) ? wp_strip_all_tags(__('Filter by provider', 'vegashero')) : get_option('vh_lobby_filterstext_prov'); ?></option>
+    <option selected disabled><?= ! get_option('vh_lobby_filterstext_prov') ? wp_strip_all_tags(__('Filter by provider', 'vegashero')) : get_option('vh_lobby_filterstext_prov'); ?></option>
     <?php foreach($providers as $provider): ?>
     <option value="<?=$provider->slug?>"><?=$provider->name?> (<?=$provider->count?>)</option>
     <?php endforeach; ?>
