@@ -54,7 +54,7 @@ final class GamesGrid
                 "paged" => (int)$current_page - 1
             )
         );
-        return "<a class='prev page-numbers' href='$url'>$text</a>";
+        return "<a class='prev page-numbers' href='$url'>« $text</a>";
     }
 
     /**
@@ -94,7 +94,7 @@ final class GamesGrid
                 "paged" => (int)$current_page + 1
             )
         );
-        return "<a class='next page-numbers' href='$url'>$text</a>";
+        return "<a class='next page-numbers' href='$url'>$text »</a>";
     }
 
     /**
