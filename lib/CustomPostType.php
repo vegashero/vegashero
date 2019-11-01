@@ -251,6 +251,7 @@ function add_game_provider_taxonomy_filters() {
         $selected = isset($_GET[$taxonomy]) ? $_GET[$taxonomy] : '';
         $info_taxonomy = get_taxonomy($taxonomy);
         wp_dropdown_categories(array(
+            /* translators: %s will be replaced by the relevant WordPress taxonomy label eg.. providers, operators, categories */ 
             'show_option_all' => wp_strip_all_tags(sprintf(__('All %s', 'vegashero'), $info_taxonomy->label)),
             'taxonomy' => $taxonomy,
             'name' => $taxonomy_permalink_slug,

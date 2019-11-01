@@ -60,7 +60,7 @@ class ShortCodes
         wp_enqueue_script('vegashero_termstoggle', '', array('jquery'), null, true);
 		wp_register_script('jquery_debounce', plugins_url("vegashero/templates/js/jquery.ba-throttle-debounce.min.js"), null, true);
 		wp_enqueue_script('jquery_debounce', '', array('jquery'), null, true);
-		wp_enqueue_script('vegashero_lobby_script', plugins_url('vegashero/templates/js/lobby_search_filters.js'), array('jquery_debounce'), null, true);
+		wp_enqueue_script('vegashero_lobby_script', plugins_url('vegashero/templates/js/lobby_search_filters.js'), array('jquery_debounce', 'wp-i18n'), null, true);
 		wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
 			array(
 				'ajax_url' => admin_url('admin-ajax.php'),

@@ -1,4 +1,9 @@
-//thumb error handling - fallback img
+
+const { __, _x, _n, sprintf } = wp.i18n;
+
+/**
+ * thumb error handling - fallback img
+ */
 function imgError(image) {
     image.onerror = '';
     image.src = '//cdn.vegasgod.com/undefined/cover.jpg';

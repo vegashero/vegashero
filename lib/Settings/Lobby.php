@@ -164,7 +164,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_op' => 'vh_lobby_filterstext_op',
-                'vh_lobby_filterstext_op' => 'Filter by operator'
+                'vh_lobby_filterstext_op' => wp_strip_all_tags(__('Filter by operator', 'vegashero'))
             )
         );
         
@@ -181,7 +181,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_cat' => 'vh_lobby_filterstext_cat',
-                'vh_lobby_filterstext_cat' => 'Filter by category'
+                'vh_lobby_filterstext_cat' => wp_strip_all_tags(__('Filter by category', 'vegashero'))
             )
         );
 
@@ -198,7 +198,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_prov' => 'vh_lobby_filterstext_prov',
-                'vh_lobby_filterstext_prov' => 'Filter by provider'
+                'vh_lobby_filterstext_prov' => wp_strip_all_tags(__('Filter by provider', 'vegashero'))
             )
         );
 
@@ -223,7 +223,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-cptname-section',
             $args = array(
                 'id' => 'vh_cptname',
-                'vh_cptname' => 'VegasHero Games'
+                'vh_cptname' => wp_strip_all_tags(__('VegasHero Games', 'vegashero'))
             )
         );
         
@@ -248,7 +248,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-playnow-btn-section',
             $args = array(
                 'id' => 'vh_playnow_btn',
-                'vh_playnow_btn' => 'Play Now'
+                'vh_playnow_btn' => wp_strip_all_tags(__('Play Now', 'vegashero'))
             )
         );
         
@@ -273,7 +273,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-pagination-prev-section',
             $args = array(
                 'id' => 'vh_pagination_prev',
-                'vh_pagination_prev' => '« Previous'
+                'vh_pagination_prev' => wp_strip_all_tags(__('« Previous', 'vegashero'))
             )
         );
         
@@ -298,7 +298,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-pagination-next-section',
             $args = array(
                 'id' => 'vh_pagination_next',
-                'vh_pagination_next' => 'Next »'
+                'vh_pagination_next' => wp_strip_all_tags(__('Next »', 'vegashero'))
             )
         );
         
@@ -323,7 +323,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-lobbysearch-section',
             $args = array(
                 'id' => 'vh_lobbysearch',
-                'vh_lobbysearch' => 'off'
+                'vh_lobbysearch' => wp_strip_all_tags(__('off', 'vegashero'))
             )
         );
 
@@ -348,7 +348,7 @@ class Lobby extends \VegasHero\Settings
             $section = 'vh-lobbylink-section',
             $args = array(
                 'id' => 'vh_lobbylink',
-                'vh_lobbylink' => 'off'
+                'vh_lobbylink' => wp_strip_all_tags(__('off', 'vegashero'))
             )
         );
 

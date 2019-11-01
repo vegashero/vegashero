@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2019-10-04T19:02:24+00:00\n"
+"POT-Creation-Date: 2019-11-01T13:27:27+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.2.0\n"
 "X-Domain: vegashero\n"
@@ -29,30 +29,33 @@ msgstr ""
 msgid "The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino & slots games, flexible options to add your own games. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO. Check out our premium <a target=\"_blank\" href=\"https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description%20link\">Casino Wordpress Theme</a> that is purpose built to showcase the games and your affiliate links."
 msgstr ""
 
-#: templates/lobby.php:21
+#: templates/lobby.php:20
 #: lib/Settings/Lobby.php:51
+#: lib/Settings/Lobby.php:167
 msgid "Filter by operator"
 msgstr ""
 
-#: templates/lobby.php:30
+#: templates/lobby.php:29
 #: lib/Settings/Lobby.php:57
+#: lib/Settings/Lobby.php:184
 msgid "Filter by category"
 msgstr ""
 
-#: templates/lobby.php:39
+#: templates/lobby.php:38
 #: lib/Settings/Lobby.php:63
+#: lib/Settings/Lobby.php:201
 msgid "Filter by provider"
 msgstr ""
 
-#: templates/lobby.php:47
+#: templates/lobby.php:46
 msgid "search"
 msgstr ""
 
-#: templates/lobby.php:52
+#: templates/lobby.php:51
 msgid "loading games..."
 msgstr ""
 
-#: templates/lobby.php:54
+#: templates/lobby.php:53
 msgid "VegasHero Casino Affiliate Plugin"
 msgstr ""
 
@@ -79,6 +82,7 @@ msgstr ""
 msgid "Get a license key and add 1800+ games to your website!"
 msgstr ""
 
+#. translators: %1$s will be replaced by a URL where a plugin license can be purchased
 #: lib/Settings/templates/providers.php:7
 #: lib/Settings/templates/license/section-heading.php:7
 #: lib/Settings/templates/permalinks.php:7
@@ -94,6 +98,7 @@ msgstr ""
 msgid "Imported games will be grouped by game <u>provider</u> and <u>category</u>."
 msgstr ""
 
+#. translators: %1$s will be replaced by a URL containing instructions to get your started
 #: lib/Settings/templates/providers.php:16
 #: lib/Settings/templates/license/section-heading.php:15
 #: lib/Settings/templates/operators.php:19
@@ -159,6 +164,7 @@ msgstr ""
 msgid "If your lobby is showing in 4 columns set the number of games to show to be multiples of 4. For example to display a 4x4 grid of games set the number to 16. Default value is 20."
 msgstr ""
 
+#. translators: %1$s will be replaced by a website URL
 #: lib/Settings/templates/lobby/section-heading.php:2
 msgid "Use these settings to configure the game lobby displayed by the <a target=\"_blank\" href=\"%1$s\">vh-lobby</a> shortcode."
 msgstr ""
@@ -167,6 +173,7 @@ msgstr ""
 msgid "url base path for game categories"
 msgstr ""
 
+#. translators: %1$s will be replaced with the current website URL
 #: lib/Settings/templates/permalinks/game-category-url-input.php:2
 msgid "Sets the URL path prefix for listing games per category. The default prefix is \"category\".<br>For example, to replace %1$s/game/<u>category</u>/ with %1$s/game/<u>type</u>/ set this to \"type\"."
 msgstr ""
@@ -176,6 +183,7 @@ msgstr ""
 msgid "permalink base path for vegashero games"
 msgstr ""
 
+#. translators: %1$s will be replaced with the current website URL
 #: lib/Settings/templates/permalinks/game-operator-url-input.php:2
 msgid "Sets the URL path prefix for listing games per operator. The default prefix is \"operator\".<br>For example, to replace %1$s/game/<u>operator</u>/ with %1$s/game/<u>casino</u>/ set this to \"casino\"."
 msgstr ""
@@ -184,10 +192,12 @@ msgstr ""
 msgid "url base path for vegashero games"
 msgstr ""
 
+#. translators: %1$s will be replaced by the current website URL
 #: lib/Settings/templates/permalinks/custom-post-type-url-input.php:2
 msgid "Sets the URL path prefix for an individual game. The default prefix is \"game\".<br>For example, to replace %1$s/<u>game</u>/ with %1$s/<u>slots</u>/ set this to \"slots\"."
 msgstr ""
 
+#. translators: %1$s will be replaced by the current website URL
 #: lib/Settings/templates/permalinks/game-provider-url-input.php:2
 msgid "Sets the URL path prefix for listing games per provider. The default prefix is \"provider\".<br>For example, to replace %1$s/game/<u>provider</u>/ with %1$s/game/<u>studio</u>/ set this so \"studio\"."
 msgstr ""
@@ -285,10 +295,12 @@ msgstr ""
 msgid "<b>1.</b> Create a new page*"
 msgstr ""
 
+#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
 #: lib/Settings/templates/lobby.php:14
 msgid "<b>2.</b> Add in this shortcode %1$s[vegashero-lobby]%2$s"
 msgstr ""
 
+#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
 #: lib/Settings/templates/lobby.php:15
 msgid "<b>3.</b> You are all set!"
 msgstr ""
@@ -348,10 +360,12 @@ msgstr ""
 msgid "Check out our WordPress Themes"
 msgstr ""
 
+#. translators: %1$s will be replaced by URL where Casino Theme can be downloaded. %2$s will be replaced by URL where Sportsbook Theme can be downloaded.
 #: lib/Settings/templates/license.php:12
 msgid "We also offer stylish and functional WP themes that integrate well with our games plugin. Choose from a <a target=\"_blank\" href=\"%1$s\">Casino Theme</a> or a <a target=\"_blank\" href=\"%2$s\">Sportsbook Theme</a>."
 msgstr ""
 
+#. translators: %1$s will be replaced by URL where plugin and theme combo can be purchased
 #: lib/Settings/templates/license.php:14
 msgid "You can also get the <a target=\"_blank\" href=\"%1$s\">plugin + theme in a bundle license</a> and save money."
 msgstr ""
@@ -360,22 +374,26 @@ msgstr ""
 msgid "Follow us for latest game release & feature updates!"
 msgstr ""
 
+#. translators: %1$s will be replaced by URL of the Vegas Hero Facebook page. %2$s will be replaced by URL of the Vegas Hero Twitter feed.
 #: lib/Settings/templates/license.php:21
-msgid "Check us out on <a target=\"_blank\" href=\"%1$s\">Facebook</a> and follow our <a target=\"_blank\" href=\"%2$s</a> feed. We post about latest version updates, industry news and events and game release info."
+msgid "Check us out on <a target=\"_blank\" href=\"%1$s\">Facebook</a> and follow our <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. We post about latest version updates, industry news and events and game release info."
 msgstr ""
 
 #: lib/Settings/templates/license.php:26
 msgid "Need support?"
 msgstr ""
 
+#. translators: %1$s will be replaced by an email link. %2$s will be replaced by the Vegas Hero support email address.
 #: lib/Settings/templates/license.php:28
 msgid "Email us: <a href=\"%1$s\">%2$s</a>"
 msgstr ""
 
+#. translators: %1$s will be replaced by URL of frequently asked questions about the Vegas Hero WordPress plugin
 #: lib/Settings/templates/license.php:32
 msgid "See the <a target=\"_blank\" href=\"%1$s\">FAQs</a>."
 msgstr ""
 
+#. translators: %1$s will be replaced by URL of Vegas Hero help and support page.
 #: lib/Settings/templates/license.php:36
 msgid "Browse the <a target=\"_blank\" href=\"%1$s\">support section</a> of our website."
 msgstr ""
@@ -457,6 +475,7 @@ msgid "You can change the default name of the lobby filters dropdowns. Change th
 msgstr ""
 
 #: lib/Settings/Lobby.php:70
+#: lib/Settings/Lobby.php:251
 #: lib/ShortCodes/ShortCodes.php:53
 msgid "Play Now"
 msgstr ""
@@ -470,6 +489,7 @@ msgid "Next"
 msgstr ""
 
 #: lib/Settings/Lobby.php:91
+#: lib/Settings/Lobby.php:226
 #: lib/CustomPostType.php:141
 #: lib/CustomPostType.php:156
 msgid "VegasHero Games"
@@ -515,12 +535,25 @@ msgstr ""
 msgid "Pagination Previous button Custom Text"
 msgstr ""
 
+#: lib/Settings/Lobby.php:276
+msgid "« Previous"
+msgstr ""
+
 #: lib/Settings/Lobby.php:295
 msgid "Pagination Next button Custom Text"
 msgstr ""
 
+#: lib/Settings/Lobby.php:301
+msgid "Next »"
+msgstr ""
+
 #: lib/Settings/Lobby.php:320
 msgid "Display Games Search?"
+msgstr ""
+
+#: lib/Settings/Lobby.php:326
+#: lib/Settings/Lobby.php:351
+msgid "off"
 msgstr ""
 
 #: lib/Settings/Lobby.php:345
@@ -713,7 +746,8 @@ msgstr ""
 msgid "New Game"
 msgstr ""
 
-#: lib/CustomPostType.php:254
+#. translators: %s will be replaced by the relevant WordPress taxonomy label eg.. providers, operators, categories
+#: lib/CustomPostType.php:255
 msgid "All %s"
 msgstr ""
 
@@ -749,22 +783,24 @@ msgstr ""
 msgid "Compatible Devices"
 msgstr ""
 
-#: lib/ShortCodes/SingleGame.php:56
+#. translators: %d will be replaced by the game id
+#: lib/ShortCodes/SingleGame.php:57
 msgid "Game with id %d not found"
 msgstr ""
 
-#: lib/Functions.php:17
+#. translators:  %s will be replaced by the iframe file name containing the game
+#: lib/Functions.php:18
 msgid "File not found %s"
 msgstr ""
 
-#: lib/Functions.php:22
+#: lib/Functions.php:23
 msgid "renderGameFrame method can only be called within Wordpress loop."
 msgstr ""
 
-#: lib/Functions.php:27
+#: lib/Functions.php:28
 msgid "Game source not found. Have you imported games?"
 msgstr ""
 
-#: lib/Functions.php:41
+#: lib/Functions.php:42
 msgid "<p><strong>Widget Area:</strong> Please add widgets via Appearance > Widgets</p>"
 msgstr ""

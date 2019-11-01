@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: VegasHero 1.6.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/vegashero\n"
-"POT-Creation-Date: 2019-10-04T19:02:24+00:00\n"
+"POT-Creation-Date: 2019-11-01T13:27:27+00:00\n"
 "PO-Revision-Date: 2019-10-08 21:42+0200\n"
 "Last-Translator: Charles Mulder <charliemulder@protonmail.com>\n"
 "Language-Team: Vegas Hero\n"
@@ -49,28 +49,27 @@ msgstr ""
 "%20link\">Casino Wordpress Tema</a> wat ons persoonlik gebou het om jou "
 "speletjies en affiliate links af te show."
 
-#: templates/lobby.php:21 lib/Settings/Lobby.php:51
+#: templates/lobby.php:20 lib/Settings/Lobby.php:51 lib/Settings/Lobby.php:167
 msgid "Filter by operator"
 msgstr "Filtreer deur operateur"
 
-#: templates/lobby.php:30 lib/Settings/Lobby.php:57
+#: templates/lobby.php:29 lib/Settings/Lobby.php:57 lib/Settings/Lobby.php:184
 msgid "Filter by category"
 msgstr "Filtreer deur kategorie"
 
-#: templates/lobby.php:39 lib/Settings/Lobby.php:63
-#, fuzzy
+#: templates/lobby.php:38 lib/Settings/Lobby.php:63 lib/Settings/Lobby.php:201
 msgid "Filter by provider"
 msgstr "Filtreer deur operateur"
 
-#: templates/lobby.php:47
+#: templates/lobby.php:46
 msgid "search"
 msgstr "soek"
 
-#: templates/lobby.php:52
+#: templates/lobby.php:51
 msgid "loading games..."
 msgstr "speletjies laai"
 
-#: templates/lobby.php:54
+#: templates/lobby.php:53
 msgid "VegasHero Casino Affiliate Plugin"
 msgstr "VegasHero Casino Affiliate Plugin"
 
@@ -97,6 +96,7 @@ msgstr "Beskikbare speletjies "
 msgid "Get a license key and add 1800+ games to your website!"
 msgstr "Koop 'n lisensie en voeg 1800+ speletjies by jou website!"
 
+#. translators: %1$s will be replaced by a URL where a plugin license can be purchased
 #: lib/Settings/templates/providers.php:7
 #: lib/Settings/templates/license/section-heading.php:7
 #: lib/Settings/templates/permalinks.php:7
@@ -121,6 +121,7 @@ msgstr ""
 "Ingevoerde speletjies sal groepeer word per speletjie <u>voorsiener</u> en "
 "<u>kategorie</u>"
 
+#. translators: %1$s will be replaced by a URL containing instructions to get your started
 #: lib/Settings/templates/providers.php:16
 #: lib/Settings/templates/license/section-heading.php:15
 #: lib/Settings/templates/operators.php:19
@@ -216,6 +217,7 @@ msgstr ""
 "speletjies te wys, stel die hoeveelheid speletjies na 16. Die standaard "
 "hoeveelheid is 20."
 
+#. translators: %1$s will be replaced by a website URL
 #: lib/Settings/templates/lobby/section-heading.php:2
 msgid ""
 "Use these settings to configure the game lobby displayed by the <a target="
@@ -228,6 +230,7 @@ msgstr ""
 msgid "url base path for game categories"
 msgstr "URL base path vir speletjie kategorieë"
 
+#. translators: %1$s will be replaced with the current website URL
 #: lib/Settings/templates/permalinks/game-category-url-input.php:2
 msgid ""
 "Sets the URL path prefix for listing games per category. The default prefix "
@@ -244,6 +247,7 @@ msgstr ""
 msgid "permalink base path for vegashero games"
 msgstr "Permalink base path vir Vegas Hero speletjies"
 
+#. translators: %1$s will be replaced with the current website URL
 #: lib/Settings/templates/permalinks/game-operator-url-input.php:2
 msgid ""
 "Sets the URL path prefix for listing games per operator. The default prefix "
@@ -259,6 +263,7 @@ msgstr ""
 msgid "url base path for vegashero games"
 msgstr "URL base path vir Vegas Hero speletjies"
 
+#. translators: %1$s will be replaced by the current website URL
 #: lib/Settings/templates/permalinks/custom-post-type-url-input.php:2
 msgid ""
 "Sets the URL path prefix for an individual game. The default prefix is \"game"
@@ -269,6 +274,7 @@ msgstr ""
 "voorvoegsel is \"game\".<br>Byvoorbeeld om %1$s/<u>game</u>/ te vervang met "
 "%1$s/<u>speletjie</u>/ stel na \"speletjie\"."
 
+#. translators: %1$s will be replaced by the current website URL
 #: lib/Settings/templates/permalinks/game-provider-url-input.php:2
 msgid ""
 "Sets the URL path prefix for listing games per provider. The default prefix "
@@ -377,10 +383,12 @@ msgstr "Hoe vertoon die ingangsportaal?"
 msgid "<b>1.</b> Create a new page*"
 msgstr "<b>1.</b> Maak 'n nuwe bladsy*"
 
+#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
 #: lib/Settings/templates/lobby.php:14
 msgid "<b>2.</b> Add in this shortcode %1$s[vegashero-lobby]%2$s"
 msgstr "<b>2.</b> Gebruik hierdie kort kode %1$s[vegashero-lobby]%2$s"
 
+#. translators: %1$s and %2$s will be replaced by html markup to accent the shortcode
 #: lib/Settings/templates/lobby.php:15
 msgid "<b>3.</b> You are all set!"
 msgstr "<b>3.</b> Jy is gereed!"
@@ -440,6 +448,7 @@ msgstr "Voeg nuwe operateur by"
 msgid "Check out our WordPress Themes"
 msgstr "Kyk gerus na ons Wordpress tema"
 
+#. translators: %1$s will be replaced by URL where Casino Theme can be downloaded. %2$s will be replaced by URL where Sportsbook Theme can be downloaded.
 #: lib/Settings/templates/license.php:12
 msgid ""
 "We also offer stylish and functional WP themes that integrate well with our "
@@ -451,6 +460,7 @@ msgstr ""
 "\">Casino Tema</a> of 'n <a target=\"_blank\" href=\"%2$s\">Sportsbook Tema</"
 "a>."
 
+#. translators: %1$s will be replaced by URL where plugin and theme combo can be purchased
 #: lib/Settings/templates/license.php:14
 msgid ""
 "You can also get the <a target=\"_blank\" href=\"%1$s\">plugin + theme in a "
@@ -463,12 +473,13 @@ msgstr ""
 msgid "Follow us for latest game release & feature updates!"
 msgstr "Volg ons vir nuus oor die nuutste speletjies en tegnologie."
 
+#. translators: %1$s will be replaced by URL of the Vegas Hero Facebook page. %2$s will be replaced by URL of the Vegas Hero Twitter feed.
 #: lib/Settings/templates/license.php:21
 #, fuzzy
 msgid ""
 "Check us out on <a target=\"_blank\" href=\"%1$s\">Facebook</a> and follow "
-"our <a target=\"_blank\" href=\"%2$s</a> feed. We post about latest version "
-"updates, industry news and events and game release info."
+"our <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. We post about "
+"latest version updates, industry news and events and game release info."
 msgstr ""
 "Volg on op <a target=\"_blank\" href=\"%1$s\">Facebook</a> of teken in op "
 "ons <a target=\"_blank\" href=\"%2$s\">Twitter</a> feed. Ons gesels oor die "
@@ -479,14 +490,17 @@ msgstr ""
 msgid "Need support?"
 msgstr "Opsoek na hulp?"
 
+#. translators: %1$s will be replaced by an email link. %2$s will be replaced by the Vegas Hero support email address.
 #: lib/Settings/templates/license.php:28
 msgid "Email us: <a href=\"%1$s\">%2$s</a>"
 msgstr "Stuur vir ons 'n epos: <a href=\"%1$s\">%2$s</a>"
 
+#. translators: %1$s will be replaced by URL of frequently asked questions about the Vegas Hero WordPress plugin
 #: lib/Settings/templates/license.php:32
 msgid "See the <a target=\"_blank\" href=\"%1$s\">FAQs</a>."
 msgstr "Lees gerus ons <a target=\"_blank\" href=\"%1$s\">FAQs</a>."
 
+#. translators: %1$s will be replaced by URL of Vegas Hero help and support page.
 #: lib/Settings/templates/license.php:36
 msgid ""
 "Browse the <a target=\"_blank\" href=\"%1$s\">support section</a> of our "
@@ -606,7 +620,8 @@ msgstr ""
 "naam van die Vegas Hero artikels wat in die tema se broodkrummels verskyn. "
 "Teks wat hier ingevoer word sal die standaard waardes oorskryf."
 
-#: lib/Settings/Lobby.php:70 lib/ShortCodes/ShortCodes.php:53
+#: lib/Settings/Lobby.php:70 lib/Settings/Lobby.php:251
+#: lib/ShortCodes/ShortCodes.php:53
 msgid "Play Now"
 msgstr "Speel Nou"
 
@@ -618,8 +633,8 @@ msgstr "Vorige"
 msgid "Next"
 msgstr "Volgende"
 
-#: lib/Settings/Lobby.php:91 lib/CustomPostType.php:141
-#: lib/CustomPostType.php:156
+#: lib/Settings/Lobby.php:91 lib/Settings/Lobby.php:226
+#: lib/CustomPostType.php:141 lib/CustomPostType.php:156
 msgid "VegasHero Games"
 msgstr "VegasHero speletjies"
 
@@ -663,13 +678,28 @@ msgstr "Speel nou knoppie eie teks (wys op speletjie se klein voorskou fotos)"
 msgid "Pagination Previous button Custom Text"
 msgstr "Eie teks vir vorige bladsy knoppie"
 
+#: lib/Settings/Lobby.php:276
+#, fuzzy
+msgid "« Previous"
+msgstr "« Vorige"
+
 #: lib/Settings/Lobby.php:295
 msgid "Pagination Next button Custom Text"
 msgstr "Eie teks vir volgende bladsy knoppie "
 
+#: lib/Settings/Lobby.php:301
+#, fuzzy
+msgid "Next »"
+msgstr "Volgende »"
+
 #: lib/Settings/Lobby.php:320
 msgid "Display Games Search?"
 msgstr "Wys speletjie soek veld?"
+
+#: lib/Settings/Lobby.php:326 lib/Settings/Lobby.php:351
+#, fuzzy
+msgid "off"
+msgstr "af"
 
 #: lib/Settings/Lobby.php:345
 msgid "Display VegasHero link?"
@@ -856,7 +886,8 @@ msgstr "Voeg nuwe speletjie by"
 msgid "New Game"
 msgstr "Nuwe speletjie"
 
-#: lib/CustomPostType.php:254
+#. translators: %s will be replaced by the relevant WordPress taxonomy label eg.. providers, operators, categories
+#: lib/CustomPostType.php:255
 msgid "All %s"
 msgstr "Alle %s"
 
@@ -889,23 +920,25 @@ msgstr "Bonus"
 msgid "Compatible Devices"
 msgstr "Bruikbare toestelle"
 
-#: lib/ShortCodes/SingleGame.php:56
+#. translators: %d will be replaced by the game id
+#: lib/ShortCodes/SingleGame.php:57
 msgid "Game with id %d not found"
 msgstr "Speletjie met id %d word nie gevind nie"
 
-#: lib/Functions.php:17
+#. translators:  %s will be replaced by the iframe file name containing the game
+#: lib/Functions.php:18
 msgid "File not found %s"
 msgstr "Die lêer is nie gevind nie %s"
 
-#: lib/Functions.php:22
+#: lib/Functions.php:23
 msgid "renderGameFrame method can only be called within Wordpress loop."
 msgstr "rendeGameFrame metode kan slegs vanuit die Wordpress loop geroep word."
 
-#: lib/Functions.php:27
+#: lib/Functions.php:28
 msgid "Game source not found. Have you imported games?"
 msgstr "Kon nie speletjie bron vind nie. Het u al speletjies ingevoer?"
 
-#: lib/Functions.php:41
+#: lib/Functions.php:42
 msgid ""
 "<p><strong>Widget Area:</strong> Please add widgets via Appearance > "
 "Widgets</p>"
