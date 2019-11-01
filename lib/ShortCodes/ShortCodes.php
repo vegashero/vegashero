@@ -33,7 +33,7 @@ class ShortCodes
     public function renderSingleGame($atts) {
         if(array_key_exists('id', $atts)) {
             $game_id = (int)$atts['id'];
-            $game = new VegasHero\ShortCodes\SingleGame();
+            $game = new \VegasHero\ShortCodes\SingleGame();
             return $game->render($game_id);
         }
     }
@@ -44,7 +44,7 @@ class ShortCodes
      * @return string
      */
     public function renderGamesGrid($atts) {
-        return VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
+        return \VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
     }
 
 	public function lobby() {
