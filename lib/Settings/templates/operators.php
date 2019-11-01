@@ -33,7 +33,7 @@
                           <h2 class="operatorname"><?=$operator['operator']?></h2>
                           <div class="provider-img"><img src="<?=esc_attr(sprintf("%s/operators/%s.png", $this->_config->gameImageUrl, $operator['operator']))?>" /></div>
                           <div class="btn-area">
-                              <?= $this->_getAjaxUpdateBtn($operator['operator']); ?>
+                              <?= $this->_getAjaxUpdateBtn(sanitize_title($operator['operator'])) ?>
                           </div>
                           <div class="footer-area">
                               <?php if(get_option('vh_license_status') === 'valid'): ?>
