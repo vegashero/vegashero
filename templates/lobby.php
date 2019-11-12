@@ -3,9 +3,9 @@
 require_once( dirname( __FILE__ ) . '/../config.php' );
 
 $config = \VegasHero\Config::getInstance();
-$categories = get_terms($config->gameCategoryTaxonomy);
-$operators = get_terms($config->gameOperatorTaxonomy);
-$providers = get_terms($config->gameProviderTaxonomy);
+$categories = get_terms(['taxonomy' => $config->gameCategoryTaxonomy, 'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale()]);
+$operators = get_terms(['taxonomy' => $config->gameOperatorTaxonomy, 'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale()]);
+$providers = get_terms(['taxonomy' => $config->gameProviderTaxonomy, 'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale()]);
 
 // TODO refactor into a method
 $provider_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug');

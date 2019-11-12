@@ -206,6 +206,7 @@ MARKUP;
     static private function _getQueryParams($attributes, $config) {
         return array(
             'post_type' => $config->customPostType,
+            'lang' => function_exists('pll_current_language') ? pll_current_language() : wp_locale(),
             'order' => $attributes->order,
             'orderby' => $attributes->orderby,
             'posts_per_page' => $attributes->gamesperpage,

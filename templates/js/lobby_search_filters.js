@@ -101,7 +101,7 @@ jQuery(document).ready(function($) {
                 option.removeAttribute('selected');
             });
             $.each($('div.vh-filter select'), function(i, select) {
-                select.querySelector('option').setAttribute('selected', 'selected');
+                select.querySelector('option').selected = true;
             });
         };
 
@@ -109,7 +109,7 @@ jQuery(document).ready(function($) {
             select.querySelectorAll('option').forEach(function(option) {
                 option.removeAttribute('selected');
             });
-            select.querySelector('option').setAttribute('selected', 'selected');
+            select.querySelector('option').selected = true;
         };
 
         this.resetNextFilters = function(select) {
