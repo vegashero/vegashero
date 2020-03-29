@@ -20,6 +20,7 @@ class ShortCodes
         add_shortcode( 'vh_table' , array($this, 'vh_table_func'));
         add_shortcode( 'vh_table_line' , array($this, 'vh_table_line_func'));
         add_shortcode( 'vh-grid', array($this, 'renderGamesGrid'));
+        add_shortcode( 'vh-casino-grid', array($this, 'renderGamesGrid'));
         add_shortcode( 'vh_grid', array($this, 'renderGamesGrid'));
         add_shortcode('vh-game', array($this, 'renderSingleGame')); // tested
         add_shortcode('vh_game', array($this, 'renderSingleGame')); // tested

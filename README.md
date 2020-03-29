@@ -28,7 +28,7 @@ docker exec -u $USER vegashero_php-apache_1 wp user update vegashero --user_pass
 # update wordpress
 docker exec -u $USER vegashero_php-apache_1 wp core update
 # install plugins
-docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer polylang --activate
+docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer polylang loco-translate --activate
 # install languages
 docker exec -u $USER vegashero_php-apache_1 wp language core install af
 # activate vegashero plugin
@@ -36,8 +36,8 @@ docker exec -u $USER vegashero_php-apache_1 wp plugin activate vegashero
 # set permalinks
 docker exec -u $USER vegashero_php-apache_1 wp rewrite structure --hard '/%postname%/'
 # enable debugging
-wp config set --raw WP_DEBUG true
-wp config set --raw WP_DEBUG_LOG true
+docker exec -u $USER vegashero_php-apache_1 wp config set --raw WP_DEBUG true
+docker exec -u $USER vegashero_php-apache_1 wp config set --raw WP_DEBUG_LOG true
 # view debug log
 docker exec -u $USER vegashero_php-apache_1 tail -f /var/www/html/wp-content/debug.log
 ```
@@ -168,6 +168,12 @@ Adding SSL certificates
 certbot certonly --webroot --webroot-path /var/www/vegashero.co/public_html --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,www.vegashero.co,sports.vegashero.co,crypto.vegashero.co 
 # staging
 certbot certonly --webroot --webroot-path /var/www/staging.vegashero.co/public_html --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name staging.vegashero.co -d staging.vegashero.co
+```
+
+Since staging.vegashero.co is protected by Basic Auth make sure to add a .htaccess files to the .well-known/acme-challenge directory with the contents:
+
+```
+Satisfy any
 ```
 
 Renewing SSL certificates. 
