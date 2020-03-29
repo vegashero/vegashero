@@ -42,8 +42,11 @@ jQuery(document).ready(function($) {
 
         this.getGames = function(data, callback) {
             //console.log('getting games');
-            jQuery.get(ajax_object.ajax_url, data, function(response) {
+            const jqxhr = jQuery.get(ajax_object.ajax_url, data, function(response) {
                 callback(jQuery.parseJSON(response));
+            });
+            jqxhr.always(function() {
+                jQuery( document.body ).trigger( 'post-load' );
             });
         };
 

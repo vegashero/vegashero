@@ -90,9 +90,8 @@ $stylesheet = new VegasHero\Stylesheets();
 require_once( sprintf("%slib/ShortCodes/ShortCodes.php", plugin_dir_path(__FILE__)));
 $shortcode = new VegasHero\ShortCodes\ShortCodes();
 
-require_once( dirname( __FILE__ ) . '/ajax.php' );
-$ajax = new Vegashero_Ajax();
-
 require_once( dirname( __FILE__ ) . '/lib/Translations.php');
 add_action( 'plugins_loaded', 'VegasHero\Translations\load_textdomain' );
 
+require_once( dirname( __FILE__ ) . '/ajax.php' );
+$ajax = new Vegashero_Ajax();

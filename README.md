@@ -28,9 +28,18 @@ docker exec -u $USER vegashero_php-apache_1 wp user update vegashero --user_pass
 # update wordpress
 docker exec -u $USER vegashero_php-apache_1 wp core update
 # install plugins
-docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer --activate
+docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer polylang --activate
 # install languages
 docker exec -u $USER vegashero_php-apache_1 wp language core install af
+# activate vegashero plugin
+docker exec -u $USER vegashero_php-apache_1 wp plugin activate vegashero
+# set permalinks
+docker exec -u $USER vegashero_php-apache_1 wp rewrite structure --hard '/%postname%/'
+# enable debugging
+wp config set --raw WP_DEBUG true
+wp config set --raw WP_DEBUG_LOG true
+# view debug log
+docker exec -u $USER vegashero_php-apache_1 tail -f /var/www/html/wp-content/debug.log
 ```
 
 Now navigate to [http://localhost:8080](http://localhost:8080)

@@ -53,7 +53,7 @@ class Vegashero_Ajax
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
         $post_args = array(
-            'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
+            'lang' => \VegasHero\Translations\get_language(),
             'posts_per_page'   => $this->_posts_per_page,
             'offset' => ($page-1)*$this->_posts_per_page,
             'orderby'          => $orderby,
