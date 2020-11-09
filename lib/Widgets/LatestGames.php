@@ -10,8 +10,8 @@ class LatestGames extends \WP_Widget {
         $widget_name = "VegasHero Games Widget";
         $widget_options = array( 
             'classname' => 'Widget_vh_recent_games',
-            'description' => 'Display games with thumbnails from the VegasHero Plugin.',
-            'title' => 'Latest Casino Games',
+            'description' => wp_strip_all_tags(__('Display games with thumbnails from the VegasHero Plugin.', 'vegashero')),
+            'title' => wp_strip_all_tags(__('Latest Casino Games', 'vegashero')),
             'maxgames' => 6,
             'orderby' => 'date',
         );
@@ -19,10 +19,10 @@ class LatestGames extends \WP_Widget {
     }
 
     public function form($instance) {
-        $title = ! empty( $instance['title'] ) ? $instance['title'] : __( 'Latest Games', 'text_domain' );
+        $title = ! empty( $instance['title'] ) ? $instance['title'] : wp_strip_all_tags(__( 'Latest Games', 'text_domain' ));
         $post_type = 'vegashero_games';
-        $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : __( '6', 'text_domain' );
-        $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : __( 'date', 'text_domain' );
+        $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : 6;
+        $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : wp_strip_all_tags(__( 'date', 'text_domain' ));
         include("LatestGamesFormTemplate.php");
     }
 

@@ -1,22 +1,22 @@
 <?php
-
 /**
- * Plugin Name: VegasHero Casino Affiliate Plugin
+ * Plugin Name: VegasHero
  * Plugin URI: https://vegashero.co
+ * Author: VegasHero
+ * Text Domain: vegashero
+ * Domain Path: /languages
  * Description: The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino & slots games, flexible options to add your own games. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO. Check out our premium <a target="_blank" href="https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description%20link">Casino Wordpress Theme</a> that is purpose built to showcase the games and your affiliate links.
  * Version: 1.6.2
- * Author: VegasHero
  * Author URI: https://vegashero.co
  * License: GPL2
  */
 
 // NB: the order is important
-
 require_once( dirname( __FILE__ ) . '/config.php' );
 $config = \VegasHero\Config::getInstance();
 
-require_once( dirname( __FILE__ ) . '/custom_post_type.php' );
-$operators = new Vegashero_Custom_Post_Type();
+require_once( sprintf("%slib/CustomPostType.php", plugin_dir_path(__FILE__)));
+$operators = new \Vegashero\CustomPostType();
 
 if(is_admin()) {
 
@@ -52,7 +52,6 @@ if(is_admin()) {
             'url'       => site_url()
         ) 
     );
-
 }
 
 require_once('lib/Import/Import.php');
@@ -78,17 +77,21 @@ spl_autoload_register(function($class_name) {
 // widgets
 require_once("lib/Widgets/SingleGameArea.php");
 $widget_area = new VegasHero\Widgets\SingleGameArea();
+
 require_once("lib/Widgets/LatestGames.php");
 $latest_games_widget = new VegasHero\Widgets\LatestGames();
 
 // templates
 require_once('lib/Templates/Custom.php');
 
-require_once( dirname( __FILE__ ) . '/stylesheet.php' );
-$stylesheet = new Vegashero_Stylesheet();
+require_once( sprintf("%slib/Stylesheets.php", plugin_dir_path(__FILE__)));
+$stylesheet = new VegasHero\Stylesheets();
 
-require_once( dirname( __FILE__ ) . '/shortcodes.php' );
-$shortcode = new Vegashero_Shortcodes();
+require_once( sprintf("%slib/ShortCodes/ShortCodes.php", plugin_dir_path(__FILE__)));
+$shortcode = new VegasHero\ShortCodes\ShortCodes();
+
+require_once( dirname( __FILE__ ) . '/lib/Translations.php');
+add_action( 'plugins_loaded', 'VegasHero\Translations\load_textdomain' );
 
 require_once( dirname( __FILE__ ) . '/ajax.php' );
 $ajax = new Vegashero_Ajax();

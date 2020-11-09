@@ -41,46 +41,55 @@ class Lobby extends \VegasHero\Settings
     }
 
     public function DescriptionLobbyFilters() {
-        ?><p class='description'>You can change the default name of the lobby filters dropdowns. Change the button text on the lobby thumbnails. Change the name of VegasHero posts displayed in your theme's breadcrumb. Text strings entered here will replace the default values.</p><?php
+        $text = wp_strip_all_tags(__("You can change the default name of the lobby filters dropdowns. Change the button text on the lobby thumbnails. Change the name of VegasHero posts displayed in your theme's breadcrumb. Text strings entered here will replace the default values.", 'vegashero'));
+        echo "<p class='description'>$text</p>";
     }
+
     public function inputLobbyFiltersOp() {
         $args = func_get_args();
         $id_op = $args[0]['id_op'];
-        ?><input name="<?=$id_op?>" id="<?=$id_op?>" type='text' value='<?=get_option($id_op)?get_option($id_op):'Filter by operator'?>' /><?php
+        $default = wp_strip_all_tags(__('Filter by operator', 'vegashero'));
+        ?><input name="<?=$id_op?>" id="<?=$id_op?>" type='text' value='<?= get_option($id_op) ? get_option($id_op) : $default ?>' /><?php
     }
     public function inputLobbyFiltersCat() {
         $args = func_get_args();
         $id_cat = $args[0]['id_cat'];
-        ?><input name="<?=$id_cat?>" id="<?=$id_cat?>" type='text' value='<?=get_option($id_cat)?get_option($id_cat):'Filter by category'?>' /><?php
+        $default = wp_strip_all_tags(__('Filter by category', 'vegashero'));
+        ?><input name="<?=$id_cat?>" id="<?=$id_cat?>" type='text' value='<?= get_option($id_cat) ? get_option($id_cat) : $default ?>' /><?php
     }
     public function inputLobbyFiltersProv() {
         $args = func_get_args();
         $id_prov = $args[0]['id_prov'];
-        ?><input name="<?=$id_prov?>" id="<?=$id_prov?>" type='text' value='<?=get_option($id_prov)?get_option($id_prov):'Filter by provider'?>' /><?php
+        $default = wp_strip_all_tags(__('Filter by provider', 'vegashero'));
+        ?><input name="<?=$id_prov?>" id="<?=$id_prov?>" type='text' value='<?= get_option($id_prov) ? get_option($id_prov) : $default ?>' /><?php
     }
 
     public function inputPlayNowBtn() {
         $args = func_get_args();
         $id = $args[0]['id'];
-        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'Play Now'?>' /><?php
+        $default = wp_strip_all_tags(__('Play Now', 'vegashero'));
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : $default ?>' /><?php
     }
 
     public function inputPaginationPrev() {
         $args = func_get_args();
         $id = $args[0]['id'];
-        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'« Previous'?>' /><?php
+        $default = wp_strip_all_tags(__('Previous', 'vegashero'));
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
     }
 
     public function inputPaginationNext() {
         $args = func_get_args();
         $id = $args[0]['id'];
-        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'Next »'?>' /><?php
+        $default = wp_strip_all_tags(__('Next', 'vegashero'));
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
     }
 
     public function inputCustomPostTypeName() {
         $args = func_get_args();
         $id = $args[0]['id'];
-        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?=get_option($id)?get_option($id):'VegasHero Games'?>' /><?php
+        $default = wp_strip_all_tags(__('VegasHero Games', 'vegashero'));
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : $default ?>' /><?php
     }
 
     public function tickboxLobbySearch() { 
@@ -100,14 +109,14 @@ class Lobby extends \VegasHero\Settings
         // lobby settings
         add_settings_section(
             $id = 'vh-lobby-section', 
-            $title = 'Lobby Settings', 
+            $title = wp_strip_all_tags(__('Lobby Settings', 'vegashero')), 
             $callback = array($this, 'sectionHeading'), 
             $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id = 'vh_lobby_games_per_page', 
-            $title = 'Number of games to show', 
+            $title = wp_strip_all_tags(__('Number of games to show', 'vegashero')), 
             $callback = array($this, 'inputForGamesPerPage'), 
             $page = self::PAGE_SLUG, 
             $section = 'vh-lobby-section',
@@ -124,7 +133,7 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id = 'vh_lobby_games_sort',
-            $title = 'Sort lobby games by',
+            $title = wp_strip_all_tags(__('Sort lobby games by', 'vegashero')),
             $callback = array($this, 'selectLobbySorting'),
             $page = self::PAGE_SLUG,
             $section = 'vh-lobby-section',
@@ -142,20 +151,20 @@ class Lobby extends \VegasHero\Settings
         // lobby filters custom text
         add_settings_section(
             $id = 'vh-lobbyfilters-section', 
-            $title = 'Lobby Custom Text', 
+            $title = wp_strip_all_tags(__('Lobby Custom Text', 'vegashero')), 
             $callback = array($this, 'DescriptionLobbyFilters'), 
             $page = self::PAGE_SLUG
         );
 
         add_settings_field(
             $id_op = 'vh_lobby_filterstext_op',
-            $title = 'Operator Filter Text: ',
+            $title = wp_strip_all_tags(__('Operator Filter Text', 'vegashero')),
             $callback = array($this, 'inputLobbyFiltersOp'),
             $page = self::PAGE_SLUG,
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_op' => 'vh_lobby_filterstext_op',
-                'vh_lobby_filterstext_op' => 'Filter by operator'
+                'vh_lobby_filterstext_op' => wp_strip_all_tags(__('Filter by operator', 'vegashero'))
             )
         );
         
@@ -166,13 +175,13 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id_cat = 'vh_lobby_filterstext_cat',
-            $title = 'Category Filter Text: ',
+            $title = wp_strip_all_tags(__('Category Filter Text', 'vegashero')),
             $callback = array($this, 'inputLobbyFiltersCat'),
             $page = self::PAGE_SLUG,
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_cat' => 'vh_lobby_filterstext_cat',
-                'vh_lobby_filterstext_cat' => 'Filter by category'
+                'vh_lobby_filterstext_cat' => wp_strip_all_tags(__('Filter by category', 'vegashero'))
             )
         );
 
@@ -183,13 +192,13 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id_prov = 'vh_lobby_filterstext_prov',
-            $title = 'Provider Filter Text: ',
+            $title = wp_strip_all_tags(__('Provider Filter Text', 'vegashero')),
             $callback = array($this, 'inputLobbyFiltersProv'),
             $page = self::PAGE_SLUG,
             $section = 'vh-lobbyfilters-section',
             $args = array(
                 'id_prov' => 'vh_lobby_filterstext_prov',
-                'vh_lobby_filterstext_prov' => 'Filter by provider'
+                'vh_lobby_filterstext_prov' => wp_strip_all_tags(__('Filter by provider', 'vegashero'))
             )
         );
 
@@ -208,13 +217,13 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id = 'vh_cptname',
-            $title = 'VegasHero Games Custom Text (shows in breadcrumbs)',
+            $title = wp_strip_all_tags(__('VegasHero Games Custom Text (shows in breadcrumbs)', 'vegashero')),
             $callback = array($this, 'inputCustomPostTypeName'),
             $page = self::PAGE_SLUG,
             $section = 'vh-cptname-section',
             $args = array(
                 'id' => 'vh_cptname',
-                'vh_cptname' => 'VegasHero Games'
+                'vh_cptname' => wp_strip_all_tags(__('VegasHero Games', 'vegashero'))
             )
         );
         
@@ -233,13 +242,13 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id = 'vh_playnow_btn',
-            $title = 'Play Now Button Custom Text (shows on game thumbnails)',
+            $title = wp_strip_all_tags(__('Play Now Button Custom Text (shows on game thumbnails)', 'vegashero')),
             $callback = array($this, 'inputPlayNowBtn'),
             $page = self::PAGE_SLUG,
             $section = 'vh-playnow-btn-section',
             $args = array(
                 'id' => 'vh_playnow_btn',
-                'vh_playnow_btn' => 'Play Now'
+                'vh_playnow_btn' => wp_strip_all_tags(__('Play Now', 'vegashero'))
             )
         );
         
@@ -258,13 +267,13 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id = 'vh_pagination_prev',
-            $title = 'Pagination Previous button Custom Text',
+            $title = wp_strip_all_tags(__('Pagination Previous button Custom Text', 'vegashero')),
             $callback = array($this, 'inputPaginationPrev'),
             $page = self::PAGE_SLUG,
             $section = 'vh-pagination-prev-section',
             $args = array(
                 'id' => 'vh_pagination_prev',
-                'vh_pagination_prev' => '« Previous'
+                'vh_pagination_prev' => wp_strip_all_tags(__('Previous', 'vegashero'))
             )
         );
         
@@ -283,13 +292,13 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id = 'vh_pagination_next',
-            $title = 'Pagination Next button Custom Text',
+            $title = wp_strip_all_tags(__('Pagination Next button Custom Text', 'vegashero')),
             $callback = array($this, 'inputPaginationNext'),
             $page = self::PAGE_SLUG,
             $section = 'vh-pagination-next-section',
             $args = array(
                 'id' => 'vh_pagination_next',
-                'vh_pagination_next' => 'Next »'
+                'vh_pagination_next' => wp_strip_all_tags(__('Next', 'vegashero'))
             )
         );
         
@@ -308,7 +317,7 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id = 'vh_lobbysearch',
-            $title = 'Display Games Search?',
+            $title = wp_strip_all_tags(__('Display Games Search?', 'vegashero')),
             $callback = array($this, 'tickboxLobbySearch'),
             $page = self::PAGE_SLUG,
             $section = 'vh-lobbysearch-section',
@@ -333,7 +342,7 @@ class Lobby extends \VegasHero\Settings
 
         add_settings_field(
             $id = 'vh_lobbylink',
-            $title = 'Display VegasHero link?',
+            $title = wp_strip_all_tags(__('Display VegasHero link?', 'vegashero')),
             $callback = array($this, 'tickboxLobbyLink'),
             $page = self::PAGE_SLUG,
             $section = 'vh-lobbylink-section',
@@ -356,8 +365,8 @@ class Lobby extends \VegasHero\Settings
     public function addSettingsMenu() {
         add_submenu_page(
             $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
-            $page_title = 'Lobby', 
-            $menu_title = 'Lobby', 
+            $page_title = wp_strip_all_tags(__('Lobby', 'vegashero')), 
+            $menu_title = wp_strip_all_tags(__('Lobby', 'vegashero')), 
             $capability = 'manage_options', 
             $menu_slug = self::MENU_SLUG, 
             $callback = array($this, 'createLobbyPage') 

@@ -3,15 +3,17 @@
         <div><!-- display this if valid license key entered --></div>
         <?php else: ?>
         <div class="updated" style="display:block!important;">
-            <h3 style="margin-top:0.5em;">Get a license key and add 1800+ games to your website!</h3>
-            <p class="description">The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target="_blank" href="https://vegashero.co/downloads/vegas-hero-plugin/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page">purchase a license key here.</a></strong></p>
+            <h3 style="margin-top:0.5em;"><?php echo wp_strip_all_tags(__('Get a license key and add 1800+ games to your website!', 'vegashero')) ?></h3>
+            <p class="description"><?php /* translators: %1$s will be replaced by a URL where a plugin license can be purchased */ echo wp_kses(sprintf(__('The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target="_blank" href="%1$s">purchase a license key here.</a></strong>', 'vegashero'), esc_url('https://vegashero.co/downloads/vegas-hero-plugin/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page')), ["a" => ["target" => true, "href" => true], "strong" => []]) ?></p>
         </div>
         <?php endif ?>
         
-        <h1>Import by Game Provider</h1>
+        <h1><?= wp_strip_all_tags(__('Import by Game Provider', 'vegashero')) ?></h1>
 
-        <p class="description">Imported games will be grouped by game <u>provider</u> and <u>category</u>.<br>
-        Please see our <a target="_blank" href="https://vegashero.co/quick-start-guide/">quick start guide</a> for detailed instructions.</p>
+        <p class="description">
+            <?= wp_strip_all_tags(__('Imported games will be grouped by game <u>provider</u> and <u>category</u>.', 'vegashero')) ?>
+            <br>
+            <?php /* translators: %1$s will be replaced by a URL containing instructions to get your started */ echo wp_kses(sprintf(__('Please see our <a target="_blank" href="%1$s">quick start guide</a> for detailed instructions.', 'vegashero'), esc_url('https://vegashero.co/quick-start-guide/')), ["a" => ["target" => true, "href" => true]]) ?></p>
 
         <!-- sponsored add -->
         <iframe class="prov-admin-iframe-top" frameborder="0" scrolling="no" src="https://vegasgod.com/iframes/providers-admin-top.php"></iframe>
@@ -20,9 +22,9 @@
         <?php if(isset($this->_providers) && count($this->_providers)): ?>
         <ul class="operator-cards">
         <?php foreach($this->_providers as $provider): ?>
-              <li  class="prov-<?=$provider['provider']?>">
+              <li class="<?=esc_attr(sprintf("prov-%s", $provider['provider']))?>">
                   <div class="desc">
-                      <div class="provider-img"><img src="<?=$this->_config->gameImageUrl?>/providers/<?=$provider['provider']?>.png" /></div>
+                      <div class="provider-img"><img src="<?=esc_attr(sprintf("%s/providers/%s.png", $this->_config->gameImageUrl, $provider['provider']))?>" /></div>
                       <form method="post" action="options.php">
                           <?= settings_fields($this->_getOptionGroup($provider['provider'])); 
                           $page = $this->_getPageName($provider['provider']);
@@ -44,7 +46,7 @@
         <?php endforeach ?>
         </ul>
         <?php else: ?>
-        <p style="color:red">Unable to fetch a list of providers. Please try again by refreshing your page.</p>
+        <p style="color:red"><?= wp_strip_all_tags(__('Unable to fetch a list of providers. Please try again by refreshing your page.', 'vegashero')) ?></p>
         <?php endif ?>
         <div class="clear"></div>
         <hr>

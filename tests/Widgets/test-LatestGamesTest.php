@@ -25,7 +25,7 @@ final class LatestGamesTest extends WP_UnitTestCase
 
     public function testLatestGamesWithNoGames() 
     {
-        $widget = new VegasHero\Widgets\LatestGames();
+        $widget = new \VegasHero\Widgets\LatestGames();
         ob_start();
         $widget->widget($this->args, $this->instance);
         $output = ob_get_clean();
@@ -39,8 +39,8 @@ final class LatestGamesTest extends WP_UnitTestCase
         $this->faker = \Faker\Factory::create();
         $this->provider = $this->faker->firstname;
         $this->games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, "provider" => $this->provider), $game_count);
-        $this->posts = VegasHero\Helpers\Test::importGames(json_encode($this->games), new VegasHero\Import\Provider(), $this->config);
-        $widget = new VegasHero\Widgets\LatestGames();
+        $this->posts = \VegasHero\Helpers\Test::importGames(json_encode($this->games), new \VegasHero\Import\Provider(), $this->config);
+        $widget = new \VegasHero\Widgets\LatestGames();
         ob_start();
         $widget->widget($this->args, $this->instance);
         $output = ob_get_clean();

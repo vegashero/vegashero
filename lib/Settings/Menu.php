@@ -12,8 +12,8 @@ class Menu {
 
     public function addSettingsMenu() {
         add_menu_page(
-            $page_title = 'VegasHero Settings',
-            $menu_title = 'VegasHero',
+            $page_title = wp_strip_all_tags(__('VegasHero Settings', 'vegashero')),
+            $menu_title = wp_strip_all_tags(__('VegasHero', 'vegashero')),
             $capability = 'manage_options',
             $menu_slug = self::MENU_SLUG,
             $callback = '',

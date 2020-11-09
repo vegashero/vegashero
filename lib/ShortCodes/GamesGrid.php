@@ -54,7 +54,7 @@ final class GamesGrid
                 "paged" => (int)$current_page - 1
             )
         );
-        return "<a class='prev page-numbers' href='$url'>$text</a>";
+        return "<a class='prev page-numbers' href='$url'>« $text</a>";
     }
 
     /**
@@ -94,7 +94,7 @@ final class GamesGrid
                 "paged" => (int)$current_page + 1
             )
         );
-        return "<a class='next page-numbers' href='$url'>$text</a>";
+        return "<a class='next page-numbers' href='$url'>$text »</a>";
     }
 
     /**
@@ -116,8 +116,8 @@ final class GamesGrid
      * @return string
      */
     static private function _getPaginationMarkup($current_page, $max_num_pages) {
-        $prev_btn = get_option('vh_pagination_prev', '« Previous');
-        $next_btn = get_option('vh_pagination_next', 'Next »');
+        $prev_btn = get_option('vh_pagination_prev', wp_strip_all_tags(__('Previous', 'vegashero')));
+        $next_btn = get_option('vh_pagination_next', wp_strip_all_tags(__('Next', 'vegashero')));
         $markup = "<nav class='vh-pagination'>";
         if( ! self::_isFirstPage($current_page) ) {
             $previous = self::_getPreviousLink($prev_btn, $current_page);
@@ -206,6 +206,7 @@ MARKUP;
     static private function _getQueryParams($attributes, $config) {
         return array(
             'post_type' => $config->customPostType,
+            'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
             'order' => $attributes->order,
             'orderby' => $attributes->orderby,
             'posts_per_page' => $attributes->gamesperpage,

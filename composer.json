@@ -2,8 +2,9 @@
     "name": "vegashero/vegashero",
     "description": "Wordpress casino affiliate plugin",
     "scripts": {
-      "test": "composer lint && vendor/bin/phpunit",
-      "lint": "vendor/bin/phplint ./ --exclude=vendor"
+      "test": "composer lint && vendor/bin/phpunit --testdox",
+      "lint": "vendor/bin/phplint ./ --exclude=vendor",
+      "translate": "wp i18n make-pot . ./languages/vegashero.pot && msgmerge --update ./languages/vegashero-af.po ./languages/vegashero.pot && msgfmt -o ./languages/vegashero-af.mo ./languages/vegashero-af.po"
     },
     "authors": [
         {

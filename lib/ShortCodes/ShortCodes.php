@@ -1,11 +1,13 @@
 <?php
 
+namespace VegasHero\ShortCodes;
+
 // TODO: autoload using psr4
-require 'lib/ShortCodes/SingleGame.php';
-require 'lib/ShortCodes/GamesGrid.php';
+require 'SingleGame.php';
+require 'GamesGrid.php';
 
 // VH Lobby shortcode
-class Vegashero_Shortcodes
+class ShortCodes
 {
 
     private $_config;
@@ -18,6 +20,7 @@ class Vegashero_Shortcodes
         add_shortcode( 'vh_table' , array($this, 'vh_table_func'));
         add_shortcode( 'vh_table_line' , array($this, 'vh_table_line_func'));
         add_shortcode( 'vh-grid', array($this, 'renderGamesGrid'));
+        add_shortcode( 'vh-casino-grid', array($this, 'renderGamesGrid'));
         add_shortcode( 'vh_grid', array($this, 'renderGamesGrid'));
         add_shortcode('vh-game', array($this, 'renderSingleGame')); // tested
         add_shortcode('vh_game', array($this, 'renderSingleGame')); // tested
@@ -31,7 +34,7 @@ class Vegashero_Shortcodes
     public function renderSingleGame($atts) {
         if(array_key_exists('id', $atts)) {
             $game_id = (int)$atts['id'];
-            $game = new VegasHero\ShortCodes\SingleGame();
+            $game = new \VegasHero\ShortCodes\SingleGame();
             return $game->render($game_id);
         }
     }
@@ -42,23 +45,23 @@ class Vegashero_Shortcodes
      * @return string
      */
     public function renderGamesGrid($atts) {
-        return VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
+        return \VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
     }
 
 	public function lobby() {
 		$playnow_btn_value = get_option('vh_playnow_btn');
 		if ($playnow_btn_value == '') {
-			$playnow_btn_value = 'Play Now';
+			$playnow_btn_value = wp_strip_all_tags(__('Play Now', 'vegashero'));
 		} else {
 			$playnow_btn_value = get_option('vh_playnow_btn');
 		}
-		$script_src = sprintf('%stemplates/js/lobby_search_filters.js', plugin_dir_url( __FILE__ ));
+		
         wp_enqueue_script(array('jquery'));
-        wp_register_script('vegashero_termstoggle', sprintf("%stemplates/js/terms_toggle.js", plugin_dir_url(__FILE__)), null, true);
+        wp_register_script('vegashero_termstoggle', plugins_url("vegashero/templates/js/terms_toggle.js"), null, true);
         wp_enqueue_script('vegashero_termstoggle', '', array('jquery'), null, true);
-		wp_register_script('jquery_debounce', sprintf("%stemplates/js/jquery.ba-throttle-debounce.min.js", plugin_dir_url(__FILE__)), null, true);
+		wp_register_script('jquery_debounce', plugins_url("vegashero/templates/js/jquery.ba-throttle-debounce.min.js"), null, true);
 		wp_enqueue_script('jquery_debounce', '', array('jquery'), null, true);
-		wp_enqueue_script('vegashero_lobby_script', $script_src, array('jquery_debounce'), null, true);
+		wp_enqueue_script('vegashero_lobby_script', plugins_url('vegashero/templates/js/lobby_search_filters.js'), array('jquery_debounce', 'wp-i18n'), null, true);
 		wp_localize_script( 'vegashero_lobby_script', 'ajax_object',
 			array(
 				'ajax_url' => admin_url('admin-ajax.php'),
@@ -69,7 +72,7 @@ class Vegashero_Shortcodes
 			)
 		);
         ob_start();
-		$lobby_template_file = sprintf('%s/templates/lobby.php', dirname(__FILE__));
+		$lobby_template_file = sprintf('%s/vegashero/templates/lobby.php', WP_PLUGIN_DIR);
 		include_once $lobby_template_file;
         $lobby_template_file = ob_get_clean();
         return $lobby_template_file;
@@ -89,8 +92,8 @@ class Vegashero_Shortcodes
             'vh_devicehead' => '', //device compatibility column title
         ), $atts ) );
 
-        if ( $vh_bonushead == '' ) { $vh_bonushead = 'Bonus'; }
-        if ( $vh_devicehead == '' ) { $vh_devicehead = 'Compatible Devices'; }
+        if ( $vh_bonushead == '' ) { $vh_bonushead = wp_strip_all_tags(__('Bonus', 'vegashero')); }
+        if ( $vh_devicehead == '' ) { $vh_devicehead = wp_strip_all_tags(__('Compatible Devices', 'vegashero')); }
 
         $vhoutput = "<table class=\"vh-casino-providers\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><thead><tr><th class=\"vh-casino\">";
         $vhoutput .= $vh_tname;
@@ -105,7 +108,6 @@ class Vegashero_Shortcodes
         $vhoutput .= "</table>";
         return $vhoutput;
     }
-
 
     public function vh_table_line_func($atts){
         extract( shortcode_atts( array(
@@ -211,14 +213,13 @@ class Vegashero_Shortcodes
 }
 
 // adds unique CSS class to lobby page for easy custom styling
-function vhLobby_body_class( $c ) {
+add_filter( 'body_class', function( $classes ) {
     global $post;
     if( isset($post->post_content) && has_shortcode( $post->post_content, 'vegashero-lobby' ) ) {
-        $c[] = 'vh-lobby-page';
+        $classes[] = 'vh-lobby-page';
     }
-    return $c;
-}
-add_filter( 'body_class', 'vhLobby_body_class' );
+    return $classes;
+});
 
 
 //setting next pagination link class

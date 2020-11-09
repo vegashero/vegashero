@@ -146,7 +146,7 @@ class Provider extends Import
                     return new \WP_Error( 'json_decode_error', "json_decode() returned NULL", array( 'status' => 500 ) );
                 }
                 if($this->_noGamesToImport($games)) {
-                    return new \WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+                    return new \WP_Error( 'no_games', wp_strip_all_tags(__('No games to import', 'vegashero')), array( 'status' => 404 ) );
                 } else {
                     $games = json_decode($games);
                     $this->_cacheListOfGames($cache_id, $games);
@@ -197,7 +197,7 @@ class Provider extends Import
                 }
                 return array(
                     "code" => "success",
-                    "message" => "Import completed successfully",
+                    "message" => wp_strip_all_tags(__("Import completed successfully", 'vegashero')),
                     "data" => array(
                         "successful_imports" => $successful_imports,
                         "games_skipped" => $games_skipped,
@@ -206,7 +206,7 @@ class Provider extends Import
                     )
                 );
             } else {
-                return new \WP_Error( 'no_games', 'No games to import', array( 'status' => 404 ) );
+                return new \WP_Error( 'no_games', wp_strip_all_tags(__('No games to import', 'vegashero')), array( 'status' => 404 ) );
             }
         } catch(Exception $e) {
             return new \WP_Error( 'import_error', $e->getMessage(), array( 'status' => 500 ) );

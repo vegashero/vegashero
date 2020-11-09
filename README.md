@@ -28,7 +28,18 @@ docker exec -u $USER vegashero_php-apache_1 wp user update vegashero --user_pass
 # update wordpress
 docker exec -u $USER vegashero_php-apache_1 wp core update
 # install plugins
-docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer --activate
+docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer polylang loco-translate --activate
+# install languages
+docker exec -u $USER vegashero_php-apache_1 wp language core install af
+# activate vegashero plugin
+docker exec -u $USER vegashero_php-apache_1 wp plugin activate vegashero
+# set permalinks
+docker exec -u $USER vegashero_php-apache_1 wp rewrite structure --hard '/%postname%/'
+# enable debugging
+docker exec -u $USER vegashero_php-apache_1 wp config set --raw WP_DEBUG true
+docker exec -u $USER vegashero_php-apache_1 wp config set --raw WP_DEBUG_LOG true
+# view debug log
+docker exec -u $USER vegashero_php-apache_1 tail -f /var/www/html/wp-content/debug.log
 ```
 
 Now navigate to [http://localhost:8080](http://localhost:8080)
@@ -159,23 +170,80 @@ certbot certonly --webroot --webroot-path /var/www/vegashero.co/public_html --re
 certbot certonly --webroot --webroot-path /var/www/staging.vegashero.co/public_html --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name staging.vegashero.co -d staging.vegashero.co
 ```
 
+Since staging.vegashero.co is protected by Basic Auth make sure to add a .htaccess files to the .well-known/acme-challenge directory with the contents:
+
+```
+Satisfy any
+```
+
 Renewing SSL certificates. 
 
 ```sh
 certbot renew
 ```
 
-### Manually run Wordpress cron
-```bash
-$ firefox http://localhost:8080/wp-cron.php?doing_wp_cron
+## i18n
+
+Generate `.pot` files.
+
+```sh
+wp i18n make-pot path/to/your-theme-directory
 ```
 
-### MySQL Query to see pending cron operations
-```sql
-> SELECT * FROM `wp_options` WHERE `option_name` LIKE '%cron%'
+Create `.po` file from `.pot` file.
+
+```sh
+cp vegashero.pot vegashero-af_ZA.po
+```
+
+Translate the `.po` file.
+
+```sh
+vim vegashero-af_ZA.po
+```
+
+Generate `.mo` files from `.po` files.
+
+```sh
+cd languages
+msgfmt -cv -o vegashero-af.mo vegashero-af.po
+```
+
+Validate `.mo` file
+
+```sh
+msgunfmt vegashero-af.mo
+```
+
+Update the `.po` 
+
+```sh
+wp i18n make-pot path/to/your-theme-directory
+msgmerge -vU vegashero-af_ZA.po vegashero.pot
+```
+
+Install languages
+
+```sh
+wp language core install af
+```
+
+List plugin languages
+
+```sh
+wp language plugin list vegashero
+```
+
+Switch language
+
+```sh
+wp site switch-language af
 ```
 
 ## References
+* [How To Internationalize Your WordPress Website](https://www.smashingmagazine.com/2018/01/internationalize-your-wordpress-website/)
+* [Internationalization in WordPress 5.0](https://pascalbirchler.com/internationalization-in-wordpress-5-0/)
+* [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)
 * [PHP DocBlocks](https://phpdoc.org/docs/latest/guides/docblocks.html)
 * [wp_mock](https://github.com/10up/wp_mock)
 * [Unit Testing PHP](https://phpunit.de/)

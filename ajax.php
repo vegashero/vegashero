@@ -53,6 +53,7 @@ class Vegashero_Ajax
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
         $post_args = array(
+            'lang' => \VegasHero\Translations\get_language(),
             'posts_per_page'   => $this->_posts_per_page,
             'offset' => ($page-1)*$this->_posts_per_page,
             'orderby'          => $orderby,
@@ -80,17 +81,17 @@ class Vegashero_Ajax
 
         // for image links
         foreach($posts as $post) {
-            $operators = wp_get_post_terms($post->ID, $this->_config->gameOperatorTaxonomy);
+            $operators = get_terms(['object_ids' => $post->ID, 'taxonomy' => $this->_config->gameOperatorTaxonomy, 'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale()]);
             if(count($operators)) {
                 $operator = $operators[0];
                 $post->operator = sanitize_title($operator->name);
             }
-            $providers = wp_get_post_terms($post->ID, $this->_config->gameProviderTaxonomy);
+            $providers = get_terms(['object_ids' => $post->ID, 'taxonomy' => $this->_config->gameProviderTaxonomy, 'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale()]);
             if(count($providers)) {
                 $provider = $providers[0];
                 $post->provider = sanitize_title($provider->name);
             }
-            $categories = wp_get_post_terms($post->ID, $this->_config->gameCategoryTaxonomy);
+            $categories = get_terms(['object_ids' => $post->ID, 'taxonomy' => $this->_config->gameCategoryTaxonomy, 'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale()]);
             if(count($categories)) {
                 $category = $categories[0];
                 $post->category = sanitize_title($category->name);
@@ -146,8 +147,8 @@ class Vegashero_Ajax
     }
 
     private function _getPaginationOptions($paged) {
-        $prev_btn = get_option('vh_pagination_prev', '« Previous');
-        $next_btn = get_option('vh_pagination_next', 'Next »');
+        $prev_btn = get_option('vh_pagination_prev');
+        $next_btn = get_option('vh_pagination_next');
         $total_posts = wp_count_posts($this->_config->customPostType)->publish;
         $max_pages = ceil($total_posts/$this->_posts_per_page);
         $big = $paged+1;
@@ -159,8 +160,8 @@ class Vegashero_Ajax
             'show_all' => false,
             'mid_size' => 0,
             'end_size' => 0,
-            'prev_text' => $prev_btn,
-            'next_text' => $next_btn,
+            'prev_text' => $prev_btn ? $prev_btn : wp_strip_all_tags(__('Previous', 'vegashero')),
+            'next_text' => $next_btn ? $next_btn : wp_strip_all_tags(__('Next', 'vegashero')),
             'type' => 'array',
         );
     }

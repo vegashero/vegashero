@@ -1,2 +1,2 @@
-<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="permalink base path for vegashero games" value="<?=$option?>"/>
-<p class="description">Set URL slug for the game operators. For example setting this to "casinos" will display game page URLs as yoursite.com/slots/casinos/. Default is "operator".</p>
+<input type="text" id="<?=$id?>" name="<?=$id?>" class="regular-text" placeholder="<?= esc_attr(__('permalink base path for vegashero games', 'vegashero')) ?>" value="<?=esc_attr($option)?>"/>
+<p class="description"><?php /* translators: %1$s will be replaced with the current website URL */ echo wp_kses(sprintf(__('Sets the URL path prefix for listing games per operator. The default prefix is "operator".<br>For example, to replace %1$s/game/<u>operator</u>/ with %1$s/game/<u>casino</u>/ set this to "casino".', 'vegashero'), site_url()), ["br" => [], "u" => []]) ?></p>

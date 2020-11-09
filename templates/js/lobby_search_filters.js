@@ -1,4 +1,9 @@
-//thumb error handling - fallback img
+
+const { __, _x, _n, sprintf } = wp.i18n;
+
+/**
+ * thumb error handling - fallback img
+ */
 function imgError(image) {
     image.onerror = '';
     image.src = '//cdn.vegasgod.com/undefined/cover.jpg';
@@ -37,8 +42,11 @@ jQuery(document).ready(function($) {
 
         this.getGames = function(data, callback) {
             //console.log('getting games');
-            jQuery.get(ajax_object.ajax_url, data, function(response) {
+            const jqxhr = jQuery.get(ajax_object.ajax_url, data, function(response) {
                 callback(jQuery.parseJSON(response));
+            });
+            jqxhr.always(function() {
+                jQuery( document.body ).trigger( 'post-load' );
             });
         };
 
@@ -65,10 +73,10 @@ jQuery(document).ready(function($) {
             //console.log(res);
             var markup = '<div class="vh-pagination">';
             if(res.pagination.prev) {
-                markup += res.pagination.prev;
+                markup += '«' + res.pagination.prev;
             }
             if(res.pagination.next) {
-                markup += res.pagination.next;
+                markup += res.pagination.next + '»';
             }
             markup += '</div>';
             return markup;
@@ -96,7 +104,7 @@ jQuery(document).ready(function($) {
                 option.removeAttribute('selected');
             });
             $.each($('div.vh-filter select'), function(i, select) {
-                select.querySelector('option').setAttribute('selected', 'selected');
+                select.querySelector('option').selected = true;
             });
         };
 
@@ -104,7 +112,7 @@ jQuery(document).ready(function($) {
             select.querySelectorAll('option').forEach(function(option) {
                 option.removeAttribute('selected');
             });
-            select.querySelector('option').setAttribute('selected', 'selected');
+            select.querySelector('option').selected = true;
         };
 
         this.resetNextFilters = function(select) {
