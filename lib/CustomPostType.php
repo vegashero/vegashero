@@ -211,7 +211,7 @@ function add_game_category_taxonomy_filters() {
     };
 }
 
-add_action('restrict_manage_posts', 'add_game_category_taxonomy_filters');
+add_action('restrict_manage_posts', 'VegasHero\add_game_category_taxonomy_filters');
 
 
 function add_game_operator_taxonomy_filters() {
@@ -237,7 +237,7 @@ function add_game_operator_taxonomy_filters() {
     };
 }
 
-add_action('restrict_manage_posts', 'add_game_operator_taxonomy_filters');
+add_action('restrict_manage_posts', 'VegasHero\add_game_operator_taxonomy_filters');
 
 
 function add_game_provider_taxonomy_filters() {
@@ -264,4 +264,4 @@ function add_game_provider_taxonomy_filters() {
     };
 }
 
-add_action('restrict_manage_posts', 'add_game_provider_taxonomy_filters');
+add_action('restrict_manage_posts', 'VegasHero\add_game_provider_taxonomy_filters');
