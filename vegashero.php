@@ -54,6 +54,10 @@ if(is_admin()) {
     );
 }
 
+/**
+ * TODO: autoload
+ */
+require_once('lib/Import/Utils.php');
 require_once('lib/Import/Import.php');
 require_once('lib/Import/Operator.php');
 $import_operator = new VegasHero\Import\Operator();

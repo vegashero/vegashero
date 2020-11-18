@@ -1,7 +1,10 @@
 <?php
 
 namespace VegasHero\Import;
+
 require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
+
+use VegasHero\Import\Utils;
 
 abstract class Import
 {
@@ -147,6 +150,13 @@ abstract class Import
         }
     }
 
+    private function _updateGameType($existing, $game) {
+        $game_type = get_post_meta($existing->ID, $this->_config->postMetaGameType, true);
+        if($game_type != Utils::translateGameType($game->type)) {
+            update_post_meta($existing->ID, $this->_config->postMetaGameType, Utils::translateGameType($game->type), $game_type);
+        }
+    }
+
     private function _updateGameSrc($existing, $game) {
         $game_src = get_post_meta($existing->ID, $this->_config->postMetaGameSrc, true);
         if($game_src != $game->src) {
@@ -165,6 +175,7 @@ abstract class Import
         $this->_updateGameSrc($existing, $game);
         $this->_updateGameTitle($existing, $game);
         $this->_updateGameImage($existing, $game);
+        $this->_updateGameType($existing, $game);
     }
 
     private function _updateGameImage($existing, $game) {

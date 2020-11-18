@@ -11,12 +11,30 @@ class CustomPostType
         $this->_config = \VegasHero\Config::getInstance();
 
         // add_action( 'init', array($this, 'setPermalinkStructure'));
-        add_action('init', array($this, 'registerGameCategoryTaxonomy'));
-        add_action('init', array($this, 'registerGameOperatorTaxonomy'));
-        add_action('init', array($this, 'registerGameProviderTaxonomy'));
-        add_action('init', array($this, 'registerCustomPostType'));
+        add_action('init', [ $this, 'registerGameCategoryTaxonomy' ]);
+        add_action('init', [ $this, 'registerGameOperatorTaxonomy' ]);
+        add_action('init', [ $this, 'registerGameProviderTaxonomy' ]);
+        add_action('init', [ $this, 'registerCustomPostType' ]);
         //add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
+        add_filter( sprintf('manage_%s_posts_columns', $this->_config->customPostType), [ $this, 'addGameTypeFilter' ] );
+        add_action( sprintf('manage_%s_posts_custom_column', $this->_config->customPostType) , [ $this, 'addGameTypeColumnValues'] , 10, 2 );
 
+    }
+
+    public function addGameTypeColumnValues( $column, $post_id ) {
+        switch ( $column ) {
+        case $this->_config->postMetaGameType:
+            echo get_post_meta( $post_id, $column, true );
+            break;
+        }
+    }
+
+    /**
+     * Adds game type filter to VH game custom post type list view in WP admin
+     */
+    public function addGameTypeFilter($columns) {
+        $columns[$this->_config->postMetaGameType] = __('Game Type', 'vegashero');
+        return $columns;
     }
 
     public function addRewriteRules( $wp_rewrite ) {
@@ -265,3 +283,4 @@ function add_game_provider_taxonomy_filters() {
 }
 
 add_action('restrict_manage_posts', 'VegasHero\add_game_provider_taxonomy_filters');
+
