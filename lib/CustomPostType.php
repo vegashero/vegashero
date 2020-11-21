@@ -16,31 +16,12 @@ class CustomPostType
         add_action('init', [ $this, 'registerGameProviderTaxonomy' ]);
         add_action('init', [ $this, 'registerCustomPostType' ]);
         //add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
-        add_filter( sprintf('manage_%s_posts_columns', $this->_config->customPostType), [ $this, 'addGameTypeFilter' ] );
-        add_action( sprintf('manage_%s_posts_custom_column', $this->_config->customPostType) , [ $this, 'addGameTypeColumnValues'] , 10, 2 );
-
-    }
-
-    public function addGameTypeColumnValues( $column, $post_id ) {
-        switch ( $column ) {
-        case $this->_config->postMetaGameType:
-            echo get_post_meta( $post_id, $column, true );
-            break;
-        }
-    }
-
-    /**
-     * Adds game type filter to VH game custom post type list view in WP admin
-     */
-    public function addGameTypeFilter($columns) {
-        $columns[$this->_config->postMetaGameType] = __('Game Type', 'vegashero');
-        return $columns;
     }
 
     public function addRewriteRules( $wp_rewrite ) {
         //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
         $new_rules = array( 
-//            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_category_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_category_url_slug').'=' . $wp_rewrite->preg_index(1),
+            //            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_category_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_category_url_slug').'=' . $wp_rewrite->preg_index(1),
         );
         $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
         //echo "<pre>";
@@ -113,10 +94,10 @@ class CustomPostType
 
     }
 
-   // public function setPermalinkStructure() {
-   //     global $wp_rewrite;
-   //     $wp_rewrite->set_permalink_structure('/%postname%/');
-   // } 
+    // public function setPermalinkStructure() {
+    //     global $wp_rewrite;
+    //     $wp_rewrite->set_permalink_structure('/%postname%/');
+    // } 
 
     public function registerGameCategoryTaxonomy() {
         //require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
@@ -141,9 +122,9 @@ class CustomPostType
             'query_var' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
             //'query_var' => get_option('vh_game_category_url_slug'),
             'rewrite' => array(
-               'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
+                'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
                 'with_front' => true
-           )
+            )
         );
 
         register_taxonomy( $this->_config->gameCategoryTaxonomy, array($this->_config->customPostType), $args );
@@ -160,7 +141,7 @@ class CustomPostType
         } else { 
             $cptnamevalue = get_option('vh_cptname'); 
         }
-        
+
         $options = array(
             'labels' => array(
                 'name' => $cptnamevalue,
@@ -192,8 +173,8 @@ class CustomPostType
             'rewrite' => array(
                 'hierarchical' => true,
                 'slug' => sprintf('%s', get_option('vh_custom_post_type_url_slug')),
-            //    'ep_mask' => EP_CATEGORIES,
-            //    'with_front' => true
+                //    'ep_mask' => EP_CATEGORIES,
+                //    'with_front' => true
             ),
             'show_in_rest' => false,
             'supports' => array('title', 'editor', 'thumbnail', 'custom-fields', 'revisions', 'author')
@@ -223,7 +204,7 @@ function add_game_category_taxonomy_filters() {
             'orderby' => 'name',
             'selected' => $selected,
             'show_count' => true,
-            'hide_empty' => true,
+            'hide_if_empty' => true,
             'value_field' => 'slug',
         ));
     };
@@ -249,7 +230,7 @@ function add_game_operator_taxonomy_filters() {
             'orderby' => 'name',
             'selected' => $selected,
             'show_count' => true,
-            'hide_empty' => true,
+            'hide_if_empty' => true,
             'value_field' => 'slug',
         ));
     };
@@ -276,7 +257,7 @@ function add_game_provider_taxonomy_filters() {
             'orderby' => 'name',
             'selected' => $selected,
             'show_count' => true,
-            'hide_empty' => true,
+            'hide_if_empty' => true,
             'value_field' => 'slug',
         ));
     };

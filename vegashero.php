@@ -17,6 +17,8 @@ $config = \VegasHero\Config::getInstance();
 
 require_once( sprintf("%slib/CustomPostType.php", plugin_dir_path(__FILE__)));
 $operators = new \Vegashero\CustomPostType();
+require_once( sprintf("%slib/Admin/AllGames.php", plugin_dir_path(__FILE__)));
+new \VegasHero\Admin\AllGames();
 
 if(is_admin()) {
 
