@@ -4,6 +4,8 @@ namespace VegasHero\Import;
 
 require_once(sprintf("%s/wp-content/plugins/vegashero/lib/Settings/License.php", ABSPATH));
 
+use VegasHero\Import\Utils;
+
 class Operator extends Import
 {
 
@@ -75,6 +77,7 @@ class Operator extends Import
         $game_title = sanitize_title(strtolower(trim($game->name)));
 
         $post_meta_game_id = add_post_meta($post_id, $this->_config->postMetaGameId, $game->id, true); // add post meta data
+        $post_meta_game_type = add_post_meta($post_id, $this->_config->postMetaGameType, Utils::translateGameType($game->type), true); // add post meta data
         $post_meta_game_src_id = add_post_meta($post_id, $this->_config->postMetaGameSrc, $game->src, true); // add post meta data
         $post_meta_game_title = add_post_meta($post_id, $this->_config->postMetaGameTitle, $game_title, true); // add post meta data
         $post_meta_game_img = add_post_meta($post_id, $this->_config->postMetaGameImg, sprintf("%s/%s/%s/cover.jpg", $this->_config->gameImageUrl, sanitize_title(strtolower(trim($game->provider))), $game_title), true); // add post meta data

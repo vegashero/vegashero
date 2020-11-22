@@ -17,6 +17,8 @@ $config = \VegasHero\Config::getInstance();
 
 require_once( sprintf("%slib/CustomPostType.php", plugin_dir_path(__FILE__)));
 $operators = new \Vegashero\CustomPostType();
+require_once( sprintf("%slib/Admin/AllGames.php", plugin_dir_path(__FILE__)));
+new \VegasHero\Admin\AllGames();
 
 if(is_admin()) {
 
@@ -54,6 +56,10 @@ if(is_admin()) {
     );
 }
 
+/**
+ * TODO: autoload
+ */
+require_once('lib/Import/Utils.php');
 require_once('lib/Import/Import.php');
 require_once('lib/Import/Operator.php');
 $import_operator = new VegasHero\Import\Operator();

@@ -30,6 +30,7 @@ final class ProviderImportTest extends WP_UnitTestCase
             $terms = get_the_terms($post, $this->config->gameProviderTaxonomy);
             $this->assertContains($this->provider, array_column($terms, 'slug'));
             $this->assertObjectHasAttribute($this->config->postMetaGameId, $post->meta);
+            $this->assertObjectHasAttribute($this->config->postMetaGameType, $post->meta);
             $this->assertObjectHasAttribute($this->config->postMetaGameSrc, $post->meta);
             $this->assertObjectHasAttribute($this->config->postMetaGameTitle, $post->meta);
             $this->assertObjectHasAttribute($this->config->postMetaGameImg, $post->meta);
@@ -78,7 +79,7 @@ final class ProviderImportTest extends WP_UnitTestCase
      * and updated game has status 0
      * and the game meta changes
      * when the game is updated 
-     * then the game src, game title and game img meta data is updated
+     * then the game src, game type, game title and game img meta data is updated
      * and the post title, post name and game id meta data is left untouched
      */
     public function testImportUpdateMetaOfExistingGame() 
@@ -87,7 +88,8 @@ final class ProviderImportTest extends WP_UnitTestCase
         $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), $this->provider_importer, $this->config);
         $updated_games = array_map(function($game) {
             $game->src = $this->faker->url;
-            $game->name =$this->faker->firstname;
+            $game->name = $this->faker->firstname;
+            $game->type = $game->type ? 0 : 1; // swop zero for one and vice versa
             return $game;
         }, $games);
         $updated_posts = \VegasHero\Helpers\Test::importGames(json_encode($updated_games), $this->provider_importer, $this->config);
@@ -99,6 +101,7 @@ final class ProviderImportTest extends WP_UnitTestCase
             $this->assertNotSame($posts[$i]->meta->game_src, $updated_posts[$i]->meta->game_src);
             $this->assertNotSame($posts[$i]->meta->game_title, $updated_posts[$i]->meta->game_title);
             $this->assertNotSame($posts[$i]->meta->game_img, $updated_posts[$i]->meta->game_img);
+            $this->assertNotSame($posts[$i]->meta->game_type, $updated_posts[$i]->meta->game_type);
         }
     }
 
