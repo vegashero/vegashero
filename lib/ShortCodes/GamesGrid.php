@@ -20,10 +20,12 @@ final class GamesGrid
             $thumbnail = self::_getThumbnail($game, $config);
             $list_items .= self::_getGameMarkup($game, $thumbnail);
         }
-        $template = self::_getTemplate($list_items);
+        $template = "<div class='vh-posts-grid-wrap'>";
+        $template .= self::_getTemplate($list_items);
         if($max_num_pages = self::_isPaginated($query, $attributes->pagination)) {
             $template .= self::_getPaginationMarkup($attributes->paged, $max_num_pages);
         }
+        $template .= "</div>";
         return $template;
     }
 

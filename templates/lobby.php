@@ -14,6 +14,8 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 
 ?>
 
+<div class="lobby-wrap">
+
 <div class="vh-filter">
 <?php if(count($operators)): ?>
   <select data-taxonomy="<?=$operator_query_var?>">
@@ -53,3 +55,5 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 <div class="vh-linklove">- <a target="_blank" href="https://vegashero.co"><?= wp_strip_all_tags(__('VegasHero Casino Affiliate Plugin', 'vegashero')) ?></a> -</div>
 <?php else: ?>
 <?php endif ?>
+
+</div>
