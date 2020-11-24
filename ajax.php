@@ -12,6 +12,7 @@ class Vegashero_Ajax
         add_action( 'wp_ajax_nopriv_lobby_search_filter', array($this, 'filter_lobby'));
         $posts_per_page = (int)get_option('vh_lobby_games_per_page');
         $this->_posts_per_page = $posts_per_page ? $posts_per_page : 20;
+
     }
 
     public function filter_lobby() {
@@ -121,11 +122,11 @@ class Vegashero_Ajax
         if($pagination_links = paginate_links($this->_getPaginationOptions($paged, $total))) {
             if($total >= $this->_posts_per_page) {
                 if($next = $this->_getNext($pagination_links)) {
-                    $pagination['next'] = $next;
+                    $pagination['next'] = preg_replace('/href/', 'rel="next nofollow" href', $next);
                 }
             }
             if($prev = $this->_getPrevious($pagination_links)) {
-                $pagination['prev'] = $prev;
+                $pagination['prev'] = preg_replace('/href/', 'rel="prev nofollow" href', $prev);
             }
         }
         return $pagination;
