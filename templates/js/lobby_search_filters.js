@@ -73,10 +73,10 @@ jQuery(document).ready(function($) {
             //console.log(res);
             var markup = '<div class="vh-pagination">';
             if(res.pagination.prev) {
-                markup += '«' + res.pagination.prev;
+                markup += res.pagination.prev;
             }
             if(res.pagination.next) {
-                markup += res.pagination.next + '»';
+                markup += res.pagination.next;
             }
             markup += '</div>';
             return markup;

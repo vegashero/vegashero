@@ -191,6 +191,7 @@ li.vh-games-widget-item img, .vh-casino-providers .vh-casino img {
 
 .nogames-mgs {
 	padding:10px 0;
+	display: block;
 } 
 
 /* WMS left align fix */

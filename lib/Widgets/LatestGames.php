@@ -19,10 +19,10 @@ class LatestGames extends \WP_Widget {
     }
 
     public function form($instance) {
-        $title = ! empty( $instance['title'] ) ? $instance['title'] : wp_strip_all_tags(__( 'Latest Games', 'text_domain' ));
+        $title = ! empty( $instance['title'] ) ? $instance['title'] : wp_strip_all_tags(__( 'Latest Games', 'vegashero' ));
         $post_type = 'vegashero_games';
         $maxgames = ! empty( $instance['maxgames'] ) ? $instance['maxgames'] : 6;
-        $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : wp_strip_all_tags(__( 'date', 'text_domain' ));
+        $orderby = ! empty( $instance['orderby'] ) ? $instance['orderby'] : wp_strip_all_tags(__( 'date', 'vegashero' ));
         include("LatestGamesFormTemplate.php");
     }
 
@@ -99,11 +99,13 @@ class LatestGames extends \WP_Widget {
 
     static private function _getEmptyMarkup($args) {
         extract( $args );
+        $nogamemsg = wp_strip_all_tags(__('No games to display...', 'vegashero'));
         $markup = "";
         $markup .= $before_widget;
         if ( $title) 
             $markup .= $before_title . $title . $after_title;
-        $markup .= '<span class="nogames-mgs">No games to display...</span>';
+        $markup .= "<span class=\"nogames-mgs\">$nogamemsg</span>";
+        $markup .= $after_widget;
         return $markup;
     }
 
@@ -155,10 +157,12 @@ class LatestGames extends \WP_Widget {
             'posts_per_page' => $maxgames
         );
 
-        if ( ! $items = get_posts( $options )) {
+        if ( $items = get_posts( $options )) {
+            echo LatestGames::_getGamesMarkup($items, $args, $this->_config->gameImageUrl);
+        } else {            
             echo LatestGames::_getEmptyMarkup($args);
         }
-        echo LatestGames::_getGamesMarkup($items, $args, $this->_config->gameImageUrl);
+        
     }
 }
 

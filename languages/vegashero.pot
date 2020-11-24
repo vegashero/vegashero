@@ -444,7 +444,7 @@ msgstr ""
 #: lib/Settings/templates/operators.php:6
 #: lib/Settings/templates/permalinks.php:6
 #: lib/Settings/templates/providers.php:6
-msgid "Get a license key and add 1800+ games to your website!"
+msgid "Get a license key and add 2000+ games to your website!"
 msgstr ""
 
 #. translators: %1$s will be replaced by a URL where a plugin license can be purchased
