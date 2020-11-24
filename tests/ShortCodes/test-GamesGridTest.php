@@ -30,7 +30,7 @@ final class GamesGridTest extends WP_UnitTestCase
             ), 
             $this->config
         );
-        $pattern = "/<nav class='vh-pagination'><a class='next page-numbers' href='.*'>Next<\/a><\/nav>$/";
+        $pattern = "/<nav class='vh-pagination'><a class='next page-numbers' rel='next nofollow' href='.*'>Next<\/a><\/nav>$/";
         $this->assertEquals(preg_match($pattern, $template), 1);
     }
 
@@ -44,7 +44,7 @@ final class GamesGridTest extends WP_UnitTestCase
             ), 
             $this->config
         );
-        $pattern = "/<nav class='vh-pagination'><a class='prev page-numbers' href='[?|&]paged=\d'>Previous<\/a>.*<\/nav>$/";
+        $pattern = "/<nav class='vh-pagination'><a class='prev page-numbers' rel='prev nofollow' href='[?|&]paged=\d'>Previous<\/a>.*<\/nav>$/";
         $this->assertEquals(preg_match($pattern, $template), 1);
     }
 
