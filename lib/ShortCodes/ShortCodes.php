@@ -225,11 +225,11 @@ add_filter( 'body_class', function( $classes ) {
 //setting next pagination link class
 add_filter("next_posts_link_attributes", 'VegasHero\ShortCodes\next_posts_link_class');
 function next_posts_link_class() {
-    return "class='next page-numbers' rel='next nofollow' ";
+    return "class='next page-numbers' rel='next' ";
 }
 //setting prev pagination link class
 add_filter("previous_posts_link_attributes", 'VegasHero\ShortCodes\prev_posts_link_class');
 function prev_posts_link_class() {
-    return "class='prev page-numbers' rel='prev nofollow' ";
+    return "class='prev page-numbers' rel='prev' ";
 }
 
