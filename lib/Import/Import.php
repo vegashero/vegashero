@@ -5,6 +5,7 @@ namespace VegasHero\Import;
 require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
 
 use VegasHero\Import\Utils;
+use WP_Post;
 
 abstract class Import
 {
@@ -185,6 +186,16 @@ abstract class Import
         $new_game_img = sprintf("%s/%s/%s/cover.jpg", $this->_config->gameImageUrl, $provider, $game_title);
         if( $current_game_img != $new_game_img ) {
             update_post_meta($existing->ID, $this->_config->postMetaGameImg, $new_game_img);
+        }
+    }
+
+    protected function _updateExistingPostAuthor( WP_Post $existing, object $game ) {
+        if( ! $existing->post_author ) {
+            $existing->post_author = get_current_user_id();
+            $res = wp_update_post($existing, true);
+            if(is_wp_error($res)) {
+                error_log(print_r($res, true));
+            }
         }
     }
 
