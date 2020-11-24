@@ -189,6 +189,7 @@ class Provider extends Import
                         }
                     } else { 
                         $this->_updateExistingPostMeta($post, $game);
+                        $this->_updateExistingPostAuthor($post, $game);
                         $games_updated++;
                     }
                     $successful_imports++;

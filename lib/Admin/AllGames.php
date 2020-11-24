@@ -46,7 +46,7 @@ class AllGames {
         $select .= "<select id='$meta_key' name='$meta_key'>";
         $select .= '<option value="0">' . __( 'All Game Types', 'vegashero' ) . ' </option>';
         foreach( self::GAME_TYPES as $type) {
-            $select .= sprintf("<option value='$type' %s>$type</option>", $_REQUEST[$meta_key] === $type ? "selected" : "");
+            $select .= sprintf("<option value='$type' %s>$type</option>", isset($_REQUEST[$meta_key]) && $_REQUEST[$meta_key]  === $type ? "selected" : "");
         }
         $select .= '</select>';
         return $select;

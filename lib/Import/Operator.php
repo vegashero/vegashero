@@ -285,6 +285,7 @@ class Operator extends Import
                             $post = $this->_getExistingPost($game);
                             $this->_updatePostTerms($post, $operator);
                             $this->_updateExistingPostMeta($post, $game);
+                            $this->_updateExistingPostAuthor($post, $game);
                             $games_updated++;
                         }
                         $successful_imports++;
