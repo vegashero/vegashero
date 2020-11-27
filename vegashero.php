@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: VegasHero
+ * Plugin Name: VegasHero Casino Affiliate Plugin
  * Plugin URI: https://vegashero.co
  * Author: VegasHero
  * Text Domain: vegashero
@@ -45,7 +45,7 @@ if(is_admin()) {
     $providers = new \VegasHero\Settings\Providers();
 
     require_once( dirname(__FILE__) . '/EDD_SL_Plugin_Updater.php' );
-    $updater = new EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
+    $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
         array(
             'version'   => '1.7.0',       // current version number
             'license'   => \VegasHero\Settings\License::getLicense(),    // license key (used get_option above to retrieve from DB)
