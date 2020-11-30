@@ -145,7 +145,7 @@ class CustomPostType
         $options = array(
             'labels' => array(
                 'name' => $cptnamevalue,
-                'singular_name' => wp_strip_all_tags(__('VegasHero Game', 'vegashero')),
+                'singular_name' => $cptnamevalue,
                 'search_items'  => wp_strip_all_tags(__('Search Game', 'vegashero')),
                 'all_items'     => wp_strip_all_tags(__('All Games', 'vegashero')),
                 'edit_item'     => wp_strip_all_tags(__('Edit Game', 'vegashero')),
@@ -265,3 +265,23 @@ function add_game_provider_taxonomy_filters() {
 
 add_action('restrict_manage_posts', 'VegasHero\add_game_provider_taxonomy_filters');
 
+
+
+/**
+ * option to disable the games archives page and gives priority to posts/pages with same URL slug
+ * Use case: for example your game base url is youdomain.com/game/game-title/ and you want to have a lobby page like yourdomain.com/game/
+ */
+if(get_option('vh_disablegamesarchive') === 'on') {
+function vhero_disable_games_archive( $args, $post_type ) {
+    // If not vegashero_games CPT, don't appy
+    if ( 'vegashero_games' !== $post_type ) {
+        return $args;
+    }
+    // disable vegashero post type archive page option
+    $vh_args = array(
+        'has_archive' => false
+    );
+    return array_merge( $args, $vh_args );
+}
+add_filter( 'register_post_type_args', 'VegasHero\vhero_disable_games_archive', 10, 2 );
+}

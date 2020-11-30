@@ -45,7 +45,7 @@ $category_query_var = get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%
 <?php endif ?>
 
 <?php if(get_option('vh_lobbysearch') === 'on'): ?>
-<input type="text" id="vh-search" class="vh-search" placeholder="<?= esc_attr(__('search', 'vegashero')) ?>" />
+<input type="text" id="vh-search" class="vh-search" placeholder="<?= ! get_option('vh_lobbysearchtext') ? wp_strip_all_tags(__('search', 'vegashero')) : get_option('vh_lobbysearchtext'); ?>" />
 <?php endif ?>
 
 </div>

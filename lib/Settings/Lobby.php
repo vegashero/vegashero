@@ -92,6 +92,13 @@ class Lobby extends \VegasHero\Settings
         ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : $default ?>' /><?php
     }
 
+    public function inputLobbySearchText() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        $default = wp_strip_all_tags(__('search', 'vegashero'));
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
+    }
+
     public function tickboxLobbySearch() { 
         $args = func_get_args();
         $id = $args[0]['id'];
@@ -306,6 +313,32 @@ class Lobby extends \VegasHero\Settings
             $option_group = self::MENU_SLUG, 
             $option_name = 'vh_pagination_next' 
         );
+
+        // Custom text lobby search input field placeholder
+        add_settings_section(
+            $id = 'vh-lobbysearchtext-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            $id = 'vh_lobbysearchtext',
+            $title = wp_strip_all_tags(__('Lobby Search Input Field Custom Text', 'vegashero')),
+            $callback = array($this, 'inputLobbySearchText'),
+            $page = self::PAGE_SLUG,
+            $section = 'vh-lobbysearchtext-section',
+            $args = array(
+                'id' => 'vh_lobbysearchtext',
+                'vh_lobbysearchtext' => wp_strip_all_tags(__('search', 'vegashero'))
+            )
+        );
+        
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_lobbysearchtext' 
+        );
+
 
         // lobby search
         add_settings_section(

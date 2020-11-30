@@ -75,6 +75,12 @@ class Permalinks extends \VegasHero\Settings
         include_once( dirname( __FILE__ ) . '/templates/permalinks/custom-post-type-url-input.php' );
     }
 
+    public function disableGamesArchive() { 
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        include_once( dirname( __FILE__ ) . '/templates/permalinks/disable-gamesarchive-tickbox.php' );
+    }
+
     public function updateGameCategoryUrl() {
         if( ! $option = get_option('vh_game_category_url_slug')) {
             update_option('vh_game_category_url_slug', static::$_config->gameCategoryUrlSlug);
@@ -142,6 +148,26 @@ class Permalinks extends \VegasHero\Settings
             $option_name = 'vh_custom_post_type_url_slug',
             array($this, 'sanitize')
         );
+
+
+        // disable vegashero post type archives page option
+        add_settings_field(
+            $id = 'vh_disablegamesarchive',
+            $title = wp_strip_all_tags(__('Disable games archive page', 'vegashero')),
+            $callback = array($this, 'disableGamesArchive'),
+            $page = self::PAGE_SLUG,
+            $section = 'vh-permalinks-section',
+            $args = array(
+                'id' => 'vh_disablegamesarchive',
+                'vh_disablegamesarchive' => 'off'
+            )
+        );
+
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_disablegamesarchive' 
+        );
+
 
         add_settings_field( 
             $id = 'vh_game_category_url_slug', 

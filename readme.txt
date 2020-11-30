@@ -5,7 +5,7 @@ Donate link: https://vegashero.co/downloads/vegas-hero-plugin/
 Requires at least: 4.0
 Tested up to: 5.5.3
 Requires PHP: 5.6
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPL2
 License URI: https://vegashero.co/licensing-and-terms-of-use/
 

@@ -6,7 +6,7 @@
  * Text Domain: vegashero
  * Domain Path: /languages
  * Description: The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino & slots games, flexible options to add your own games. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO. Check out our premium <a target="_blank" href="https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description%20link">Casino Wordpress Theme</a> that is purpose built to showcase the games and your affiliate links.
- * Version: 1.7.0
+ * Version: 1.7.1
  * Author URI: https://vegashero.co
  * License: GPL2
  */
@@ -47,7 +47,7 @@ if(is_admin()) {
     require_once( dirname(__FILE__) . '/EDD_SL_Plugin_Updater.php' );
     $updater = new VH_EDD_SL_Plugin_Updater($config->eddStoreUrl, __FILE__,
         array(
-            'version'   => '1.7.0',       // current version number
+            'version'   => '1.7.1',       // current version number
             'license'   => \VegasHero\Settings\License::getLicense(),    // license key (used get_option above to retrieve from DB)
             'item_name' => $config->eddDownloadName,    // name of this plugin
             'author'    => 'VegasHero', // author of this plugin
