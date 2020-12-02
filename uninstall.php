@@ -13,6 +13,7 @@ spl_autoload_register(function($classname) {
     }
 });
 
+require_once( dirname( __FILE__ ) . '/config.php' );
 $config = \VegasHero\Config::getInstance();
 
 global $wpdb;
