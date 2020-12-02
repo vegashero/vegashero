@@ -1,6 +1,4 @@
 
-const { __, _x, _n, sprintf } = wp.i18n;
-
 /**
  * thumb error handling - fallback img
  */
