@@ -176,7 +176,7 @@ class CustomPostType
                 //    'ep_mask' => EP_CATEGORIES,
                 //    'with_front' => true
             ),
-            'show_in_rest' => false,
+            'show_in_rest' => true,
             'supports' => array('title', 'editor', 'thumbnail', 'custom-fields', 'revisions', 'author')
         );
         register_post_type($this->_config->customPostType, $options);
