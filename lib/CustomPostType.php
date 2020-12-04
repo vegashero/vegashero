@@ -47,6 +47,7 @@ class CustomPostType
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
+            'show_in_rest'      => true,
             // TODO refactor into a method
             'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_operator_url_slug')) : get_option('vh_game_operator_url_slug'),
             // 'rewrite'           => true
@@ -81,6 +82,7 @@ class CustomPostType
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
+            'show_in_rest'      => true,
             'query_var'         => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
             'rewrite' => array(
                 'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_provider_url_slug')) : get_option('vh_game_provider_url_slug'),
@@ -118,6 +120,7 @@ class CustomPostType
             'labels'            => $labels,
             'show_ui'           => true,
             'show_admin_column' => true,
+            'show_in_rest'      => true,
             // TODO refactor into a method
             'query_var' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s-%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
             //'query_var' => get_option('vh_game_category_url_slug'),
