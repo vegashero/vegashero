@@ -2,7 +2,7 @@
 
 namespace VegasHero\Import;
 
-require_once(sprintf("%s/wp-content/plugins/vegashero/lib/Settings/License.php", ABSPATH));
+require_once sprintf("%s../Settings/License.php", plugin_dir_path( __FILE__ ));
 
 use VegasHero\Import\Utils;
 

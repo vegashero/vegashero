@@ -2,7 +2,7 @@
 
 namespace VegasHero;
 
-require_once(sprintf("%swp-content/plugins/vegashero/lib/Helpers/Notice/Admin.php", ABSPATH));
+require_once sprintf("%s../Helpers/Notice/Admin.php", plugin_dir_path( __FILE__ ));
 
 abstract class Settings {
 

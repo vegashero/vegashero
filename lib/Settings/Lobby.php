@@ -3,7 +3,7 @@
 namespace VegasHero\Settings;
 
 require_once( "Settings.php" );
-require_once(sprintf("%swp-content/plugins/vegashero/lib/Helpers/Notice/Admin.php", ABSPATH));
+require_once sprintf("%s../Helpers/Notice/Admin.php", plugin_dir_path( __FILE__ ));
 
 class Lobby extends \VegasHero\Settings
 {
