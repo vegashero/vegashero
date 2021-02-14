@@ -13,6 +13,8 @@ services:
         #mem_limit: 128m
         links:
             - mysql
+        volumes:
+          - .:/var/www/html/wp-content/plugins/vegashero
 
     php5.6-lsphp:
         extends: 
@@ -39,6 +41,8 @@ services:
         #mem_limit: 128m
         links:
             - mysql
+        volumes:
+          - .:/var/www/html/wp-content/plugins/vegashero
 
     mysql:
         #cpuset: "0"
