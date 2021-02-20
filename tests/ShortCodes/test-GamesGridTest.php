@@ -21,6 +21,9 @@ final class GamesGridTest extends WP_UnitTestCase
         $this->posts = VegasHero\Helpers\Test::importGames(json_encode($this->games), new VegasHero\Import\Provider(), $this->config);
     }
 
+    /**
+     * @group gamesgrid
+     */
     public function testSingleGameWithPaginationShouldShowSingleGameWithNextLink() {
         $template = $this->shortcode->render(
             array(
@@ -30,10 +33,13 @@ final class GamesGridTest extends WP_UnitTestCase
             ), 
             $this->config
         );
-        $pattern = "/<nav class='vh-pagination'><a class='next page-numbers' rel='next nofollow' href='.*'>Next<\/a><\/nav>$/";
+        $pattern = "/.*<nav class='vh-pagination'><a class='next page-numbers' rel='next nofollow' href='.*'>Next<\/a><\/nav>.*$/";
         $this->assertEquals(preg_match($pattern, $template), 1);
     }
 
+    /**
+     * @group gamesgrid
+     */
     public function testSingleGameWithPagintionShouldShowSingleGameWithPreviousLink() {
         $template = $this->shortcode->render(
             array(
@@ -44,12 +50,14 @@ final class GamesGridTest extends WP_UnitTestCase
             ), 
             $this->config
         );
-        $pattern = "/<nav class='vh-pagination'><a class='prev page-numbers' rel='prev nofollow' href='[?|&]paged=\d'>Previous<\/a>.*<\/nav>$/";
+        $pattern = "/.*<nav class='vh-pagination'><a class='prev page-numbers' rel='prev nofollow' href='[?|&]paged=\d'>Previous<\/a>.*<\/nav>.*$/";
         $this->assertEquals(preg_match($pattern, $template), 1);
     }
 
-    public function testSingleGameWithoutPagintionShouldShowSingleGameOnly() 
-    {
+    /**
+     * @group gamesgrid
+     */
+    public function testSingleGameWithoutPagintionShouldShowSingleGameOnly() {
 
         $template = $this->shortcode->render(
             array(
@@ -65,7 +73,7 @@ final class GamesGridTest extends WP_UnitTestCase
         $post = end($this->posts);
         $provider = strtolower($game->provider);
         $expected = <<<HEREDOC
-<!--vegashero games grid shortcode-->
+<div class='vh-posts-grid-wrap'>            <!--vegashero games grid shortcode-->
             <ul id="vh-lobby-posts-grid" class="vh-row-sm">
                           <li class="vh-item" id="post-$post->ID">
                 <a class="vh-thumb-link" href="$post->guid">
@@ -78,16 +86,18 @@ final class GamesGridTest extends WP_UnitTestCase
             </li>
             </ul>
             <!--/vegashero games grid shortcode-->
-            <div class="clear"></div>
+            <div class="clear"></div></div>
 HEREDOC;
         $this->assertEquals(self::_trim($template), self::_trim($expected));
     }
 
     /**
+     * @group gamesgrid
+     *
      * @param string $str
      * @return string
      */
-    static private function _trim($str) {
+    static private function _trim( string $str ) : string {
         return preg_replace('/^\s+|\s+$/m', '', $str);
     }
 

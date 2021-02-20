@@ -8,7 +8,7 @@
     verbose="true"
 	>
 	<testsuites>
-		<testsuite>
+		<testsuite name="vegashero-plugin">
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>

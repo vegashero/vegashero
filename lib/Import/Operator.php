@@ -252,7 +252,7 @@ class Operator extends Import
      * @param string $operator Operator name
      * @return null
      */
-    private function _updatePostTerms($post, $operator) {
+    private function _updatePostTerms( object $post, string $operator) : void {
         $operators = $this->_addPostTerms($post, $operator);
         $this->_reassociateOperatorsWithPost($operators, $post);
     }
@@ -286,6 +286,7 @@ class Operator extends Import
                             $this->_updatePostTerms($post, $operator);
                             $this->_updateExistingPostMeta($post, $game);
                             $this->_updateExistingPostAuthor($post, $game);
+                            $post = $this->_getExistingPost($game);
                             $games_updated++;
                         }
                         $successful_imports++;

@@ -1,5 +1,7 @@
 <?php
 
+use VegasHero\Helpers\{ Test };
+
 final class OperatorImportTest extends WP_UnitTestCase
 {
 
@@ -66,6 +68,9 @@ final class OperatorImportTest extends WP_UnitTestCase
     }
 
     /**
+     * @group import
+     * @group operator
+     *
      * given game has already been imported
      * and updated game has status 0
      * when the game is updated 
