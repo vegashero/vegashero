@@ -1,4 +1,4 @@
-FROM php:7.2-apache
+FROM php:7.4-apache
 EXPOSE 80
 ARG USER_ID
 ARG USER_NAME

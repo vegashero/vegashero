@@ -7,7 +7,7 @@ jobs:
   build:
     docker:
       #- image: circleci/php:7.1-node-browsers # ...with this image as the primary container; this is where all `steps` will run
-      - image: circleci/php:7.1-apache
+      - image: circleci/php:7.4-apache
       - image: mysql:5.5
         environment: 
           #MYSQL_DATABASE: wordpress

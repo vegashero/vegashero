@@ -6,6 +6,7 @@ require_once sprintf("%s../Settings/License.php", plugin_dir_path( __FILE__ ));
 
 use VegasHero\Import\Utils;
 
+use WP_Post, stdClass;
 
 class Operator extends Import
 {
