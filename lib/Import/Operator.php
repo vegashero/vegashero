@@ -6,6 +6,8 @@ require_once sprintf("%s../Settings/License.php", plugin_dir_path( __FILE__ ));
 
 use VegasHero\Import\Utils;
 
+use WP_Post, stdClass;
+
 class Operator extends Import
 {
 
@@ -252,7 +254,7 @@ class Operator extends Import
      * @param string $operator Operator name
      * @return null
      */
-    private function _updatePostTerms($post, $operator) {
+    private function _updatePostTerms( WP_Post $post, string $operator) : void {
         $operators = $this->_addPostTerms($post, $operator);
         $this->_reassociateOperatorsWithPost($operators, $post);
     }
@@ -286,6 +288,7 @@ class Operator extends Import
                             $this->_updatePostTerms($post, $operator);
                             $this->_updateExistingPostMeta($post, $game);
                             $this->_updateExistingPostAuthor($post, $game);
+                            $post = $this->_getExistingPost($game);
                             $games_updated++;
                         }
                         $successful_imports++;

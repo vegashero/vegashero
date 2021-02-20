@@ -40,7 +40,7 @@ final class Test
      */
     static public function generateRandomGame($faker, $overwrite=array()) {
         return (object)array_merge(
-            array(
+            [
                 "id" => (string)$faker->numberBetween(),
                 "name" => $faker->firstname,
                 "provider" => $faker->firstname,
@@ -61,7 +61,7 @@ final class Test
                 "bellfruit" => (string)$faker->numberBetween(0, 1),
                 "created" => $faker->iso8601($max = 'now'),
                 "modified" => $faker->iso8601($max = 'now')
-            ),
+            ],
             $overwrite
         );
     }
