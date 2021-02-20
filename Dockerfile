@@ -7,12 +7,11 @@ ARG VEGASHERO_ENV
 ARG DB_USER
 ARG DB_PASSWORD
 ARG DB_HOST
-ARG VEGASHERO_ENV
 RUN useradd -u $USER_ID $USER_NAME -m
 RUN usermod -a -G www-data $USER_NAME
 RUN a2enmod rewrite
 #RUN apt -qq update && apt install -y vim git php-xml php-json php-mbstring
-RUN apt -qq update && apt install -y vim 
+RUN apt -qq update && apt install -y vim libonig-dev
 RUN docker-php-ext-install mysqli
 WORKDIR /tmp
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
