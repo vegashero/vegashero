@@ -5,7 +5,8 @@ namespace VegasHero\Import;
 require_once ABSPATH . 'wp-admin/includes/taxonomy.php';
 
 use VegasHero\Import\Utils;
-use WP_Post;
+
+use WP_Post, stdClass;
 
 abstract class Import
 {
