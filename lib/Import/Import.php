@@ -189,7 +189,7 @@ abstract class Import
         }
     }
 
-    protected function _updateExistingPostAuthor( WP_Post $existing, object $game ) {
+    protected function _updateExistingPostAuthor( WP_Post $existing, stdClass $game ) {
         if( ! $existing->post_author && get_current_user_id() ) {
             // https://core.trac.wordpress.org/ticket/24248
             $res = wp_update_post([
