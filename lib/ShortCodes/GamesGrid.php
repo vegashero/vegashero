@@ -206,38 +206,51 @@ MARKUP;
      * @return array
      */
     static private function _getQueryParams($attributes, $config) {
-        return array(
-            'post_type' => $config->customPostType,
-            'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
-            'order' => $attributes->order,
-            'orderby' => $attributes->orderby,
-            'posts_per_page' => $attributes->gamesperpage,
-            'paged' => $attributes->paged,
-            'tax_query' => array(
-                'relation' => 'OR',
-                array(
-                    'taxonomy' => $config->gameProviderTaxonomy,
-                    'field'    => 'slug',
-                    'terms'    => $attributes->provider,
+        if( (!empty($attributes->provider)) || (!empty($attributes->operator)) || (!empty($attributes->category)) || (!empty($attributes->tag)) ) {
+            return array(
+                'post_type' => $config->customPostType,
+                'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
+                'order' => $attributes->order,
+                'orderby' => $attributes->orderby,
+                'posts_per_page' => $attributes->gamesperpage,
+                'paged' => $attributes->paged,
+                'tax_query' => array(
+                    'relation' => 'OR',
+                    array(
+                        'taxonomy' => $config->gameProviderTaxonomy,
+                        'field'    => 'slug',
+                        'terms'    => $attributes->provider,
+                    ),
+                    array(
+                        'taxonomy' => $config->gameOperatorTaxonomy,
+                        'field'    => 'slug',
+                        'terms'    => $attributes->operator,
+                    ),
+                    array(
+                        'taxonomy' => $config->gameCategoryTaxonomy,
+                        'field'    => 'slug',
+                        'terms'    => $attributes->category,
+                    ),
+                    array(
+                        'taxonomy' => 'post_tag',
+                        'field'    => 'slug',
+                        'terms'    => $attributes->tag,
+                    ),
                 ),
-                array(
-                    'taxonomy' => $config->gameOperatorTaxonomy,
-                    'field'    => 'slug',
-                    'terms'    => $attributes->operator,
-                ),
-                array(
-                    'taxonomy' => $config->gameCategoryTaxonomy,
-                    'field'    => 'slug',
-                    'terms'    => $attributes->category,
-                ),
-                array(
-                    'taxonomy' => 'post_tag',
-                    'field'    => 'slug',
-                    'terms'    => $attributes->tag,
-                ),
-            ),
-            's' => $attributes->keyword
-        );
+                's' => $attributes->keyword
+            );
+        } else {
+            //return results from all games if ALL taxonomy attributes left blank
+            return array(
+                'post_type' => $config->customPostType,
+                'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
+                'order' => $attributes->order,
+                'orderby' => $attributes->orderby,
+                'posts_per_page' => $attributes->gamesperpage,
+                'paged' => $attributes->paged,
+                's' => $attributes->keyword
+            );
+        }
     }
 
     /**
