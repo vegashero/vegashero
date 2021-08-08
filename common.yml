@@ -11,7 +11,7 @@ services:
                 - DB_NAME=wordpress
                 - DB_USER=wordpress
                 - DB_PASSWORD=secret
-                - DB_HOST=mysql
+                - DB_HOST=mariadb
         ports:
             - "8080:80"
         environment:
@@ -22,7 +22,7 @@ services:
             - DB_NAME=wordpress
             - DB_USER=wordpress
             - DB_PASSWORD=secret
-            - DB_HOST=mysql
+            - DB_HOST=mariadb
             - AUTH_KEY=''
             - SECURE_AUTH_KEY=''
             - LOGGED_IN_KEY=''

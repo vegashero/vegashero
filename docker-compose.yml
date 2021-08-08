@@ -12,22 +12,9 @@ services:
         #cpu_quota: 10000
         #mem_limit: 128m
         links:
-            - mysql
+            - mariadb
         volumes:
           - .:/var/www/html/wp-content/plugins/vegashero
-
-    php5.6-lsphp:
-        extends: 
-            file: common.yml
-            service: wordpress
-        build: 
-            context: .
-            dockerfile: Dockerfile.lsphp
-        ports:
-          - "8088:8088"
-          - "7080:7080"
-        links:
-            - mysql
 
     tests:
         extends: 
@@ -40,15 +27,15 @@ services:
         #cpu_quota: 10000
         #mem_limit: 128m
         links:
-            - mysql
+            - mariadb
         volumes:
           - .:/var/www/html/wp-content/plugins/vegashero
 
-    mysql:
+    mariadb:
         #cpuset: "0"
         #cpu_quota: 10000
         #mem_limit: 128m
-        image: mysql:5.5
+        image: mariadb:10.3
         environment:
             - MYSQL_DATABASE=wordpress
             - MYSQL_USER=wordpress
