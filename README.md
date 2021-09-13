@@ -98,6 +98,15 @@ ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugi
 composer test
 ```
 
+## Deployment
+
+```sh
+# staging
+rsync -rhvz ./ root@206.81.25.235:/var/www/staging.vegashero.co/public_html/wp-content/plugins/vegashero/ --delete --exclude=.git --exclude=tests
+# production
+rsync -rhvz ./ root@206.81.25.235:/var/www/vegashero.co/public_html/wp-content/plugins/vegashero/ --delete --exclude=.git --exclude=tests
+```
+
 ## EDD Plugin Updater
 
 ### Clearing the cache
