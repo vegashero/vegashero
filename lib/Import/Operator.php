@@ -24,11 +24,13 @@ class Operator extends Import
             $namespace = \VegasHero\Import\Operator::getApiNamespace($this->_config);
             register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<operator>.+)', array(
                 'methods' => 'GET',
-                'callback' => array($this, 'fetchGames')
+                'callback' => array($this, 'fetchGames'),
+                 'permission_callback' => '__return_true'
             ));
             register_rest_route( $namespace, self::getImportApiRoute() . '(?P<operator>.+)', array(
                 'methods' => 'POST',
-                'callback' => array($this, 'importGames')
+                'callback' => array($this, 'importGames'),
+                 'permission_callback' => '__return_true'
             ));
         });
 

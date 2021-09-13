@@ -23,11 +23,13 @@ class Provider extends Import
             $namespace = \VegasHero\Import\Provider::getApiNamespace($this->_config);
             register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<provider>.+)', array(
                 'methods' => 'GET',
-                'callback' => array($this, 'fetchGames')
+                'callback' => array($this, 'fetchGames'),
+                 'permission_callback' => '__return_true'
             ));
             register_rest_route( $namespace, self::getImportApiRoute(), array(
                 'methods' => 'POST',
-                'callback' => array($this, 'importGames')
+                'callback' => array($this, 'importGames'),
+                 'permission_callback' => '__return_true'
             ));
         });
     }
