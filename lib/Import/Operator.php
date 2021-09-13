@@ -5,7 +5,7 @@ namespace VegasHero\Import;
 require_once sprintf("%s../Settings/License.php", plugin_dir_path( __FILE__ ));
 
 use VegasHero\Import\Utils;
-
+use WP_REST_Request;
 use WP_Post, stdClass;
 
 class Operator extends Import
@@ -108,7 +108,7 @@ class Operator extends Import
      */
     private function _getEndpoint($operator, $type) {
         $params = array();
-        $endpoint = sprintf('%s/vegasgod/games/operator/%s', $this->_config->apiUrl, $operator);
+        $endpoint = sprintf('%s/vegasgod/games/operator/v%d/%s', $this->_config->apiUrl, $this->_config->apiVersion, $operator);
         if( ! is_null($type)) {
             $params['type'] = $type;
         }
@@ -125,7 +125,7 @@ class Operator extends Import
      * @return Array|WP_Error of games or WP_Error object
      *   WP Rest API converts the objects to JSON for us
      */
-    public function fetchGames(\WP_REST_Request $request) {
+    public function fetchGames(WP_REST_Request $request) {
         // [id] => 6
         // [name] => wild witches
         // [provider] => netent
@@ -160,7 +160,6 @@ class Operator extends Import
                 if($this->_noGamesToImport($games)) {
                     return new \WP_Error( 'no_games', wp_strip_all_tags(__('No games to import', 'vegashero')), array( 'status' => 404 ) );
                 } else {
-                    $games = json_decode($games);
                     $this->_cacheListOfGames($cache_id, $games);
                 }
             }
@@ -263,11 +262,12 @@ class Operator extends Import
      * @param string $games JSON string representing an array of games to import
      * @return array<string, string|array>
      */
-    public function importGames(\WP_REST_Request $request) {
+    public function importGames(WP_REST_Request $request) {
         $operator = $request->get_param('operator');
         try {
             $games = json_decode($request->get_body());
             $successful_imports = 0;
+            $games_decommissioned = 0;
             $newly_imported = 0;
             $games_updated = 0;
             $games_skipped = 0;
@@ -276,30 +276,37 @@ class Operator extends Import
                 foreach($games as $game) {
 
                     if($this->_operatorProvidesGame($game, $operator)) {
-                        if( ! $this->_gameExists($game)) { 
-                            if($game->status) { // game status is 1
+                        if( ! $this->_gameExists($game)) {  // insert game
+                            if( intval($game->status) === 1 ) { 
                                 $this->_insertNewGame($game, $operator);
                                 $newly_imported++;
-                            } else {
+                            }
+                            if( intval($game->status) === 0  ) {
                                 $games_skipped++;
                             }
-                        } else {
+                        }
+                        if( $this->_gameExists($game)) {  // update game
                             $post = $this->_getExistingPost($game);
                             $this->_updatePostTerms($post, $operator);
                             $this->_updateExistingPostMeta($post, $game);
                             $this->_updateExistingPostAuthor($post, $game);
                             $post = $this->_getExistingPost($game);
-                            $games_updated++;
+                            if( intval($game->status) === 1 ) {
+                                $games_updated++;
+                            }
+                            if( intval($game->status) === 0 ) {
+                                $games_decommissioned++;
+                            }
                         }
-                        $successful_imports++;
                     }
                 }
                 return array(
                     "code" => "success",
                     "message" => wp_strip_all_tags(__("Import completed successfully", 'vegashero')),
                     "data" => array(
-                        "successful_imports" => $successful_imports,
+                        "successful_imports" => $newly_imported + $games_updated,
                         "games_skipped" => $games_skipped,
+                        "games_decommissioned" => $games_decommissioned,
                         "new_games_imported" => $newly_imported,
                         "existing_games_updated" => $games_updated
                     )

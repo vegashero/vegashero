@@ -28,7 +28,7 @@ abstract class Import {
         $flash_text = wp_strip_all_tags(__('Import Flash games', 'vegashero'));
         $checkboxes = '<div class="vh_game_type_checkbox_wrapper">';
         $checkboxes .= wp_kses(sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">%2$s (%3$d)</label></div>', $slug, $html5_text, $html5_total), ["div" =>["class" => true], "input" => ["type" => true, "id" => true, "name" => true, "checked" => true], "label" => ["for" => true]]);
-        $checkboxes .= wp_kses(sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash" checked><label for="%1$s_flash">%2$s (%3$d)</label></div>', $slug, $flash_text, $flash_total), ["div" => ["class" => true], "input" => ["type" => true, "id" => true, "name" => true, "checked" => true], "label" => ["for" => true]]);
+        $checkboxes .= wp_kses(sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash"><label for="%1$s_flash">%2$s (%3$d)</label></div>', $slug, $flash_text, $flash_total), ["div" => ["class" => true], "input" => ["type" => true, "id" => true, "name" => true, "checked" => true], "label" => ["for" => true]]);
         $checkboxes .= '</div>';
         return $checkboxes;
     }
@@ -70,7 +70,7 @@ abstract class Import {
             if( ! is_wp_error($response)) { //TODO: do something about error scenario
                 $body = wp_remote_retrieve_body($response);
                 if( ! is_wp_error($body)) { //TODO: do something about error scenario
-                    $items = json_decode(json_decode($body), true);
+                    $items = json_decode($body, true);
                     if(count($items)) {
                         $this->_cacheList($endpoint, $items);
                     }

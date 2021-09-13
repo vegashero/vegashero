@@ -68,13 +68,12 @@ jQuery(document).ready(function($) {
         };
 
         this.getPaginationMarkup = function(res) {
-            //console.log(res);
             var markup = '<div class="vh-pagination">';
-            if(res.pagination.prev) {
-                markup += res.pagination.prev;
+            if( res.pagination.prev && 'href' in res.pagination.prev ) {
+              markup += `<a class="prev nofollow" href="${res.pagination.prev.href}">${res.pagination.prev.text}</a>`;
             }
-            if(res.pagination.next) {
-                markup += res.pagination.next;
+            if( res.pagination.next && 'href' in res.pagination.next ) {
+              markup += `<a class="next nofollow" href="${res.pagination.next.href}">${res.pagination.next.text}</a>`;
             }
             markup += '</div>';
             return markup;

@@ -5,6 +5,7 @@ namespace VegasHero\Import;
 require_once sprintf("%s../Settings/License.php", plugin_dir_path( __FILE__ ));
 
 use VegasHero\Import\Utils;
+use WP_REST_Request;
 
 class Provider extends Import
 {
@@ -94,7 +95,7 @@ class Provider extends Import
      */
     private function _getEndpoint($provider, $type) {
         $params = array();
-        $endpoint = sprintf('%s/vegasgod/games/provider/%s', $this->_config->apiUrl, $provider);
+        $endpoint = sprintf('%s/vegasgod/games/provider/v%d/%s', $this->_config->apiUrl, $this->_config->apiVersion, $provider);
         if( ! is_null($type)) {
             $params['type'] = $type;
         }
@@ -111,7 +112,7 @@ class Provider extends Import
      * @return Array|WP_Error of games or WP_Error object
      *   WP Rest API converts the objects to JSON for us
      */
-    public function fetchGames(\WP_REST_Request $request) {
+    public function fetchGames(WP_REST_Request $request) {
         // [id] => 6
         // [name] => wild witches
         // [provider] => netent
@@ -126,7 +127,6 @@ class Provider extends Import
         try {
             $provider = $request->get_param('provider');
             $type = $request->get_param('type');
-            // TODO: continue from here
             $cache_id = $this->_getCacheId(is_null($type) ? $provider : "$provider-$type");
             $games = $this->_getCachedListOfGames($cache_id);
             if(empty($games)) { // fetch games from remote
@@ -146,7 +146,6 @@ class Provider extends Import
                 if($this->_noGamesToImport($games)) {
                     return new \WP_Error( 'no_games', wp_strip_all_tags(__('No games to import', 'vegashero')), array( 'status' => 404 ) );
                 } else {
-                    $games = json_decode($games);
                     $this->_cacheListOfGames($cache_id, $games);
                 }
             }
@@ -160,11 +159,12 @@ class Provider extends Import
      * @param string $games JSON string representing an array of games to import
      * @return array<string, string|array>
      */
-    public function importGames(\WP_REST_Request $request) {
+    public function importGames(WP_REST_Request $request) {
         try {
             $games = json_decode($request->get_body());
             $successful_imports = 0;
             $games_skipped = 0;
+            $games_decommissioned = 0;
             $newly_imported = 0;
             $games_updated = 0;
 
@@ -180,30 +180,37 @@ class Provider extends Import
                         $post_id = $post->ID;
                     }
 
-                    if( ! $post_id) { // no existing post
-                        if($game->status) { // game status is 1
+                    if( ! $post_id) { // insert game
+                        if( intval($game->status) === 1 ) {
                             $this->_insertNewGame($game);
                             $newly_imported++;
-                        } else {
+                        }
+                        if( intval($game->status) === 0 )  {
                             $games_skipped++;
                         }
-                    } else { 
+                    } 
+                    if( $post_id ) {  // update game
                         $this->_updateExistingPostMeta($post, $game);
                         $this->_updateExistingPostAuthor($post, $game);
-                        $games_updated++;
+                        if( intval($game->status) === 0 ) {
+                            $games_decommissioned++;
+                        } 
+                        if( intval($game->status) === 1 ) {
+                            $games_updated++;
+                        }
                     }
-                    $successful_imports++;
                 }
-                return array(
+                return [
                     "code" => "success",
                     "message" => wp_strip_all_tags(__("Import completed successfully", 'vegashero')),
-                    "data" => array(
-                        "successful_imports" => $successful_imports,
+                    "data" => [
+                        "successful_imports" => $newly_imported + $games_updated,
                         "games_skipped" => $games_skipped,
+                        "games_decommissioned" => $games_decommissioned,
                         "new_games_imported" => $newly_imported,
                         "existing_games_updated" => $games_updated
-                    )
-                );
+                    ]
+                ];
             } else {
                 return new \WP_Error( 'no_games', wp_strip_all_tags(__('No games to import', 'vegashero')), array( 'status' => 404 ) );
             }

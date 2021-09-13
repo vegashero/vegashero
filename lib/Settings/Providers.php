@@ -39,7 +39,7 @@ class Providers extends \VegasHero\Settings\Import
     }
 
     public function registerSettings() {
-        $endpoint = sprintf('%s/vegasgod/providers/v3', $this->_config->apiUrl);
+        $endpoint = sprintf('%s/vegasgod/providers/v%d', $this->_config->apiUrl, $this->_config->apiVersion);
         $this->_providers = $this->_fetchList($endpoint);
     }
 

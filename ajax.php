@@ -16,7 +16,6 @@ class Vegashero_Ajax
     }
 
     public function filter_lobby() {
-
         $sortingGames = get_option('vh_lobby_games_sort');
         //default sorting
         $orderby = 'post_date';
@@ -118,26 +117,34 @@ class Vegashero_Ajax
     }
 
     private function _getPaginationLinks($paged, $total) {
-        $pagination = array();
+        $pagination = [];
         if($pagination_links = paginate_links($this->_getPaginationOptions($paged, $total))) {
             if($total >= $this->_posts_per_page) {
-                if($next = $this->_getNext($pagination_links)) {
-                    $pagination['next'] = preg_replace('/href/', 'rel="next nofollow" href', $next);
-                }
+                $pagination['next'] = $this->_getNext( $pagination_links );
             }
-            if($prev = $this->_getPrevious($pagination_links)) {
-                $pagination['prev'] = preg_replace('/href/', 'rel="prev nofollow" href', $prev);
-            }
+            $pagination['prev'] = $this->_getPrevious($pagination_links);
         }
         return $pagination;
     }
 
-    private function _getNext($pagination) {
-        return preg_match('/^<a class="next.*$/', end($pagination)) ? end($pagination) : '';
+    private function _getNext($pagination) : array {
+        if( preg_match( '/^<a class="next.*" href="(.*)">(.*)<\/a>$/', end($pagination), $matches)) {
+            return [
+                'href' => urldecode(trim($matches[1])),
+                'text' => trim($matches[2])
+            ];
+        }
+        return [];
     }
 
-    private function _getPrevious($pagination) {
-        return preg_match('/^<a class="prev.*$/', current($pagination)) ? current($pagination) : '';
+    private function _getPrevious($pagination) : array {
+        if( preg_match( '/^<a class="prev.*" href="(.*)">(.*)<\/a>$/', current($pagination), $matches) ) {
+            return [
+                'href' => urldecode(trim($matches[1])),
+                'text' => trim($matches[2])
+            ];
+        }
+        return [];
     }
 
     private function _getFormat() {
@@ -152,7 +159,7 @@ class Vegashero_Ajax
         $next_btn = get_option('vh_pagination_next');
         $total_posts = wp_count_posts($this->_config->customPostType)->publish;
         $max_pages = ceil($total_posts/$this->_posts_per_page);
-        $big = $paged+1;
+        $big = 999999999;
         return array(
             'base' => str_replace($big, '%#%', esc_url(get_pagenum_link($big))),
             'format' => $this->_getFormat(),
