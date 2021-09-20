@@ -97,7 +97,7 @@ class Provider extends Import
      */
     private function _getEndpoint($provider, $type) {
         $params = array();
-        $endpoint = sprintf('%s/vegasgod/games/provider/v%d/%s', $this->_config->apiUrl, $this->_config->apiVersion, $provider);
+        $endpoint = sprintf('%s/vegasgod/games/provider/%s/%s', $this->_config->apiUrl, $this->_config->apiVersion, $provider);
         if( ! is_null($type)) {
             $params['type'] = $type;
         }
