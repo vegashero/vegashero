@@ -286,8 +286,7 @@ class Operator extends Import
                             if( intval($game->status) === 0  ) {
                                 $games_skipped++;
                             }
-                        }
-                        if( $this->_gameExists($game)) {  // update game
+                        } else { // NB: leave as else
                             $post = $this->_getExistingPost($game);
                             $this->_updatePostTerms($post, $operator);
                             $this->_updateExistingPostMeta($post, $game);
