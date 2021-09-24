@@ -34,7 +34,7 @@ class Operators extends \VegasHero\Settings\Import
     }
 
     public function registerSettings() {
-        $endpoint = sprintf('%s/vegasgod/operators/v%d', $this->_config->apiUrl, $this->_config->apiVersion);
+        $endpoint = sprintf('%s/vegasgod/operators/%s', $this->_config->apiUrl, $this->_config->apiVersion);
         $this->_operators = $this->_fetchList($endpoint);
     }
 

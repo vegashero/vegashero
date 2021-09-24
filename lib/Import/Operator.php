@@ -110,7 +110,7 @@ class Operator extends Import
      */
     private function _getEndpoint($operator, $type) {
         $params = array();
-        $endpoint = sprintf('%s/vegasgod/games/operator/v%d/%s', $this->_config->apiUrl, $this->_config->apiVersion, $operator);
+        $endpoint = sprintf('%s/vegasgod/games/operator/%s/%s', $this->_config->apiUrl, $this->_config->apiVersion, $operator);
         if( ! is_null($type)) {
             $params['type'] = $type;
         }
@@ -286,8 +286,7 @@ class Operator extends Import
                             if( intval($game->status) === 0  ) {
                                 $games_skipped++;
                             }
-                        }
-                        if( $this->_gameExists($game)) {  // update game
+                        } else { // NB: leave as else
                             $post = $this->_getExistingPost($game);
                             $this->_updatePostTerms($post, $operator);
                             $this->_updateExistingPostMeta($post, $game);

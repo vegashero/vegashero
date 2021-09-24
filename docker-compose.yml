@@ -1,46 +1,67 @@
-version: "2.2"
+version: "3.6"
+
 services:
 
     php-apache:
-        extends: 
-            file: common.yml
-            service: wordpress
         build: 
             context: .
-            dockerfile: Dockerfile
-        #cpuset: "0"
-        #cpu_quota: 10000
-        #mem_limit: 128m
-        links:
-            - mariadb
-        volumes:
-          - .:/var/www/html/wp-content/plugins/vegashero
+            args: 
+                - USER_NAME
+                - USER_ID
+                - DB_NAME=wordpress
+                - DB_USER=wordpress
+                - DB_PASSWORD=secret
+                - DB_HOST=mariadb
+        ports:
+            - "8080:80"
+        environment:
+            - VEGASHERO_ENV
+            - TERM=xterm
+            - COLUMNS=141
+            - LINES=41
+            - DB_NAME=wordpress
+            - DB_USER=wordpress
+            - DB_PASSWORD=secret
+            - DB_HOST=mariadb
+            - AUTH_KEY=''
+            - SECURE_AUTH_KEY=''
+            - LOGGED_IN_KEY=''
+            - NONCE_KEY=''
+            - AUTH_SALT=''
+            - SECURE_AUTH_SALT=''
+            - LOGGED_IN_SALT=''
+            - NONCE_SALT=''
+            - WP_DEBUG=true
+            - FS_METHOD=direct
 
     tests:
-        extends: 
-            file: common.yml
-            service: wordpress
         build: 
             context: .
-            dockerfile: Dockerfile.test
-        #cpuset: "0"
-        #cpu_quota: 10000
-        #mem_limit: 128m
-        links:
-            - mariadb
-        volumes:
-          - .:/var/www/html/wp-content/plugins/vegashero
-
-    mariadb:
-        #cpuset: "0"
-        #cpu_quota: 10000
-        #mem_limit: 128m
-        image: mariadb:10.3
+            args: 
+                - USER_NAME
+                - USER_ID
+                - DB_NAME=wordpress
+                - DB_USER=wordpress
+                - DB_PASSWORD=secret
+                - DB_HOST=mariadb
+        ports:
+            - "8080:80"
         environment:
-            - MYSQL_DATABASE=wordpress
-            - MYSQL_USER=wordpress
-            - MYSQL_PASSWORD=secret
-            - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-
-
-
+            - VEGASHERO_ENV
+            - TERM=xterm
+            - COLUMNS=141
+            - LINES=41
+            - DB_NAME=wordpress
+            - DB_USER=wordpress
+            - DB_PASSWORD=secret
+            - DB_HOST=mariadb
+            - AUTH_KEY=''
+            - SECURE_AUTH_KEY=''
+            - LOGGED_IN_KEY=''
+            - NONCE_KEY=''
+            - AUTH_SALT=''
+            - SECURE_AUTH_SALT=''
+            - LOGGED_IN_SALT=''
+            - NONCE_SALT=''
+            - WP_DEBUG=true
+            - FS_METHOD=direct
