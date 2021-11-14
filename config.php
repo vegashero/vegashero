@@ -33,7 +33,11 @@ class Config
     }
 
     public function parseIniFileExtended($filename) {
-        $p_ini = parse_ini_file($filename, true);
+        $p_ini = parse_ini_string(
+            file_get_contents(
+                sprintf("%s%s", plugin_dir_path( __FILE__ ), $filename)
+            ), true
+        );
         $config = array();
         foreach($p_ini as $namespace => $properties){
             $name = $namespace;
