@@ -160,7 +160,7 @@ final class GamesGrid
             <li class="vh-item" id="post-{$post->ID}">
                 <a class="vh-thumb-link" href="{$permalink}">
                     <div class="vh-overlay">
-                        <img src="{$thumbnail_url}" title="{$post->post_title}" alt="{$post->post_title}" />
+                        <img width="376" height="250" src="{$thumbnail_url}" title="{$post->post_title}" alt="{$post->post_title}" />
                         <!-- <span class="play-now">Play now</span> -->
                     </div>
                 </a>

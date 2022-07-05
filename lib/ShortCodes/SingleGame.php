@@ -28,7 +28,7 @@ final class SingleGame
         return <<<MARKUP
 <div class="iframe_kh_wrapper">
     <div class="kh-no-close"></div>
-    <iframe class="%s" frameborder="0" scrolling="no" allowfullscreen="" src="%s" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
+    <iframe width="" height="" class="%s" frameborder="0" scrolling="no" allowfullscreen="" src="%s" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
 </div>
 MARKUP;
     }
