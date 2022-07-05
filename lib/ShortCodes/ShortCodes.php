@@ -152,7 +152,7 @@ class ShortCodes
         $vhoutput .= $vh_img;
         $vhoutput .= "\" alt=\"";
         $vhoutput .= $vh_imgalt;
-        $vhoutput .= "\" width=\"180px\"></a></td>";
+        $vhoutput .= "\" width=\"180px\" height=\"90px\"></a></td>";
         $vhoutput .= "<td class=\"vh-bonus\">";
         $vhoutput .= $vh_bonus;
         
