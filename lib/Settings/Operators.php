@@ -2,7 +2,7 @@
 
 namespace VegasHero\Settings;
 
-require_once("Import.php");
+require_once( dirname( __FILE__ ) . '/Import.php' );
 
 class Operators extends \VegasHero\Settings\Import
 {

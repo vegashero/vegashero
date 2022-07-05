@@ -3,7 +3,7 @@
 namespace VegasHero\Settings;
 
 require_once("Settings.php");
-require_once("Menu.php");
+require_once( dirname( __FILE__ ) . '/Menu.php' );
 
 class License extends \VegasHero\Settings
 {
