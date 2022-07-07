@@ -55,6 +55,13 @@ class ShortCodes
 		} else {
 			$playnow_btn_value = get_option('vh_playnow_btn');
 		}
+
+        $lobby_img_format = 'cover.jpg';
+        if(get_option('vh_lobbywebp') === 'on') {
+            $lobby_img_format = 'cover.webp';
+        } else {
+            $lobby_img_format = 'cover.jpg';
+        }
 		
         wp_enqueue_script(array('jquery'));
 		wp_register_script('jquery_debounce', plugins_url("vegashero/templates/js/jquery.ba-throttle-debounce.min.js"), null, true);
@@ -66,6 +73,7 @@ class ShortCodes
 				'site_url' => site_url(),
 				'image_url' => $this->_config->gameImageUrl,
 				'playnow_btn_value' => $playnow_btn_value,
+                'lobby_img_format' => $lobby_img_format,
 				'vh_custom_post_type_url_slug' => get_option('vh_custom_post_type_url_slug')
 			)
 		);
