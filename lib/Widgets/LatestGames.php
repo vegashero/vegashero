@@ -133,6 +133,14 @@ class LatestGames extends \WP_Widget {
             } else {
                 if( ! $thumbnail_new = get_post_meta( $post_id, 'game_img', true )) {
                     $thumbnail_new = $image_url . '/' . $providers[0]->slug . '/' . sanitize_title($mypostslug) . '/cover.jpg';
+                } else {
+                    if(get_option('vh_lobbywebp') === 'on') {
+                    $imgpathtemp = get_post_meta( $post_id, 'game_img', true );
+                    $webpimgpath = str_replace('cover.jpg', 'cover.webp', $imgpathtemp);
+                    $thumbnail_new = $webpimgpath;
+                } else {
+                    $thumbnail_new = get_post_meta( $post_id, 'game_img', true );
+                }
                 }
             }
             $output .= "\r\n<li class=\"vh-games-widget-item vh_recent_games_$post_id $cpi\"><a href=\"$post_link\" title=\"$post_title\" class=\"vh_recent_games_item_$post_id $cpi\" ><img width=\"376\" height=\"250\" alt=\"$post_title\" src=\"$thumbnail_new\"/><h3>$post_title</h3></a></li>";

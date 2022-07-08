@@ -101,7 +101,13 @@ class Vegashero_Ajax
             if($thumbnail) {
                 $post->thumbnail = $thumbnail[0];
             } else {
-                $post->imgpath = get_post_meta( $post->ID, $this->_config->postMetaGameImg, true );
+                if(get_option('vh_lobbywebp') === 'on') {
+                    $imgpathtemp = get_post_meta( $post->ID, $this->_config->postMetaGameImg, true );
+                    $webpimgpath = str_replace('cover.jpg', 'cover.webp', $imgpathtemp);
+                    $post->imgpath = $webpimgpath;
+                } else {
+                    $post->imgpath = get_post_meta( $post->ID, $this->_config->postMetaGameImg, true );
+                }
             }
             // remove post content
             unset($post->post_content);

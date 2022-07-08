@@ -34,6 +34,7 @@ jQuery(document).ready(function($) {
                 'site_url': ajax_object.site_url,
                 'image_url': ajax_object.image_url,
                 'playnow_btn_value': ajax_object.playnow_btn_value,
+                'lobby_img_format': ajax_object.lobby_img_format,
                 'vh_custom_post_type_url_slug': ajax_object.vh_custom_post_type_url_slug
             };
         };
@@ -57,7 +58,7 @@ jQuery(document).ready(function($) {
             } else if(post.imgpath) {
                 markup += '<img width="376" height="250" src="' + post.imgpath + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
             } else {
-                markup += '<img width="376" height="250" src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/cover.jpg" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
+                markup += '<img width="376" height="250" src="' + data.image_url + '/' + post.provider + '/' + post.post_name + '/' + data.lobby_img_format + '" alt="' + post.post_title + '" title="' + post.post_title + '" onerror="imgError(this);" onload="vhLobbyImage.imageLoaded('+post.ID+')" />';
             }
             markup += '<span class="play-now">' + data.playnow_btn_value + '</span>';
             markup += '</div>';

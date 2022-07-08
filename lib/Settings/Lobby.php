@@ -111,6 +111,12 @@ class Lobby extends \VegasHero\Settings
         include_once( dirname( __FILE__ ) . '/templates/lobby/lobby-link-tickbox.php' );
     }
 
+    public function tickboxLobbyWebp() { 
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        include_once( dirname( __FILE__ ) . '/templates/lobby/lobby-webp-tickbox.php' );
+    }
+
     public function registerSettings() {
 
         // lobby settings
@@ -154,6 +160,32 @@ class Lobby extends \VegasHero\Settings
             $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobby_games_sort' 
         );
+
+        // webp format images
+        add_settings_section(
+            $id = 'vh-lobbywebp-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            $id = 'vh_lobbywebp',
+            $title = wp_strip_all_tags(__('Use .webp images instead of .jpeg?', 'vegashero')),
+            $callback = array($this, 'tickboxLobbyWebp'),
+            $page = self::PAGE_SLUG,
+            $section = 'vh-lobbywebp-section',
+            $args = array(
+                'id' => 'vh_lobbywebp',
+                'vh_lobbywebp' => 'off'
+            )
+        );
+
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_lobbywebp' 
+        );
+
 
         // lobby filters custom text
         add_settings_section(

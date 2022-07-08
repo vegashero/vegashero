@@ -266,10 +266,15 @@ MARKUP;
             $thumbnail = $featured_image_src[0];
         } else {
             if( ! $thumbnail = get_post_meta($post->ID, $config->postMetaGameImg, true )) {
-                if( ! $mypostslug = get_post_meta($post->ID, $config->postMetaGameTitle, true )) {
-                    $mypostslug = $post->post_name;
-                }
                 $thumbnail = sprintf("%s/%s/%s/cover.jpg", $config->gameImageUrl, $terms[0]->slug, sanitize_title($mypostslug));
+                } else {
+                    if(get_option('vh_lobbywebp') === 'on') {
+                    $imgpathtemp = get_post_meta( $post->ID, 'game_img', true );
+                    $webpimgpath = str_replace('cover.jpg', 'cover.webp', $imgpathtemp);
+                    $thumbnail = $webpimgpath;
+                } else {
+                    $thumbnail = get_post_meta( $post->ID, 'game_img', true );
+                }
             }
         }
         return $thumbnail;
