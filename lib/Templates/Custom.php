@@ -48,7 +48,11 @@ class Custom
      */
     static function getIframeTemplate() {
         $plugin_dir = plugin_dir_path(__FILE__);
-        return sprintf("%s../../templates/iframe.php", $plugin_dir);
+        if(get_option('vh_gameplaynowbtn') === 'on') {
+            return sprintf("%s../../templates/iframe_playdemobtn.php", $plugin_dir);
+        } else {
+            return sprintf("%s../../templates/iframe.php", $plugin_dir);
+        }
     }
 
     /**
@@ -62,7 +66,8 @@ class Custom
         if ( get_post_type( $post_id ) == $config->customPostType) {
             $iframe_src = get_post_meta($post_id, 'game_src', true);
             $iframe_string = file_get_contents(\VegasHero\Templates\Custom::getIframeTemplate());
-            $iframe_template = sprintf($iframe_string, $iframe_src);
+            $gamethumb_bg = get_post_meta( $post_id, 'game_img', true );
+            $iframe_template = sprintf($iframe_string, $iframe_src, $gamethumb_bg);
             $single_game_widget_area = \VegasHero\Templates\Custom::getSingleGameWidgetArea();
             $content = sprintf("%s %s %s", $iframe_template, $content, $single_game_widget_area);
         }

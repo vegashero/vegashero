@@ -38,6 +38,43 @@
 	overflow: hidden;
 }
 
+
+.embed-bg-wrapper {
+	min-height:400px;
+	background: #000000;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	filter: blur(3px);
+	-webkit-filter: blur(3px);
+	margin-bottom: 30px;
+}
+
+.embed-overlay {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 2;
+	width: 80%;
+	padding: 20px;
+	text-align: center;
+}
+
+.age-gate-text {
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0, 0.4);
+	color: white;
+	font-size: 12px;
+	margin: 15px 0;
+	padding: 10px;
+}
+.play-demo-btn {
+	background-color: #28303d;
+    padding: 5px 30px;
+}
+
+
 .widget .iframe_kh_wrapper iframe {
 	min-height:400px;
 }
