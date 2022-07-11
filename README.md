@@ -1,5 +1,3 @@
-[![CircleCI](https://circleci.com/bb/vegashero/vegashero/tree/master.svg?style=svg&circle-token=83f342ba2f820a1398cf694200e1405456e527c7)](https://circleci.com/bb/vegashero/vegashero/tree/master)
-
 # Vegas Hero 
 This plugin will be installed by users and depends on the remote Vegas God plugin to populate with data
 
