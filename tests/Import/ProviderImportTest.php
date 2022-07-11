@@ -20,6 +20,27 @@ final class ProviderImportTest extends WP_UnitTestCase
     }
 
     /**
+     * Game type flash/html5 to update when re-importing
+     * flash = 0
+     * html5 = 1
+     *
+     * given a flash game has been imported
+     * and the game has been updated to html5
+     * when the game is imported again
+     * then the game type should be updated to html5
+     */
+    public function testReimportUpdatesGameType()
+    {
+        $flash_game = \VegasHero\Helpers\Test::generateRandomGame(self::$faker, array("status" => 1, "type" => 0, 'provider' => self::$provider_name));
+        $flash_posts = \VegasHero\Helpers\Test::importGames(json_encode([$flash_game]), self::$importer, self::$config);
+        $html5_game = clone $flash_game;
+        $html5_game->type = 1;
+        $html5_posts = \VegasHero\Helpers\Test::importGames(json_encode([$html5_game]), self::$importer, self::$config);
+        $this->assertSame($flash_posts[0]->meta->game_type[0], 'flash');
+        $this->assertSame($html5_posts[0]->meta->game_type[0], 'html5');
+    }
+
+    /**
      * given a game with status 1
      * when the game is imported
      * then the game is imported
