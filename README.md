@@ -20,26 +20,26 @@ composer dump-autoload
 
 ```bash
 # run the container
-VEGASHERO_ENV=development USER_NAME=$USER USER_ID=$(id -u) docker-compose up -d php-apache
+VEGASHERO_ENV=development USER_ID=$(id -u) docker-compose up -d php-apache
 # install wordpress
-docker exec -u $USER vegashero_php-apache_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
+docker exec -u www-data vegashero_php-apache_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
 # update password
-docker exec -u $USER vegashero_php-apache_1 wp user update vegashero --user_pass="secret"
+docker exec -u www-data vegashero_php-apache_1 wp user update vegashero --user_pass="secret"
 # update wordpress
-docker exec -u $USER vegashero_php-apache_1 wp core update
+docker exec -u www-data vegashero_php-apache_1 wp core update
 # install plugins
-docker exec -u $USER vegashero_php-apache_1 wp plugin install wordpress-importer polylang loco-translate --activate
+docker exec -u www-data vegashero_php-apache_1 wp plugin install wordpress-importer polylang loco-translate --activate
 # install languages
-docker exec -u $USER vegashero_php-apache_1 wp language core install af
+docker exec -u www-data vegashero_php-apache_1 wp language core install af
 # activate vegashero plugin
-docker exec -u $USER vegashero_php-apache_1 wp plugin activate vegashero
+docker exec -u www-data vegashero_php-apache_1 wp plugin activate vegashero
 # set permalinks
-docker exec -u $USER vegashero_php-apache_1 wp rewrite structure --hard '/%postname%/'
+docker exec -u www-data vegashero_php-apache_1 wp rewrite structure --hard '/%postname%/'
 # enable debugging
-docker exec -u $USER vegashero_php-apache_1 wp config set --raw WP_DEBUG true
-docker exec -u $USER vegashero_php-apache_1 wp config set --raw WP_DEBUG_LOG true
+docker exec -u www-data vegashero_php-apache_1 wp config set --raw WP_DEBUG true
+docker exec -u www-data vegashero_php-apache_1 wp config set --raw WP_DEBUG_LOG true
 # view debug log
-docker exec -u $USER vegashero_php-apache_1 tail -f /var/www/html/wp-content/debug.log
+docker exec -u www-data vegashero_php-apache_1 tail -f /var/www/html/wp-content/debug.log
 ```
 
 Now navigate to [http://localhost:8080](http://localhost:8080)
@@ -49,7 +49,7 @@ Now navigate to [http://localhost:8080](http://localhost:8080)
 Create base image containing Wordpress and container
 
 ```
-docker build --build-arg USER_NAME=$USER --build-arg USER_ID=$(id -u) -t vegashero_theme_base:latest . -f Dockerfile.theme
+docker build --build-arg USER_ID=$(id -u) -t vegashero_theme_base:latest . -f Dockerfile.theme
 ```
 
 In your theme Dockerfile 
@@ -62,36 +62,23 @@ See crypto theme for example
 
 ## Plugin Development
 
-### Tab1
-
-Runs the required Docker containers
-
-```sh
-USER_NAME=$USER USER_ID=$(id -u) docker-compose up tests
-```
-
-### Tab2
-
-Edit code on your local machine
-
 ## Testing
-
-Can't install Wordpress in the Dockerfile as the db container isn't ready yet. For now I'm running the commands manually, but could also put them in a shell script file and add it to ENTRYPOINT.
 
 ### Setup
 
 ```sh
-USER_NAME=$USER USER_ID=$(id -u) docker-compose up tests
-docker exec -ti -u $USER vegashero_tests_1 wp core install --url=localhost:8080 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
-docker exec -ti -u $USER vegashero_tests_1 wp rewrite structure '/%postname%/'
-#docker exec -ti -u $USER vegashero_tests_1 wp scaffold plugin-tests vegashero
-docker exec -ti -u $USER vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' mysql latest
+docker-compose build --build-arg USER_ID=$(id -u) tests
+docker-compose up tests
+docker exec -ti -u www-data vegashero_tests_1 wp core install --url=localhost:8080 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
+docker exec -ti -u www-data vegashero_tests_1 wp rewrite structure '/%postname%/'
+#docker exec -ti -u www-data vegashero_tests_1 wp scaffold plugin-tests vegashero
+docker exec -ti -u www-data vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' db latest
 ```
 
 ### Run
 
 ```sh
-docker exec -ti -u $USER vegashero_tests_1 bash
+docker exec -ti -u www-data vegashero_tests_1 bash
 stty rows 41 columns 141
 cd wp-content/plugins/vegashero
 ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero # NB!
@@ -250,18 +237,19 @@ wp site switch-language af
 ```
 
 ## References
-* [How To Internationalize Your WordPress Website](https://www.smashingmagazine.com/2018/01/internationalize-your-wordpress-website/)
-* [Internationalization in WordPress 5.0](https://pascalbirchler.com/internationalization-in-wordpress-5-0/)
-* [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)
-* [PHP DocBlocks](https://phpdoc.org/docs/latest/guides/docblocks.html)
-* [wp_mock](https://github.com/10up/wp_mock)
-* [Unit Testing PHP](https://phpunit.de/)
-* [Cucumber PHP](http://behat.org/en/latest/)
-* [Selenium Web Driver PHP](https://github.com/facebook/php-webdriver)
-* [Factories for Wordpress unit testing](https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes/factory)
-* [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
-* [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
-* [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
+- [How To Internationalize Your WordPress Website](https://www.smashingmagazine.com/2018/01/internationalize-your-wordpress-website/)
+- [Internationalization in WordPress 5.0](https://pascalbirchler.com/internationalization-in-wordpress-5-0/)
+- [How to Internationalize Your Plugin](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/)
+- [PHP DocBlocks](https://phpdoc.org/docs/latest/guides/docblocks.html)
+- [wp_mock](https://github.com/10up/wp_mock)
+- [Unit Testing PHP](https://phpunit.de/)
+- [Cucumber PHP](http://behat.org/en/latest/)
+- [Selenium Web Driver PHP](https://github.com/facebook/php-webdriver)
+- [Factories for Wordpress unit testing](https://core.trac.wordpress.org/browser/trunk/tests/phpunit/includes/factory)
+- [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
+- [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
+- [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
+- [](https://make.wordpress.org/core/2021/09/27/changes-to-the-wordpress-core-php-test-suite/)
 
     
 

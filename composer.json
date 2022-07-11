@@ -2,9 +2,10 @@
     "name": "vegashero/vegashero",
     "description": "Wordpress casino affiliate plugin",
     "scripts": {
-      "test": "composer lint && phpunit --testdox --colors=always",
+      "test": "phpunit --verbose --configuration phpunit.xml.dist --prepend vendor/autoload.php --testdox --colors=always",
       "lint": "phplint ./ --exclude=vendor",
       "sniff": "phpcs",
+      "all": [ "@lint", "@sniff", "@test" ],
       "translate": "wp i18n make-pot . ./languages/vegashero.pot && msgmerge --update ./languages/vegashero-af.po ./languages/vegashero.pot && msgfmt -o ./languages/vegashero-af.mo ./languages/vegashero-af.po"
     },
     "authors": [
@@ -19,15 +20,17 @@
         }
     },
     "require-dev": {
-        "overtrue/phplint": "^0.2.4",
-        "phpunit/php-invoker": "^1.1",
-        "docker-php/docker-php": "^1.24",
-        "fzaninotto/faker": "^1.7",
-        "mockery/mockery": "0.9.9",
         "phpcompatibility/phpcompatibility-wp": "*",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.7",
         "wp-coding-standards/wpcs": "^2.3",
         "squizlabs/php_codesniffer": "^3.5",
-        "phpunit/phpunit": "^7"
+        "fakerphp/faker": "^1.19",
+        "overtrue/phplint": "^3.0",
+        "yoast/phpunit-polyfills": "^1.0",
+        "mockery/mockery": "^1.5"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": false
+        }
     }
 }

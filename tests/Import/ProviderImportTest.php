@@ -11,8 +11,8 @@ final class ProviderImportTest extends WP_UnitTestCase
     protected static $faker;
     protected static $provider_name;
 
-    public function setUp() {
-        parent::setUp();
+    public function set_up() {
+        parent::set_up();
         self::$config = \VegasHero\Config::getInstance();
         self::$importer = new VegasHero\Import\Provider();
         self::$faker = \Faker\Factory::create();

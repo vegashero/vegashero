@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <phpunit
 	bootstrap="tests/bootstrap.php"
 	backupGlobals="false"
@@ -5,15 +6,10 @@
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
-    verbose="true"
 	>
 	<testsuites>
-		<testsuite name="vegashero-plugin">
-			<directory prefix="test-" suffix=".php">./tests/</directory>
+		<testsuite name="unit">
+			<directory prefix="" suffix="Test.php">./tests/</directory>
 		</testsuite>
 	</testsuites>
-    <php>
-        <ini name="display_errors" value="On" />
-        <ini name="display_startup_errors" value="On" />
-    </php>
 </phpunit>

@@ -13,6 +13,7 @@
 
 // NB: the order is important
 require_once( dirname( __FILE__ ) . '/config.php' );
+
 $config = \VegasHero\Config::getInstance();
 
 require_once( sprintf("%slib/CustomPostType.php", plugin_dir_path(__FILE__)));

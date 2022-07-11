@@ -119,8 +119,8 @@ final class Test
      * @param string $plugin_name
      * @return boolean
      */
-    static public function isPluginInstalled(string $plugin_name) {
-        $command = sprintf("wp plugin is-installed %s", $plugin_name);
+    static public function isPluginInstalled(string $plugin_name, string $path = '/var/www/html') {
+        $command = sprintf("wp plugin is-installed %s --path=$path", $plugin_name);
         exec($command, $output, $exit_code);
         return $exit_code ? false : true;
     }
@@ -128,8 +128,8 @@ final class Test
     /**
      * @return boolean Exit code of 0 means success. 
      */
-    static public function isWordpressInstalled() {
-        $command = "wp core is-installed";
+    static public function isWordpressInstalled(string $path = '/var/www/html') {
+        $command = "wp core is-installed --path=$path";
         exec($command, $output, $exit_code);
         return $exit_code ? false : true;
     }

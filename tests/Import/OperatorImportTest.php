@@ -5,8 +5,8 @@ use VegasHero\Helpers\{ Test };
 final class OperatorImportTest extends WP_UnitTestCase
 {
 
-    public function setUp() {
-        parent::setUp();
+    public function set_up() {
+        parent::set_up();
         $this->config = \VegasHero\Config::getInstance();
         $this->operator_importer = new VegasHero\Import\Operator();
         $this->faker = \Faker\Factory::create();

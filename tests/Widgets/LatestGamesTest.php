@@ -1,12 +1,19 @@
 <?php
 
+/**
+ * Class SampleTest
+ *
+ * @package Vegashero
+ */
 final class LatestGamesTest extends WP_UnitTestCase
 {
 
     private $config;
 
-    public function setUp() {
-        parent::setUp();
+    public function set_up() {
+
+        parent::set_up();
+
         $this->config = \VegasHero\Config::getInstance();
         $this->args = array(
             'before_title'  => '<h2>',
@@ -45,7 +52,7 @@ final class LatestGamesTest extends WP_UnitTestCase
         $widget->widget($this->args, $this->instance);
         $output = ob_get_clean();
         //echo $output;
-        $pattern = '/<li class="vh-games-widget-item vh_recent_games_.*"><a href=".*" title=".*" class="vh_recent_games_item_.*" ><img alt=".*" src="\/\/cdn\.vegasgod\.com\/.*\/.*\/cover.jpg"\/><h3>.*<\/h3><\/a><\/li>/';
+        $pattern = '/<li class="vh-games-widget-item vh_recent_games_.*"><a href=".*" title=".*" class="vh_recent_games_item_.*" ><img width="376" height="250" alt=".*" src="\/\/cdn\.vegasgod\.com\/.*\/.*\/cover.jpg"\/><h3>.*<\/h3><\/a><\/li>/';
         preg_match_all($pattern, $output, $matches);
         $this->assertEquals(count($matches[0]), $game_count);
     }

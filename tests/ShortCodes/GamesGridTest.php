@@ -11,8 +11,8 @@ final class GamesGridTest extends WP_UnitTestCase
     private $game_id;
     private $iframe_src;
 
-    public function setUp() {
-        parent::setUp();
+    public function set_up() {
+        parent::set_up();
         $this->config = \VegasHero\Config::getInstance();
         $this->shortcode = new VegasHero\ShortCodes\GamesGrid($this->config);
         $this->faker = \Faker\Factory::create();
@@ -78,7 +78,7 @@ final class GamesGridTest extends WP_UnitTestCase
                           <li class="vh-item" id="post-$post->ID">
                 <a class="vh-thumb-link" href="$post->guid">
                     <div class="vh-overlay">
-                        <img src="//cdn.vegasgod.com/$provider/$post->post_name/cover.jpg" title="$post->post_title" alt="$post->post_title" />
+                        <img width="376" height="250" src="//cdn.vegasgod.com/$provider/$post->post_name/cover.jpg" title="$post->post_title" alt="$post->post_title" />
                         <!-- <span class="play-now">Play now</span> -->
                     </div>
                 </a>

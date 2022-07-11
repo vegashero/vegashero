@@ -11,8 +11,8 @@ final class SingleGameTest extends WP_UnitTestCase
     private $game_id;
     private $iframe_src;
 
-    public function setUp() {
-        parent::setUp();
+    public function set_up() {
+        parent::set_up();
         $this->config = \VegasHero\Config::getInstance();
         $this->shortcode = new VegasHero\ShortCodes\SingleGame();
         $post = $this->factory->post->create_and_get(
