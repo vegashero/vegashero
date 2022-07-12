@@ -71,7 +71,11 @@ class Custom
             $gameagegatetext = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
             $iframe_template = sprintf($iframe_string, $iframe_src, $gamethumb_bg, $gamedemobtntext, $gameagegatetext);
             $single_game_widget_area = \VegasHero\Templates\Custom::getSingleGameWidgetArea();
-            $content = sprintf("%s %s %s", $iframe_template, $content, $single_game_widget_area);
+            if(get_option('vh_gamewidgettop') === 'on') {
+                $content = sprintf("%s %s %s", $iframe_template, $single_game_widget_area, $content);
+            } else {
+                $content = sprintf("%s %s %s", $iframe_template, $content, $single_game_widget_area);
+            }
         }
         return $content;
     }

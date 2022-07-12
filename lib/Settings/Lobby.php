@@ -50,6 +50,11 @@ class Lobby extends \VegasHero\Settings
         echo "<p class='description'>$text</p>";
     }
 
+    public function DescriptionSpacer() {
+        $text = wp_strip_all_tags(__("___________________________", 'vegashero'));
+        echo "<p class='description'>$text</p>";
+    }
+
     public function inputLobbyFiltersOp() {
         $args = func_get_args();
         $id_op = $args[0]['id_op'];
@@ -140,14 +145,18 @@ class Lobby extends \VegasHero\Settings
         $id = $args[0]['id'];
         include_once( dirname( __FILE__ ) . '/templates/lobby/game-playdemobtn-tickbox.php' );
     }
-    
+    public function tickboxGameWidgetTop() { 
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        include_once( dirname( __FILE__ ) . '/templates/lobby/game-GameWidgetTop-tickbox.php' );
+    }
 
     public function registerSettings() {
 
         // lobby settings
         add_settings_section(
             $id = 'vh-lobby-section', 
-            $title = wp_strip_all_tags(__('Lobby Settings', 'vegashero')), 
+            $title = wp_strip_all_tags(__('Lobby & Games Settings', 'vegashero')), 
             $callback = array($this, 'sectionHeading'), 
             $page = self::PAGE_SLUG
         );
@@ -447,12 +456,45 @@ class Lobby extends \VegasHero\Settings
             $option_name = 'vh_lobbylink' 
         );
 
+        // Spacer
+        add_settings_section(
+            $id = 'vh-spacer-section', 
+            $title = wp_strip_all_tags(__(' ', 'vegashero')), 
+            $callback = array($this, 'DescriptionSpacer'), 
+            $page = self::PAGE_SLUG
+        );
+
         // Game page section title
         add_settings_section(
             $id = 'vh-gamesettings-section', 
             $title = wp_strip_all_tags(__('Game Post Settings', 'vegashero')), 
             $callback = array($this, 'DescriptionGamePostSettings'), 
             $page = self::PAGE_SLUG
+        );
+
+        // Show the Single Game widget area directly under the game iframe
+        add_settings_section(
+            $id = 'vh-gamewidgettop-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            $id = 'vh_gamewidgettop',
+            $title = wp_strip_all_tags(__('Display Single Game widget area above content', 'vegashero')),
+            $callback = array($this, 'tickboxGameWidgetTop'),
+            $page = self::PAGE_SLUG,
+            $section = 'vh-gamewidgettop-section',
+            $args = array(
+                'id' => 'vh_gamewidgettop',
+                'vh_gamewidgettop' => 'off'
+            )
+        );
+
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_gamewidgettop' 
         );
 
         // disable iframe autoload and enable play demo button with image background
@@ -541,8 +583,8 @@ class Lobby extends \VegasHero\Settings
     public function addSettingsMenu() {
         add_submenu_page(
             $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
-            $page_title = wp_strip_all_tags(__('Lobby', 'vegashero')), 
-            $menu_title = wp_strip_all_tags(__('Lobby', 'vegashero')), 
+            $page_title = wp_strip_all_tags(__('Lobby & Games', 'vegashero')), 
+            $menu_title = wp_strip_all_tags(__('Lobby & Games', 'vegashero')), 
             $capability = 'manage_options', 
             $menu_slug = self::MENU_SLUG, 
             $callback = array($this, 'createLobbyPage') 
