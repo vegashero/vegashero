@@ -45,6 +45,11 @@ class Lobby extends \VegasHero\Settings
         echo "<p class='description'>$text</p>";
     }
 
+    public function DescriptionGamePostSettings() {
+        $text = wp_strip_all_tags(__("Change the default settings of the game posts here", 'vegashero'));
+        echo "<p class='description'>$text</p>";
+    }
+
     public function inputLobbyFiltersOp() {
         $args = func_get_args();
         $id_op = $args[0]['id_op'];
@@ -99,6 +104,20 @@ class Lobby extends \VegasHero\Settings
         ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
     }
 
+    public function inputGamePlaynowBtnText() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        $default = wp_strip_all_tags(__('Play Demo', 'vegashero'));
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
+    }
+
+    public function inputGameAgeGateText() {
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        $default = wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero'));
+        ?><input name="<?=$id?>" id="<?=$id?>" type='text' value='<?= get_option($id) ? get_option($id) : "$default" ?>' /><?php
+    }
+
     public function tickboxLobbySearch() { 
         $args = func_get_args();
         $id = $args[0]['id'];
@@ -116,6 +135,12 @@ class Lobby extends \VegasHero\Settings
         $id = $args[0]['id'];
         include_once( dirname( __FILE__ ) . '/templates/lobby/lobby-webp-tickbox.php' );
     }
+    public function tickboxPlayDemoBtn() { 
+        $args = func_get_args();
+        $id = $args[0]['id'];
+        include_once( dirname( __FILE__ ) . '/templates/lobby/game-playdemobtn-tickbox.php' );
+    }
+    
 
     public function registerSettings() {
 
@@ -421,6 +446,92 @@ class Lobby extends \VegasHero\Settings
             $option_group = self::MENU_SLUG, 
             $option_name = 'vh_lobbylink' 
         );
+
+        // Game page section title
+        add_settings_section(
+            $id = 'vh-gamesettings-section', 
+            $title = wp_strip_all_tags(__('Game Post Settings', 'vegashero')), 
+            $callback = array($this, 'DescriptionGamePostSettings'), 
+            $page = self::PAGE_SLUG
+        );
+
+        // disable iframe autoload and enable play demo button with image background
+        add_settings_section(
+            $id = 'vh-gameplaydemobtn-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            $id = 'vh_gameplaynowbtn',
+            $title = wp_strip_all_tags(__('Disable iframe autoload and display play demo button', 'vegashero')),
+            $callback = array($this, 'tickboxPlayDemoBtn'),
+            $page = self::PAGE_SLUG,
+            $section = 'vh-gameplaydemobtn-section',
+            $args = array(
+                'id' => 'vh_gameplaynowbtn',
+                'vh_gameplaynowbtn' => 'off'
+            )
+        );
+
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_gameplaynowbtn' 
+        );
+
+        // Custom text for play demo btn
+        add_settings_section(
+            $id = 'vh-gameplaynowbtntext-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            $id = 'vh_gameplaynowbtntext',
+            $title = wp_strip_all_tags(__('Play Demo Button Custom Text', 'vegashero')),
+            $callback = array($this, 'inputGamePlaynowBtnText'),
+            $page = self::PAGE_SLUG,
+            $section = 'vh-gameplaynowbtntext-section',
+            $args = array(
+                'id' => 'vh_gameplaynowbtntext',
+                'vh_gameplaynowbtntext' => wp_strip_all_tags(__('Play Demo', 'vegashero'))
+            )
+        );
+        
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_gameplaynowbtntext' 
+        );
+
+        // Custom text for 18+ text
+        add_settings_section(
+            $id = 'vh-gameagegatetext-section', 
+            $title = '', 
+            $callback = array($this, 'sectionHeading'), 
+            $page = self::PAGE_SLUG
+        );
+
+        add_settings_field(
+            $id = 'vh_gameagegatetext',
+            $title = wp_strip_all_tags(__('Under Button Compliance Custom Text', 'vegashero')),
+            $callback = array($this, 'inputGameAgeGateText'),
+            $page = self::PAGE_SLUG,
+            $section = 'vh-gameagegatetext-section',
+            $args = array(
+                'id' => 'vh_gameagegatetext',
+                'vh_gameagegatetext' => wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero'))
+            )
+        );
+        
+        register_setting(
+            $option_group = self::MENU_SLUG, 
+            $option_name = 'vh_gameagegatetext' 
+        );
+
+
+
     }
 
     public function createLobbyPage() {
