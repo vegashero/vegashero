@@ -3,8 +3,8 @@
   <div class="embed-bg-wrapper" style="background-image:url(%2$s);"></div>
 
   <div class="embed-overlay">
-    <button class="play-demo-btn">Play Demo</button>
-    <div class="age-gate-text">18+ Only. Play Responsibly.</div>
+    <button class="play-demo-btn">%3$s</button>
+    <div class="age-gate-text">%4$s</div>
   </div>
   
   <div class="kh-no-close"></div>

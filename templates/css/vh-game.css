@@ -40,7 +40,7 @@
 
 
 .embed-bg-wrapper {
-	min-height:400px;
+	min-height:500px;
 	background: #000000;
 	background-repeat: no-repeat;
 	background-size: cover;
@@ -56,7 +56,6 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 	z-index: 2;
-	width: 80%;
 	padding: 20px;
 	text-align: center;
 }
@@ -67,11 +66,15 @@
 	color: white;
 	font-size: 12px;
 	margin: 15px 0;
-	padding: 10px;
+	padding: 10px 20px;
 }
 .play-demo-btn {
 	background-color: #28303d;
-    padding: 5px 30px;
+	color: #FFFFFF;
+    padding: 10px 30px;
+}
+.play-demo-btn:hover {
+	opacity: 0.9;
 }
 
 
@@ -231,16 +234,6 @@ li.vh-games-widget-item img, .vh-casino-providers .vh-casino img {
 	display: block;
 } 
 
-/* WMS left align fix */
-/*.single-vegashero_games .game_provider-wms .singlegame-iframe {
-	max-width: 960px;
-}
-
-.single-vegashero_games .game_provider-wms .iframe_kh_wrapper {
-	text-align: center;
-	background: #000;
-}*/
-
 .single-vegashero_games .game_provider-betsoft-mobile .iframe_kh_wrapper {
 	min-width: auto;
 }
@@ -290,6 +283,13 @@ li.vh-games-widget-item img, .vh-casino-providers .vh-casino img {
 	.vh-casino-providers .vh-playnow {
 		padding:18px;
 		font-size:14px;
+	}
+
+	.embed-bg-wrapper {
+		min-height:250px;
+	}
+	.embed-overlay {
+		width: 80%;
 	}
 }
 
