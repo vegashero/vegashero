@@ -12,7 +12,8 @@ class Functions {
 
     static function renderGameFrame() {
         \VegasHero\Functions::removeContentFilter();
-        $iframe_file = sprintf("%s../templates/iframe.php", plugin_dir_path(__FILE__));
+        $iframe_file = sprintf("%s../templates/%s.php", plugin_dir_path(__FILE__), get_option('vh_gameplaynowbtn') !== 'on' ? 'iframe' : 'iframe_playdemobtn');
+
         if( ! file_exists($iframe_file)) {
             /* translators:  %s will be replaced by the iframe file name containing the game */
             error_log(sprintf(__('File not found %s', 'vegashero'), $iframe_file));
@@ -29,7 +30,8 @@ class Functions {
             return;
         }
         $iframe_string = file_get_contents($iframe_file, $iframe_src);
-        echo sprintf($iframe_string, $iframe_src);
+        $game_thumb_bg = get_post_meta( $post_id, 'game_img', true );
+        echo sprintf($iframe_string, $iframe_src, $game_thumb_bg);
     }
 
     static function renderGameWidget() {

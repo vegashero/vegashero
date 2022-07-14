@@ -18,26 +18,26 @@ composer dump-autoload
 
 ```bash
 # run the container
-VEGASHERO_ENV=development USER_ID=$(id -u) docker-compose up -d php-apache
+VEGASHERO_ENV=development USER_ID=$(id -u) docker-compose up -d wordpress
 # install wordpress
-docker exec -u www-data vegashero_php-apache_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
+docker exec -u www-data vegashero_wordpress_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
 # update password
-docker exec -u www-data vegashero_php-apache_1 wp user update vegashero --user_pass="secret"
+docker exec -u www-data vegashero_wordpress_1 wp user update vegashero --user_pass="secret"
 # update wordpress
-docker exec -u www-data vegashero_php-apache_1 wp core update
+docker exec -u www-data vegashero_wordpress_1 wp core update
 # install plugins
-docker exec -u www-data vegashero_php-apache_1 wp plugin install wordpress-importer polylang loco-translate --activate
+docker exec -u www-data vegashero_wordpress_1 wp plugin install wordpress-importer polylang loco-translate --activate
 # install languages
-docker exec -u www-data vegashero_php-apache_1 wp language core install af
+docker exec -u www-data vegashero_wordpress_1 wp language core install af
 # activate vegashero plugin
-docker exec -u www-data vegashero_php-apache_1 wp plugin activate vegashero
+docker exec -u www-data vegashero_wordpress_1 wp plugin activate vegashero
 # set permalinks
-docker exec -u www-data vegashero_php-apache_1 wp rewrite structure --hard '/%postname%/'
+docker exec -u www-data vegashero_wordpress_1 wp rewrite structure --hard '/%postname%/'
 # enable debugging
-docker exec -u www-data vegashero_php-apache_1 wp config set --raw WP_DEBUG true
-docker exec -u www-data vegashero_php-apache_1 wp config set --raw WP_DEBUG_LOG true
+docker exec -u www-data vegashero_wordpress_1 wp config set --raw WP_DEBUG true
+docker exec -u www-data vegashero_wordpress_1 wp config set --raw WP_DEBUG_LOG true
 # view debug log
-docker exec -u www-data vegashero_php-apache_1 tail -f /var/www/html/wp-content/debug.log
+docker exec -u www-data vegashero_wordpress_1 tail -f /var/www/html/wp-content/debug.log
 ```
 
 Now navigate to [http://localhost:8080](http://localhost:8080)
