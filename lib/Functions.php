@@ -11,7 +11,6 @@ class Functions {
     }
 
     static function renderGameFrame() {
-        echo get_option('vh_gameplaynowbtn');
         \VegasHero\Functions::removeContentFilter();
         $iframe_file = sprintf("%s../templates/%s.php", plugin_dir_path(__FILE__), get_option('vh_gameplaynowbtn') !== 'on' ? 'iframe' : 'iframe_playdemobtn');
 
