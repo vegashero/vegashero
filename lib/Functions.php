@@ -12,7 +12,11 @@ class Functions {
 
     static function renderGameFrame() {
         \VegasHero\Functions::removeContentFilter();
-        $iframe_file = sprintf("%s../templates/iframe.php", plugin_dir_path(__FILE__));
+        if(get_option('vh_gameplaynowbtn') === 'on') {
+            $iframe_file = sprintf("%s../templates/iframe_playdemobtn.php", plugin_dir_path(__FILE__));
+        } else {
+            $iframe_file = sprintf("%s../templates/iframe.php", plugin_dir_path(__FILE__));
+        }
         if( ! file_exists($iframe_file)) {
             /* translators:  %s will be replaced by the iframe file name containing the game */
             error_log(sprintf(__('File not found %s', 'vegashero'), $iframe_file));
