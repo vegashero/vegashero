@@ -87,3 +87,6 @@ if( ! has_filter('the_content', array('\VegasHero\Templates\Custom', 'wrapSingle
 }
 add_action( 'after_setup_theme', array('\VegasHero\Templates\Custom', 'enableFeaturedImages' ));
 add_action( 'after_setup_theme', array('\VegasHero\Templates\Custom', 'registerImageSize'));
+
+// show custom fields if ACF is used
+add_filter('acf/settings/remove_wp_meta_box', '__return_false');
