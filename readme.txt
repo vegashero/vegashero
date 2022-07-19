@@ -2,21 +2,17 @@
 Contributors: vegashero
 Tags: casino,slots,games,arcade,affiliate
 Donate link: https://vegashero.co/downloads/vegas-hero-plugin/
-Requires at least: 4.0
-Tested up to: 5.5.3
+Requires at least: 5.0
+Tested up to: 6.0.1
 Requires PHP: 5.6
-Stable tag: 1.7.1
+Stable tag: 1.8.0
 License: GPL2
 License URI: https://vegashero.co/licensing-and-terms-of-use/
 
-The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino & slots games, flexible options to add your own games. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO.
+The VegasHero plugin adds powerful features to your igaming affiliate site. Bulk import free casino & slots games or add your own games manually. Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table. Option to customize game titles and content to maximize your SEO.
 
 == Description ==
 The VegasHero Casino Affiliate Plugin is a 1-Click solution for any Casino Affiliate that wants reliable demo slot games. Save yourself hundreds of hours of time and effort sourcing and adding demo games to your WordPress site.
-
-SAVE PRECIOUS TIME ADDING GAMES
-Sourcing good quality slots images, contacting casino operators to get reliable iframe codes, creating and publishing the posts is all very time-consuming.
-The plugin takes care of all this via a quick game import process.
 
 COMES WITH A MOBILE RESPONSIVE LOBBY
 We added a filterable casino lobby that displays your games in an intuitive nicely laid out grid. The layout is tablet and mobile device friendly.
@@ -28,8 +24,12 @@ The game selection is continuously being expanded and new slots releases are add
 ONE-CLICK SETUP
 It’s as easy as installing a WordPress plugin. Activate, import games and set your casino affiliate links. Done!
 
-500+ AFFILIATE CUSTOMERS
+1000+ AFFILIATE CUSTOMERS
 Our WordPress Casino Plugin has been implemented on a large number of gambling WordPress affiliate sites. A popular choice of WordPress software whether you are a newbie or an established partner.
+
+SAVE PRECIOUS TIME ADDING GAMES
+Sourcing good quality slots images, contacting casino operators to get reliable iframe codes, creating and publishing the posts is all very time-consuming.
+The plugin takes care of all this via a quick game import process.
 
 LATEST GAME RELEASES
 Fresh game content is important. We do regular game releases following the iGaming software providers hottest free demo slots and casino game titles.
@@ -79,7 +79,7 @@ CAN I CONTINUE TO USE THE PLUGIN AFTER THE 12-MONTH UPDATES AND SUPPORT EXPIRE?
 Yes, you will still be able to use the plugin and the games imported up to that date. You will get new game updates & support as long as you renew annually. We give a large 50% discount on renewal prices.
 
 CAN YOU RECOMMEND A COMPATIBLE CASINO THEME?
-Yes, we also sell a 100% compatible themes which you can buy in a bundle with the plugin. Check out our casino theme here and sportsbook theme here.
+Yes, we also sell a 100% compatible themes which you can buy in a bundle with the plugin. Check out our casino and sportsbook theme here: https://vegashero.co/downloads/vegashero-theme/
 
 == Screenshots ==
 1. Lobby preview
