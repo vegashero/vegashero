@@ -1,18 +1,12 @@
 <div class="iframe_kh_wrapper">
-
   <div class="embed-bg-wrapper" style="background-image:url(%2$s);"></div>
-
   <div class="embed-overlay">
     <button class="play-demo-btn">Play Demo</button>
     <div class="age-gate-text">18+ Only. Play Responsibly.</div>
   </div>
-  
   <div class="kh-no-close"></div>
-
     <iframe width="" height="" class="singlegame-iframe" frameborder="0" scrolling="no" allowfullscreen src="about:blank" data-srcurl="%1$s" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-
     <script>
-
     jQuery(document).ready(function() {
       jQuery('.singlegame-iframe').hide();
     // load iframe with play now button and remove overlay elements
@@ -24,10 +18,5 @@
             jQuery('.singlegame-iframe').css('background-color', 'black');
         });
     }); 
-
     </script>
-
 </div>
-
-
-
