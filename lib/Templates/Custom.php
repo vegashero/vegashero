@@ -66,7 +66,11 @@ class Custom
         if ( get_post_type( $post_id ) == $config->customPostType) {
             $iframe_src = get_post_meta($post_id, 'game_src', true);
             $iframe_string = file_get_contents(\VegasHero\Templates\Custom::getIframeTemplate());
-            $gamethumb_bg = get_post_meta( $post_id, 'game_img', true );
+            if(get_option('vh_lobbywebp') === 'on') {
+                $gamethumb_bg = str_replace('cover.jpg', 'cover.webp', get_post_meta( $post_id, 'game_img', true ));
+            } else {
+                $gamethumb_bg = get_post_meta( $post_id, 'game_img', true );
+            }
             $gamedemobtntext = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
             $gameagegatetext = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
             $iframe_template = sprintf($iframe_string, $iframe_src, $gamethumb_bg, $gamedemobtntext, $gameagegatetext);

@@ -30,8 +30,14 @@ class Functions {
             return;
         }
         $iframe_string = file_get_contents($iframe_file, $iframe_src);
-        $game_thumb_bg = get_post_meta( $post_id, 'game_img', true );
-        echo sprintf($iframe_string, $iframe_src, $game_thumb_bg);
+        if(get_option('vh_lobbywebp') === 'on') {
+            $game_thumb_bg = str_replace('cover.jpg', 'cover.webp', get_post_meta( $post_id, 'game_img', true ));
+        } else {
+            $game_thumb_bg = get_post_meta( $post_id, 'game_img', true );
+        }
+        $gamedemobtntext = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
+        $gameagegatetext = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
+        echo sprintf($iframe_string, $iframe_src, $game_thumb_bg, $gamedemobtntext, $gameagegatetext);
     }
 
     static function renderGameWidget() {
