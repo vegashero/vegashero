@@ -121,8 +121,7 @@ h2.vh-title {
     vertical-align: middle;
 }
 ul.operator-cards {
-
-
+    margin-top: 40px;
 }
 ul.operator-cards li:first-child {
     /*margin: 0 8px 16px 0;*/
@@ -131,8 +130,8 @@ ul.operator-cards li {
     float:left;
     background: #fff;
     border: 1px solid #dedede;
-    margin: 0 15px 16px 0px;
-    min-width: 300px;
+    margin: 0 10px 10px 0px;
+    min-width: 295px;
     width: 23%;
     min-height: 165px;
 }
@@ -186,6 +185,11 @@ ul.operator-cards li .footer-area {
     min-height: 38px;
     border-top: 1px solid #dedede;
     padding: 12px 20px;
+    min-height: 60px;
+}
+
+.vh_game_type_checkbox {
+    margin: 7px 0;
 }
 
 ul.operator-cards li .btn-area {
@@ -405,13 +409,13 @@ visibility: visible;
         font-size: 14px;
         margin:10px 0 10px 0;
     }
-    ul.operator-cards li .provider-img {
-        display: none;
-    }
     .form-table td input[type=text] {
         width: 100%;
         margin: 0;
     }
+    .prov-admin-iframe-top {
+        width: 100%;
+    }   
 }
 @media screen and (max-width: 1200px) {
     ul.operator-cards li {
