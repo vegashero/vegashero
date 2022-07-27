@@ -20,7 +20,7 @@ composer dump-autoload
 # run the container
 VEGASHERO_ENV=development USER_ID=$(id -u) docker-compose up -d wordpress
 # install wordpress
-docker exec -u www-data vegashero_wordpress_1 wp core install --url="localhost:8080" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
+docker exec -u www-data vegashero_wordpress_1 wp core install --url="localhost:4360" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
 # update password
 docker exec -u www-data vegashero_wordpress_1 wp user update vegashero --user_pass="secret"
 # update wordpress
@@ -40,7 +40,7 @@ docker exec -u www-data vegashero_wordpress_1 wp config set --raw WP_DEBUG_LOG t
 docker exec -u www-data vegashero_wordpress_1 tail -f /var/www/html/wp-content/debug.log
 ```
 
-Now navigate to [http://localhost:8080](http://localhost:8080)
+Now navigate to [http://localhost:4360](http://localhost:4360)
 
 ## Theme Development
 
@@ -67,7 +67,7 @@ See crypto theme for example
 ```sh
 docker-compose build --build-arg USER_ID=$(id -u) tests
 docker-compose up tests
-docker exec -ti -u www-data vegashero_tests_1 wp core install --url=localhost:8080 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
+docker exec -ti -u www-data vegashero_tests_1 wp core install --url=localhost:4360 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
 docker exec -ti -u www-data vegashero_tests_1 wp rewrite structure '/%postname%/'
 #docker exec -ti -u www-data vegashero_tests_1 wp scaffold plugin-tests vegashero
 docker exec -ti -u www-data vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' db latest

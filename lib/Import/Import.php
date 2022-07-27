@@ -76,7 +76,7 @@ abstract class Import
     # @return Boolean
     ##
     protected function _noGamesToImport($games) {
-        return (property_exists($games, 'code') && $games->code == 'vegasgod_no_games');
+        return (array_key_exists('code', $games) && $games->code == 'vegasgod_no_games');
     }
 
     protected function _getOperatorId($operator) {
