@@ -11,7 +11,7 @@ final class WordpressTestHelperTest extends TestCase
 {
 
     // these could be set via environment variables
-    private $url = "http://localhost:8080";
+    private $url = "http://localhost:4360";
     private $title = "VegasHero";
     private $admin_user = "vegashero";
     private $admin_password = "secret";
