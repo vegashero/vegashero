@@ -5,7 +5,7 @@
       "test": "phpunit --verbose --configuration phpunit.xml.dist --prepend vendor/autoload.php --testdox --colors=always",
       "lint": "phplint ./ --exclude=vendor",
       "check": "phpcs --standard=ruleset.xml",
-      "fix": "phpcbf --standard=ruleset.xml --config-set text_domain vegashero",
+      "fix": "phpcbf --standard=ruleset.xml",
       "all": [ "@lint", "@sniff", "@test" ],
       "translate": "wp i18n make-pot . ./languages/vegashero.pot && msgmerge --update ./languages/vegashero-af.po ./languages/vegashero.pot && msgfmt -o ./languages/vegashero-af.mo ./languages/vegashero-af.po"
     },

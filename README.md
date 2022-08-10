@@ -80,6 +80,8 @@ docker exec -ti -u www-data vegashero_tests_1 bash
 stty rows 41 columns 141
 cd wp-content/plugins/vegashero
 ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero # NB!
+./vendor/bin/phpcs --config-set prefixes vegashero
+./vendor/bin/phpcs --config-set text_domain vegashero
 composer test
 ```
 
