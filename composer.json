@@ -4,7 +4,8 @@
     "scripts": {
       "test": "phpunit --verbose --configuration phpunit.xml.dist --prepend vendor/autoload.php --testdox --colors=always",
       "lint": "phplint ./ --exclude=vendor",
-      "sniff": "phpcs",
+      "check": "phpcs --standard=ruleset.xml",
+      "fix": "phpcbf --standard=ruleset.xml --config-set text_domain vegashero",
       "all": [ "@lint", "@sniff", "@test" ],
       "translate": "wp i18n make-pot . ./languages/vegashero.pot && msgmerge --update ./languages/vegashero-af.po ./languages/vegashero.pot && msgfmt -o ./languages/vegashero-af.mo ./languages/vegashero-af.po"
     },
@@ -20,17 +21,10 @@
         }
     },
     "require-dev": {
-        "phpcompatibility/phpcompatibility-wp": "*",
-        "wp-coding-standards/wpcs": "^2.3",
-        "squizlabs/php_codesniffer": "^3.5",
         "fakerphp/faker": "^1.19",
         "overtrue/phplint": "^3.0",
         "yoast/phpunit-polyfills": "^1.0",
-        "mockery/mockery": "^1.5"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": false
-        }
+        "mockery/mockery": "^1.5",
+        "squizlabs/php_codesniffer": "^3.7"
     }
 }

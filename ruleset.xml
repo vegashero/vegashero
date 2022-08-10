@@ -8,14 +8,12 @@
         <properties>
             <property name="text_domain" type="array">
                 <element value="vegashero"/> <!-- Change this value to your theme or plugin slug. -->
-                <element value="tgmpa"/>
             </property>
         </properties>
     </rule>
 
 	<!-- Check all PHP files in directory tree by default. -->
 	<arg name="extensions" value="php"/>
-
 	<file>.</file>
 
 	<!-- Show sniff codes in all reports -->

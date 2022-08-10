@@ -3,76 +3,83 @@
 /**
  * [vh-grid provider="netent" orderby="title" order="ASC" gamesperpage="3" pagination="on"]
  */
-final class GamesGridTest extends WP_UnitTestCase
-{
+final class GamesGridTest extends WP_UnitTestCase {
 
-    private $config;
-    private $shortcode;
-    private $game_id;
-    private $iframe_src;
 
-    public function set_up() {
-        parent::set_up();
-        $this->config = \VegasHero\Config::getInstance();
-        $this->shortcode = new VegasHero\ShortCodes\GamesGrid($this->config);
-        $this->faker = \Faker\Factory::create();
-        $this->provider = $this->faker->firstname;
-        $this->games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, "provider" => $this->provider), 3);
-        $this->posts = VegasHero\Helpers\Test::importGames(json_encode($this->games), new VegasHero\Import\Provider(), $this->config);
-    }
+	private $config;
+	private $shortcode;
+	private $game_id;
+	private $iframe_src;
 
-    /**
-     * @group gamesgrid
-     */
-    public function testSingleGameWithPaginationShouldShowSingleGameWithNextLink() {
-        $template = $this->shortcode->render(
-            array(
-                "provider" => $this->provider,
-                'gamesperpage' => 1,
-                'pagination' => 'on',
-            ), 
-            $this->config
-        );
-        $pattern = "/.*<nav class='vh-pagination'><a class='next page-numbers' rel='next nofollow' href='.*'>Next<\/a><\/nav>.*$/";
-        $this->assertEquals(preg_match($pattern, $template), 1);
-    }
+	public function set_up() {
+		parent::set_up();
+		$this->config    = \VegasHero\Config::getInstance();
+		$this->shortcode = new VegasHero\ShortCodes\GamesGrid( $this->config );
+		$this->faker     = \Faker\Factory::create();
+		$this->provider  = $this->faker->firstname;
+		$this->games     = \VegasHero\Helpers\Test::generateRandomGames(
+			$this->faker,
+			array(
+				'status'   => 1,
+				'provider' => $this->provider,
+			),
+			3
+		);
+		$this->posts     = VegasHero\Helpers\Test::importGames( json_encode( $this->games ), new VegasHero\Import\Provider(), $this->config );
+	}
 
-    /**
-     * @group gamesgrid
-     */
-    public function testSingleGameWithPagintionShouldShowSingleGameWithPreviousLink() {
-        $template = $this->shortcode->render(
-            array(
-                "provider" => $this->provider,
-                'gamesperpage' => 1,
-                'pagination' => 'on',
-                "paged" => 3
-            ), 
-            $this->config
-        );
-        $pattern = "/.*<nav class='vh-pagination'><a class='prev page-numbers' rel='prev nofollow' href='[?|&]paged=\d'>Previous<\/a>.*<\/nav>.*$/";
-        $this->assertEquals(preg_match($pattern, $template), 1);
-    }
+	/**
+	 * @group gamesgrid
+	 */
+	public function testSingleGameWithPaginationShouldShowSingleGameWithNextLink() {
+		$template = $this->shortcode->render(
+			array(
+				'provider'     => $this->provider,
+				'gamesperpage' => 1,
+				'pagination'   => 'on',
+			),
+			$this->config
+		);
+		$pattern  = "/.*<nav class='vh-pagination'><a class='next page-numbers' rel='next nofollow' href='.*'>Next<\/a><\/nav>.*$/";
+		$this->assertEquals( preg_match( $pattern, $template ), 1 );
+	}
 
-    /**
-     * @group gamesgrid
-     */
-    public function testSingleGameWithoutPagintionShouldShowSingleGameOnly() {
+	/**
+	 * @group gamesgrid
+	 */
+	public function testSingleGameWithPagintionShouldShowSingleGameWithPreviousLink() {
+		$template = $this->shortcode->render(
+			array(
+				'provider'     => $this->provider,
+				'gamesperpage' => 1,
+				'pagination'   => 'on',
+				'paged'        => 3,
+			),
+			$this->config
+		);
+		$pattern  = "/.*<nav class='vh-pagination'><a class='prev page-numbers' rel='prev nofollow' href='[?|&]paged=\d'>Previous<\/a>.*<\/nav>.*$/";
+		$this->assertEquals( preg_match( $pattern, $template ), 1 );
+	}
 
-        $template = $this->shortcode->render(
-            array(
-                "provider" => $this->provider,
-                'gamesperpage' => 1,
-                'pagination' => 'off',
-                'orderby' => 'ID'
-            ), 
-            $this->config
-        );
+	/**
+	 * @group gamesgrid
+	 */
+	public function testSingleGameWithoutPagintionShouldShowSingleGameOnly() {
 
-        $game = reset($this->games);
-        $post = end($this->posts);
-        $provider = strtolower($game->provider);
-        $expected = <<<HEREDOC
+		$template = $this->shortcode->render(
+			array(
+				'provider'     => $this->provider,
+				'gamesperpage' => 1,
+				'pagination'   => 'off',
+				'orderby'      => 'ID',
+			),
+			$this->config
+		);
+
+		$game     = reset( $this->games );
+		$post     = end( $this->posts );
+		$provider = strtolower( $game->provider );
+		$expected = <<<HEREDOC
 <div class='vh-posts-grid-wrap'>            <!--vegashero games grid shortcode-->
             <ul id="vh-lobby-posts-grid" class="vh-row-sm">
                           <li class="vh-item" id="post-$post->ID">
@@ -88,17 +95,17 @@ final class GamesGridTest extends WP_UnitTestCase
             <!--/vegashero games grid shortcode-->
             <div class="clear"></div></div>
 HEREDOC;
-        $this->assertEquals(self::_trim($template), self::_trim($expected));
-    }
+		$this->assertEquals( self::_trim( $template ), self::_trim( $expected ) );
+	}
 
-    /**
-     * @group gamesgrid
-     *
-     * @param string $str
-     * @return string
-     */
-    static private function _trim( string $str ) : string {
-        return preg_replace('/^\s+|\s+$/m', '', $str);
-    }
+	/**
+	 * @group gamesgrid
+	 *
+	 * @param string $str
+	 * @return string
+	 */
+	static private function _trim( string $str ) : string {
+		return preg_replace( '/^\s+|\s+$/m', '', $str );
+	}
 
 }
