@@ -60,9 +60,9 @@ See crypto theme for example
 
 ## Plugin Development
 
-## Testing
+## Unit Tests
 
-### Setup
+Initial setup
 
 ```sh
 docker-compose build --build-arg USER_ID=$(id -u) tests
@@ -73,16 +73,31 @@ docker exec -ti -u www-data vegashero_tests_1 wp rewrite structure '/%postname%/
 docker exec -ti -u www-data vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' db latest
 ```
 
-### Run
+Running the tests
 
 ```sh
 docker exec -ti -u www-data vegashero_tests_1 bash
-stty rows 41 columns 141
 cd wp-content/plugins/vegashero
 ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero # NB!
 ./vendor/bin/phpcs --config-set prefixes vegashero
 ./vendor/bin/phpcs --config-set text_domain vegashero
 composer test
+```
+
+## Coding Standards Checker
+
+Initial setup
+
+```sh
+cd wp-content/plugins/vegashero
+./vendor/bin/phpcs --config-set installed_paths /opt/wpcs
+```
+
+Running the checks
+
+```sh
+composer check
+composer fix
 ```
 
 ## Deployment
