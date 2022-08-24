@@ -26,13 +26,11 @@
             <ul class="operator-cards">
             <?php foreach($this->_operators as $operator): ?>
                   <li class="<?=esc_attr(sprintf("op-%s", $operator['operator']))?>">
-                      <span class="op-ribbon">
-                      <span class="op-ribbon-content"><?=wp_strip_all_tags(__('Featured', 'vegashero'))?></span>
-                      </span>
                       <div class="desc">
-                          <h2 class="operatorname"><?=$operator['operator']?></h2>
                           <div class="provider-img"><img src="<?=esc_attr(sprintf("%s/operators/%s.png", $this->_config->gameImageUrl, $operator['operator']))?>" /></div>
+                          <h2><?=$operator['operator']?></h2>
                           <div class="btn-area">
+                              <?= $this->_getPostStatusDropdown(); ?>
                               <?= $this->_getAjaxUpdateBtn(sanitize_title($operator['operator'])) ?>
                           </div>
                           <div class="footer-area">

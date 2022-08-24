@@ -18,7 +18,9 @@ final class GamesGridTest extends WP_UnitTestCase
         $this->faker = \Faker\Factory::create();
         $this->provider = $this->faker->firstname;
         $this->games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, "provider" => $this->provider), 3);
-        $this->posts = VegasHero\Helpers\Test::importGames(json_encode($this->games), new VegasHero\Import\Provider(), $this->config);
+        $this->posts = VegasHero\Helpers\Test::importGames(json_encode($this->games), new VegasHero\Import\Provider(), $this->config, [
+            'post_status' => 'publish'
+        ]);
     }
 
     /**

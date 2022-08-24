@@ -39,15 +39,58 @@ final class OperatorImportTest extends WP_UnitTestCase
                 "bellfruit" => 0
             )
         );
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), $this->operator_importer, $this->config, $this->operator);
+        $posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'publish'
+            ]
+        );
         $this->assertSame(count($games), count($posts));
         foreach($posts as $post) {
+            $this->assertSame($post->post_status, 'publish');
             $terms = get_the_terms($post, $this->config->gameOperatorTaxonomy);
             $this->assertContains($this->operator, array_column($terms, 'slug'));
             $this->assertObjectHasAttribute($this->config->postMetaGameId, $post->meta);
             $this->assertObjectHasAttribute($this->config->postMetaGameSrc, $post->meta);
             $this->assertObjectHasAttribute($this->config->postMetaGameTitle, $post->meta);
             $this->assertObjectHasAttribute($this->config->postMetaGameImg, $post->meta);
+        }
+    }
+
+    public function testImportAsDraft() 
+    {
+        $games = \VegasHero\Helpers\Test::generateRandomGames(
+            $this->faker, 
+            array(
+                "status" => 1, 
+                $this->operator => 1,
+                "mrgreen" => 0,
+                "slotsmillion" => 0,
+                "europa" => 0,
+                "slotslv" => 0,
+                "winner" => 0,
+                "bet365" => 0,
+                "williamhill" => 0,
+                "intercasino" => 0,
+                "videoslots" => 0,
+                "bellfruit" => 0
+            )
+        );
+        $posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'draft'
+            ]
+        );
+        $this->assertSame(count($games), count($posts));
+        foreach($posts as $post) {
+            $this->assertSame($post->post_status, 'draft');
         }
     }
 
@@ -59,7 +102,15 @@ final class OperatorImportTest extends WP_UnitTestCase
     public function testImportDontAddGamesWhenStatusZero() 
     {
         $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 0, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), $this->operator_importer, $this->config, $this->operator);
+        $posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'publish'
+            ]
+        );
         $this->assertSame(0, count($posts));
         foreach($posts as $post) {
             $terms = get_the_terms($post, $this->config->gameOperatorTaxonomy);
@@ -79,12 +130,28 @@ final class OperatorImportTest extends WP_UnitTestCase
     public function testImportDontUpdatePostStatusOfExistingGamesWhenStatusZero() 
     {
         $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), $this->operator_importer, $this->config, $this->operator);
+        $posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'publish'
+            ]
+        );
         $updated_games = array_map(function($game) {
             $game->status = 0;
             return $game;
         }, $games);
-        $updated_posts = \VegasHero\Helpers\Test::importGames(json_encode($updated_games), $this->operator_importer, $this->config, $this->operator);
+        $updated_posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($updated_games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'publish'
+            ]
+        );
         $result = (array_search('draft', array_column($updated_posts, 'post_status')) !== FALSE);
         $this->assertSame($result, false);
         $this->assertEquals($posts, $updated_posts); // no new games imported
@@ -101,13 +168,29 @@ final class OperatorImportTest extends WP_UnitTestCase
     public function testImportUpdateMetaOfExistingGame() 
     {
         $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), $this->operator_importer, $this->config, $this->operator);
+        $posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'publish'
+            ]
+        );
         $updated_games = array_map(function($game) {
             $game->src = $this->faker->url;
             $game->name =$this->faker->firstname;
             return $game;
         }, $games);
-        $updated_posts = \VegasHero\Helpers\Test::importGames(json_encode($updated_games), $this->operator_importer, $this->config, $this->operator);
+        $updated_posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($updated_games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'publish'
+            ]
+        );
         $this->assertNotEquals($posts, $updated_posts);
         for($i=0; $i<count($updated_posts); $i++) {
             $this->assertSame($posts[$i]->post_title, $updated_posts[$i]->post_title);
@@ -127,13 +210,29 @@ final class OperatorImportTest extends WP_UnitTestCase
      */
     public function testImportUpdateGameOperators() {
         $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), $this->operator_importer, $this->config, $this->operator);
+        $posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $this->operator,
+                'post_status' => 'publish'
+            ]
+        );
         $new_operator = strtolower($this->faker->firstname);
         $updated_games = array_map(function($game, $new_operator) {
             $game->$new_operator = 1;
             return $game;
         }, $games, array_fill(0, count($games), $new_operator));
-        $updated_posts = \VegasHero\Helpers\Test::importGames(json_encode($updated_games), $this->operator_importer, $this->config, $new_operator);
+        $updated_posts = \VegasHero\Helpers\Test::importGames(
+            json_encode($updated_games), 
+            $this->operator_importer, 
+            $this->config, 
+            [
+                'operator' => $new_operator,
+                'post_status' => 'publish'
+            ]
+        );
         $this->assertEquals($posts, $updated_posts);
         foreach($updated_posts as $updated_post) {
             $terms = get_the_terms($updated_post, $this->config->gameOperatorTaxonomy);

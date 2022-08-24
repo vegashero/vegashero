@@ -52,8 +52,9 @@ class Operator extends Import
      * Insert new game only when operator is true
      * @param object $game
      * @param string $operator
+     * @param array $properties Overwritten game properties
      */
-    private function _insertNewGame($game, $operator) {
+    private function _insertNewGame(object $game, string $operator, array $properties = []) {
         // [id] => 6
         // [name] => wild witches
         // [provider] => netent
@@ -65,13 +66,16 @@ class Operator extends Import
         // [europa] => 0
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
-        $post = array(
-            'post_content'   => '',
-            'post_name'      => sanitize_title($game->name),
-            'post_title'     => ucfirst($game->name),
-            'post_status'    => 'publish',
-            'post_type'      => $this->_config->customPostType,
-            'post_excerpt'   => ''
+        $post = array_merge(
+            [
+                'post_content'   => '',
+                'post_name'      => sanitize_title($game->name),
+                'post_title'     => ucfirst($game->name),
+                'post_status'    => 'publish',
+                'post_type'      => $this->_config->customPostType,
+                'post_excerpt'   => ''
+            ], 
+            $properties
         );
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
@@ -265,7 +269,10 @@ class Operator extends Import
      * @return array<string, string|array>
      */
     public function importGames(WP_REST_Request $request) {
+
         $operator = $request->get_param('operator');
+        $post_status = $request->get_param('post_status') ?? 'publish' ;
+
         try {
             $games = json_decode($request->get_body());
             $successful_imports = 0;
@@ -280,7 +287,13 @@ class Operator extends Import
                     if($this->_operatorProvidesGame($game, $operator)) {
                         if( ! $this->_gameExists($game)) {  // insert game
                             if( intval($game->status) === 1 ) { 
-                                $this->_insertNewGame($game, $operator);
+                                $this->_insertNewGame(
+                                    $game, 
+                                    $operator, 
+                                    [
+                                        'post_status' => $post_status
+                                    ]
+                                );
                                 $newly_imported++;
                             }
                             if( intval($game->status) === 0  ) {

@@ -31,6 +31,7 @@
                           do_settings_sections($page); ?>
                           <h2><?=$provider['provider']?></h2>
                           <div class="btn-area">
+                              <?= $this->_getPostStatusDropdown(); ?>
                               <?= $this->_getAjaxUpdateBtn(sanitize_title($provider['provider'])); ?>
                           </div>
                           <div class="footer-area">

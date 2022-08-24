@@ -23,6 +23,14 @@ abstract class Import {
         return Array();
     }
 
+    protected function _getPostStatusDropdown() {
+        $markup = "<select name='post_status'>";
+        $markup .= sprintf("<option selected='selected' value='publish'>%s</option>", __('Published', 'vegashero'));
+        $markup .= sprintf("<option value='draft'>%s</option>", __('Draft', 'vegashero'));
+        $markup .= '</select>';
+        return $markup;
+    }
+
     protected function _getGameTypeCheckboxes($slug, $html5_total, $flash_total) {
         $html5_text = wp_strip_all_tags(__('Import HTML5 games', 'vegashero'));
         $flash_text = wp_strip_all_tags(__('Import Flash games', 'vegashero'));

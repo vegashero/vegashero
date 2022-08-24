@@ -73,7 +73,7 @@ final class Test
      * @param operator 
      * @return array Imported games
      */
-    static public function importGames($games, $importer, $config, $operator=null) {
+    static public function importGames($games, $importer, $config, $params = []) {
         $args = array(
             'posts_per_page' => -1,
             'post_type' => $config->customPostType,
@@ -81,8 +81,8 @@ final class Test
             'orderby' => 'ID'
         );
         $mock_request = \Mockery::mock('WP_REST_Request');
-        if($operator) {
-            $mock_request->shouldReceive('get_param')->with('operator')->andReturn($operator);
+        foreach($params as $name => $value) {
+            $mock_request->shouldReceive('get_param')->with($name)->andReturn($value);
         }
         $mock_request->shouldReceive('get_body')->andReturn($games);
         $importer->importGames($mock_request);

@@ -21,16 +21,16 @@ class Provider extends Import
         // custom wp api endpoint for importing providers via ajax
         add_action('rest_api_init', function () {
             $namespace = \VegasHero\Import\Provider::getApiNamespace($this->_config);
-            register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<provider>.+)', array(
+            register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<provider>.+)', [
                 'methods' => 'GET',
-                'callback' => array($this, 'fetchGames'),
+                'callback' => [$this, 'fetchGames'],
                  'permission_callback' => '__return_true'
-            ));
-            register_rest_route( $namespace, self::getImportApiRoute(), array(
+            ]);
+            register_rest_route( $namespace, self::getImportApiRoute(), [
                 'methods' => 'POST',
-                'callback' => array($this, 'importGames'),
+                'callback' => [$this, 'importGames'],
                  'permission_callback' => '__return_true'
-            ));
+            ]);
         });
     }
 
@@ -48,9 +48,10 @@ class Provider extends Import
 
     /**
      * @param object $game 
+     * @param array $properties Properties to be overwritten
      * @return null
      */
-    private function _insertNewGame($game) {
+    private function _insertNewGame(object $game, array $properties = []) {
         // [id] => 6
         // [name] => wild witches
         // [provider] => netent
@@ -62,13 +63,16 @@ class Provider extends Import
         // [europa] => 0
         // [created] => 2015-03-20 11:36:22
         // [modified] => 2015-03-20 11:36:22
-        $post = array(
-            'post_content'   => "",
-            'post_name'      => sanitize_title($game->name),
-            'post_title'     => ucfirst($game->name),
-            'post_status'    => 'publish',
-            'post_type'      => $this->_config->customPostType,
-            'post_excerpt'   => ""
+        $post = array_merge(
+            [
+                'post_content'   => "",
+                'post_name'      => sanitize_title($game->name),
+                'post_title'     => ucfirst($game->name),
+                'post_status'    => 'publish',
+                'post_type'      => $this->_config->customPostType,
+                'post_excerpt'   => ""
+            ],
+            $properties
         );
         $post_id = wp_insert_post($post);
         $category_id = $this->_getCategoryId(trim($game->category));
@@ -163,6 +167,9 @@ class Provider extends Import
      */
     public function importGames(WP_REST_Request $request) {
         try {
+
+            $post_status = $request->get_param('post_status') ?? 'publish' ;
+
             $games = json_decode($request->get_body());
             $successful_imports = 0;
             $games_skipped = 0;
@@ -184,7 +191,7 @@ class Provider extends Import
 
                     if( ! $post_id) { // insert game
                         if( intval($game->status) === 1 ) {
-                            $this->_insertNewGame($game);
+                            $this->_insertNewGame($game, ['post_status' => $post_status] );
                             $newly_imported++;
                         }
                         if( intval($game->status) === 0 )  {
