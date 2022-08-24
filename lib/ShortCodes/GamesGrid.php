@@ -29,6 +29,10 @@ final class GamesGrid
         return $template;
     }
 
+    static private function _getPageQueryParamName(): string {
+        return is_front_page() ? 'page' : 'paged';
+    }
+
     /**
      * Previous pagination link
      * When it is a post we need to make our own pagination links by appending ?paged=1 to the url
@@ -53,7 +57,7 @@ final class GamesGrid
     static private function _getPreviousPostLink($text, $current_page) {
         $url = add_query_arg(
             array(
-                "paged" => (int)$current_page - 1
+                'paged' => (int)$current_page - 1
             )
         );
         return "<a class='prev page-numbers' rel='prev nofollow' href='$url'>$text</a>";
@@ -93,7 +97,7 @@ final class GamesGrid
     static private function _getNextPostLink($text, $current_page) {
         $url = add_query_arg(
             array(
-                "paged" => (int)$current_page + 1
+                'paged' => (int)$current_page + 1
             )
         );
         return "<a class='next page-numbers' rel='next nofollow' href='$url'>$text</a>";
@@ -105,9 +109,6 @@ final class GamesGrid
      * @param int $max_num_pages Highest page in pagination
      * @return string
      */
-
-
-
     static private function _getNextPageLink($text, $max_num_pages) {
         return get_next_posts_link( $text, $max_num_pages );
     }
@@ -139,14 +140,13 @@ final class GamesGrid
      */
     static private function _isFirstPage($current_page) {
         return ($current_page == 1);
-        return ! is_paged();
     }
 
     /**
      * @return bool
      */
     static private function _isLastPage($max_num_pages) {
-        return !($max_num_pages > get_query_var('paged'));
+        return !($max_num_pages > get_query_var(self::_getPageQueryParamName()));
     }
 
     /**
@@ -206,14 +206,17 @@ MARKUP;
      * @return array
      */
     static private function _getQueryParams($attributes, $config) {
+        $query_params = [
+            'post_type' => $config->customPostType,
+            'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
+            'order' => $attributes->order,
+            'orderby' => $attributes->orderby,
+            'posts_per_page' => $attributes->gamesperpage,
+            'paged' => $attributes->paged,
+            's' => $attributes->keyword
+        ];
         if( (!empty($attributes->provider)) || (!empty($attributes->operator)) || (!empty($attributes->category)) || (!empty($attributes->tag)) ) {
-            return array(
-                'post_type' => $config->customPostType,
-                'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
-                'order' => $attributes->order,
-                'orderby' => $attributes->orderby,
-                'posts_per_page' => $attributes->gamesperpage,
-                'paged' => $attributes->paged,
+            return array_merge($query_params, [
                 'tax_query' => array(
                     'relation' => 'OR',
                     array(
@@ -236,21 +239,10 @@ MARKUP;
                         'field'    => 'slug',
                         'terms'    => $attributes->tag,
                     ),
-                ),
-                's' => $attributes->keyword
-            );
-        } else {
-            //return results from all games if ALL taxonomy attributes left blank
-            return array(
-                'post_type' => $config->customPostType,
-                'lang' => function_exists('pll_current_language') ? pll_current_language() : get_locale(),
-                'order' => $attributes->order,
-                'orderby' => $attributes->orderby,
-                'posts_per_page' => $attributes->gamesperpage,
-                'paged' => $attributes->paged,
-                's' => $attributes->keyword
-            );
+                )
+            ]);
         }
+        return $query_params;
     }
 
     /**
@@ -297,7 +289,9 @@ MARKUP;
      * @return int
      */
     static private function _getPage() {
-        return ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+        global $paged;
+        $paged = get_query_var(self::_getPageQueryParamName(), 1);
+        return $paged;
     }
 
     /**
