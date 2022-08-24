@@ -15,8 +15,15 @@ RUN a2enmod rewrite
 RUN apt -qq update && apt install -y vim unzip libzip-dev default-mysql-client wget subversion git libonig-dev 
 RUN docker-php-ext-install mysqli mbstring pcntl zip
 WORKDIR /tmp
+
+# install wp-cli
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# install composer
+# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
+
+# install dockerize
 RUN curl -sfL $(curl -s https://api.github.com/repos/powerman/dockerize/releases/latest | grep -i /dockerize-$(uname -s)-$(uname -m)\" | cut -d\" -f4) | install /dev/stdin /usr/local/bin/dockerize
 
 RUN chown -R www-data:www-data /var/www
