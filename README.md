@@ -1,6 +1,13 @@
 # Vegas Hero 
 This plugin will be installed by users and depends on the remote Vegas God plugin to populate with data
 
+## NB: fail2ban
+
+- [Cloudflare Proxy IP's](https://www.cloudflare.com/ips/)
+- [Module ngx_http_realip_module](https://nginx.org/en/docs/http/ngx_http_realip_module.html)
+- [WP fail2ban Proxy config](https://docs.wp-fail2ban.com/en/4.4/defines/constants/WP_FAIL2BAN_PROXIES.html#wp-fail2ban-proxies)
+- [Clouflare Restoring original visitor IPs](https://support.cloudflare.com/hc/en-us/articles/200170786-Restoring-original-visitor-IPs#JUxJSMn3Ht5c5yq)
+
 Localhost license key
 
 ```
@@ -263,11 +270,4 @@ wp site switch-language af
 - [Unit Testing WordPress Plugins with PHPUnit](https://premium.wpmudev.org/blog/unit-testing-wordpress-plugins-phpunit/)
 - [Writing WordPress Plugin Unit Tests](https://codesymphony.co/writing-wordpress-plugin-unit-tests/)
 - [Plugin Unit Tests ](https://make.wordpress.org/cli/handbook/plugin-unit-tests)
-- [](https://make.wordpress.org/core/2021/09/27/changes-to-the-wordpress-core-php-test-suite/)
-
-    
-
-
-
-
 
