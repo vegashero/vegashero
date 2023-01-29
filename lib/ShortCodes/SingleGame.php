@@ -15,7 +15,7 @@ class SingleGame
         $this->wp_query = new WP_Query();
     }
 
-    public static function get_instance(): SingleGame {
+    public static function getInstance(): SingleGame {
         if ( null === self::$instance ) {
             self::$instance = new SingleGame();
         }

@@ -58,7 +58,7 @@ class ShortCodes
     public static function renderSingleGame($atts) {
         if(array_key_exists('id', $atts)) {
             $game_id = (int)$atts['id'];
-            $game = SingleGame::get_instance();
+            $game = SingleGame::getInstance();
             return $game->render($game_id);
         }
     }

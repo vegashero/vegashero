@@ -1,6 +1,8 @@
 <?php
 namespace VegasHero\ShortCodes;
 
+use WP_Query;
+
 final class GamesGrid
 {
 
@@ -13,7 +15,7 @@ final class GamesGrid
     static public function render($attributes, $config) {
         $attributes = self::_getAttributes($attributes, self::_getPage());
         $query_params = self::_getQueryParams($attributes, $config);
-        $query = new \WP_Query($query_params);
+        $query = new WP_Query($query_params);
         $games = $query->query($query_params);
         $list_items = '';
         foreach($games as $game) {
