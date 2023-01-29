@@ -2,19 +2,30 @@
 
 namespace VegasHero\Settings;
 
-class Providers extends \VegasHero\Settings\Import
+use VegasHero\Settings\Import;
+use VegasHero\Config;
+
+class Providers extends Import
 {
+    private static $instance = null;
     private $_providers;
     private $_provider;
     private $_config;
 
-    public function __construct() {
-        $this->_config = \VegasHero\Config::getInstance();
+    protected function __construct() {
+        $this->_config = Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         if(array_key_exists('page', $_GET) && $_GET['page'] === 'vegashero-provider-import') {
             add_action('admin_enqueue_scripts', array($this, 'enqueueAjaxScripts'));
             add_action('admin_init', array($this, 'registerSettings'));
         }
+    }
+
+    public static function getInstance(): Providers {
+        if ( null === self::$instance ) {
+            self::$instance = new Providers();
+        }
+        return self::$instance;
     }
 
     private function _getOptionGroup($provider=null) {

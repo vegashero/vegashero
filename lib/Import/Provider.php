@@ -2,17 +2,21 @@
 
 namespace VegasHero\Import;
 
-require_once sprintf("%s../Settings/License.php", plugin_dir_path( __FILE__ ));
-
 use VegasHero\Import\Utils;
+use VegasHero\Config;
+use VegasHero\Settings\License;
+
 use WP_REST_Request;
 
 class Provider extends Import
 {
-    public function __construct() {
+
+    protected static $instance = null;
+
+    protected function __construct() {
         parent::__construct();
-        $this->_config = \VegasHero\Config::getInstance();
-        $license = \VegasHero\Settings\License::getInstance();
+        $this->_config = Config::getInstance();
+        $license = License::getInstance();
         $this->_license = $license->getLicense();
 
         // increase curl timeout
@@ -20,7 +24,7 @@ class Provider extends Import
 
         // custom wp api endpoint for importing providers via ajax
         add_action('rest_api_init', function () {
-            $namespace = \VegasHero\Import\Provider::getApiNamespace($this->_config);
+            $namespace = self::getApiNamespace($this->_config);
             register_rest_route( $namespace, self::getFetchApiRoute() . '(?P<provider>.+)', [
                 'methods' => 'GET',
                 'callback' => [$this, 'fetchGames'],
@@ -32,6 +36,13 @@ class Provider extends Import
                  'permission_callback' => '__return_true'
             ]);
         });
+    }
+
+    public static function getInstance(): Provider {
+        if ( null === self::$instance ) {
+            self::$instance = new Provider();
+        }
+        return self::$instance;
     }
 
     public function __destruct() {

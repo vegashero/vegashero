@@ -4,10 +4,18 @@ namespace VegasHero\Settings;
 
 class Menu {
 
+    protected static $instance = null;
     const MENU_SLUG = 'vh-settings';
 
-    public function __construct() {
+    protected function __construct() {
         add_action('admin_menu', array($this, 'addSettingsMenu'));
+    }
+
+    public static function getInstance(): Menu {
+        if ( null === self::$instance ) {
+            self::$instance = new Menu();
+        }
+        return self::$instance;
     }
 
     public function addSettingsMenu() {

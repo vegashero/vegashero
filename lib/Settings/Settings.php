@@ -1,8 +1,8 @@
 <?php
 
-namespace VegasHero;
+namespace VegasHero\Settings;
 
-require_once sprintf("%s../Helpers/Notice/Admin.php", plugin_dir_path( __FILE__ ));
+use VegasHero\Helpers\Notice\Admin;
 
 abstract class Settings {
 

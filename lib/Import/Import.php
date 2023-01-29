@@ -16,7 +16,7 @@ abstract class Import
     protected $_display_errors;
     protected $_license = '';
 
-    protected function __construct() {
+    public function __construct() {
         //$this->_error_reporting = error_reporting();
         $this->_display_errors = ini_get('display_errors');
         //error_reporting(0);

@@ -1,5 +1,7 @@
 <?php
 
+namespace VegasHero;
+
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -9,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @author Easy Digital Downloads
  * @version 1.8.0
  */
-class VH_EDD_SL_Plugin_Updater {
+class PluginUpdater {
 
 	private $api_url     = '';
 	private $api_data    = array();

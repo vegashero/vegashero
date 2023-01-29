@@ -2,22 +2,31 @@
 
 namespace VegasHero\Settings;
 
-require_once("Settings.php");
+use VegasHero\Config;
 
-class Permalinks extends \VegasHero\Settings
+use VegasHero\Settings\{ Settings, Menu };
+
+class Permalinks extends Settings
 {
 
     const MENU_SLUG = 'vh-permalinks';
     const PAGE_SLUG = 'vh-permalinks-page';
 
+    protected static $instance = null;
     private static $_config;
-    private static $_instance;
 
-    public function __construct() {
+    protected function __construct() {
         $this->_showUpdateNotification(self::MENU_SLUG);
-        static::$_config = \VegasHero\Config::getInstance();
+        static::$_config = Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
+    }
+
+    public static function getInstance(): PermaLinks {
+        if ( null === self::$instance ) {
+            self::$instance = new Permalinks();
+        }
+        return self::$instance;
     }
 
     public function sanitize($input) {
@@ -26,7 +35,7 @@ class Permalinks extends \VegasHero\Settings
 
     public function addSettingsMenu() {
         add_submenu_page(
-            $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, // The title to be displayed on this menu's corresponding page
+            $parent_slug = Menu::MENU_SLUG, // The title to be displayed on this menu's corresponding page
             $page_title = wp_strip_all_tags(__('Permalinks', 'vegashero')), // The text to be displayed for this actual menu item
             $menu_title = wp_strip_all_tags(__('Permalinks', 'vegashero')), // The text to be displayed for this actual menu item
             $capability = 'manage_options', // Which type of users can see this menu

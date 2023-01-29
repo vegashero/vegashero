@@ -1,7 +1,8 @@
+<?php  use VegasHero\Settings\Lobby; ?>
 <div class="wrap vh-about-wrap">
     <form method="post" action="options.php">
-    <?php settings_fields(\VegasHero\Settings\Lobby::MENU_SLUG); //outputs boilerplate hidden fields ?> 
-    <?php do_settings_sections(\VegasHero\Settings\Lobby::PAGE_SLUG); //pass slug name of page ?>
+    <?php settings_fields( Lobby::MENU_SLUG ); //outputs boilerplate hidden fields ?> 
+    <?php do_settings_sections( Lobby::PAGE_SLUG ); //pass slug name of page ?>
     <?php submit_button(); ?>
     </form>
 <div class="clear"></div>

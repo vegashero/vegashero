@@ -4,17 +4,27 @@ namespace VegasHero\Admin;
 
 use WP_Meta_Query;
 
+use VegasHero\Config;
+
 class AllGames {
 
+    protected static $instance = null;
     const GAME_TYPES = [ 'html5', 'flash' ];
 
-    public function __construct() {
-        $this->_config = \VegasHero\Config::getInstance();
+    protected function __construct() {
+        $this->_config = Config::getInstance();
         add_filter( sprintf('manage_%s_posts_columns', $this->_config->customPostType), [ $this, 'addGameTypeColumn' ] );
         add_action( sprintf('manage_%s_posts_custom_column', $this->_config->customPostType) , [ $this, 'addGameTypeColumnValues' ], 10, 2 );
 
         add_action( 'restrict_manage_posts', [ $this, 'addGameTypeFilter' ] , 10, 1 );
         add_filter( 'parse_query', [ $this, 'filterGamesByGameType' ] , 10);
+    }
+
+    public static function getInstance(): AllGames {
+        if ( null === self::$instance ) {
+            self::$instance = new AllGames();
+        }
+        return self::$instance;
     }
 
     public function addGameTypeColumnValues( $column, $post_id ) {

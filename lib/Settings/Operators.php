@@ -2,18 +2,20 @@
 
 namespace VegasHero\Settings;
 
-require_once( dirname( __FILE__ ) . '/Import.php' );
+use VegasHero\Config;
+use VegasHero\Settings\Import;
 
-class Operators extends \VegasHero\Settings\Import
+class Operators extends Import
 {
 
+    protected static $instance = null;
     private $_operators;
     private $_operator;
     private $_config;
 
-    public function __construct() {
+    protected function __construct() {
 
-        $this->_config = \VegasHero\Config::getInstance();
+        $this->_config = Config::getInstance();
 
         if(array_key_exists('page', $_GET)) {
             // TODO: why vegashero-provider-import?
@@ -26,6 +28,13 @@ class Operators extends \VegasHero\Settings\Import
             }
         }
         add_action('admin_menu', array($this, 'addSettingsMenu'));
+    }
+
+    public static function getInstance(): Operators {
+        if ( null === self::$instance ) {
+            self::$instance = new Operators();
+        }
+        return self::$instance;
     }
 
     public function loadOperatorStyles() {

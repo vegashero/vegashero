@@ -4,20 +4,19 @@ namespace VegasHero\Widgets;
 
 class SingleGameArea {
 
-    public $id;
+    public static $id = 'single_game_widget_area';
 
-    public function __construct() {
-        $this->id = "single_game_widget_area";
-        add_action( 'widgets_init', array($this, 'custom_sidebars'));
+    public static function addActions() {
+        add_action( 'widgets_init', array(self::class, 'custom_sidebars'));
     }
 
     /**
      * Register sidebar widget area for single games page - widgets accepts shortcode, HTML banners codes etc
      */ 
-    public function custom_sidebars() {
+    public static function custom_sidebars() {
 
         $args = array(
-            'id'            => $this->id,
+            'id'            => self::$id,
             'class'         => 'single_game_widget_area',
             'name'          => wp_strip_all_tags(__( 'Single Game Widget Area', 'vegashero' )),
             'description'   => wp_strip_all_tags(__( 'Add widgets / shortcodes under VegasHero games', 'vegashero' )),
