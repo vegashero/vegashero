@@ -16,11 +16,6 @@ class Functions {
     static function renderGameFrame() {
         self::removeContentFilter();
 
-        if( ! file_exists($iframe_file)) {
-            /* translators:  %s will be replaced by the iframe file name containing the game */
-            error_log(sprintf(__('File not found %s', 'vegashero'), $iframe_file));
-            return;
-        }
         $post_id = get_the_ID();
         if( ! $post_id) {
             echo wp_strip_all_tags(__('renderGameFrame method can only be called within Wordpress loop.', 'vegashero'));

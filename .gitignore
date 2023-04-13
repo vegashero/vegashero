@@ -1,6 +1,7 @@
 *.patch
 *.cache
 vendor/*
+/tmp
 !vendor/autoload.php
 !vendor/composer
 *.DS_Store
