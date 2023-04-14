@@ -1,5 +1,14 @@
 <?php
 
+namespace VegasHero\Tests\ShortCodes;
+
+use VegasHero\Helpers\Test as TestHelper;
+use VegasHero\Config;
+use VegasHero\ShortCodes\GamesGrid;
+use VegasHero\Import\Provider;
+
+use WP_UnitTestCase, Faker;
+
 /**
  * [vh-grid provider="netent" orderby="title" order="ASC" gamesperpage="3" pagination="on"]
  */
@@ -13,12 +22,11 @@ final class GamesGridTest extends WP_UnitTestCase
 
     public function set_up() {
         parent::set_up();
-        $this->config = \VegasHero\Config::getInstance();
-        $this->shortcode = new VegasHero\ShortCodes\GamesGrid($this->config);
-        $this->faker = \Faker\Factory::create();
+        $this->config = Config::getInstance();
+        $this->faker = Faker\Factory::create();
         $this->provider = $this->faker->firstname;
-        $this->games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, "provider" => $this->provider), 3);
-        $this->posts = VegasHero\Helpers\Test::importGames(json_encode($this->games), new VegasHero\Import\Provider(), $this->config, [
+        $this->games = TestHelper::generateRandomGames($this->faker, array("status" => 1, "provider" => $this->provider), 3);
+        $this->posts = TestHelper::importGames(json_encode($this->games), Provider::getInstance(), $this->config, [
             'post_status' => 'publish'
         ]);
     }
@@ -27,7 +35,7 @@ final class GamesGridTest extends WP_UnitTestCase
      * @group gamesgrid
      */
     public function testSingleGameWithPaginationShouldShowSingleGameWithNextLink() {
-        $template = $this->shortcode->render(
+        $template = GamesGrid::render(
             array(
                 "provider" => $this->provider,
                 'gamesperpage' => 1,
@@ -43,7 +51,7 @@ final class GamesGridTest extends WP_UnitTestCase
      * @group gamesgrid
      */
     public function testSingleGameWithPagintionShouldShowSingleGameWithPreviousLink() {
-        $template = $this->shortcode->render(
+        $template = GamesGrid::render(
             array(
                 "provider" => $this->provider,
                 'gamesperpage' => 1,
@@ -61,7 +69,7 @@ final class GamesGridTest extends WP_UnitTestCase
      */
     public function testSingleGameWithoutPagintionShouldShowSingleGameOnly() {
 
-        $template = $this->shortcode->render(
+        $template = GamesGrid::render(
             array(
                 "provider" => $this->provider,
                 'gamesperpage' => 1,

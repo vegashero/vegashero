@@ -7,7 +7,7 @@ services:
         context: ./dockerfiles
         dockerfile: plugin
         args: 
-          - USER_ID
+          - USER_ID=1000
           - DB_NAME=wordpress
           - DB_USER=wordpress
           - DB_PASSWORD=secret
@@ -27,6 +27,8 @@ services:
         - db
       volumes:
         - .:/var/www/html/wp-content/plugins/vegashero
+        - ../vegas-casino-theme-product:/var/www/html/wp-content/themes/vegashero-casino-theme
+        - ../vegas-sportsbetting-theme:/var/www/html/wp-content/themes/vegashero-sportsbetting-theme
       networks:
         default:
           aliases:

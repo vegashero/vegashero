@@ -1,9 +1,11 @@
 *.patch
 *.cache
-vendor
+vendor/*
+/tmp
+!vendor/autoload.php
+!vendor/composer
 *.DS_Store
 *.swp
 composer.lock
-/vendor/
 .phplint-cache
 tests/test-sample.php

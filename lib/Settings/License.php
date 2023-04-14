@@ -2,10 +2,10 @@
 
 namespace VegasHero\Settings;
 
-require_once("Settings.php");
-require_once( dirname( __FILE__ ) . '/Menu.php' );
+use VegasHero\Config;
+use VegasHero\Settings\{ Settings, Menu };
 
-class License extends \VegasHero\Settings
+class License extends Settings
 {
 
     const MENU_SLUG = 'vh-license';
@@ -14,9 +14,9 @@ class License extends \VegasHero\Settings
     private static $_config;
     private static $_instance;
 
-    public static function getInstance() {
+    public static function getInstance(): License {
         if (null === static::$_instance) {
-            static::$_instance = new static();
+            static::$_instance = new License();
         }
         return static::$_instance;
     }
@@ -25,8 +25,8 @@ class License extends \VegasHero\Settings
     }
 
     protected function __construct() {
-        $this->_showUpdateNotification(\VegasHero\Settings\Menu::MENU_SLUG);
-        static::$_config = \VegasHero\Config::getInstance();
+        $this->_showUpdateNotification( Menu::MENU_SLUG );
+        static::$_config = Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
     }
@@ -34,11 +34,11 @@ class License extends \VegasHero\Settings
     public function addSettingsMenu() {
 
         add_submenu_page(
-            $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
+            $parent_slug = Menu::MENU_SLUG, 
             $page_title = wp_strip_all_tags(__('License & Support', 'vegashero')),
             $menu_title = wp_strip_all_tags(__('License & Support', 'vegashero')),
             $capability = 'manage_options', 
-            $menu_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
+            $menu_slug = Menu::MENU_SLUG, 
             $callback = array($this, 'createLicensePage') 
         );
     }

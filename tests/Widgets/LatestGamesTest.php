@@ -1,5 +1,14 @@
 <?php
 
+use VegasHero\Tests\Widgets;
+
+use VegasHero\Helpers\Test as TestHelper;
+use VegasHero\Config;
+use VegasHero\Widgets\LatestGames;
+use VegasHero\Import\Provider;
+
+use WP_UnitTestCase, Faker;
+
 /**
  * Class SampleTest
  *
@@ -14,7 +23,7 @@ final class LatestGamesTest extends WP_UnitTestCase
 
         parent::set_up();
 
-        $this->config = \VegasHero\Config::getInstance();
+        $this->config = Config::getInstance();
         $this->args = array(
             'before_title'  => '<h2>',
             'after_title'   => "</h2>\n",
@@ -32,7 +41,7 @@ final class LatestGamesTest extends WP_UnitTestCase
 
     public function testLatestGamesWithNoGames() 
     {
-        $widget = new \VegasHero\Widgets\LatestGames();
+        $widget = LatestGames::getInstance();
         ob_start();
         $widget->widget($this->args, $this->instance);
         $output = ob_get_clean();
@@ -43,13 +52,13 @@ final class LatestGamesTest extends WP_UnitTestCase
     public function testLatestGamesWithGames() 
     {
         $game_count = 3;
-        $this->faker = \Faker\Factory::create();
+        $this->faker = Faker\Factory::create();
         $this->provider = $this->faker->firstname;
-        $this->games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, "provider" => $this->provider), $game_count);
-        $this->posts = \VegasHero\Helpers\Test::importGames(json_encode($this->games), new \VegasHero\Import\Provider(), $this->config, [
+        $this->games = TestHelper::generateRandomGames($this->faker, array("status" => 1, "provider" => $this->provider), $game_count);
+        $this->posts = TestHelper::importGames(json_encode($this->games), Provider::getInstance(), $this->config, [
             'post_status' => 'publish'
         ]);
-        $widget = new \VegasHero\Widgets\LatestGames();
+        $widget = LatestGames::getInstance();
         ob_start();
         $widget->widget($this->args, $this->instance);
         $output = ob_get_clean();

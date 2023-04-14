@@ -2,13 +2,24 @@
 
 namespace VegasHero\ShortCodes;
 
-final class SingleGame
+use WP_Query;
+use InvalidArgumentException;
+
+class SingleGame
 {
 
     private $wp_query;
+    protected static $instance = null;
 
     public function __construct() {
-        $this->wp_query = new \WP_Query();
+        $this->wp_query = new WP_Query();
+    }
+
+    public static function getInstance(): SingleGame {
+        if ( null === self::$instance ) {
+            self::$instance = new SingleGame();
+        }
+        return self::$instance;
     }
 
     /**
@@ -20,45 +31,20 @@ final class SingleGame
     public function render($game_id, $class="singlegame-iframe")
     {
         $iframe_src = $this->_getIframeSrc($game_id);
-        $template = $this->getTemplate();
+        $template = self::getTemplate();
         $game_thumb_bg = $this->_getGameImg($game_id);
-        $gamedemobtntext = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
-        $gameagegatetext = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
-        return sprintf($template, $class, $iframe_src, $game_thumb_bg, $gamedemobtntext, $gameagegatetext);
+        $game_demo_btn_text = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
+        $game_age_gate_text = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
+        return sprintf($template, $iframe_src, $game_thumb_bg, $game_demo_btn_text, $game_age_gate_text, $class );
     }
 
-    public function getTemplate() {
+    public static function getTemplate() {
         if(get_option('vh_gameplaynowbtn') === 'on') {
-        return <<<MARKUP
-            <div class="iframe_kh_wrapper">
-              <div class="embed-bg-wrapper" style="background-image:url(%3\$s);"></div>
-              <div class="embed-overlay"><button class="play-demo-btn">%4\$s</button><div class="age-gate-text">%5\$s</div>
-              </div>
-              <div class="kh-no-close"></div>
-                <iframe width="" height="" class="%1\$s" frameborder="0" scrolling="no" allowfullscreen src="about:blank" data-srcurl="%2\$s" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-                <script>
-                jQuery(document).ready(function() {
-                  jQuery('.singlegame-iframe').hide();
-                // load iframe with play now button and remove overlay elements
-                    jQuery('.play-demo-btn').on('click', function() {
-                        jQuery('.embed-overlay').remove();
-                        jQuery('.embed-bg-wrapper').remove();
-                        jQuery('.singlegame-iframe').show();
-                        jQuery('.singlegame-iframe').attr('src', jQuery('.singlegame-iframe').attr('data-srcurl'));
-                        jQuery('.singlegame-iframe').css('background-color', 'black');
-                    });
-                }); 
-                </script>
-            </div>
-            MARKUP;
-        } else {
-            return <<<MARKUP
-            <div class="iframe_kh_wrapper">
-                <div class="kh-no-close"></div>
-                <iframe width="" height="" class="%s" frameborder="0" scrolling="no" allowfullscreen="" src="%s" sandbox="allow-same-origin allow-scripts allow-popups allow-forms"></iframe>
-            </div>
-            MARKUP;
+            wp_enqueue_script('vegashero_single_game_iframe', plugins_url('vegashero/templates/js/iframe.js'), array('jquery'), null, true);
         }
+        $plugin_dir = plugin_dir_path(__FILE__);
+        $iframe_file = sprintf("%s../../templates/iframe.php", $plugin_dir);
+        return file_get_contents( $iframe_file );
     }
 
     /**
@@ -82,9 +68,9 @@ final class SingleGame
         $posts = (array)$this->wp_query->get_posts();
         if( ! count($posts)) {
             /* translators: %d will be replaced by the game id */
-            throw new \InvalidArgumentException(sprintf(__('Game with id %d not found', 'vegashero'), $game_id));
+            throw new InvalidArgumentException(sprintf(__('Game with id %d not found', 'vegashero'), $game_id));
         }
-        return \get_post_meta($posts[0]->ID, 'game_src', true);
+        return get_post_meta($posts[0]->ID, 'game_src', true);
     }
 
     /**

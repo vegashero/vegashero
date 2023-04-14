@@ -2,31 +2,27 @@
 
 namespace VegasHero;
 
+use VegasHero\Config;
+
 class CustomPostType
 {
 
+    protected static $instance = null;
     private $_config;
 
-    public function __construct() {
-        $this->_config = \VegasHero\Config::getInstance();
-
-        // add_action( 'init', array($this, 'setPermalinkStructure'));
+    protected function __construct() {
+        $this->_config = Config::getInstance();
         add_action('init', [ $this, 'registerGameCategoryTaxonomy' ]);
         add_action('init', [ $this, 'registerGameOperatorTaxonomy' ]);
         add_action('init', [ $this, 'registerGameProviderTaxonomy' ]);
         add_action('init', [ $this, 'registerCustomPostType' ]);
-        //add_action('generate_rewrite_rules', array($this, 'addRewriteRules'));
     }
 
-    public function addRewriteRules( $wp_rewrite ) {
-        //'slug' => get_option('vh_custom_post_type_url_slug') ? sprintf('%s/%s', get_option('vh_custom_post_type_url_slug'), get_option('vh_game_category_url_slug')) : get_option('vh_game_category_url_slug'),
-        $new_rules = array( 
-            //            get_option('vh_custom_post_type_url_slug') . '/' . get_option('vh_game_category_url_slug'). '/(.+)' => 'index.php?'.get_option('vh_custom_post_type_url_slug') . '-' . get_option('vh_game_category_url_slug').'=' . $wp_rewrite->preg_index(1),
-        );
-        $wp_rewrite->rules = $new_rules + $wp_rewrite->rules;
-        //echo "<pre>";
-        //print_r($wp_rewrite->rules);
-        //echo "</pre>";
+    public static function getInstance(): CustomPostType {
+        if ( null === self::$instance ) {
+            self::$instance = new CustomPostType();
+        }
+        return self::$instance;
     }
 
     public function registerGameOperatorTaxonomy() {

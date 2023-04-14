@@ -1,5 +1,14 @@
 <?php
 
+namespace VegasHero\Tests\ShortCodes;
+
+use VegasHero\Helpers\Test as TestHelper;
+use VegasHero\Config;
+use VegasHero\ShortCodes\SingleGame;
+use VegasHero\Import\Provider;
+
+use WP_UnitTestCase, InvalidArgumentException, Faker;
+
 /**
  * @covers Email
  */
@@ -13,8 +22,8 @@ final class SingleGameTest extends WP_UnitTestCase
 
     public function set_up() {
         parent::set_up();
-        $this->config = \VegasHero\Config::getInstance();
-        $this->shortcode = new VegasHero\ShortCodes\SingleGame();
+        $this->config = Config::getInstance();
+        $this->shortcode = SingleGame::getInstance();
         $post = $this->factory->post->create_and_get(
             array(
                 'post_type'=> $this->config->customPostType
@@ -31,7 +40,7 @@ final class SingleGameTest extends WP_UnitTestCase
         $template = $this->shortcode->getTemplate();
         $this->assertEquals(
             $this->shortcode->render($this->game_id, 'myclass'),
-            sprintf($template, 'myclass', $this->iframe_src)
+            sprintf($template, $this->iframe_src, '', 'Play Demo', '18+ Only. Play Responsibly.', 'myclass')
         );
     }
 

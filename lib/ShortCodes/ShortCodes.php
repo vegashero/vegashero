@@ -2,39 +2,63 @@
 
 namespace VegasHero\ShortCodes;
 
-// TODO: autoload using psr4
-require 'SingleGame.php';
-require 'GamesGrid.php';
+use VegasHero\ShortCodes\{ SingleGame, GamesGrid };
+
+use VegasHero\Config;
 
 // VH Lobby shortcode
 class ShortCodes
 {
 
-    private $_config;
-
-    public function __construct() {
-        $this->_config = \VegasHero\Config::getInstance();
-        add_shortcode('vegashero-lobby', array($this, 'lobby'));
-        add_shortcode('vh-lobby', array($this, 'lobby'));
-        add_shortcode('vh_lobby', array($this, 'lobby'));
-        add_shortcode( 'vh_table' , array($this, 'vh_table_func'));
-        add_shortcode( 'vh_table_line' , array($this, 'vh_table_line_func'));
-        add_shortcode( 'vh-grid', array($this, 'renderGamesGrid'));
-        add_shortcode( 'vh-casino-grid', array($this, 'renderGamesGrid'));
-        add_shortcode( 'vh_grid', array($this, 'renderGamesGrid'));
-        add_shortcode('vh-game', array($this, 'renderSingleGame')); // tested
-        add_shortcode('vh_game', array($this, 'renderSingleGame')); // tested
+    public static function addShortCodes() {
+        add_shortcode('vegashero-lobby', array(self::class, 'lobby'));
+        add_shortcode('vh-lobby', array(self::class, 'lobby'));
+        add_shortcode('vh_lobby', array(self::class, 'lobby'));
+        add_shortcode( 'vh_table' , array(self::class, 'vh_table_func'));
+        add_shortcode( 'vh_table_line' , array(self::class, 'vh_table_line_func'));
+        add_shortcode( 'vh-grid', array(self::class, 'renderGamesGrid'));
+        add_shortcode( 'vh-casino-grid', array(self::class, 'renderGamesGrid'));
+        add_shortcode( 'vh_grid', array(self::class, 'renderGamesGrid'));
+        add_shortcode('vh-game', array(self::class, 'renderSingleGame')); // tested
+        add_shortcode('vh_game', array(self::class, 'renderSingleGame')); // tested
     }
+
+    public static function addFilters() {
+        // adds unique CSS class to lobby page for easy custom styling
+        add_filter( 'body_class', array( self::class, 'addBodyClass' ));
+
+        //setting next pagination link class
+        add_filter("next_posts_link_attributes", array( self::class, 'next_posts_link_class' ));
+        //setting prev pagination link class
+        add_filter("previous_posts_link_attributes", array(self::class, 'prev_posts_link_class' ));
+    }
+
+    public static function addBodyClass( array $classes ): array {
+        global $post;
+        if( isset($post->post_content) && has_shortcode( $post->post_content, 'vegashero-lobby' ) ) {
+            $classes[] = 'vh-lobby-page';
+        }
+        return $classes;
+    }
+
+    public static function next_posts_link_class(): string {
+        return "class='next page-numbers' rel='next' ";
+    }
+
+    public static function prev_posts_link_class(): string {
+        return "class='prev page-numbers' rel='prev' ";
+    }
+
 
     /**
      * Method called by vh-game shortcode
      * @param array $atts
      * @return string
      */
-    public function renderSingleGame($atts) {
+    public static function renderSingleGame($atts) {
         if(array_key_exists('id', $atts)) {
             $game_id = (int)$atts['id'];
-            $game = new \VegasHero\ShortCodes\SingleGame();
+            $game = SingleGame::getInstance();
             return $game->render($game_id);
         }
     }
@@ -44,11 +68,12 @@ class ShortCodes
      * @param array $atts
      * @return string
      */
-    public function renderGamesGrid($atts) {
-        return \VegasHero\ShortCodes\GamesGrid::render($atts, $this->_config);
+    public static function renderGamesGrid($atts) {
+        return GamesGrid::render($atts, Config::getInstance());
     }
 
-	public function lobby() {
+	public static function lobby() {
+        $config = Config::getInstance();
 		$playnow_btn_value = get_option('vh_playnow_btn');
 		if ($playnow_btn_value == '') {
 			$playnow_btn_value = wp_strip_all_tags(__('Play Now', 'vegashero'));
@@ -71,7 +96,7 @@ class ShortCodes
 			array(
 				'ajax_url' => admin_url('admin-ajax.php'),
 				'site_url' => site_url(),
-				'image_url' => $this->_config->gameImageUrl,
+				'image_url' => $config->gameImageUrl,
 				'playnow_btn_value' => $playnow_btn_value,
                 'lobby_img_format' => $lobby_img_format,
 				'vh_custom_post_type_url_slug' => get_option('vh_custom_post_type_url_slug')
@@ -91,7 +116,7 @@ class ShortCodes
     //    [vh_table_line vh_img="http://url" vh_link="http://myafflinkhere.to/" vh_btnlabel="Play Now"]
     // [/vh_table]
 
-    public function vh_table_func($atts, $vhcontent = null){
+    public static function vh_table_func($atts, $vhcontent = null){
         wp_register_script('vegashero_termstoggle', plugins_url("vegashero/templates/js/terms_toggle.js"), null, true);
         wp_enqueue_script('vegashero_termstoggle', '', array('jquery'), null, true);
         
@@ -118,7 +143,7 @@ class ShortCodes
         return $vhoutput;
     }
 
-    public function vh_table_line_func($atts){
+    public static function vh_table_line_func($atts){
         extract( shortcode_atts( array(
             'vh_img' => '',         //thumb img URL path
             'vh_bonus' => '',       //bonus amount
@@ -219,26 +244,5 @@ class ShortCodes
         return $vhoutput;
     }
 
-}
-
-// adds unique CSS class to lobby page for easy custom styling
-add_filter( 'body_class', function( $classes ) {
-    global $post;
-    if( isset($post->post_content) && has_shortcode( $post->post_content, 'vegashero-lobby' ) ) {
-        $classes[] = 'vh-lobby-page';
-    }
-    return $classes;
-});
-
-
-//setting next pagination link class
-add_filter("next_posts_link_attributes", 'VegasHero\ShortCodes\next_posts_link_class');
-function next_posts_link_class() {
-    return "class='next page-numbers' rel='next' ";
-}
-//setting prev pagination link class
-add_filter("previous_posts_link_attributes", 'VegasHero\ShortCodes\prev_posts_link_class');
-function prev_posts_link_class() {
-    return "class='prev page-numbers' rel='prev' ";
 }
 

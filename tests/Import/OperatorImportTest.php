@@ -1,15 +1,21 @@
 <?php
 
-use VegasHero\Helpers\{ Test };
+namespace VegasHero\Tests\Import;
+
+use VegasHero\Helpers\Test as TestHelper;
+use VegasHero\Config;
+use VegasHero\Import\Operator;
+
+use WP_UnitTestCase, Faker;
 
 final class OperatorImportTest extends WP_UnitTestCase
 {
 
     public function set_up() {
         parent::set_up();
-        $this->config = \VegasHero\Config::getInstance();
-        $this->operator_importer = new VegasHero\Import\Operator();
-        $this->faker = \Faker\Factory::create();
+        $this->config = Config::getInstance();
+        $this->operator_importer = Operator::getInstance();
+        $this->faker = Faker\Factory::create();
         $this->operator = 'energycasino';
     }
 
@@ -22,7 +28,7 @@ final class OperatorImportTest extends WP_UnitTestCase
      */
     public function testImportsAddNewGamesWhenStatusOne() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames(
+        $games = TestHelper::generateRandomGames(
             $this->faker, 
             array(
                 "status" => 1, 
@@ -39,7 +45,7 @@ final class OperatorImportTest extends WP_UnitTestCase
                 "bellfruit" => 0
             )
         );
-        $posts = \VegasHero\Helpers\Test::importGames(
+        $posts = TestHelper::importGames(
             json_encode($games), 
             $this->operator_importer, 
             $this->config, 
@@ -62,7 +68,7 @@ final class OperatorImportTest extends WP_UnitTestCase
 
     public function testImportAsDraft() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames(
+        $games = TestHelper::generateRandomGames(
             $this->faker, 
             array(
                 "status" => 1, 
@@ -79,7 +85,7 @@ final class OperatorImportTest extends WP_UnitTestCase
                 "bellfruit" => 0
             )
         );
-        $posts = \VegasHero\Helpers\Test::importGames(
+        $posts = TestHelper::importGames(
             json_encode($games), 
             $this->operator_importer, 
             $this->config, 
@@ -101,8 +107,8 @@ final class OperatorImportTest extends WP_UnitTestCase
      */
     public function testImportDontAddGamesWhenStatusZero() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 0, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(
+        $games = TestHelper::generateRandomGames($this->faker, array("status" => 0, $this->operator => 1));
+        $posts = TestHelper::importGames(
             json_encode($games), 
             $this->operator_importer, 
             $this->config, 
@@ -129,8 +135,8 @@ final class OperatorImportTest extends WP_UnitTestCase
      */
     public function testImportDontUpdatePostStatusOfExistingGamesWhenStatusZero() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(
+        $games = TestHelper::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
+        $posts = TestHelper::importGames(
             json_encode($games), 
             $this->operator_importer, 
             $this->config, 
@@ -143,7 +149,7 @@ final class OperatorImportTest extends WP_UnitTestCase
             $game->status = 0;
             return $game;
         }, $games);
-        $updated_posts = \VegasHero\Helpers\Test::importGames(
+        $updated_posts = TestHelper::importGames(
             json_encode($updated_games), 
             $this->operator_importer, 
             $this->config, 
@@ -167,8 +173,8 @@ final class OperatorImportTest extends WP_UnitTestCase
      */
     public function testImportUpdateMetaOfExistingGame() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(
+        $games = TestHelper::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
+        $posts = TestHelper::importGames(
             json_encode($games), 
             $this->operator_importer, 
             $this->config, 
@@ -182,7 +188,7 @@ final class OperatorImportTest extends WP_UnitTestCase
             $game->name =$this->faker->firstname;
             return $game;
         }, $games);
-        $updated_posts = \VegasHero\Helpers\Test::importGames(
+        $updated_posts = TestHelper::importGames(
             json_encode($updated_games), 
             $this->operator_importer, 
             $this->config, 
@@ -209,8 +215,8 @@ final class OperatorImportTest extends WP_UnitTestCase
      * then the new operator category is created and added to the game
      */
     public function testImportUpdateGameOperators() {
-        $games = \VegasHero\Helpers\Test::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(
+        $games = TestHelper::generateRandomGames($this->faker, array("status" => 1, $this->operator => 1));
+        $posts = TestHelper::importGames(
             json_encode($games), 
             $this->operator_importer, 
             $this->config, 
@@ -224,7 +230,7 @@ final class OperatorImportTest extends WP_UnitTestCase
             $game->$new_operator = 1;
             return $game;
         }, $games, array_fill(0, count($games), $new_operator));
-        $updated_posts = \VegasHero\Helpers\Test::importGames(
+        $updated_posts = TestHelper::importGames(
             json_encode($updated_games), 
             $this->operator_importer, 
             $this->config, 

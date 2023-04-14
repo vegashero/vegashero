@@ -1,18 +1,30 @@
 <?php
 
-class Vegashero_Ajax
+namespace VegasHero;
+
+use VegasHero\{ Config, Translations };
+
+class Ajax
 {
 
+    protected static $_instance = null;
     private $_config;
     private $_posts_per_page;
 
-    public function __construct() {
-        $this->_config = \VegasHero\Config::getInstance();
+    protected function __construct() {
+        $this->_config = Config::getInstance();
         add_action( 'wp_ajax_lobby_search_filter', array($this, 'filter_lobby'));
         add_action( 'wp_ajax_nopriv_lobby_search_filter', array($this, 'filter_lobby'));
         $posts_per_page = (int)get_option('vh_lobby_games_per_page');
         $this->_posts_per_page = $posts_per_page ? $posts_per_page : 20;
 
+    }
+
+    public static function getInstance(): Ajax {
+        if ( null === self::$_instance ) {
+            self::$_instance = new Ajax();
+        }
+        return self::$_instance;
     }
 
     public function filter_lobby() {
@@ -53,7 +65,7 @@ class Vegashero_Ajax
         $paged = @$_GET['paged'] ? $_GET['paged'] : 1;
         $page = @$_GET['page'] ? $_GET['page'] : 1;
         $post_args = array(
-            'lang' => \VegasHero\Translations\get_language(),
+            'lang' => Translations::getLanguage(),
             'posts_per_page'   => $this->_posts_per_page,
             'offset' => ($page-1)*$this->_posts_per_page,
             'orderby'          => $orderby,

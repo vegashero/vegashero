@@ -20,6 +20,11 @@
             "VegasHero\\": "lib/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "VegasHero\\Tests\\": "tests/"
+        }
+    },
     "require-dev": {
         "fakerphp/faker": "^1.19",
         "overtrue/phplint": "^3.0",

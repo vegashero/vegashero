@@ -2,10 +2,16 @@
 
 namespace VegasHero\Widgets;
 
-class LatestGames extends \WP_Widget {
+use VegasHero\Config;
 
-	public function __construct() {
-        $this->_config = \VegasHero\Config::getInstance();
+use WP_Widget;
+
+class LatestGames extends WP_Widget {
+
+    protected static $instance = null;
+
+	protected function __construct() {
+        $this->_config = Config::getInstance();
         $widget_id = "vh_lastest_games_widget";
         $widget_name = "VegasHero Games Widget";
         $widget_options = array( 
@@ -16,6 +22,19 @@ class LatestGames extends \WP_Widget {
             'orderby' => 'date',
         );
         parent::__construct($widget_id, $widget_name, $widget_options);
+    }
+
+    public static function addActions() {
+        add_action( 'widgets_init', function() { 
+            register_widget( self::getInstance() ); 
+        });
+    }
+
+    public static function getInstance(): LatestGames {
+        if ( null === self::$instance ) {
+            self::$instance = new LatestGames();
+        }
+        return self::$instance;
     }
 
     public function form($instance) {
@@ -174,6 +193,3 @@ class LatestGames extends \WP_Widget {
     }
 }
 
-add_action( 'widgets_init', function() { 
-    register_widget( 'VegasHero\Widgets\LatestGames' ); 
-});

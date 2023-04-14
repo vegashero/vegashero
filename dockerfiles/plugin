@@ -1,33 +1,28 @@
 FROM php:7.4-apache
 EXPOSE 80
 ARG USER_ID
-ARG USER_NAME
 ARG DB_NAME
 ARG VEGASHERO_ENV
 ARG DB_USER
 ARG DB_PASSWORD
 ARG DB_HOST
-RUN useradd -u $USER_ID $USER_NAME -m
-RUN usermod -a -G www-data $USER_NAME
+
+RUN usermod -u $USER_ID www-data; \
+    groupmod -g $USER_ID www-data
+
 RUN a2enmod rewrite
 #RUN apt -qq update && apt install -y vim git php-xml php-json php-mbstring
 RUN apt -qq update && apt install -y vim libonig-dev
 RUN docker-php-ext-install mysqli
-WORKDIR /tmp
-RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
-#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+RUN chown -R www-data:www-data /var/www; \
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp; \
+    curl -sfL $(curl -s https://api.github.com/repos/powerman/dockerize/releases/latest | grep -i /dockerize-$(uname -s)-$(uname -m)\" | cut -d\" -f4) | install /dev/stdin /usr/local/bin/dockerize
 
 WORKDIR /var/www/html
-RUN chmod 2775 /var/www/html
-
-# required for newgrp www-data to work
-RUN usermod -a -G www-data $USER_NAME
-RUN usermod -g www-data $USER_NAME
-
-USER $USER_NAME
-#RUN newgrp www-data
+USER www-data
 RUN wp core download 
-ADD .htaccess /var/www/html/.htaccess
+COPY --chown=www-data:www-data .htaccess /var/www/html/.htaccess
 RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check
 RUN mkdir /var/www/html/wp-content/themes/vegashero
 
@@ -35,9 +30,3 @@ VOLUME /var/www/html/wp-content/plugins/vegashero
 #VOLUME /var/www/html/wp-content/themes/vegashero
 
 USER root
-RUN chown $USER_NAME:www-data .htaccess wp-config.php
-RUN find . -type f -exec chmod 664 {} +
-RUN find . -type d -exec chmod 775 {} +
-RUN chmod 660 wp-config.php
-
-

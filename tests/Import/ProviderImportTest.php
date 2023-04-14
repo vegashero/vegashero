@@ -1,5 +1,13 @@
 <?php
 
+namespace VegasHero\Tests\Import;
+
+use VegasHero\Config;
+use VegasHero\Helpers\Test as TestHelper;
+use VegasHero\Import\Provider;
+
+use WP_UnitTestCase, Faker;
+
 /**
  * @covers Email
  */
@@ -13,9 +21,9 @@ final class ProviderImportTest extends WP_UnitTestCase
 
     public function set_up() {
         parent::set_up();
-        self::$config = \VegasHero\Config::getInstance();
-        self::$importer = new VegasHero\Import\Provider();
-        self::$faker = \Faker\Factory::create();
+        self::$config = Config::getInstance();
+        self::$importer = Provider::getInstance();
+        self::$faker = Faker\Factory::create();
         self::$provider_name = strtolower(self::$faker->firstname);
     }
 
@@ -31,13 +39,13 @@ final class ProviderImportTest extends WP_UnitTestCase
      */
     public function testReimportUpdatesGameType()
     {
-        $flash_game = \VegasHero\Helpers\Test::generateRandomGame(self::$faker, array("status" => 1, "type" => 0, 'provider' => self::$provider_name));
-        $flash_posts = \VegasHero\Helpers\Test::importGames(json_encode([$flash_game]), self::$importer, self::$config, [
+        $flash_game = TestHelper::generateRandomGame(self::$faker, array("status" => 1, "type" => 0, 'provider' => self::$provider_name));
+        $flash_posts = TestHelper::importGames(json_encode([$flash_game]), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $html5_game = clone $flash_game;
         $html5_game->type = 1;
-        $html5_posts = \VegasHero\Helpers\Test::importGames(json_encode([$html5_game]), self::$importer, self::$config, [
+        $html5_posts = TestHelper::importGames(json_encode([$html5_game]), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $this->assertSame($flash_posts[0]->meta->game_type[0], 'flash');
@@ -56,8 +64,8 @@ final class ProviderImportTest extends WP_UnitTestCase
      */
     public function testImportsAddNewGamesWhenStatusOne() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames(self::$faker, array("status" => 1, 'provider' => self::$provider_name));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), self::$importer, self::$config, [
+        $games = TestHelper::generateRandomGames(self::$faker, array("status" => 1, 'provider' => self::$provider_name));
+        $posts = TestHelper::importGames(json_encode($games), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $this->assertSame(count($games), count($posts));
@@ -75,8 +83,8 @@ final class ProviderImportTest extends WP_UnitTestCase
 
     public function testImportAsDraft()
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames(self::$faker, array("status" => 1, 'provider' => self::$provider_name));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), self::$importer, self::$config, [
+        $games = TestHelper::generateRandomGames(self::$faker, array("status" => 1, 'provider' => self::$provider_name));
+        $posts = TestHelper::importGames(json_encode($games), self::$importer, self::$config, [
             'post_status' => 'draft'
         ]);
         $this->assertSame(count($games), count($posts));
@@ -95,8 +103,8 @@ final class ProviderImportTest extends WP_UnitTestCase
      */
     public function testImportDontAddGamesWhenStatusZero() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames(self::$faker, array("status" => 0, 'provider' => self::$provider_name));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), self::$importer, self::$config, [
+        $games = TestHelper::generateRandomGames(self::$faker, array("status" => 0, 'provider' => self::$provider_name));
+        $posts = TestHelper::importGames(json_encode($games), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $this->assertSame(0, count($posts));
@@ -117,15 +125,15 @@ final class ProviderImportTest extends WP_UnitTestCase
      */
     public function testImportDontUpdatePostStatusOfExistingGamesWhenStatusZero() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames(self::$faker, array("status" => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), self::$importer, self::$config, [
+        $games = TestHelper::generateRandomGames(self::$faker, array("status" => 1));
+        $posts = TestHelper::importGames(json_encode($games), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $updated_games = array_map(function($game) {
             $game->status = 0;
             return $game;
         }, $games);
-        $updated_posts = \VegasHero\Helpers\Test::importGames(json_encode($updated_games), self::$importer, self::$config, [
+        $updated_posts = TestHelper::importGames(json_encode($updated_games), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $result = (array_search('draft', array_column($updated_posts, 'post_status')) !== FALSE);
@@ -146,8 +154,8 @@ final class ProviderImportTest extends WP_UnitTestCase
      */
     public function testImportUpdateMetaOfExistingGame() 
     {
-        $games = \VegasHero\Helpers\Test::generateRandomGames(self::$faker, array("status" => 1));
-        $posts = \VegasHero\Helpers\Test::importGames(json_encode($games), self::$importer, self::$config, [
+        $games = TestHelper::generateRandomGames(self::$faker, array("status" => 1));
+        $posts = TestHelper::importGames(json_encode($games), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $updated_games = array_map(function($game) {
@@ -156,7 +164,7 @@ final class ProviderImportTest extends WP_UnitTestCase
             $game->type = $game->type ? 0 : 1; // swop zero for one and vice versa
             return $game;
         }, $games);
-        $updated_posts = \VegasHero\Helpers\Test::importGames(json_encode($updated_games), self::$importer, self::$config, [
+        $updated_posts = TestHelper::importGames(json_encode($updated_games), self::$importer, self::$config, [
             'post_status' => 'publish'
         ]);
         $this->assertNotEquals($posts, $updated_posts);

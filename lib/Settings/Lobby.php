@@ -2,23 +2,31 @@
 
 namespace VegasHero\Settings;
 
-require_once( "Settings.php" );
-require_once sprintf("%s../Helpers/Notice/Admin.php", plugin_dir_path( __FILE__ ));
+use VegasHero\Config;
+use VegasHero\Helpers\Notice\Admin;
+use VegasHero\Settings\Settings;
 
-class Lobby extends \VegasHero\Settings
+class Lobby extends Settings
 {
 
     const MENU_SLUG = 'vh-lobby';
     const PAGE_SLUG = 'vh-lobby-page';
 
     private static $_config;
-    private static $_instance;
+    protected static $instance = null;
 
-    public function __construct() {
-        $this->_showUpdateNotification(self::MENU_SLUG);
-        static::$_config = \VegasHero\Config::getInstance();
+    protected function __construct() {
+        $this->_showUpdateNotification( self::MENU_SLUG );
+        static::$_config = Config::getInstance();
         add_action('admin_menu', array($this, 'addSettingsMenu'));
         add_action('admin_init', array($this, 'registerSettings'));
+    }
+
+    public static function getInstance(): Lobby {
+        if ( null === self::$instance ) {
+            self::$instance = new Lobby();
+        }
+        return self::$instance;
     }
 
     public function sectionHeading() {
@@ -571,9 +579,6 @@ class Lobby extends \VegasHero\Settings
             $option_group = self::MENU_SLUG, 
             $option_name = 'vh_gameagegatetext' 
         );
-
-
-
     }
 
     public function createLobbyPage() {
@@ -582,7 +587,7 @@ class Lobby extends \VegasHero\Settings
 
     public function addSettingsMenu() {
         add_submenu_page(
-            $parent_slug = \VegasHero\Settings\Menu::MENU_SLUG, 
+            $parent_slug = Menu::MENU_SLUG, 
             $page_title = wp_strip_all_tags(__('Lobby & Games', 'vegashero')), 
             $menu_title = wp_strip_all_tags(__('Lobby & Games', 'vegashero')), 
             $capability = 'manage_options', 

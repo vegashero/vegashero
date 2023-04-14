@@ -1,9 +1,9 @@
 <?php
 
-require_once( dirname( __FILE__ ) . '/../config.php' );
+use VegasHero\{ Config, Translations };
 
-$config = \VegasHero\Config::getInstance();
-$categories = get_terms(['taxonomy' => $config->gameCategoryTaxonomy, 'lang' => \VegasHero\Translations\get_language()]);
+$config = Config::getInstance();
+$categories = get_terms(['taxonomy' => $config->gameCategoryTaxonomy, 'lang' => Translations::getLanguage()]);
 $operators = get_terms(['taxonomy' => $config->gameOperatorTaxonomy, 'lang' => '']);
 $providers = get_terms(['taxonomy' => $config->gameProviderTaxonomy, 'lang' => '']);
 
