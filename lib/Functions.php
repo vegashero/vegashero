@@ -32,9 +32,9 @@ class Functions {
         } else {
             $game_thumb_bg = get_post_meta( $post_id, 'game_img', true );
         }
-        $gamedemobtntext = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
-        $gameagegatetext = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
-        echo sprintf($iframe_string, $iframe_src, $game_thumb_bg, $gamedemobtntext, $gameagegatetext, "");
+        $game_demo_btn_text = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
+        $game_age_gate_text = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
+        echo sprintf($iframe_string, $iframe_src, $game_thumb_bg, $game_demo_btn_text, $game_age_gate_text, "");
     }
 
     static function renderGameWidget() {

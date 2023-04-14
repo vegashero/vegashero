@@ -13,9 +13,8 @@ jQuery(document).ready(function($) {
     const ageGate = $(`<div class="age-gate-text">${ frame.data('ageGateText') }</div>`);
 
     frame.remove();
-    wrapper.append( overlay );
-    overlay.append(overlay, button );
-    container.append(wrapper);
+    overlay.append(button, ageGate );
+    container.append(wrapper, overlay);
 
     $('.play-demo-btn').on('click', function() {
         $('.embed-overlay').remove();

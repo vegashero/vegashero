@@ -3,7 +3,7 @@
         'name' => 'vegashero/vegashero',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
-        'reference' => 'c2a9f8c05ae3a0dcac0ad08481ef0fed87cff193',
+        'reference' => 'c9e3d2ba8e806588e91662f635593c9b59d7a42d',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'vegashero/vegashero' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'c2a9f8c05ae3a0dcac0ad08481ef0fed87cff193',
+            'reference' => 'c9e3d2ba8e806588e91662f635593c9b59d7a42d',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

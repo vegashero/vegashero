@@ -33,9 +33,9 @@ class SingleGame
         $iframe_src = $this->_getIframeSrc($game_id);
         $template = self::getTemplate();
         $game_thumb_bg = $this->_getGameImg($game_id);
-        $gamedemobtntext = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
-        $gameagegatetext = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
-        return sprintf($template, $iframe_src, $game_thumb_bg, $gamedemobtntext, $gameagegatetext, $class );
+        $game_demo_btn_text = ! get_option('vh_gameplaynowbtntext') ? wp_strip_all_tags(__('Play Demo', 'vegashero')) : get_option('vh_gameplaynowbtntext');
+        $game_age_gate_text = ! get_option('vh_gameagegatetext') ? wp_strip_all_tags(__('18+ Only. Play Responsibly.', 'vegashero')) : get_option('vh_gameagegatetext');
+        return sprintf($template, $iframe_src, $game_thumb_bg, $game_demo_btn_text, $game_age_gate_text, $class );
     }
 
     public static function getTemplate() {

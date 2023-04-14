@@ -10,10 +10,7 @@ class Stylesheets
     }
 
     public static function loadStyles( ) {
-        global $post;
-        if( is_single() && 'vegashero_games' === $post->post_type ) {
-            wp_enqueue_style('lobby-styles',  plugins_url('vegashero/templates/css/vh-lobby.css'));
-            wp_enqueue_style('page-styles',  plugins_url('vegashero/templates/css/vh-game.css'));
-        }
+        wp_enqueue_style('lobby-styles',  plugins_url('vegashero/templates/css/vh-lobby.css'));
+        wp_enqueue_style('page-styles',  plugins_url('vegashero/templates/css/vh-game.css'));
     }
 }
