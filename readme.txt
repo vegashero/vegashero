@@ -18,7 +18,7 @@ COMES WITH A MOBILE RESPONSIVE LOBBY
 We added a filterable casino lobby that displays your games in an intuitive nicely laid out grid. The layout is tablet and mobile device friendly.
 To make it even cooler we added nice rollover effects to make the user experience slick.
 
-2000+ DEMO CASINO SLOTS
+3000+ DEMO CASINO SLOTS
 The game selection is continuously being expanded and new slots releases are added regularly. We are now focusing on adding HTML5 slots and mobile friendly games.
 
 ONE-CLICK SETUP
@@ -88,5 +88,5 @@ Yes, we also sell a 100% compatible themes which you can buy in a bundle with th
 https://vegashero.co/changelog/#vegashero-plugin
 
 == Upgrade Notice ==
-Get a license key and add 2000+ games to your website!
+Get a license key and add 3000+ games to your website!
 The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: purchase a license key here: https://vegashero.co/downloads/vegas-hero-plugin/

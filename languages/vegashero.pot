@@ -228,7 +228,7 @@ msgid "Import HTML5 games"
 msgstr ""
 
 #: lib/Settings/Import.php:28
-msgid "Import Flash games"
+msgid "Update discontinued Flash games"
 msgstr ""
 
 #: lib/Settings/Import.php:37
@@ -444,7 +444,7 @@ msgstr ""
 #: lib/Settings/templates/operators.php:6
 #: lib/Settings/templates/permalinks.php:6
 #: lib/Settings/templates/providers.php:6
-msgid "Get a license key and add 2000+ games to your website!"
+msgid "Get a license key and add 3000+ games to your website!"
 msgstr ""
 
 #. translators: %1$s will be replaced by a URL where a plugin license can be purchased

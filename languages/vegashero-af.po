@@ -240,7 +240,7 @@ msgid "Import HTML5 games"
 msgstr "Voer HTML5 speletjies in"
 
 #: lib/Settings/Import.php:28
-msgid "Import Flash games"
+msgid "Update discontinued Flash games"
 msgstr "Voer Flash speletjies in"
 
 #: lib/Settings/Import.php:37

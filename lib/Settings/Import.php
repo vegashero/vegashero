@@ -33,7 +33,7 @@ abstract class Import {
 
     protected function _getGameTypeCheckboxes($slug, $html5_total, $flash_total) {
         $html5_text = wp_strip_all_tags(__('Import HTML5 games', 'vegashero'));
-        $flash_text = wp_strip_all_tags(__('Import Flash games', 'vegashero'));
+        $flash_text = wp_strip_all_tags(__('Update discontinued Flash games', 'vegashero'));
         $checkboxes = '<div class="vh_game_type_checkbox_wrapper">';
         $checkboxes .= wp_kses(sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_html5" name="vh-import-html5" checked><label for="%1$s_html5">%2$s (%3$d)</label></div>', $slug, $html5_text, $html5_total), ["div" =>["class" => true], "input" => ["type" => true, "id" => true, "name" => true, "checked" => true], "label" => ["for" => true]]);
         $checkboxes .= wp_kses(sprintf('<div class="vh_game_type_checkbox"><input type="checkbox" id="%1$s_flash" name="vh-import-flash"><label for="%1$s_flash">%2$s (%3$d)</label></div>', $slug, $flash_text, $flash_total), ["div" => ["class" => true], "input" => ["type" => true, "id" => true, "name" => true, "checked" => true], "label" => ["for" => true]]);

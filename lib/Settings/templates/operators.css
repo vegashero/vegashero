@@ -2,7 +2,6 @@
 .about-wrap 
 {
     position: relative;
-    /*margin: 25px 40px 0 20px;*/
     max-width: 100%;
     font-size: 15px;
 }
@@ -137,11 +136,10 @@ ul.operator-cards li {
 }
 
 ul.operator-cards li .provider-img {
-    float: right;
-    margin: 0 15px 15px 0;
+    float: left;
+    margin: 0 15px 15px 15px;
     width: 154px;
     border: 1px solid #dedede;
-    /*background: #dedede;*/
 }
 ul.operator-cards li h3 {
     margin: 25px 0 10px 20px;
@@ -154,7 +152,6 @@ ul.operator-cards li .desc {
 }
 ul.operator-cards li .desc h2 {
     padding-left: 20px;
-    padding-top: 40px;
     font-size: 16px;
     text-transform: capitalize;
     text-align: left;

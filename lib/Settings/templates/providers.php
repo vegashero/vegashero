@@ -3,7 +3,7 @@
         <div><!-- display this if valid license key entered --></div>
         <?php else: ?>
         <div class="updated" style="display:block!important;">
-            <h3 style="margin-top:0.5em;"><?php echo wp_strip_all_tags(__('Get a license key and add 2000+ games to your website!', 'vegashero')) ?></h3>
+            <h3 style="margin-top:0.5em;"><?php echo wp_strip_all_tags(__('Get a license key and add 3000+ games to your website!', 'vegashero')) ?></h3>
             <p class="description"><?php /* translators: %1$s will be replaced by a URL where a plugin license can be purchased */ echo wp_kses(sprintf(__('The free version of the plugin will let you import 2 games per software provider. To get full access to the game database: <strong><a target="_blank" href="%1$s">purchase a license key here.</a></strong>', 'vegashero'), esc_url('https://vegashero.co/downloads/vegas-hero-plugin/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=license%20settings%20page')), ["a" => ["target" => true, "href" => true], "strong" => []]) ?></p>
         </div>
         <?php endif ?>
@@ -24,12 +24,12 @@
         <?php foreach($this->_providers as $provider): ?>
               <li class="<?=esc_attr(sprintf("prov-%s", $provider['provider']))?>">
                   <div class="desc">
+                    <h2><?=$provider['provider']?></h2>
                       <div class="provider-img"><img src="<?=esc_attr(sprintf("%s/providers/%s.png", $this->_config->gameImageUrl, $provider['provider']))?>" /></div>
                       <form method="post" action="options.php">
                           <?= settings_fields($this->_getOptionGroup($provider['provider'])); 
                           $page = $this->_getPageName($provider['provider']);
                           do_settings_sections($page); ?>
-                          <h2><?=$provider['provider']?></h2>
                           <div class="btn-area">
                               <?= $this->_getPostStatusDropdown(); ?>
                               <?= $this->_getAjaxUpdateBtn(sanitize_title($provider['provider'])); ?>
