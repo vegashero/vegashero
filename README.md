@@ -1,4 +1,5 @@
 # Vegas Hero 
+
 This plugin will be installed by users and depends on the remote Vegas God plugin to populate with data
 
 ## NB: fail2ban
@@ -74,16 +75,16 @@ Initial setup
 ```sh
 docker-compose build --build-arg USER_ID=$(id -u) tests
 docker-compose up tests
-docker exec -ti -u www-data vegashero_tests_1 wp core install --url=localhost:4360 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
-docker exec -ti -u www-data vegashero_tests_1 wp rewrite structure '/%postname%/'
-#docker exec -ti -u www-data vegashero_tests_1 wp scaffold plugin-tests vegashero
-docker exec -ti -u www-data vegashero_tests_1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' db latest
+docker exec -ti -u www-data vegashero-tests-1 wp core install --url=localhost:4360 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
+docker exec -ti -u www-data vegashero-tests-1 wp rewrite structure '/%postname%/'
+#docker exec -ti -u www-data vegashero-tests-1 wp scaffold plugin-tests vegashero
+docker exec -ti -u www-data vegashero-tests-1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' db latest
 ```
 
 Run the tests
 
 ```sh
-docker exec -ti -u www-data vegashero_tests_1 bash
+docker exec -ti -u www-data vegashero-tests-1 bash
 stty rows 41 columns 141
 cd wp-content/plugins/vegashero
 ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero # NB!

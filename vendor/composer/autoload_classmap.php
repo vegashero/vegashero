@@ -9,6 +9,7 @@ return array(
     'Composer\\InstalledVersions' => $vendorDir . '/composer/InstalledVersions.php',
     'VegasHero\\Admin\\AllGames' => $baseDir . '/lib/Admin/AllGames.php',
     'VegasHero\\Ajax' => $baseDir . '/lib/Ajax.php',
+    'VegasHero\\Archive' => $baseDir . '/lib/Archive.php',
     'VegasHero\\Config' => $baseDir . '/lib/Config.php',
     'VegasHero\\CustomPostType' => $baseDir . '/lib/CustomPostType.php',
     'VegasHero\\Functions' => $baseDir . '/lib/Functions.php',

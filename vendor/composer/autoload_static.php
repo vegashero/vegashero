@@ -24,6 +24,7 @@ class ComposerStaticInitebd0ed683d8e9168e41b08968a1da50a
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'VegasHero\\Admin\\AllGames' => __DIR__ . '/../..' . '/lib/Admin/AllGames.php',
         'VegasHero\\Ajax' => __DIR__ . '/../..' . '/lib/Ajax.php',
+        'VegasHero\\Archive' => __DIR__ . '/../..' . '/lib/Archive.php',
         'VegasHero\\Config' => __DIR__ . '/../..' . '/lib/Config.php',
         'VegasHero\\CustomPostType' => __DIR__ . '/../..' . '/lib/CustomPostType.php',
         'VegasHero\\Functions' => __DIR__ . '/../..' . '/lib/Functions.php',
