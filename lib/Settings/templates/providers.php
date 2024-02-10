@@ -55,7 +55,7 @@
 							$page = $this->_getPageName( $provider['provider'] );
 							do_settings_sections( $page );
 							?>
-							<h2><?php echo $provider['provider']; ?></h2>
+							<h2 class="vh-provider-name"><?php echo $provider['provider']; ?></h2>
 							<div class="btn-area">
 								<?php echo $this->_getPostStatusDropdown(); ?>
 								<?php echo $this->_getAjaxUpdateBtn( sanitize_title( $provider['provider'] ) ); ?>
