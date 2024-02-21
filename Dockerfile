@@ -20,7 +20,6 @@ WORKDIR /tmp
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
 # install composer
-# RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 
 # install dockerize
@@ -35,10 +34,7 @@ USER www-data
 RUN wp core download 
 ADD .htaccess /var/www/html/.htaccess
 RUN wp config create --dbname=$DB_NAME --dbuser=$DB_USER --dbpass=$DB_PASSWORD --dbhost=$DB_HOST --force --skip-check
-
-#RUN mkdir /var/www/html/wp-content/themes/vegashero
-
-#VOLUME /var/www/html/wp-content/plugins/vegashero
+RUN ln -s /usr/local/src /var/www/html/wp-content/plugins/vegashero
 
 USER root
 

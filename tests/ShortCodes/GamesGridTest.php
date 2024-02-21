@@ -121,5 +121,4 @@ HEREDOC;
 	private static function _trim( string $str ): string {
 		return preg_replace( '/^\s+|\s+$/m', '', $str );
 	}
-
 }

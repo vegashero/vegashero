@@ -39,8 +39,13 @@ class SingleGame {
 	}
 
 	public static function getTemplate() {
+
+		wp_register_script( 'vegashero_fullscreen_utils', plugins_url( 'vegashero/templates/js/fullscreen-utils.js' ), [ 'jquery' ], null, true );
+		wp_register_script( 'vegashero_fullscreen', plugins_url( 'vegashero/templates/js/fullscreen.js' ), [ 'jquery', 'vegashero_fullscreen_utils' ], null, true );
+		wp_register_script( 'vegashero_single_game_iframe', plugins_url( 'vegashero/templates/js/iframe.js' ), [ 'jquery', 'vegashero_fullscreen' ], null, true );
+		wp_enqueue_script( 'vegashero_fullscreen' );
 		if ( get_option( 'vh_gameplaynowbtn' ) === 'on' ) {
-			wp_enqueue_script( 'vegashero_single_game_iframe', plugins_url( 'vegashero/templates/js/iframe.js' ), array( 'jquery' ), null, true );
+			wp_enqueue_script( 'vegashero_single_game_iframe' );
 		}
 		$plugin_dir  = plugin_dir_path( __FILE__ );
 		$iframe_file = sprintf( '%s../../templates/iframe.php', $plugin_dir );

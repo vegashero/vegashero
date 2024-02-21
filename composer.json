@@ -1,6 +1,21 @@
 {
     "name": "vegashero/vegashero",
     "description": "Wordpress casino affiliate plugin",
+	"version": "1.9.0",
+	"type": "wordpress-plugin",
+    "extra": {
+        "installer-name": "vegashero"
+    },
+    "autoload": {
+        "psr-4": { 
+            "VegasHero\\": "lib/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "VegasHero\\Tests\\": "tests/"
+        }
+    },
     "scripts": {
       "test": "phpunit --verbose --configuration phpunit.xml.dist --prepend vendor/autoload.php --testdox --colors=always",
       "lint": "phplint ./ --exclude=vendor",
@@ -15,16 +30,9 @@
             "email": "support@vegashero.co"
         }
     ],
-    "autoload": {
-        "psr-4": { 
-            "VegasHero\\": "lib/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "VegasHero\\Tests\\": "tests/"
-        }
-    },
+	"require": {
+		"composer/installers": "~2.0"
+	},
     "require-dev": {
         "fakerphp/faker": "^1.19",
         "overtrue/phplint": "^3.0",
@@ -39,7 +47,8 @@
     "minimum-stability": "dev",
     "config": {
         "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": true
         }
     }
 }

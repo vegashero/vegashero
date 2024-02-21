@@ -9,7 +9,7 @@
  * Display games in a responsive lobby grid. Easily add and manage your affiliate links through an elegant editable table.
  * Customize game titles and content to maximize your SEO.
  * Check out our premium <a target="_blank" href="https://vegashero.co/downloads/vegashero-theme/?utm_source=VegasHeroPlugin&utm_medium=admin&utm_campaign=plugin%20description%20link">Casino WordPress Theme</a> that is purpose built to showcase the games and your affiliate links.
- * Version: 1.8.2
+ * Version: 1.9.0
  * Author URI: https://vegashero.co
  * License: GPL2
  */
@@ -49,14 +49,18 @@ if ( is_admin() ) {
 		$config->eddStoreUrl,
 		__FILE__,
 		array(
-			'version'   => '1.8.2',       // current version number
-			'license'   => License::getLicense(),    // license key (used get_option above to retrieve from DB)
-			'item_name' => $config->eddDownloadName,    // name of this plugin
-			'author'    => 'VegasHero', // author of this plugin
-			'url'       => site_url(),
+			'version'                               => '1.8.2',
+			// current version number
+										'license'   => License::getLicense(),
+			// license key (used get_option above to retrieve from DB)
+										'item_name' => $config->eddDownloadName,
+			// name of this plugin
+										'author'    => 'VegasHero',
+			// author of this plugin
+										'url'       => site_url(),
 		)
 	);
-}
+}//end if
 
 $import_provider = Provider::getInstance();
 $import_operator = Operator::getInstance();
@@ -65,7 +69,7 @@ $import_operator = Operator::getInstance();
  * Autoloader for calling VegasHero\Functions from theme templates
  */
 spl_autoload_register(
-	function( $class_name ) {
+	function ( $class_name ) {
 		if ( strpos( $class_name, 'VegasHero\Functions' ) !== false ) {
 			$functions_file = sprintf( '%slib/Functions.php', plugin_dir_path( __FILE__ ) );
 			if ( ! file_exists( $functions_file ) ) {

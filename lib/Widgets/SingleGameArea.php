@@ -26,5 +26,4 @@ class SingleGameArea {
 		);
 		register_sidebar( $args );
 	}
-
 }

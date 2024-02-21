@@ -23,12 +23,4 @@ abstract class Settings {
 			\VegasHero\Helpers\Notice\Admin::success( "<strong>$text</strong>" );
 		}
 	}
-
-
 }
-
-
-
-
-
-

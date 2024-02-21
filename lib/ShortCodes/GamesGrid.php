@@ -320,5 +320,4 @@ MARKUP;
             <div class="clear"></div>
 MARKUP;
 	}
-
 }

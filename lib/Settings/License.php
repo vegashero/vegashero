@@ -87,7 +87,7 @@ class License extends Settings {
 
 
 	public function activateLicense( $license ) {
-		if ( $license !== get_option( 'vh_license' ) ) {
+		if ( ! empty( $license ) && $license !== get_option( 'vh_license' ) ) {
 
 			// data to send in our API request
 			$api_params = array(
@@ -105,6 +105,10 @@ class License extends Settings {
 					'timeout'   => 15,
 					'sslverify' => false,
 					'body'      => $api_params,
+					'headers'   => [
+						'EDD-LICENSE' => trim( $license ),
+				// Cloudflare to allow POST requests to vegashero.co/ with this header
+					],
 				)
 			);
 
@@ -163,5 +167,4 @@ class License extends Settings {
 	public function validateLicenseKey( $license_key ) {
 		return $license_key;
 	}
-
 }

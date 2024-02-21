@@ -99,11 +99,11 @@ final class ProviderImportTest extends WP_UnitTestCase {
 			$this->assertSame( $post->post_status, 'publish' );
 			$terms = get_the_terms( $post, self::$config->gameProviderTaxonomy );
 			$this->assertContains( self::$provider_name, array_column( $terms, 'slug' ) );
-			$this->assertObjectHasAttribute( self::$config->postMetaGameId, $post->meta );
-			$this->assertObjectHasAttribute( self::$config->postMetaGameType, $post->meta );
-			$this->assertObjectHasAttribute( self::$config->postMetaGameSrc, $post->meta );
-			$this->assertObjectHasAttribute( self::$config->postMetaGameTitle, $post->meta );
-			$this->assertObjectHasAttribute( self::$config->postMetaGameImg, $post->meta );
+			$this->assertObjectHasProperty( self::$config->postMetaGameId, $post->meta );
+			$this->assertObjectHasProperty( self::$config->postMetaGameType, $post->meta );
+			$this->assertObjectHasProperty( self::$config->postMetaGameSrc, $post->meta );
+			$this->assertObjectHasProperty( self::$config->postMetaGameTitle, $post->meta );
+			$this->assertObjectHasProperty( self::$config->postMetaGameImg, $post->meta );
 		}
 	}
 
@@ -180,7 +180,7 @@ final class ProviderImportTest extends WP_UnitTestCase {
 			]
 		);
 		$updated_games = array_map(
-			function( $game ) {
+			function ( $game ) {
 				$game->status = 0;
 				return $game;
 			},
@@ -222,7 +222,7 @@ final class ProviderImportTest extends WP_UnitTestCase {
 			]
 		);
 		$updated_games = array_map(
-			function( $game ) {
+			function ( $game ) {
 				$game->src  = self::$faker->url;
 				$game->name = self::$faker->firstname;
 				$game->type = $game->type ? 0 : 1;
@@ -250,5 +250,4 @@ final class ProviderImportTest extends WP_UnitTestCase {
 			$this->assertNotSame( $posts[ $i ]->meta->game_type, $updated_posts[ $i ]->meta->game_type );
 		}
 	}
-
 }

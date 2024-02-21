@@ -619,5 +619,4 @@ class PluginUpdater {
 	private function verify_ssl() {
 		return (bool) apply_filters( 'edd_sl_api_request_verify_ssl', true, $this );
 	}
-
 }

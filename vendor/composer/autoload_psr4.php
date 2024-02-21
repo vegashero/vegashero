@@ -7,4 +7,5 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'VegasHero\\' => array($baseDir . '/lib'),
+    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );

@@ -15,11 +15,15 @@ Localhost license key
 adc88446b4e3476a04091835fec15e08
 ```
 
-## Deps
+## Release a new version
+
+Update version in `composer.json` and `vegashero.php` files.
 
 ```sh
-composer install
-composer dump-autoload
+docker compose up -d 
+docker exec -ti -u www-data:www-data -w /usr/local/src vegashero-web-1 bash
+composer update --no-dev 
+composer dumpautoload --optimize
 ```
 
 ## Quickstart
@@ -28,24 +32,24 @@ composer dump-autoload
 # run the container
 VEGASHERO_ENV=development USER_ID=$(id -u) docker-compose up -d wordpress
 # install wordpress
-docker exec -u www-data vegashero_wordpress_1 wp core install --url="localhost:4360" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
+docker exec -u www-data vegashero-web-1 wp core install --url="localhost:4360" --title="Vegas Hero" --admin_user=vegashero --admin_email=support@vegashero.co
 # update password
-docker exec -u www-data vegashero_wordpress_1 wp user update vegashero --user_pass="secret"
+docker exec -u www-data vegashero-web-1 wp user update vegashero --user_pass="secret"
 # update wordpress
-docker exec -u www-data vegashero_wordpress_1 wp core update
+docker exec -u www-data vegashero-web-1 wp core update
 # install plugins
-docker exec -u www-data vegashero_wordpress_1 wp plugin install wordpress-importer polylang loco-translate --activate
+docker exec -u www-data vegashero-web-1 wp plugin install wordpress-importer polylang loco-translate --activate
 # install languages
-docker exec -u www-data vegashero_wordpress_1 wp language core install af
+docker exec -u www-data vegashero-web-1 wp language core install af
 # activate vegashero plugin
-docker exec -u www-data vegashero_wordpress_1 wp plugin activate vegashero
+docker exec -u www-data vegashero-web-1 wp plugin activate vegashero
 # set permalinks
-docker exec -u www-data vegashero_wordpress_1 wp rewrite structure --hard '/%postname%/'
+docker exec -u www-data vegashero-web-1 wp rewrite structure --hard '/%postname%/'
 # enable debugging
-docker exec -u www-data vegashero_wordpress_1 wp config set --raw WP_DEBUG true
-docker exec -u www-data vegashero_wordpress_1 wp config set --raw WP_DEBUG_LOG true
+docker exec -u www-data vegashero-web-1 wp config set --raw WP_DEBUG true
+docker exec -u www-data vegashero-web-1 wp config set --raw WP_DEBUG_LOG true
 # view debug log
-docker exec -u www-data vegashero_wordpress_1 tail -f /var/www/html/wp-content/debug.log
+docker exec -u www-data vegashero-web-1 tail -f /var/www/html/wp-content/debug.log
 ```
 
 Now navigate to [http://localhost:4360](http://localhost:4360)
@@ -73,21 +77,20 @@ See crypto theme for example
 Initial setup
 
 ```sh
-docker-compose build --build-arg USER_ID=$(id -u) tests
-docker-compose up tests
-docker exec -ti -u www-data vegashero-tests-1 wp core install --url=localhost:4360 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
-docker exec -ti -u www-data vegashero-tests-1 wp rewrite structure '/%postname%/'
-#docker exec -ti -u www-data vegashero-tests-1 wp scaffold plugin-tests vegashero
-docker exec -ti -u www-data vegashero-tests-1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' db latest
+docker-compose build --build-arg USER_ID=$(id -u) web
+docker-compose up -d
+docker exec -ti -u www-data vegashero-web-1 wp core install --url=localhost:4360 --title=VegasHero --admin_user=vegashero --admin_password=secret --admin_email=support@vegashero.co
+docker exec -ti -u www-data vegashero-web-1 wp rewrite structure '/%postname%/'
+#docker exec -ti -u www-data vegashero-web-1 wp scaffold plugin-tests vegashero
+docker exec -ti -u www-data vegashero-web-1 wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress_test root '' db latest
 ```
 
 Run the tests
 
 ```sh
-docker exec -ti -u www-data vegashero-tests-1 bash
-stty rows 41 columns 141
+docker exec -ti -u www-data vegashero-web-1 bash
 cd wp-content/plugins/vegashero
-ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero # NB!
+#ln -s /var/www/html/wp-content/plugins/vegashero /tmp/wordpress/wp-content/plugins/vegashero # NB!
 composer test
 ```
 

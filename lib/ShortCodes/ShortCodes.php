@@ -163,21 +163,36 @@ class ShortCodes {
 		extract(
 			shortcode_atts(
 				array(
-					'vh_img'        => '', 		// thumb img URL path
-										'vh_bonus'      => '', 		// bonus amount
-										'vh_pc'         => '', 		// pc compatible
-										'vh_tablet'     => '', 		// tablet compatible
-										'vh_mobile'     => '', 		// mobile compatible
-										'vh_link'       => '', 		// Affiliate link URL
-										'vh_btnlabel'   => '', 		// CTA button title
-										'vh_target'     => '', 		// open link in new window or not
-										'vh_rel'        => '', 		// make aff link nofollow or noindex
-										'vh_tnctext'    => '', 		// text for tnc link
-										'vh_tnclink'    => '', 		// tnc external link url
-										'vh_tncinfo'    => '', 		// tnc more info for toggle
-										'vh_reviewtext' => '', 		// text for full review link
-										'vh_reviewlink' => '', 		// full review link url
-										'vh_rating'     => '', 		// rating stars shortcode
+					'vh_img' => '',
+					// thumb img URL path
+														'vh_bonus' => '',
+					// bonus amount
+														'vh_pc' => '',
+					// pc compatible
+														'vh_tablet' => '',
+					// tablet compatible
+														'vh_mobile' => '',
+					// mobile compatible
+														'vh_link' => '',
+					// Affiliate link URL
+														'vh_btnlabel' => '',
+					// CTA button title
+														'vh_target' => '',
+					// open link in new window or not
+														'vh_rel' => '',
+					// make aff link nofollow or noindex
+														'vh_tnctext' => '',
+					// text for tnc link
+														'vh_tnclink' => '',
+					// tnc external link url
+														'vh_tncinfo' => '',
+					// tnc more info for toggle
+														'vh_reviewtext' => '',
+					// text for full review link
+														'vh_reviewlink' => '',
+					// full review link url
+														'vh_rating' => '',
+				// rating stars shortcode
 				),
 				$atts
 			)
@@ -269,6 +284,4 @@ class ShortCodes {
 
 		return $vhoutput;
 	}
-
 }
-

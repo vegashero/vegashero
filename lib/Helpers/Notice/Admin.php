@@ -46,12 +46,6 @@ final class Admin {
 	}
 
 	public static function show() {
-		echo sprintf( file_get_contents( __DIR__ . '/Template.php' ), sprintf( 'notice-%s', self::$_type ), self::$_msg );
+		printf( file_get_contents( __DIR__ . '/Template.php' ), sprintf( 'notice-%s', self::$_type ), self::$_msg );
 	}
-
 }
-
-
-
-
-

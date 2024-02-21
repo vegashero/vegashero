@@ -76,7 +76,4 @@ final class LatestGamesTest extends WP_UnitTestCase {
 		preg_match_all( $pattern, $output, $matches );
 		$this->assertEquals( count( $matches[0] ), $game_count );
 	}
-
-
-
 }

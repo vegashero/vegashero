@@ -31,6 +31,3 @@ class Translations {
 		// returns all languages by default
 	}
 }
-
-
-

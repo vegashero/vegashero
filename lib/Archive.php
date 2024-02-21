@@ -39,5 +39,4 @@ class Archive {
 			$query->set( 'post_type', 'any' );
 		}
 	}
-
 }

@@ -59,7 +59,7 @@
 					<li class="<?php echo esc_attr( sprintf( 'op-%s', $operator['operator'] ) ); ?>">
 						<div class="desc">
 							<div class="provider-img"><img src="<?php echo esc_attr( sprintf( '%s/operators/%s.png', $this->_config->gameImageUrl, $operator['operator'] ) ); ?>" /></div>
-							<h2><?php echo $operator['operator']; ?></h2>
+							<h2 class="vh-operator-name"><?php echo $operator['operator']; ?></h2>
 							<div class="btn-area">
 								<?php echo $this->_getPostStatusDropdown(); ?>
 								<?php echo $this->_getAjaxUpdateBtn( sanitize_title( $operator['operator'] ) ); ?>

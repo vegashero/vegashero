@@ -27,7 +27,7 @@ class LatestGames extends WP_Widget {
 	public static function addActions() {
 		add_action(
 			'widgets_init',
-			function() {
+			function () {
 				register_widget( self::getInstance() );
 			}
 		);
@@ -193,4 +193,3 @@ class LatestGames extends WP_Widget {
 		}
 	}
 }
-

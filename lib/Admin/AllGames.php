@@ -85,7 +85,3 @@ class AllGames {
 		return $query;
 	}
 }
-
-
-
-

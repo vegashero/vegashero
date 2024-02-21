@@ -208,5 +208,4 @@ class Ajax {
 			'type'      => 'array',
 		);
 	}
-
 }

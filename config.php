@@ -65,6 +65,4 @@ class Config {
 		}//end foreach
 		return $config;
 	}
-
 }
-

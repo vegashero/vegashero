@@ -2,55 +2,22 @@ version: "3.7"
 
 services:
 
-    wordpress:
+    web:
       build: 
-        context: ./dockerfiles
-        dockerfile: plugin
+        context: .
         args: 
           - USER_ID=1000
           - DB_NAME=wordpress
           - DB_USER=wordpress
           - DB_PASSWORD=secret
           - DB_HOST=db
-      ports:
-          - "4360:80"
-      environment:
-          - VEGASHERO_ENV
-          - DB_NAME=wordpress
-          - DB_USER=wordpress
-          - DB_PASSWORD=secret
-          - DB_HOST=db
       #cpuset: "0"
       #cpu_quota: 10000
       #mem_limit: 128m
       depends_on:
         - db
       volumes:
-        - .:/var/www/html/wp-content/plugins/vegashero
-        - ../vegas-casino-theme-product:/var/www/html/wp-content/themes/vegashero-casino-theme
-        - ../vegas-sportsbetting-theme:/var/www/html/wp-content/themes/vegashero-sportsbetting-theme
-      networks:
-        default:
-          aliases:
-            - vegashero.example.com
-
-    tests:
-      build: 
-        context: ./dockerfiles
-        dockerfile: test
-        args: 
-          - USER_ID
-          - DB_NAME=wordpress
-          - DB_USER=wordpress
-          - DB_PASSWORD=secret
-          - DB_HOST=db
-      #cpuset: "0"
-      #cpu_quota: 10000
-      #mem_limit: 128m
-      depends_on:
-        - db
-      volumes:
-        - .:/var/www/html/wp-content/plugins/vegashero
+        - .:/usr/local/src
       ports:
         - "4360:80"
       environment:

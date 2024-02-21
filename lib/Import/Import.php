@@ -223,7 +223,7 @@ abstract class Import {
 	 * @return null
 	 */
 	protected function _updateStatus( $existing, $new ) {
-		echo sprintf( '%s has been deprecated!!!', __METHOD__ );
+		printf( '%s has been deprecated!!!', __METHOD__ );
 		$new->status = $new->status ? 'publish' : 'draft';
 		if ( $existing->post_status != 'draft' ) {
 			if ( $existing->post_status != $new->status ) {
@@ -247,5 +247,4 @@ abstract class Import {
 			}
 		}
 	}
-
 }

@@ -92,6 +92,4 @@ class Custom {
 		}//end if
 		return $content;
 	}
-
 }
-

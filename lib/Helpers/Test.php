@@ -89,7 +89,7 @@ final class Test {
 		$importer->importGames( $mock_request );
 		$posts = get_posts( $args );
 		return array_map(
-			function( $post ) {
+			function ( $post ) {
 				$post->meta = (object) get_post_meta( $post->ID );
 				return $post;
 			},
@@ -102,8 +102,8 @@ final class Test {
 	 *
 	 * @return boolean
 	 */
-	public static function resetDatabase() {
-		$command = 'wp db reset --yes';
+	public static function resetDatabase( string $path = '/var/www/html' ) {
+		$command = "wp db reset --yes --path=$path";
 		exec( $command, $output, $exit_code );
 		return $exit_code ? false : true;
 	}
@@ -113,8 +113,8 @@ final class Test {
 	 * @param string $plugin_name
 	 * @return boolean
 	 */
-	public static function enablePlugin( string $plugin_name ) {
-		$command = sprintf( 'wp plugin activate %s', $plugin_name );
+	public static function enablePlugin( string $plugin_name, string $path = '/var/www/html' ) {
+		$command = sprintf( 'wp plugin activate %s --path=%s', $plugin_name, $path );
 		exec( $command, $output, $exit_code );
 		return $exit_code ? false : true;
 	}
@@ -126,7 +126,7 @@ final class Test {
 	 * @return boolean
 	 */
 	public static function isPluginInstalled( string $plugin_name, string $path = '/var/www/html' ) {
-		$command = sprintf( "wp plugin is-installed %s --path=$path", $plugin_name );
+		$command = sprintf( "wp plugin is-installed %s --path=%s", $plugin_name, $path );
 		exec( $command, $output, $exit_code );
 		return $exit_code ? false : true;
 	}
@@ -144,8 +144,8 @@ final class Test {
 	 * @param string $plugin_name
 	 * @return boolean
 	 */
-	public static function removePlugin( string $plugin_name ) {
-		$command = sprintf( 'wp plugin uninstall %s --deactivate', $plugin_name );
+	public static function removePlugin( string $plugin_name, string $path = '/var/www/html' ) {
+		$command = sprintf( 'wp plugin uninstall %s --deactivate --path=%s', $plugin_name, $path );
 		exec( $command, $output, $exit_code );
 		return $exit_code ? false : true;
 	}
@@ -154,8 +154,8 @@ final class Test {
 	 * @param string $plugin_name
 	 * @return boolean
 	 */
-	public static function addPlugin( string $plugin_name ) {
-		$command = sprintf( 'wp plugin install %s --activate', $plugin_name );
+	public static function addPlugin( string $plugin_name, string $path = '/var/www/html' ) {
+		$command = sprintf( 'wp plugin install %s --activate --path=%s', $plugin_name, $path );
 		exec( $command, $output, $exit_code );
 		return $exit_code ? false : true;
 	}
@@ -163,9 +163,9 @@ final class Test {
 	/**
 	 * wp import example.WordPress.2016-06-21.xml --authors=create
 	 */
-	public static function importFixture( string $absolute_filepath ) {
+	public static function importFixture( string $absolute_filepath, string $path = '/var/www/html' ) {
 		self::addPlugin( 'wordpress-importer' );
-		$command = sprintf( 'wp import %s --authors=create', $absolute_filepath );
+		$command = sprintf( 'wp import %s --authors=create --path=%s', $absolute_filepath, $path );
 		exec( $command, $output, $exit_code );
 		self::removePlugin( 'wordpress-importer' );
 		return $exit_code ? false : true;
@@ -187,8 +187,8 @@ final class Test {
 	 * @param string $admin_email
 	 * @return boolean
 	 */
-	public static function installWordpress( string $url, string $title, string $admin_user, string $admin_password, string $admin_email ) {
-		$command = sprintf( 'wp core install --url=%s --title=%s --admin_user=%s --admin_password=%s --admin_email=%s --skip-email', $url, $title, $admin_user, $admin_password, $admin_email );
+	public static function installWordpress( string $url, string $title, string $admin_user, string $admin_password, string $admin_email, string $path = '/var/www/html' ) {
+		$command = sprintf( 'wp core install --url=%s --title=%s --admin_user=%s --admin_password=%s --admin_email=%s --skip-email --path=%s', $url, $title, $admin_user, $admin_password, $admin_email, $path );
 		$output  = exec( $command, $output, $exit_code );
 		return $exit_code ? false : true;
 	}
@@ -204,7 +204,4 @@ final class Test {
 		$date->add( \DateInterval::createFromDateString( 'today' ) );
 		return $date->format( 'Y-m-d\TH:i:s.uP' );
 	}
-
-
 }
-

@@ -58,10 +58,10 @@ final class OperatorImportTest extends WP_UnitTestCase {
 			$this->assertSame( $post->post_status, 'publish' );
 			$terms = get_the_terms( $post, $this->config->gameOperatorTaxonomy );
 			$this->assertContains( $this->operator, array_column( $terms, 'slug' ) );
-			$this->assertObjectHasAttribute( $this->config->postMetaGameId, $post->meta );
-			$this->assertObjectHasAttribute( $this->config->postMetaGameSrc, $post->meta );
-			$this->assertObjectHasAttribute( $this->config->postMetaGameTitle, $post->meta );
-			$this->assertObjectHasAttribute( $this->config->postMetaGameImg, $post->meta );
+			$this->assertObjectHasProperty( $this->config->postMetaGameId, $post->meta );
+			$this->assertObjectHasProperty( $this->config->postMetaGameSrc, $post->meta );
+			$this->assertObjectHasProperty( $this->config->postMetaGameTitle, $post->meta );
+			$this->assertObjectHasProperty( $this->config->postMetaGameImg, $post->meta );
 		}
 	}
 
@@ -154,7 +154,7 @@ final class OperatorImportTest extends WP_UnitTestCase {
 			]
 		);
 		$updated_games = array_map(
-			function( $game ) {
+			function ( $game ) {
 				$game->status = 0;
 				return $game;
 			},
@@ -201,7 +201,7 @@ final class OperatorImportTest extends WP_UnitTestCase {
 			]
 		);
 		$updated_games = array_map(
-			function( $game ) {
+			function ( $game ) {
 				$game->src  = $this->faker->url;
 				$game->name = $this->faker->firstname;
 				return $game;
@@ -253,7 +253,7 @@ final class OperatorImportTest extends WP_UnitTestCase {
 		);
 		$new_operator  = strtolower( $this->faker->firstname );
 		$updated_games = array_map(
-			function( $game, $new_operator ) {
+			function ( $game, $new_operator ) {
 				$game->$new_operator = 1;
 				return $game;
 			},
@@ -275,5 +275,4 @@ final class OperatorImportTest extends WP_UnitTestCase {
 			$this->assertContains( $new_operator, array_column( $terms, 'slug' ) );
 		}
 	}
-
 }

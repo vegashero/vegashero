@@ -5,7 +5,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 }
 
 spl_autoload_register(
-	function( $classname ) {
+	function ( $classname ) {
 		$segments = explode( '_', $classname );
 		if ( $segments[0] == 'Vegashero' ) {
 			$filename = plugin_dir_path( __FILE__ ) . strtolower( $segments[1] ) . '.php';
@@ -27,4 +27,3 @@ $wpdb->query( "DELETE FROM wp_posts WHERE post_type = '$config->customPostType'"
 $wpdb->query( "DELETE FROM wp_terms WHERE term_group = '$config->gameCategoryTermGroupId' OR term_group = '$config->gameOperatorTermGroupId' OR term_group = '$config->gameProviderTermGroupId'" );
 $wpdb->query( "DELETE FROM wp_term_taxonomy WHERE taxonomy = '$config->gameCategoryTaxonomy' OR taxonomy = '$config->gameProviderTaxonomy' OR taxonomy = '$config->gameOperatorTaxonomy'" );
 $wpdb->query( 'DELETE FROM wp_term_relationships ...' );
-

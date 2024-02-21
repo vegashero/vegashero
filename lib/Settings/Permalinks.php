@@ -236,6 +236,4 @@ class Permalinks extends Settings {
 			array( $this, 'sanitize' )
 		);
 	}
-
 }
-
