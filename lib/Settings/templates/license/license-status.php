@@ -1,1 +1,1 @@
-<?= get_option($id)?>
+<?php echo get_option( $id );

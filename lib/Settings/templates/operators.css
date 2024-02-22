@@ -6,6 +6,10 @@
     font-size: 15px;
 }
 
+.vh-operator-name, .vh-provider-name {
+	text-wrap: nowrap;
+}
+
 .vh-about-wrap img {
     margin: 0;
     width: 100%;
