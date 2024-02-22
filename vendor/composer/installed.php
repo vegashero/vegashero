@@ -3,7 +3,7 @@
         'name' => 'vegashero/vegashero',
         'pretty_version' => '1.9.0',
         'version' => '1.9.0.0',
-        'reference' => null,
+        'reference' => NULL,
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -24,7 +24,7 @@
         'vegashero/vegashero' => array(
             'pretty_version' => '1.9.0',
             'version' => '1.9.0.0',
-            'reference' => null,
+            'reference' => NULL,
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
