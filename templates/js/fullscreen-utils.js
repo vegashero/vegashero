@@ -11,7 +11,7 @@ function getIconLink( className ) {
     const span = document.createElement( 'span' );
     span.classList.add( 'dashicons', className );
     const a = document.createElement( 'a' );
-    a.setAttribute( 'href', '#' );
+    a.setAttribute( 'href', 'javascript:void(0)' );
     a.setAttribute( 'id', getFullscreenHrefId() );
     a.appendChild( span );
     return a;
@@ -36,6 +36,7 @@ function getExitFullscreenLink() {
 
 function registerEnterFullscreenClickHandler( ) {
     document.querySelector(`a span.${ getEnterFullscreenClassName() }`).addEventListener('click', async function(e) {
+        document.querySelector('#vh_iframe_wrapper').classList.add('vh-iframe-fs-mobile');
         const el = document.querySelector('#vh_iframe_wrapper');
         if (el.requestFullscreen) {
             await el.requestFullscreen();
@@ -56,6 +57,7 @@ function handleExitedFullscreen() {
 
 function registerExitFullscreenClickHandler() {
     document.querySelector(`a span.${ getExitFullscreenClassName() }`).addEventListener('click', async function(e) {
+        document.querySelector('#vh_iframe_wrapper').classList.remove('vh-iframe-fs-mobile');
         document.exitFullscreen();
         handleExitedFullscreen();
     });
