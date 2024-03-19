@@ -36,14 +36,24 @@ function getExitFullscreenLink() {
 
 function registerEnterFullscreenClickHandler( ) {
     document.querySelector(`a span.${ getEnterFullscreenClassName() }`).addEventListener('click', async function(e) {
-        document.querySelector('#vh_iframe_wrapper').classList.add('vh-iframe-fs-mobile');
-        const el = document.querySelector('#vh_iframe_wrapper');
-        if (el.requestFullscreen) {
-            await el.requestFullscreen();
+        // Check if the Fullscreen API is supported 
+        if (document.fullscreenEnabled) { 
+            // Request full screen 
+            console.log('Fullscreen IS supported on this device'); 
+            const el = document.querySelector('#vh_iframe_wrapper');
+            if (el.requestFullscreen) {
+                await el.requestFullscreen();
+                handleEnteredFullscreen();
+            }
+        } else { 
+            // Fullscreen API is not supported (iOS Safari mobile)
+            console.log('Fullscreen is NOT supported on this device'); 
+            document.querySelector('#vh_iframe_wrapper').classList.add('vh-iframe-fs-mobile');
             handleEnteredFullscreen();
         }
     });
 }
+
 
 function handleEnteredFullscreen() {
     document.querySelector( `#${ getFullscreenHrefId() }`).replaceWith( getExitFullscreenLink() ) ;
@@ -57,9 +67,14 @@ function handleExitedFullscreen() {
 
 function registerExitFullscreenClickHandler() {
     document.querySelector(`a span.${ getExitFullscreenClassName() }`).addEventListener('click', async function(e) {
-        document.querySelector('#vh_iframe_wrapper').classList.remove('vh-iframe-fs-mobile');
-        document.exitFullscreen();
-        handleExitedFullscreen();
+        // Check if the Fullscreen API is supported 
+        if (document.fullscreenEnabled) {
+            document.exitFullscreen();
+            handleExitedFullscreen();
+        } else { 
+           document.querySelector('#vh_iframe_wrapper').classList.remove('vh-iframe-fs-mobile');
+           handleExitedFullscreen();
+        }
     });
 }
 
