@@ -203,6 +203,12 @@ Renewing SSL certificates.
 certbot renew
 ```
 
+Updating server
+
+```sh
+dnf update
+```
+
 ## i18n
 
 Generate `.pot` files.
