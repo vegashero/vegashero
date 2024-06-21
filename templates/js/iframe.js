@@ -4,7 +4,6 @@
  * When button clicked, reappends iframe to DOM.
  */
 jQuery(document).ready(function($) {
-
     const container = $('div#vh_iframe_wrapper');
     const frame = container.find('.singlegame-iframe');
     const wrapper = $(`<div class="embed-bg-wrapper" style="background-image:url(${ frame.data('backgroundUrl') });"></div>`);
@@ -21,8 +20,10 @@ jQuery(document).ready(function($) {
         $('.embed-bg-wrapper').remove();
         frame.attr('src', frame.data('srcUrl') );
         frame.css('background-color', 'black');
+        frame.css('z-index', '-1');
         container.append( frame );
     });
 
 });
+
 
