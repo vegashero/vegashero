@@ -43,12 +43,13 @@ function registerEnterFullscreenClickHandler( ) {
             const el = document.querySelector('#vh_iframe_wrapper');
             if (el.requestFullscreen) {
                 await el.requestFullscreen();
+                document.querySelector('#vh_iframe_wrapper').classList.add('vh-iframe-fs-mode');
                 handleEnteredFullscreen();
             }
         } else { 
             // Fullscreen API is not supported (iOS Safari mobile)
             console.log('Fullscreen is NOT supported on this device'); 
-            document.querySelector('#vh_iframe_wrapper').classList.add('vh-iframe-fs-mobile');
+            document.querySelector('#vh_iframe_wrapper').classList.add('vh-iframe-fs-iosmobile');
             handleEnteredFullscreen();
         }
     });
@@ -70,9 +71,10 @@ function registerExitFullscreenClickHandler() {
         // Check if the Fullscreen API is supported 
         if (document.fullscreenEnabled) {
             document.exitFullscreen();
+            document.querySelector('#vh_iframe_wrapper').classList.remove('vh-iframe-fs-mode');
             handleExitedFullscreen();
         } else { 
-           document.querySelector('#vh_iframe_wrapper').classList.remove('vh-iframe-fs-mobile');
+           document.querySelector('#vh_iframe_wrapper').classList.remove('vh-iframe-fs-iosmobile');
            handleExitedFullscreen();
         }
     });

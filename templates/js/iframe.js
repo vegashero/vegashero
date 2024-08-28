@@ -20,7 +20,7 @@ jQuery(document).ready(function($) {
         $('.embed-bg-wrapper').remove();
         frame.attr('src', frame.data('srcUrl') );
         frame.css('background-color', 'black');
-        frame.css('z-index', '-1');
+        container.addClass('playframe');
         container.append( frame );
     });
 
