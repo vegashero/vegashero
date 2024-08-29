@@ -73,9 +73,11 @@ class SingleGame {
 		$posts = (array) $this->wp_query->get_posts();
 		if ( ! count( $posts ) ) {
 			/* translators: %d will be replaced by the game id */
-			throw new InvalidArgumentException( sprintf( __( 'Game with id %d not found', 'vegashero' ), $game_id ) );
+			//throw new InvalidArgumentException( sprintf( __( 'Game with id %d not found here', 'vegashero' ), $game_id ) );
+			return "https://cdn.vegasgod.com/_notavailable/nogame.php";
+		} else {
+			return get_post_meta( $posts[0]->ID, 'game_src', true );
 		}
-		return get_post_meta( $posts[0]->ID, 'game_src', true );
 	}
 
 	/**
@@ -99,21 +101,22 @@ class SingleGame {
 		$posts = (array) $this->wp_query->get_posts();
 		if ( ! count( $posts ) ) {
 			/* translators: %d will be replaced by the game id */
-			throw new \InvalidArgumentException( sprintf( __( 'Game with id %d not found', 'vegashero' ), $game_id ) );
-		}
+			//throw new \InvalidArgumentException( sprintf( __( 'Game with id %d not found', 'vegashero' ), $game_id ) );
+			return "https://cdn.vegasgod.com/_notavailable/warning.png";
+		} else {
 
-		$post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id( $posts[0]->ID ), 'vegashero-thumb');
-        if($post_thumb) {
-            $game_thumb_bg = $post_thumb[0];
-        } else {
-			if ( get_option( 'vh_lobbywebp' ) === 'on' ) {
-				$game_thumb_bg = str_replace( 'cover.jpg', 'cover.webp', get_post_meta( $posts[0]->ID, 'game_img', true ) );
-			} else {
-				$game_thumb_bg = get_post_meta( $posts[0]->ID, 'game_img', true );
+			$post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id( $posts[0]->ID ), 'vegashero-thumb');
+	        if($post_thumb) {
+	            $game_thumb_bg = $post_thumb[0];
+	        } else {
+				if ( get_option( 'vh_lobbywebp' ) === 'on' ) {
+					$game_thumb_bg = str_replace( 'cover.jpg', 'cover.webp', get_post_meta( $posts[0]->ID, 'game_img', true ) );
+				} else {
+					$game_thumb_bg = get_post_meta( $posts[0]->ID, 'game_img', true );
+				}
 			}
+
+			return $game_thumb_bg;
 		}
-
-		return $game_thumb_bg;
-
 	}
 }
