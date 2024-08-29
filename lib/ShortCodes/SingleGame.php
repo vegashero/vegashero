@@ -101,11 +101,19 @@ class SingleGame {
 			/* translators: %d will be replaced by the game id */
 			throw new \InvalidArgumentException( sprintf( __( 'Game with id %d not found', 'vegashero' ), $game_id ) );
 		}
-		if ( get_option( 'vh_lobbywebp' ) === 'on' ) {
-			$game_thumb_bg = str_replace( 'cover.jpg', 'cover.webp', get_post_meta( $posts[0]->ID, 'game_img', true ) );
-		} else {
-			$game_thumb_bg = get_post_meta( $posts[0]->ID, 'game_img', true );
+
+		$post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id( $posts[0]->ID ), 'vegashero-thumb');
+        if($post_thumb) {
+            $game_thumb_bg = $post_thumb[0];
+        } else {
+			if ( get_option( 'vh_lobbywebp' ) === 'on' ) {
+				$game_thumb_bg = str_replace( 'cover.jpg', 'cover.webp', get_post_meta( $posts[0]->ID, 'game_img', true ) );
+			} else {
+				$game_thumb_bg = get_post_meta( $posts[0]->ID, 'game_img', true );
+			}
 		}
+
 		return $game_thumb_bg;
+
 	}
 }

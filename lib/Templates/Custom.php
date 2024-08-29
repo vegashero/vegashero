@@ -72,10 +72,20 @@ class Custom {
 
 				$iframe_string = SingleGame::getTemplate();
 
-				if ( get_option( 'vh_lobbywebp' ) === 'on' ) {
-					$game_thumb_bg = str_replace( 'cover.jpg', 'cover.webp', get_post_meta( $post_id, 'game_img', true ) );
-				} else {
-					$game_thumb_bg = get_post_meta( $post_id, 'game_img', true );
+
+				// game has custom featured image?
+	            $post_thumb = wp_get_attachment_image_src(get_post_thumbnail_id( $post_id ), 'vegashero-thumb');
+	            if($post_thumb) {
+	                $game_thumb_bg = $post_thumb[0];
+
+	            } else {
+
+					if ( get_option( 'vh_lobbywebp' ) === 'on' ) {
+						$game_thumb_bg = str_replace( 'cover.jpg', 'cover.webp', get_post_meta( $post_id, 'game_img', true ) );
+					} else {
+						$game_thumb_bg = get_post_meta( $post_id, 'game_img', true );
+					}
+
 				}
 
 				$game_demo_btn_text      = ! get_option( 'vh_gameplaynowbtntext' ) ? wp_strip_all_tags( __( 'Play Demo', 'vegashero' ) ) : get_option( 'vh_gameplaynowbtntext' );
