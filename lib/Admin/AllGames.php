@@ -3,13 +3,14 @@
 namespace VegasHero\Admin;
 
 use WP_Meta_Query;
-
 use VegasHero\Config;
 
 class AllGames {
 
 	protected static $instance = null;
-	const GAME_TYPES           = [ 'html5', 'flash' ];
+	protected Config $_config;  // Declare the _config property
+
+	const GAME_TYPES = [ 'html5', 'flash' ];
 
 	protected function __construct() {
 		$this->_config = Config::getInstance();
@@ -63,8 +64,8 @@ class AllGames {
 	}
 
 	public function filterGamesByGameType( $query ) {
-		// modify the query only if it admin and main query.
-		if ( ! ( is_admin() and $query->is_main_query() ) ) {
+		// modify the query only if it is admin and main query.
+		if ( ! ( is_admin() && $query->is_main_query() ) ) {
 			return $query;
 		}
 		if ( ! ( $this->_config->customPostType === $query->query['post_type'] && array_key_exists( $this->_config->postMetaGameType, $_REQUEST ) ) ) {

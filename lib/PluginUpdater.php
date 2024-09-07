@@ -22,8 +22,11 @@ class PluginUpdater {
 	private $version     = '';
 	private $wp_override = false;
 	private $cache_key   = '';
-
 	private $health_check_timeout = 5;
+
+	// Declare all properties that might be dynamically created
+	private $beta;
+	private $edd_plugin_data = array();
 
 	/**
 	 * Class constructor.

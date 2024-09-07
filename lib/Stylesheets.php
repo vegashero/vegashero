@@ -16,7 +16,7 @@ class Stylesheets {
 		/**
 		 * Make dashicons available outside wp-admin
 		 */
-		if ( ! is_admin() && is_single() ) {
+		if ( ! is_admin() && (is_single() || is_page() ) ) {
 			wp_enqueue_style( 'dashicons', ABSPATH . WPINC . 'wp-includes/css/dashicons.min.css' );
 		}
 	}
