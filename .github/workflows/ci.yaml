@@ -1,0 +1,77 @@
+name: WordPress CI with MariaDB
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+env:
+  MYSQL_DATABASE: wordpress
+  MYSQL_ROOT_PASSWORD: secret
+
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04  
+    
+    services:
+      mysql:
+        image: mariadb:10.3
+        env:
+          MYSQL_DATABASE: ${{ env.MYSQL_DATABASE }}
+          MYSQL_ROOT_PASSWORD: ${{ env.MYSQL_ROOT_PASSWORD }}
+        ports:
+          - 3306:3306
+
+    steps:
+      # Checkout the code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt update && sudo apt install -y unzip zlib1g-dev default-mysql-client wget subversion git libonig-dev
+
+      # Install WP CLI
+      - name: Install WP CLI
+        run: |
+          curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+          chmod +x wp-cli.phar
+          sudo mv wp-cli.phar /usr/local/bin/wp
+
+      # Set ownership
+      - name: Set ownership
+        run: sudo chown -R www-data:www-data /var/www $GITHUB_WORKSPACE
+
+      # Download WordPress
+      - name: Download WordPress
+        run: sudo -u www-data -g www-data wp core download --path=/var/www/html
+
+      # Create wp-config.php
+      - name: Create wp-config.php
+        run: sudo -u www-data -g www-data wp config create --dbname=wordpress --dbuser=root --dbpass=${{ env.MYSQL_ROOT_PASSWORD }} --dbhost=127.0.0.1 --force --skip-check --path=/var/www/html
+
+      # Install WordPress
+      - name: Install WordPress
+        run: sudo -u www-data -g www-data wp core install --url=example.com --title=Example --admin_user=admin --admin_password=secret --admin_email=test@example.com --path=/var/www/html
+
+      # Link plugin
+      - name: Copy plugin
+        run: |
+          sudo cp -r $GITHUB_WORKSPACE /var/www/html/wp-content/plugins/vegashero
+          sudo chown -R www-data:www-data /var/www/html/wp-content/plugins/vegashero
+          
+      # Install WP tests
+      - name: Install WP tests
+        run: sudo -u www-data -g www-data /var/www/html/wp-content/plugins/vegashero/bin/install-wp-tests.sh wordpress root ${{ env.MYSQL_ROOT_PASSWORD }} 127.0.0.1 latest true
+
+      # Install dependencies using Composer
+      - name: Install dependencies with Composer
+        run: sudo -u www-data -g www-data composer install -n --prefer-dist --working-dir=/var/www/html/wp-content/plugins/vegashero/
+
+      # Run tests using Composer
+      - name: Run tests with Composer
+        run: sudo -u www-data -g www-data composer test --working-dir=/var/www/html/wp-content/plugins/vegashero/
+

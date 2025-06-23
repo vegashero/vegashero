@@ -1,4 +1,5 @@
 # Vegas Hero 
+![Test Status](https://github.com/vegashero/vegashero/actions/workflows/ci.yaml/badge.svg)
 
 Our Demo Games Import Plugin is a one-click solution for any Casino Affiliate that wants reliable demo slots games. Save yourself hundreds of hours of time and effort sourcing and adding demo games for your WordPress site.
 
