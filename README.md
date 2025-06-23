@@ -1,30 +1,6 @@
 # Vegas Hero 
 
-This plugin will be installed by users and depends on the remote Vegas God plugin to populate with data
-
-## NB: fail2ban
-
-- [Cloudflare Proxy IP's](https://www.cloudflare.com/ips/)
-- [Module ngx_http_realip_module](https://nginx.org/en/docs/http/ngx_http_realip_module.html)
-- [WP fail2ban Proxy config](https://docs.wp-fail2ban.com/en/4.4/defines/constants/WP_FAIL2BAN_PROXIES.html#wp-fail2ban-proxies)
-- [Clouflare Restoring original visitor IPs](https://support.cloudflare.com/hc/en-us/articles/200170786-Restoring-original-visitor-IPs#JUxJSMn3Ht5c5yq)
-
-Localhost license key
-
-```
-adc88446b4e3476a04091835fec15e08
-```
-
-## Release a new version
-
-Update version in `composer.json` and `vegashero.php` files.
-
-```sh
-docker compose up -d 
-docker exec -ti -u www-data:www-data -w /usr/local/src vegashero-web-1 bash
-composer update --no-dev 
-composer dumpautoload --optimize
-```
+Our Demo Games Import Plugin is a one-click solution for any Casino Affiliate that wants reliable demo slots games. Save yourself hundreds of hours of time and effort sourcing and adding demo games for your WordPress site.
 
 ## Quickstart
 
@@ -53,22 +29,6 @@ docker exec -u www-data vegashero-web-1 tail -f /var/www/html/wp-content/debug.l
 ```
 
 Now navigate to [http://localhost:4360](http://localhost:4360)
-
-## Theme Development
-
-Create base image containing Wordpress and container
-
-```
-docker build --build-arg USER_ID=$(id -u) -t vegashero_theme_base:latest . -f Dockerfile.theme
-```
-
-In your theme Dockerfile 
-
-```
-FROM vegashero_theme_base:latest
-```
-
-See crypto theme for example
 
 ## Plugin Development
 
@@ -108,99 +68,6 @@ Run the checks
 ```sh
 composer check
 composer fix
-```
-
-## Deployment
-
-```sh
-# staging
-rsync -rhvzpog --chown=www-data:www-data ./ root@206.81.25.235:/var/www/staging.vegashero.co/public_html/wp-content/plugins/vegashero/ --delete --exclude=.git --exclude=tests --exclude=vendor
-# production
-rsync -rhvzpog --chown=www-data:www-data ./ root@206.81.25.235:/var/www/vegashero.co/public_html/wp-content/plugins/vegashero/ --delete --exclude=.git --exclude=tests --exclude=vendor
-```
-
-## EDD Plugin Updater
-
-### Clearing the cache
-To clear the cache add the following to the EDD_SL_Plugin_Updater.php file.
-
-At the top add
-```php
-set_site_transient( 'update_plugins', null ); //added this
-```
-
-Towards the end at line 446 look for a function called *get_cached_verion_info()* and add *return false*
-```php
-public function get_cached_version_info( $cache_key = '' ) {
-
-    return false; //added this
-
-    if( empty( $cache_key ) ) {
-        $cache_key = $this->cache_key;
-    }
-
-    $cache = get_option( $cache_key );
-
-    if( empty( $cache['timeout'] ) || current_time( 'timestamp' ) > $cache['timeout'] ) {
-        return false; // Cache is expired
-    }
-
-    return json_decode( $cache['value'] );
-
-}
-```
-
-Remember to remove before commiting.
-
-### Updating the class
-When updating the class remember to *sslverify* to *true* on lines 354 and 416.
-Also make sure the class name is renamed from the default *EDD_SL_Plugin_Updater* to *VH_EDD_SL_Plugin_Updater*
-
-```php
-$request = wp_remote_post( $this->api_url, array( 'timeout' => 15, 'sslverify' => true, 'body' => $api_params ) );
-```
-
-## Snippets
-
-### Optimize MySQL
-
-```bash
-apt install mysqltuner
-mysqltuner
-```
-
-#### Optimize Tables
-
-```bash
-mysqlcheck -o --all-databases
-```
-
-###
-
-Download games via CURL call
-```sh
-curl -lv -X GET "https://vegasgod.com/wp-json/vegasgod/games/provider/elk?license=adc88446b4e3476a04091835fec15e08&referer=http://localhost"
-```
-
-Adding SSL certificates
-
-```sh
-# production
-certbot certonly --webroot --webroot-path /var/www/vegashero.co/public_html --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name vegashero.co -d vegashero.co,demo.vegashero.co,slot.vegashero.co,www.vegashero.co,sports.vegashero.co,crypto.vegashero.co 
-# staging
-certbot certonly --webroot --webroot-path /var/www/staging.vegashero.co/public_html --renew-by-default --email support@vegashero.co --text --agree-tos --cert-name staging.vegashero.co -d staging.vegashero.co
-```
-
-Since staging.vegashero.co is protected by Basic Auth make sure to add a .htaccess files to the .well-known/acme-challenge directory with the contents:
-
-```
-Satisfy any
-```
-
-Renewing SSL certificates. 
-
-```sh
-certbot renew
 ```
 
 ## i18n
@@ -259,6 +126,17 @@ Switch language
 
 ```sh
 wp site switch-language af
+```
+
+## Release a new version
+
+Update version in `composer.json` and `vegashero.php` files.
+
+```sh
+docker compose up -d 
+docker exec -ti -u www-data:www-data -w /usr/local/src vegashero-web-1 bash
+composer update --no-dev 
+composer dumpautoload --optimize
 ```
 
 ## References
